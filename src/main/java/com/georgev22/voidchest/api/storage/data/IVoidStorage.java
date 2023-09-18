@@ -38,6 +38,20 @@ public interface IVoidStorage extends Entity {
     @NotNull SerializableInventory blockInventory();
 
     /**
+     * Retrieves the whitelist inventory of the VoidStorage as a SerializableInventory.
+     *
+     * @return The whitelist inventory of the VoidStorage.
+     */
+    @NotNull SerializableInventory whitelistInventory();
+
+    /**
+     * Retrieves the blacklist inventory of the VoidStorage as a SerializableInventory.
+     *
+     * @return The blacklist inventory of the VoidStorage.
+     */
+    @NotNull SerializableInventory blacklistInventory();
+
+    /**
      * Retrieves the location of the block associated with the VoidStorage as a SerializableLocation.
      *
      * @return The location of the block associated with the VoidStorage.
