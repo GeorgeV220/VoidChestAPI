@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.1.0...v1.2.0) (2023-09-23)
+
+
+### Features
+
+* Change whitelist and blacklist parameters and return types from string to itemstack ([43d7ca9](https://github.com/GeorgeV220/VoidChestAPI/commit/43d7ca994efa3700779961b1ade0eac517c53858))
+
 # [1.1.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.0.0...v1.1.0) (2023-09-18)
 
 
