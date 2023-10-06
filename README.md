@@ -1,5 +1,7 @@
 # VoidChestAPI
 
+This API won't work for VoidChest versions bellow 2.0
+
 ## Adding VoidChestAPI as a dependency to your build system
 
 ### Maven
@@ -47,7 +49,9 @@ dependencies {
 ## Building VoidChestAPI
 
 ### Gradle
-VoidChestAPI can be built by running the following: `gradle clean build shadowJar`. The resultant jar is built and written
+
+VoidChestAPI can be built by running the following: `gradle clean build shadowJar`. The resultant jar is built and
+written
 to `build/libs/api-{version}.jar`.
 
 The build directories can be cleaned instead using the `gradle clean` command.
