@@ -1,5 +1,7 @@
 package com.georgev22.voidchest.api.utilities;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -11,6 +13,8 @@ import org.jetbrains.annotations.Nullable;
 import java.io.Serial;
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class SerializableBlock implements Serializable {
 
     @Serial
@@ -51,7 +55,7 @@ public class SerializableBlock implements Serializable {
     }
 
     public static @Nullable SerializableBlock fromString(@NotNull String string) {
-        if (string == null || string.trim().isEmpty()) {
+        if (string.trim().isEmpty()) {
             return null;
         }
         String[] parts = string.split(":");
@@ -66,9 +70,6 @@ public class SerializableBlock implements Serializable {
     }
 
     public static @NotNull SerializableBlock fromLocation(@NotNull Location location) {
-        if (location == null) {
-            return null;
-        }
         return new SerializableBlock(location.getBlock());
     }
 
@@ -78,37 +79,5 @@ public class SerializableBlock implements Serializable {
             return world.getBlockAt(x, y, z);
         }
         return null;
-    }
-
-    public String getWorldName() {
-        return worldName;
-    }
-
-    public void setWorldName(String worldName) {
-        this.worldName = worldName;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getZ() {
-        return z;
-    }
-
-    public void setZ(int z) {
-        this.z = z;
     }
 }

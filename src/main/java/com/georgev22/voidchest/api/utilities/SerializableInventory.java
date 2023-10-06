@@ -46,13 +46,17 @@ public class SerializableInventory implements Serializable {
 
     public Inventory toInventory() {
         if (inventory == null) {
-            inventory = Bukkit.createInventory(inventoryHolder, inventoryHolder.inventorySize(), inventoryHolder.inventoryName());
-            for (Map.Entry<Integer, Map<String, Object>> entry : serializedContents.entrySet()) {
-                ItemStack itemStack = deserializeItemStack(entry.getValue());
-                inventory.setItem(entry.getKey(), itemStack);
-            }
+            inventory();
         }
         return inventory;
+    }
+
+    private void inventory() {
+        inventory = Bukkit.createInventory(inventoryHolder, inventoryHolder.inventorySize(), inventoryHolder.inventoryName());
+        for (Map.Entry<Integer, Map<String, Object>> entry : serializedContents.entrySet()) {
+            ItemStack itemStack = deserializeItemStack(entry.getValue());
+            inventory.setItem(entry.getKey(), itemStack);
+        }
     }
 
     @SneakyThrows
@@ -67,9 +71,7 @@ public class SerializableInventory implements Serializable {
 
         serialized.put("itemStack", Base64.getEncoder().encodeToString(outputStream.toByteArray()));
         NBTItem nbtItem = new NBTItem(itemStack);
-        if (nbtItem != null) {
-            serialized.put("NBTData", nbtItem.toString());
-        }
+        serialized.put("NBTData", nbtItem.toString());
         return serialized;
     }
 
@@ -95,11 +97,7 @@ public class SerializableInventory implements Serializable {
         //noinspection unchecked
         serializedContents = (Map<Integer, Map<String, Object>>) inputStream.readObject();
         inventoryHolder = (VoidInventoryHolder) inputStream.readObject();
-        inventory = Bukkit.createInventory(inventoryHolder, inventoryHolder.inventorySize(), inventoryHolder.inventoryName());
-        for (Map.Entry<Integer, Map<String, Object>> entry : serializedContents.entrySet()) {
-            ItemStack itemStack = deserializeItemStack(entry.getValue());
-            inventory.setItem(entry.getKey(), itemStack);
-        }
+        inventory();
     }
 
     @Override

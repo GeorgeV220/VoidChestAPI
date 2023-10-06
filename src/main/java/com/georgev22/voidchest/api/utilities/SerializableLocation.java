@@ -58,7 +58,7 @@ public class SerializableLocation implements Serializable {
     }
 
     public static @Nullable Location fromString(@NotNull String string) {
-        if (string == null || string.trim().isEmpty()) {
+        if (string.trim().isEmpty()) {
             return null;
         }
         String[] parts = string.split(":");
