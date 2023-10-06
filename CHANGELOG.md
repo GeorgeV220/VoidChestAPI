@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.2.0...v1.3.0) (2023-10-06)
+
+
+### Features
+
+* **stats:** Add methods for retrieving, setting, and adding total money, items sold, and items purged stored ([f175786](https://github.com/GeorgeV220/VoidChestAPI/commit/f175786205c8c637ed0faa37a2bcb6e6e2ca8ba9))
+
 # [1.2.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.1.0...v1.2.0) (2023-09-23)
 
 
