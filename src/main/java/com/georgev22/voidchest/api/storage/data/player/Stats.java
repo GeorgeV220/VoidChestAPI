@@ -60,6 +60,27 @@ public interface Stats extends Entity {
     void addMoneyStored(BigDecimal bigDecimal);
 
     /**
+     * Retrieves the amount of total money stored.
+     *
+     * @return The amount of money stored as a BigDecimal.
+     */
+    BigDecimal totalMoneyStored();
+
+    /**
+     * Sets the amount of total money stored.
+     *
+     * @param moneyStored The amount of money stored to set as a BigDecimal.
+     */
+    void totalMoneyStored(BigDecimal moneyStored);
+
+    /**
+     * Adds the specified amount of money to the current total amount stored.
+     *
+     * @param bigDecimal The amount of money to add as a BigDecimal.
+     */
+    void addTotalMoneyStored(BigDecimal bigDecimal);
+
+    /**
      * Retrieves the number of items sold stored.
      *
      * @return The number of items sold stored as a BigInteger.
@@ -81,6 +102,27 @@ public interface Stats extends Entity {
     void addItemsSoldStored(BigInteger itemsSoldStored);
 
     /**
+     * Retrieves the number of total items sold stored.
+     *
+     * @return The number of total items sold stored as a BigInteger.
+     */
+    BigInteger totalItemsSoldStored();
+
+    /**
+     * Sets the number of total items sold stored.
+     *
+     * @param itemsSoldStored The number of total items sold stored to set as a BigInteger.
+     */
+    void totalItemsSoldStored(BigInteger itemsSoldStored);
+
+    /**
+     * Adds the specified number of total items sold to the current count stored.
+     *
+     * @param itemsSoldStored The number of items sold to add as a BigInteger.
+     */
+    void addTotalItemsSoldStored(BigInteger itemsSoldStored);
+
+    /**
      * Retrieves the number of items purged stored.
      *
      * @return The number of items purged stored as a BigInteger.
@@ -100,5 +142,26 @@ public interface Stats extends Entity {
      * @param itemsPurgedStored The number of items purged to add as a BigInteger.
      */
     void addItemsPurgedStored(BigInteger itemsPurgedStored);
+
+    /**
+     * Retrieves the number of total items purged stored.
+     *
+     * @return The number of total items purged stored as a BigInteger.
+     */
+    BigInteger totalItemsPurgedStored();
+
+    /**
+     * Sets the number of total items purged stored.
+     *
+     * @param itemsPurgedStored The number of total items purged stored to set as a BigInteger.
+     */
+    void totalItemsPurgedStored(BigInteger itemsPurgedStored);
+
+    /**
+     * Adds the specified number of total items purged to the current count stored.
+     *
+     * @param itemsPurgedStored The number of items purged to add as a BigInteger.
+     */
+    void addTotalItemsPurgedStored(BigInteger itemsPurgedStored);
 
 }
