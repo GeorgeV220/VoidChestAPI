@@ -45,16 +45,19 @@ dependencies {
     compileOnly "org.jetbrains:annotations:${jetbrainsAnnotationsVersion}"
 
     compileOnly "com.github.MilkBowl:VaultAPI:${vaultVersion}"
-    compileOnly "io.papermc:paperlib:${paperlibVersion}"
-    compileOnly "com.georgev22.library:database:${libraryVersion}"
-    compileOnly "com.georgev22.library:maps:${libraryVersion}"
-    compileOnly "com.georgev22.library:scheduler:${libraryVersion}"
-    compileOnly "com.georgev22.library:utilities:${libraryVersion}"
-    compileOnly "com.georgev22.library:yaml:${libraryVersion}"
-    compileOnly "com.georgev22.library:minecraft:${libraryVersion}"
-    compileOnly "de.tr7zw:item-nbt-api:${nbtAPIVersion}"
+    implementation "io.papermc:paperlib:${paperlibVersion}"
+    implementation "com.georgev22.library:database:${libraryVersion}"
+    implementation "com.georgev22.library:maps:${libraryVersion}"
+    implementation "com.georgev22.library:scheduler:${libraryVersion}"
+    implementation "com.georgev22.library:utilities:${libraryVersion}"
+    implementation "com.georgev22.library:yaml:${libraryVersion}"
+    implementation "com.georgev22.library:minecraft:${libraryVersion}"
+    implementation "de.tr7zw:item-nbt-api:${nbtAPIVersion}"
 }
 
 shadowJar {
     archiveClassifier.set('')
+    relocate 'com.georgev22.library', 'com.georgev22.voidchest.library'
+    relocate 'de.tr7zw.changeme.nbtapi', 'com.georgev22.voidchest.nbtapi'
+    relocate 'de.tr7zw.annotations', 'com.georgev22.voidchest.nbtapi.annotations'
 }
