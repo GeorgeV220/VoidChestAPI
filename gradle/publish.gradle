@@ -44,11 +44,11 @@ publishing {
             pom {
                 name = project.getName().toLowerCase()
                 description = project.getDescription()
-                url = "https://github.com/GeorgeV22/VoidChestAPI"
+                url = "https://github.com/GeorgeV220/VoidChestAPI"
                 licenses {
                     license {
                         name = "GNU General Public License v3.0"
-                        url = "https://github.com/GeorgeV22/VoidChestAPI/blob/main/LICENSE"
+                        url = "https://github.com/GeorgeV220/VoidChestAPI/blob/main/LICENSE"
                         distribution = "repo"
                     }
                 }
@@ -63,13 +63,13 @@ publishing {
                     }
                 }
                 scm {
-                    connection = "scm:git:https://github.com/GeorgeV22/VoidChestAPI.git"
-                    developerConnection = "scm:git:https://github.com/GeorgeV22/VoidChestAPI.git"
-                    url = "https://github.com/GeorgeV22/VoidChestAPI"
+                    connection = "scm:git:https://github.com/GeorgeV220/VoidChestAPI.git"
+                    developerConnection = "scm:git:https://github.com/GeorgeV220/VoidChestAPI.git"
+                    url = "https://github.com/GeorgeV220/VoidChestAPI"
                 }
                 issueManagement {
                     system = "GitHub"
-                    url = "https://github.com/GeorgeV22/VoidChestAPI/issues"
+                    url = "https://github.com/GeorgeV220/VoidChestAPI/issues"
                 }
             }
         }
