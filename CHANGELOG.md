@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.3.0...v1.4.0) (2023-10-10)
+
+
+### Features
+
+* Add classifier for the shaded jar and update README ([30c319b](https://github.com/GeorgeV220/VoidChestAPI/commit/30c319b9e889de63291bbe5c00659114a37a29f5))
+
 # [1.3.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.2.0...v1.3.0) (2023-10-06)
 
 
