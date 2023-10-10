@@ -32,10 +32,43 @@ publishing {
     publications {
         shadow(MavenPublication) { publication ->
             project.shadow.component(publication)
-            artifactId = project.getName().toLowerCase()
-            groupId = ((String) project.getGroup()).toLowerCase()
+            artifactId = project.getName().toLowerCase() + "-shade"
+            groupId = ((String) project.getGroup()).toLowerCase() + "-shade"
             artifact sourcesJar
             artifact javadocJar
+            pom {
+                name = project.getName().toLowerCase() + "-shade"
+                artifactId = project.getName().toLowerCase() + "-shade"
+                groupId = ((String) project.getGroup()).toLowerCase() + "-shade"
+                description = project.getDescription()
+                url = "https://github.com/GeorgeV220/VoidChestAPI"
+                licenses {
+                    license {
+                        name = "GNU General Public License v3.0"
+                        url = "https://github.com/GeorgeV220/VoidChestAPI/blob/main/LICENSE"
+                        distribution = "repo"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "GeorgeV22"
+                        name = "GeorgeV22"
+                        email = "github@georgev22.com"
+                        organization = "GeorgeV22"
+                        organizationUrl = "https://github.com/GeorgeV22"
+                        roles = ["developer", "maintainer"]
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/GeorgeV220/VoidChestAPI.git"
+                    developerConnection = "scm:git:https://github.com/GeorgeV220/VoidChestAPI.git"
+                    url = "https://github.com/GeorgeV220/VoidChestAPI"
+                }
+                issueManagement {
+                    system = "GitHub"
+                    url = "https://github.com/GeorgeV220/VoidChestAPI/issues"
+                }
+            }
         }
         regularJar(MavenPublication) { publication ->
             from components.java
