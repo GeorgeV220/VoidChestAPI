@@ -55,8 +55,12 @@ dependencies {
     implementation "de.tr7zw:item-nbt-api:${nbtAPIVersion}"
 }
 
+tasks.publishShadowPublicationToGeorgeV22Repository {
+    dependsOn jar
+}
+
 shadowJar {
-    archiveClassifier.set('')
+    archiveClassifier.set('shade')
     relocate 'com.georgev22.library', 'com.georgev22.voidchest.library'
     relocate 'de.tr7zw.changeme.nbtapi', 'com.georgev22.voidchest.nbtapi'
     relocate 'de.tr7zw.annotations', 'com.georgev22.voidchest.nbtapi.annotations'

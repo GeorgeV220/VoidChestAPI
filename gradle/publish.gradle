@@ -37,6 +37,42 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
         }
+        regularJar(MavenPublication) { publication ->
+            from components.java
+            artifactId = project.getName().toLowerCase()
+            groupId = ((String) project.getGroup()).toLowerCase()
+            pom {
+                name = project.getName().toLowerCase()
+                description = project.getDescription()
+                url = "https://github.com/GeorgeV22/VoidChestAPI"
+                licenses {
+                    license {
+                        name = "GNU General Public License v3.0"
+                        url = "https://github.com/GeorgeV22/VoidChestAPI/blob/main/LICENSE"
+                        distribution = "repo"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "GeorgeV22"
+                        name = "GeorgeV22"
+                        email = "github@georgev22.com"
+                        organization = "GeorgeV22"
+                        organizationUrl = "https://github.com/GeorgeV22"
+                        roles = ["developer", "maintainer"]
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/GeorgeV22/VoidChestAPI.git"
+                    developerConnection = "scm:git:https://github.com/GeorgeV22/VoidChestAPI.git"
+                    url = "https://github.com/GeorgeV22/VoidChestAPI"
+                }
+                issueManagement {
+                    system = "GitHub"
+                    url = "https://github.com/GeorgeV22/VoidChestAPI/issues"
+                }
+            }
+        }
     }
     repositories {
         def isGitHub = System.getenv("GITHUB_REPOSITORY") ? true : false
