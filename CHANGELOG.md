@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.4.1...v1.4.2) (2023-10-10)
+
+
+### Bug Fixes
+
+* **publish.gradle:** Update artifactId and groupId in shadow publication ([f44aaf2](https://github.com/GeorgeV220/VoidChestAPI/commit/f44aaf2974c10a2eb2bd8a7d3e0181da9f913356))
+* **readme:** Update VoidChestAPI dependency in README.md ([774a6df](https://github.com/GeorgeV220/VoidChestAPI/commit/774a6dfab1b879b2dd743559e0ee67bf8ba9667f))
+
 ## [1.4.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.4.0...v1.4.1) (2023-10-10)
 
 
