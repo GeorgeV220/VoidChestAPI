@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.4.0...v1.4.1) (2023-10-10)
+
+
+### Bug Fixes
+
+* **gradle:** Fix URLs in gradle publishing configuration ([fedb8d0](https://github.com/GeorgeV220/VoidChestAPI/commit/fedb8d0029b6b66b5d01f4d1dac6524d14791c35))
+
 # [1.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.3.0...v1.4.0) (2023-10-10)
 
 
