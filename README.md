@@ -4,6 +4,9 @@ This API won't work for VoidChest versions bellow 2.0
 
 ## Adding VoidChestAPI as a dependency to your build system
 
+**Warning:**
+**Do NOT shade the VoidChestAPI to your plugin but make your plugin depend/soft-depend to VoidChest**
+
 ### Maven
 
 You can have your project depend on VoidChestAPI as a dependency through the following code snippets:
@@ -21,8 +24,8 @@ You can have your project depend on VoidChestAPI as a dependency through the fol
 
     <dependencies>
         <dependency>
-            <groupId>com.georgev22.voidchest</groupId>
-            <artifactId>voidchestapi</artifactId>
+            <groupId>com.georgev22.voidchest-shade</groupId>
+            <artifactId>voidchestapi-shade</artifactId>
             <version>1.4.1</version>
             <classifier>shade</classifier>
             <scope>provided</scope>
@@ -43,7 +46,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "com.georgev22.voidchest:voidchestapi:1.4.1:shade"
+    compileOnly "com.georgev22.voidchest-shade:voidchestapi-shade:1.4.1"
 }
 ```
 
