@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.4.2...v1.5.0) (2023-10-27)
+
+
+### Features
+
+* Add reload methods to player data and void storage ([e9a576c](https://github.com/GeorgeV220/VoidChestAPI/commit/e9a576c08b6c96adf28872d4d147fa1056e2e1ca))
+
 ## [1.4.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.4.1...v1.4.2) (2023-10-10)
 
 
