@@ -107,4 +107,9 @@ public interface IVoidStorage extends Entity {
      */
     UUID ownerUUID();
 
+    /**
+     * Reloads the void storage.
+     */
+    void reloadVoidStorage();
+
 }

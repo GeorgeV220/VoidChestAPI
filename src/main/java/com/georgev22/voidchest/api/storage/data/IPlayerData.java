@@ -76,4 +76,9 @@ public interface IPlayerData extends Entity {
      * @param voidStorage The VoidStorage to add.
      */
     void addVoidStorage(final IVoidStorage voidStorage);
+
+    /**
+     * Reloads the player data.
+     */
+    void reloadPlayerData();
 }
