@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.event.events;
 import com.georgev22.voidchest.api.event.Event;
 import com.georgev22.voidchest.api.event.interfaces.Cancellable;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The VoidEvent class is an abstract base class for VoidChest related events.
@@ -19,7 +19,7 @@ public abstract class VoidEvent extends Event implements Cancellable {
      *
      * @param voidStorage The VoidStorage associated with the event.
      */
-    public VoidEvent(final IVoidStorage voidStorage) {
+    public VoidEvent(@Nullable final IVoidStorage voidStorage) {
         this.voidStorage = voidStorage;
     }
 
@@ -48,7 +48,7 @@ public abstract class VoidEvent extends Event implements Cancellable {
      *
      * @return The VoidStorage associated with the event.
      */
-    @NotNull
+    @Nullable
     public IVoidStorage getVoidStorage() {
         return this.voidStorage;
     }
