@@ -1,0 +1,139 @@
+# ##################################################################################
+#                                                                                  #
+# __      ______ _____ _____   _____ _    _ ______  _____ _______                  #
+# \ \    / / __ \_   _|  __ \ / ____| |  | |  ____|/ ____|__   __|                 #
+#  \ \  / / |  | || | | |  | | |    | |__| | |__  | (___    | |                    #
+#   \ \/ /| |  | || | | |  | | |    |  __  |  __|  \___ \   | |                    #
+#    \  / | |__| || |_| |__| | |____| |  | | |____ ____) |  | |                    #
+#     \/   \____/_____|_____/ \_____|_|  |_|______|_____/   |_|                    #
+#                                                                                  #
+# ##################################################################################
+
+# Configuration file for Options
+Options:
+  # Enable this if you want to migrate old configs voidchest configs and user data when the server starts
+  migrate: false
+
+  # Debug option
+  debug: false
+
+  # Proxy option
+  proxy: false
+
+  # Secret option
+  secret: "SECRET HERE"
+
+  # Locale option
+  locale: "en_US"
+
+  # Experimental features option
+  experimental features: false
+
+  # Metrics option
+  metrics: true
+
+  # Discord option
+  discord: false
+
+  # Updater option
+  updater:
+    enabled: true
+
+  # VoidChest command option
+  commands:
+    voidchest: true
+
+  database:
+    type: "File" #Types File, SQLite, MySQL, PostgreSQL, MongoDB
+
+    # SQL database options
+    SQL:
+      host: "localhost"     # SQL database host
+      port: 3306            # SQL database port
+      user: "youruser"      # SQL database username
+      password: "yourpassword"   # SQL database password
+      database: "VoidChest"   # SQL database name
+      users table name: "voidchest_users"   # SQL table for users
+      voidchests table name: "voidchest_voidchests"   # SQL table for voidchests
+      SQLite file name: "voidchest"   # SQLite file name
+
+    # MongoDB options
+    MongoDB:
+      host: "localhost"     # MongoDB host
+      port: 27017           # MongoDB port
+      user: "youruser"      # MongoDB username
+      password: "yourpassword"   # MongoDB password
+      database: "voidchest"   # MongoDB database name
+      users collection: "voidchest_users"   # MongoDB collection for users
+      voidchest collection: "voidchest_voidchests"   # MongoDB collection for voidchests
+
+  # Certain timings are automatically converted into d,h,m,s.
+  # For example, charge time, hologram sell interval, etc.
+  # By changing these, you can modify the text to your liking.
+  time format:
+    second: second
+    seconds: seconds
+    minute: minute
+    minutes: minutes
+    hour: hour
+    hours: hours
+    day: day
+    days: days
+
+  money format: "##.####"
+
+  # Available plugins: Vault, TheNewEconomy, Custom
+  #
+  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
+  economy: "Vault"
+
+  # From which plugin should items have their prices picked from?
+  # Currently available: VoidChest, ShopGUIPlus, Essentials, CMI, EconomyShopGUI, DynamicShop, Custom.
+  #
+  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
+  shop economy: "VoidChest"
+
+  # Should the plugin attempt to hook to one of the plugins: WildStacker, UltimateStacker, SpaceStacker, RoseStacker, zItemStacker, CloudSpawners, None
+  stacker: "None"
+
+  # Available plugins: SuperiorSkyblock2, FabledSkyBlock, SaberFactions, MysqlEconomyBank, RoyaleEconomy, Custom, None
+  #
+  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
+  bank: "None"
+
+  # Available plugins: SaberFactions, SupremeFactions, FactionsUUID, Custom and None
+  #
+  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
+  bank tnt: "None"
+
+  # Available hologram support from other plugins: HolographicDisplays, Holograms, CMI, DecentHolograms, FancyHolograms.
+  hologram:
+    plugin: "None"
+    update interval: 20
+
+
+  # Ignore item meta option
+  ignore item meta: true
+
+  # Single task
+  single task: false
+
+  # Sell interval option
+  sell interval: 10
+
+  # Chunk see options
+  chunk see:
+    Y central: 0
+    Y up: 0
+    Y down: 0
+    effect:
+      type: "VILLAGER_HAPPY"
+      interval: 20
+
+  sell message:
+    enabled: false
+    interval: 60
+
+    offline:
+      enabled: false
+      message delay: 50

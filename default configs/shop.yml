@@ -1,0 +1,46 @@
+# ##################################################################################
+#                                                                                  #
+# __      ______ _____ _____   _____ _    _ ______  _____ _______                  #
+# \ \    / / __ \_   _|  __ \ / ____| |  | |  ____|/ ____|__   __|                 #
+#  \ \  / / |  | || | | |  | | |    | |__| | |__  | (___    | |                    #
+#   \ \/ /| |  | || | | |  | | |    |  __  |  __|  \___ \   | |                    #
+#    \  / | |__| || |_| |__| | |____| |  | | |____ ____) |  | |                    #
+#     \/   \____/_____|_____/ \_____|_|  |_|______|_____/   |_|                    #
+#                                                                                  #
+# ##################################################################################
+
+# Items:
+#   <material>
+#    price: <price>
+Items:
+  diamond:
+    price: 10
+  diamond_block:
+    price: 95
+  emerald:
+    price: 20
+  emerald_block:
+    price: 185
+  gold_ingot:
+    price: 7.5
+  gold_block:
+    price: 65
+  iron_ingot:
+    price: 4
+  iron_block:
+    price: 35
+  red_rose:
+    price: 0.5
+  enchanted_golden_apple:
+    price: 500
+
+# Shop-Specific:
+#   <voidchest_name>:
+#     <material>:
+#       price: <price>
+Shop-Specific:
+  default:
+    diamond:
+      price: 20
+    diamond_block:
+      price: 95

@@ -1,0 +1,224 @@
+# ##################################################################################
+#                                                                                  #
+# __      ______ _____ _____   _____ _    _ ______  _____ _______                  #
+# \ \    / / __ \_   _|  __ \ / ____| |  | |  ____|/ ____|__   __|                 #
+#  \ \  / / |  | || | | |  | | |    | |__| | |__  | (___    | |                    #
+#   \ \/ /| |  | || | | |  | | |    |  __  |  __|  \___ \   | |                    #
+#    \  / | |__| || |_| |__| | |____| |  | | |____ ____) |  | |                    #
+#     \/   \____/_____|_____/ \_____|_|  |_|______|_____/   |_|                    #
+#                                                                                  #
+# ##################################################################################
+
+Mechanics:
+  block: CHEST
+
+  # This boost applies to the total income
+  booster: 1.0 # Formula: (ItemPrice * boost * other boosts...)
+
+  # What should happen if the players shift and right-click the chest?
+  # Available modes;
+  #
+  # MENU -> Opens up the voidchest menu.
+  # CHEST -> Opens up the chest inventory.
+  # NONE -> Does nothing.
+  shift click open: CHEST
+
+  # What should happen when the player attempts to interact with the voidchest?
+  # Available modes;
+  #
+  # MENU -> Opens up the voidchest menu.
+  # CHEST -> Opens up the chest inventory.
+  # NONE -> Does nothing.
+  right click open: MENU
+
+  # Should this voidchest operate when the owner is also offline?
+  # If this path is removed, the value will be taken from options.yml.
+  enable when owner offline: true
+
+  prevent:
+    # Should players be prevented from placing a chest next to other voidchests?
+    # If true, the message will be sent to the player if they attempt to do it.
+    chest near voidchests: false
+
+    # Should players be prevented from placing a voidchest next to other chests?
+    # If true, the message will be sent to the player if they attempt to do it.
+    voidchests near chests: false
+
+    # Should players be prevented from placing a voidchest to the same chunk with other voidchests?
+    # If true, the message will be sent to the player if they attempt to do it.
+    placing voidchests in same chunk: true
+
+    # Should players be prevented from interacting with voidchests while in creative mode?
+    creative mode interaction: true
+
+    # Should players be prevented from placing a voidchest next to other voidchests?
+    # If true, the message below will be sent to the player if they attempt to do it.
+    placing other voidchests near: false
+
+    voidchest from exploding: false
+
+  break:
+    # Sent whenever a player breaks a voidchest that belongs to someone else and doesn't have permission.
+    failed other: true
+
+    # Sent whenever a player attempts to break a voidchest that doesn't have permission for.
+    permission deny: true
+
+    # Sent whenever a player breaks a voidchest successfully.
+    successful: true
+
+    # Should, once a voidchest is broken, store the statistics and then be recovered once placed again?
+    store stats: false
+
+    # Should voidchests drop when exploded by any kind of explosion, such as tnt, creepers, etc.?
+    drop voidchest on explosion: false
+
+  place:
+    # Sent whenever a player places a voidchest but doesn't have permission.
+    permission deny: true
+
+    # Sent whenever a player places a voidchest successfully.
+    successful: true
+
+    delay check: false
+
+    limit: 5
+
+  # Enable or disable the auto sell for a new voidchest by default.
+  auto sell: true
+
+  # Enable or disable the purge invalid items for a new voidchest by default.
+  purge items: true
+
+  # Enable or disable the chunk collector for a new voidchest by default.
+  chunk collector: true
+
+  # Basically, fuel for the voidchest.
+  # If this isn't enabled, the voidchest will function normally, requiring no fuel.
+  charge: true
+
+  # Enable or disable the hologram for a new voidchest by default.
+  hologram: true
+
+  # Enable or disable the bank for a new voidchest by default.
+  # This will make all money income go to the bank instead of the player's balance.
+  bank: false
+
+Options:
+  # How often should the voidchest attempt to sell items.
+  sell interval: 10
+
+  # These sounds are to be played if a voidchest is placed/broken.
+  sound:
+    place: 'LEVEL_UP'
+    break: 'ANVIL_BREAK'
+
+  # Forcefully disable the auto sell system even if voidchests have it enabled.
+  auto sell force disable: false
+
+  # Forcefully disable the purge items system even if voidchests have it enabled.
+  purge items force disable: false
+
+  # Forcefully disable the bank system even if voidchests have it enabled.
+  bank force disable: false
+
+  chunk collector:
+    # Forcefully disable the chunk collector even if voidchests have it enabled.
+    force disable: false
+    # Enable or disable the transfer non sellables for a new voidchest by default.
+    transfer non sellables: false
+    # Instant collector options
+    instant collector:
+      # Enable or disable the instant chunk collector for a new voidchest by default.
+      enabled: false
+      # Forcefully disable the instant chunk collector even if voidchests have it enabled.
+      force disable: false
+
+    # Ignore certain items to not be collected, sold, or purged by this feature.
+    blacklist:
+      # Enable or disable the black list for a new voidchest by default.
+      enabled: false
+      # Forcefully disable the black list even if voidchests have it enabled.
+      force disable: false
+      # Force the inclusion of the items below, even if voidchests have their own item list.
+      force blacklist: false
+      # Items to blacklist
+      items:
+        - MOB_SPAWNER
+        - DRAGON_EGG
+
+    # Allow only certain items to be collected, sold, or purged by this feature.
+    whitelist:
+      # Enable or disable the white list for a new voidchest by default.
+      enabled: false
+      # Forcefully disable the white list even if voidchests have it enabled.
+      force disable: false
+      # Force the inclusion of the items below, even if voidchests have their own item list.
+      force whitelist: false
+      # Items to whitelist
+      items:
+        - DIAMOND
+        - IRON_INGOT
+
+  # Inventory options
+  inventory:
+    title: "%voidchest% Inventory"
+    # Chest sizes:
+    # 9 slots
+    # 18 slots
+    # 27 slots
+    # 36 slots
+    # 45 slots
+    # 54 slots
+    size: 27
+
+  charge:
+    # Forcefully disable the charge system even if voidchests have it enabled.
+    force disable: false
+    # Save the charge to the voidchest item
+    break persistent:
+      enabled: false
+      save time: false
+    # Hologram placeholder
+    hologram:
+      no fuel: 'No Fuel'
+    # Item placeholder
+    item placeholder:
+      no fuel: 'No Fuel'
+    # The charge time can't get pass this.
+    max time: 172800
+    # Charge time to be added
+    renewal time: 3600
+    # Charge price
+    price: 20000
+
+  hologram:
+    # Forcefully disable the hologram system even if voidchests have it enabled.
+    force disable: false
+    # Hologram height
+    height: 3.9
+    # Hologram text
+    text:
+      - '&c&l%voidchest% VoidChest'
+      - ''
+      - '&fOwner: &c%owner%'
+      - '&fBoost: &b%booster%x'
+      - '&fMoney made: &a$%money%'
+      - '&fItems sold: &3%items_sold%'
+      - '&fItems purged: &3%items_purged%'
+      - '&7VoidChest timeleft: &e%timeleft%'
+      - '&7VoidChest charge: &e%charge_hologram%'
+      - ''
+      - '&7&oRight-Click to Open VoidChest'
+
+  item:
+    # If broken should it drop on the ground or go into the player's inventory?
+    drop straight to inventory: false
+
+    # Name of the item.
+    name: '&c&l%voidchest% VoidChest'
+
+    # Lore of the item.
+    lore:
+      - '&7Automatically sell and or clear items that'
+      - '&7are inside this voidchest. Gain money while being afk!'
