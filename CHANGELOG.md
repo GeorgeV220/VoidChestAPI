@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.5.0...v1.6.0) (2023-10-28)
+
+
+### Features
+
+* Add PlayerDataLoadEvent, PlayerDataSaveEvent, VoidStorageLoadEvent, and VoidStorageSaveEvent ([26e6ced](https://github.com/GeorgeV220/VoidChestAPI/commit/26e6ced4045bbb86a5ac501b1194656b1d3c4ceb))
+* **event:** add PlayerEvent class ([ab9178f](https://github.com/GeorgeV220/VoidChestAPI/commit/ab9178fdee1e2ff80e0eeb1e492fea3b5fdd5084))
+
 # [1.5.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.4.2...v1.5.0) (2023-10-27)
 
 
