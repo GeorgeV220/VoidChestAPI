@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.6.0...v1.6.1) (2023-10-29)
+
+
+### Bug Fixes
+
+* Change SerializableInventory to return InventoryHolder inventory instead of a new one ([6d8e7aa](https://github.com/GeorgeV220/VoidChestAPI/commit/6d8e7aab8c5347f76afdf5af1ec16f8ca88171f5))
+
 # [1.6.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.5.0...v1.6.0) (2023-10-28)
 
 
