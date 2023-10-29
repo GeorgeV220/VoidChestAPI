@@ -3,7 +3,6 @@ package com.georgev22.voidchest.api.utilities;
 import com.georgev22.voidchest.api.storage.data.VoidInventoryHolder;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.SneakyThrows;
-import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
@@ -33,6 +32,10 @@ public class SerializableInventory implements Serializable {
         return new SerializableInventory(inventory, (VoidInventoryHolder) inventory.getHolder());
     }
 
+    public static @NotNull SerializableInventory fromInventoryHolder(VoidInventoryHolder inventoryHolder) {
+        return new SerializableInventory(inventoryHolder.getInventory(), inventoryHolder);
+    }
+
     public SerializableInventory(@NotNull Inventory inventory, VoidInventoryHolder inventoryHolder) {
         this.serializedContents = new HashMap<>();
         for (int i = 0; i < inventory.getSize(); i++) {
@@ -52,7 +55,7 @@ public class SerializableInventory implements Serializable {
     }
 
     private void inventory() {
-        inventory = Bukkit.createInventory(inventoryHolder, inventoryHolder.inventorySize(), inventoryHolder.inventoryName());
+        inventory = inventoryHolder.getInventory();
         for (Map.Entry<Integer, Map<String, Object>> entry : serializedContents.entrySet()) {
             ItemStack itemStack = deserializeItemStack(entry.getValue());
             inventory.setItem(entry.getKey(), itemStack);
@@ -97,7 +100,7 @@ public class SerializableInventory implements Serializable {
         //noinspection unchecked
         serializedContents = (Map<Integer, Map<String, Object>>) inputStream.readObject();
         inventoryHolder = (VoidInventoryHolder) inputStream.readObject();
-        inventory();
+        inventory = inventoryHolder.getInventory();
     }
 
     @Override
