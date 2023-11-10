@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.6.1...v1.7.0) (2023-11-10)
+
+
+### Features
+
+* Add ShopManager Shop and ShopItem classes ([e7d8211](https://github.com/GeorgeV220/VoidChestAPI/commit/e7d8211dd40062163d99c06de0f712d856051e1a))
+
 ## [1.6.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.6.0...v1.6.1) (2023-10-29)
 
 
