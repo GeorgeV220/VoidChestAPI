@@ -1,3 +1,10 @@
+# [1.12.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2023-11-11)
+
+
+### Bug Fixes
+
+* **SerializableItemStack:** Fixed method calls ([4a25196](https://github.com/GeorgeV220/VoidChestAPI/commit/4a25196be5d2eb8b2de0378b6a35d35aa56e27d1))
+
 # [1.12.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.11.0...v1.12.0-beta.1) (2023-11-11)
 
 
