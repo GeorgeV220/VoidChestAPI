@@ -1,3 +1,10 @@
+# [1.12.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0-beta.2...v1.12.0-beta.3) (2023-11-11)
+
+
+### Features
+
+* Add splitBigIntegerTo method to Utilities ([107d45c](https://github.com/GeorgeV220/VoidChestAPI/commit/107d45c1fd6f40926bb5b6cc7376634fe44f738c))
+
 # [1.12.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2023-11-11)
 
 
