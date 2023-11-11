@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.10.0...v1.11.0) (2023-11-11)
+
+
+### Features
+
+* Add method to convert ItemStack List to SerializableItemStack List ([0c4f131](https://github.com/GeorgeV220/VoidChestAPI/commit/0c4f1315d9a92324a4551b4e2277cbe38381a2f2))
+
 # [1.10.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.9.0...v1.10.0) (2023-11-11)
 
 
