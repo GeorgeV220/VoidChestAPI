@@ -1,3 +1,10 @@
+# [1.12.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.11.0...v1.12.0-beta.1) (2023-11-11)
+
+
+### Features
+
+* Add inventory methods to IVoidStorageManager ([2ff785f](https://github.com/GeorgeV220/VoidChestAPI/commit/2ff785fbdab4cc951b1803fcb634696f07471e77))
+
 # [1.11.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.10.0...v1.11.0) (2023-11-11)
 
 
