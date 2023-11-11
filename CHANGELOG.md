@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.8.0...v1.9.0) (2023-11-11)
+
+
+### Features
+
+* Add methods for serializing and deserializing ItemStacks- Added `serializeItemStack` method to serialize an ItemStack into a base32-encoded string.- Added `deserializeItemStack` method to deserialize a base32-encoded string into an ItemStack ([b48ff56](https://github.com/GeorgeV220/VoidChestAPI/commit/b48ff5649bf98f27bbdab231634e49d1662ae37f))
+
 # [1.8.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.7.0...v1.8.0) (2023-11-11)
 
 
