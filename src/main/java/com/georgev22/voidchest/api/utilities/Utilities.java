@@ -245,4 +245,34 @@ public class Utilities {
 
         return splitValues;
     }
+
+    /**
+     * Splits the given `value` of type BigInteger into a list of BigInteger values.
+     * Each element in the list represents a portion of the original value that does not exceed the limit.
+     *
+     * @param value The BigInteger value to split.
+     * @param limit The limit to split the value into.
+     * @return A list of BigInteger values representing portions of the original value.
+     */
+    public static @NotNull List<BigInteger> splitBigIntegerTo(@NotNull BigInteger value, int limit) {
+        List<BigInteger> splitValues = new ArrayList<>();
+
+        if (value.compareTo(BigInteger.valueOf(limit)) <= 0) {
+            splitValues.add(value);
+        } else {
+            BigInteger maxValue = BigInteger.valueOf(limit);
+            BigInteger remainingValue = value;
+
+            while (remainingValue.compareTo(maxValue) > 0) {
+                splitValues.add(maxValue);
+                remainingValue = remainingValue.subtract(maxValue);
+            }
+
+            if (remainingValue.compareTo(BigInteger.ZERO) > 0) {
+                splitValues.addAll(splitBigIntegerTo(remainingValue, limit));
+            }
+        }
+
+        return splitValues;
+    }
 }
