@@ -96,6 +96,20 @@ public class SerializableItemStack implements Serializable {
     }
 
     /**
+     * Creates a new List of SerializableItemStack from an ItemStack List.
+     *
+     * @param itemStacks The ItemStacks list to be wrapped.
+     * @return A new SerializableItemStack instance.
+     */
+    public static @NotNull List<SerializableItemStack> fromItemStacks(@NotNull List<ItemStack> itemStacks) {
+        List<SerializableItemStack> serializableItemStacks = new ArrayList<>();
+        for (ItemStack itemStack : itemStacks) {
+            serializableItemStacks.add(fromItemStack(itemStack));
+        }
+        return serializableItemStacks;
+    }
+
+    /**
      * Creates a new SerializableItemStack from a string representation in NBT format.
      *
      * <p>The {@code fromNBT} method parses a string representation in NBT (Named Binary Tag) format
