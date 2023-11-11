@@ -1,3 +1,12 @@
+# [1.8.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.7.0...v1.8.0) (2023-11-11)
+
+
+### Features
+
+* Add SerializableItemStack class ([1124f97](https://github.com/GeorgeV220/VoidChestAPI/commit/1124f979f96c26dfd220ee01d9994bfab445c708))
+* Add SerializerException class ([9fdce21](https://github.com/GeorgeV220/VoidChestAPI/commit/9fdce21d6d3ee362619030c4e48a811afcbdc249))
+* Refactor IVoidStorage interface to use List of SerializableItemStacks for block inventory, whitelist inventory, and blacklist inventory ([6f63445](https://github.com/GeorgeV220/VoidChestAPI/commit/6f63445e4673cb63ebc8b3aa8b10cf9eb26f5f0d))
+
 # [1.7.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.6.1...v1.7.0) (2023-11-10)
 
 
