@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.math.BigInteger;
 
 /**
  * A serializable wrapper for Bukkit ItemStack, using NBT serialization.
@@ -125,6 +126,43 @@ public class SerializableItemStack implements Serializable {
             throw new SerializerException("Could not deserialize item stack");
         }
         return new SerializableItemStack(itemStack);
+    }
+
+    /**
+     * Serializes an ItemStack into a base32-encoded string.
+     *
+     * @param itemStack The ItemStack to be serialized.
+     * @return A base32-encoded string representing the serialized ItemStack.
+     * @throws SerializerException If there is an error during the serialization process.
+     */
+    public static @NotNull String serializeItemStack(@NotNull ItemStack itemStack) throws SerializerException {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+            oos.writeObject(SerializableItemStack.fromItemStack(itemStack));
+            return new BigInteger(1, bos.toByteArray()).toString(32);
+        } catch (IOException e) {
+            throw new SerializerException("Error during serialization of ItemStack: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Deserializes a base32-encoded string into an ItemStack.
+     *
+     * @param data A base32-encoded string representing the serialized ItemStack.
+     * @return The deserialized ItemStack.
+     * @throws SerializerException If there is an error during the deserialization process.
+     */
+    public static @NotNull ItemStack deserializeItemStack(@NotNull String data) throws SerializerException {
+        try {
+            byte[] byteArray = new BigInteger(data, 32).toByteArray();
+            try (ByteArrayInputStream bis = new ByteArrayInputStream(byteArray); ObjectInputStream ois = new ObjectInputStream(bis)) {
+                SerializableItemStack serializableItemStack = (SerializableItemStack) ois.readObject();
+                return serializableItemStack.getItemStack();
+            } catch (ClassNotFoundException | IOException e) {
+                throw new SerializerException("Error during deserialization of ItemStack: " + e.getMessage());
+            }
+        } catch (NumberFormatException e) {
+            throw new SerializerException("Error decoding base32 data: " + e.getMessage());
+        }
     }
 
 
