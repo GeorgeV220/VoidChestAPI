@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.9.0...v1.10.0) (2023-11-11)
+
+
+### Features
+
+* Add methods to serialize and deserialize lists of ItemStacks ([74c6526](https://github.com/GeorgeV220/VoidChestAPI/commit/74c6526e9458035e0e47ba7f828a0d227b4f816d))
+
 # [1.9.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.8.0...v1.9.0) (2023-11-11)
 
 
