@@ -5,10 +5,11 @@ import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
-import com.georgev22.voidchest.api.utilities.SerializableInventory;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,25 +32,25 @@ public interface IVoidStorage extends Entity {
     @NotNull SerializableBlock block();
 
     /**
-     * Retrieves the inventory of the block associated with the VoidStorage as a SerializableInventory.
+     * Retrieves the item stacks of the block associated with the VoidStorage as a List of SerializableItemStack
      *
-     * @return The inventory of the block associated with the VoidStorage.
+     * @return The item stacks of the block associated with the VoidStorage.
      */
-    @NotNull SerializableInventory blockInventory();
+    @NotNull List<SerializableItemStack> blockInventoryItemStacks();
 
     /**
-     * Retrieves the whitelist inventory of the VoidStorage as a SerializableInventory.
+     * Retrieves the whitelist item stacks of the VoidStorage as a List of SerializableItemStack.
      *
-     * @return The whitelist inventory of the VoidStorage.
+     * @return The whitelist item stacks of the VoidStorage.
      */
-    @NotNull SerializableInventory whitelistInventory();
+    @NotNull List<SerializableItemStack> whitelistInventoryItemStacks();
 
     /**
-     * Retrieves the blacklist inventory of the VoidStorage as a SerializableInventory.
+     * Retrieves the blacklist item stacks of the VoidStorage as a List of SerializableItemStack.
      *
-     * @return The blacklist inventory of the VoidStorage.
+     * @return The blacklist item stacks of the VoidStorage.
      */
-    @NotNull SerializableInventory blacklistInventory();
+    @NotNull List<SerializableItemStack> blacklistInventoryItemStacks();
 
     /**
      * Retrieves the location of the block associated with the VoidStorage as a SerializableLocation.
