@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A serializable wrapper for Bukkit ItemStack, using NBT serialization.
@@ -28,6 +30,13 @@ import java.math.BigInteger;
  *     <li>{@code static @NotNull SerializableItemStack fromItemStack(ItemStack itemStack)} - Creates a new SerializableItemStack from an ItemStack.</li>
  *     <li>{@code SerializableItemStack(ItemStack itemStack)} - Constructs a new SerializableItemStack from an ItemStack.</li>
  *     <li>{@code ItemStack getItemStack()} - Retrieves the original ItemStack.</li>
+ *     <li>{@code static @NotNull SerializableItemStack fromNBT(String nbtString)} - Creates a new SerializableItemStack from a string representation in NBT format.</li>
+ *     <li>{@code static @NotNull String serializeItemStack(@NotNull ItemStack itemStack)} - Serializes an ItemStack into a base32-encoded string.</li>
+ *     <li>{@code static @NotNull ItemStack deserializeItemStack(@NotNull String data)} - Deserializes a base32-encoded string into an ItemStack.</li>
+ *     <li>{@code static @NotNull List<String> serializeItemStacksToBase32(@NotNull List<ItemStack> itemStacks)} - Serializes a list of ItemStacks into a list of base32-encoded strings.</li>
+ *     <li>{@code static @NotNull List<ItemStack> deserializeItemStacksFromBase32(@NotNull List<String> base32Strings)} - Deserializes a list of base32-encoded strings into a list of ItemStacks.</li>
+ *     <li>{@code static @NotNull List<String> serializeItemStacksToNBT(@NotNull List<ItemStack> itemStacks)} - Serializes a list of ItemStacks into a list of strings in NBT format.</li>
+ *     <li>{@code static @NotNull List<ItemStack> deserializeItemStacksFromNBT(@NotNull List<String> nbtDataList)} - Deserializes a list of strings in NBT format into a list of ItemStacks.</li>
  * </ul>
  * </p>
  *
@@ -165,6 +174,65 @@ public class SerializableItemStack implements Serializable {
         }
     }
 
+    /**
+     * Serializes a list of ItemStacks into a list of base32-encoded strings.
+     *
+     * @param itemStacks The list of ItemStacks to be serialized.
+     * @return A list of base32-encoded strings representing the serialized ItemStacks.
+     * @throws SerializerException If there is an error during the serialization process.
+     */
+    public static @NotNull List<String> serializeItemStacksToBase32(@NotNull List<ItemStack> itemStacks) throws SerializerException {
+        List<String> base32Strings = new ArrayList<>();
+        for (ItemStack itemStack : itemStacks) {
+            base32Strings.add(SerializableItemStack.serializeItemStack(itemStack));
+        }
+        return base32Strings;
+    }
+
+    /**
+     * Deserializes a list of base32-encoded strings into a list of ItemStacks.
+     *
+     * @param base32Strings The list of base32-encoded strings representing the serialized ItemStacks.
+     * @return A list of ItemStacks representing the deserialized ItemStacks.
+     * @throws SerializerException If there is an error during the deserialization process.
+     */
+    public static @NotNull List<ItemStack> deserializeItemStacksFromBase32(@NotNull List<String> base32Strings) throws SerializerException {
+        List<ItemStack> serializableItemStacks = new ArrayList<>();
+        for (String base32String : base32Strings) {
+            serializableItemStacks.add(SerializableItemStack.deserializeItemStack(base32String));
+        }
+        return serializableItemStacks;
+    }
+
+    /**
+     * Serializes a list of ItemStacks into a list of strings in NBT format.
+     *
+     * @param itemStacks The list of ItemStacks to be serialized.
+     * @return A list of strings in NBT format representing the serialized ItemStacks.
+     * @throws SerializerException If there is an error during the serialization process.
+     */
+    public static @NotNull List<String> serializeItemStacksToNBT(@NotNull List<ItemStack> itemStacks) throws SerializerException {
+        List<String> nbtDataList = new ArrayList<>();
+        for (ItemStack itemStack : itemStacks) {
+            nbtDataList.add(SerializableItemStack.fromNBT(SerializableItemStack.serializeItemStack(itemStack)).toString());
+        }
+        return nbtDataList;
+    }
+
+    /**
+     * Deserializes a list of strings in NBT format into a list of ItemStacks.
+     *
+     * @param nbtDataList The list of strings in NBT format representing the serialized ItemStacks.
+     * @return A list of ItemStacks representing the deserialized ItemStacks.
+     * @throws SerializerException If there is an error during the deserialization process.
+     */
+    public static @NotNull List<ItemStack> deserializeItemStacksFromNBT(@NotNull List<String> nbtDataList) throws SerializerException {
+        List<ItemStack> serializableItemStacks = new ArrayList<>();
+        for (String nbt : nbtDataList) {
+            serializableItemStacks.add(SerializableItemStack.fromNBT(nbt).getItemStack());
+        }
+        return serializableItemStacks;
+    }
 
     /**
      * Retrieves the original ItemStack.
@@ -185,7 +253,7 @@ public class SerializableItemStack implements Serializable {
     @Serial
     private void writeObject(@NotNull ObjectOutputStream outputStream) throws IOException, SerializerException {
         try {
-            outputStream.writeObject(NBTItem.convertItemtoNBT(this.itemStack).toString());
+            outputStream.writeObject(this.toString());
         } catch (Exception e) {
             throw new SerializerException("Error during serialization of ItemStack: " + e.getMessage());
         }
@@ -211,5 +279,10 @@ public class SerializableItemStack implements Serializable {
         } catch (Exception e) {
             throw new SerializerException("Error during deserialization of ItemStack: " + e.getMessage());
         }
+    }
+
+    @Override
+    public String toString() {
+        return NBTItem.convertItemtoNBT(this.itemStack).toString();
     }
 }
