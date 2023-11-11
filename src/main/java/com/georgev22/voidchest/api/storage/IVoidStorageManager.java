@@ -5,7 +5,9 @@ import com.georgev22.library.utilities.EntityManager;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -56,4 +58,14 @@ public interface IVoidStorageManager extends EntityManager<IVoidStorage> {
     @Override
     @ApiStatus.Internal
     ObjectMap<UUID, IVoidStorage> getLoadedEntities();
+
+    @NotNull Inventory inventory(IVoidStorage voidStorage, InventoryType type);
+
+    @NotNull Inventory inventory(UUID voidStorageUUID, InventoryType type);
+
+    enum InventoryType {
+        STORAGE,
+        WHITELIST,
+        BLACKLIST
+    }
 }
