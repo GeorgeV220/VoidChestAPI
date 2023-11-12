@@ -170,6 +170,20 @@ public class SerializableItemStack implements Serializable {
     }
 
     /**
+     * Serializes a list of SerializableItemStack into a list of strings in NBT format.
+     *
+     * @param itemStacks The list of SerializableItemStack to be serialized.
+     * @return A list of strings in NBT format representing the serialized ItemStacks.
+     */
+    public static @NotNull List<String> serializeItemStacksToNBT(@NotNull List<SerializableItemStack> itemStacks) {
+        List<String> nbtDataList = new ArrayList<>();
+        for (SerializableItemStack serializableItemStack : itemStacks) {
+            nbtDataList.add(serializableItemStack.toString());
+        }
+        return nbtDataList;
+    }
+
+    /**
      * Deserializes a list of strings in NBT format into a list of SerializableItemStack.
      *
      * @param nbtDataList The list of strings in NBT format representing the serialized ItemStacks.
