@@ -1,16 +1,19 @@
 package com.georgev22.voidchest.api.utilities;
 
+import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.exceptions.SerializerException;
 import de.tr7zw.changeme.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBTContainer;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A serializable wrapper for Bukkit ItemStack, using NBT serialization.
@@ -70,13 +73,16 @@ public class SerializableItemStack implements Serializable {
      */
     private transient ItemStack itemStack;
 
+    private transient BigInteger amount;
+
     /**
      * Constructs a new SerializableItemStack from an ItemStack.
      *
      * @param itemStack The ItemStack to be serialized.
      */
-    public SerializableItemStack(ItemStack itemStack) {
+    public SerializableItemStack(ItemStack itemStack, BigInteger amount) {
         this.itemStack = itemStack;
+        this.amount = amount;
     }
 
     /**
@@ -85,9 +91,8 @@ public class SerializableItemStack implements Serializable {
      * @param itemStack The ItemStack to be wrapped.
      * @return A new SerializableItemStack instance.
      */
-    @Contract(value = "_ -> new", pure = true)
-    public static @NotNull SerializableItemStack fromItemStack(ItemStack itemStack) {
-        return new SerializableItemStack(itemStack);
+    public static @NotNull SerializableItemStack fromItemStack(ItemStack itemStack, BigInteger amount) {
+        return new SerializableItemStack(itemStack, amount);
     }
 
     /**
@@ -96,10 +101,10 @@ public class SerializableItemStack implements Serializable {
      * @param itemStacks The ItemStacks list to be wrapped.
      * @return A new SerializableItemStack instance.
      */
-    public static @NotNull List<SerializableItemStack> fromItemStacks(@NotNull List<ItemStack> itemStacks) {
+    public static @NotNull List<SerializableItemStack> fromItemStacks(@NotNull ObjectMap<ItemStack, BigInteger> itemStacks) {
         List<SerializableItemStack> serializableItemStacks = new ArrayList<>();
-        for (ItemStack itemStack : itemStacks) {
-            serializableItemStacks.add(fromItemStack(itemStack));
+        for (Map.Entry<ItemStack, BigInteger> entry : itemStacks.entrySet()) {
+            serializableItemStacks.add(fromItemStack(entry.getKey(), entry.getValue()));
         }
         return serializableItemStacks;
     }
@@ -140,10 +145,14 @@ public class SerializableItemStack implements Serializable {
     public static @NotNull SerializableItemStack fromNBT(String nbtString) throws SerializerException {
         ReadWriteNBT readWriteNBT = NBT.parseNBT(nbtString);
         ItemStack itemStack = NBT.itemStackFromNBT(readWriteNBT);
+        BigInteger amount = new BigInteger(readWriteNBT.getOrDefault("sAmount", "1"));
         if (itemStack == null) {
             throw new SerializerException("Could not deserialize item stack");
         }
-        return new SerializableItemStack(itemStack);
+        NBTItem nbtItem = new NBTItem(itemStack);
+        nbtItem.removeKey("sAmount");
+        itemStack = nbtItem.getItem();
+        return new SerializableItemStack(itemStack, amount);
     }
 
     /**
@@ -152,25 +161,25 @@ public class SerializableItemStack implements Serializable {
      * @param itemStacks The list of ItemStacks to be serialized.
      * @return A list of strings in NBT format representing the serialized ItemStacks.
      */
-    public static @NotNull List<String> serializeItemStacksToNBT(@NotNull List<ItemStack> itemStacks) {
+    public static @NotNull List<String> serializeItemStacksToNBT(@NotNull ObjectMap<ItemStack, BigInteger> itemStacks) {
         List<String> nbtDataList = new ArrayList<>();
-        for (ItemStack itemStack : itemStacks) {
-            nbtDataList.add(SerializableItemStack.fromItemStack(itemStack).toString());
+        for (Map.Entry<ItemStack, BigInteger> entry : itemStacks.entrySet()) {
+            nbtDataList.add(SerializableItemStack.fromItemStack(entry.getKey(), entry.getValue()).toString());
         }
         return nbtDataList;
     }
 
     /**
-     * Deserializes a list of strings in NBT format into a list of ItemStacks.
+     * Deserializes a list of strings in NBT format into a list of SerializableItemStack.
      *
      * @param nbtDataList The list of strings in NBT format representing the serialized ItemStacks.
-     * @return A list of ItemStacks representing the deserialized ItemStacks.
+     * @return A list of SerializableItemStack representing the deserialized ItemStacks.
      * @throws SerializerException If there is an error during the deserialization process.
      */
-    public static @NotNull List<ItemStack> deserializeItemStacksFromNBT(@NotNull List<String> nbtDataList) throws SerializerException {
-        List<ItemStack> serializableItemStacks = new ArrayList<>();
+    public static @NotNull List<SerializableItemStack> deserializeItemStacksFromNBT(@NotNull List<String> nbtDataList) throws SerializerException {
+        List<SerializableItemStack> serializableItemStacks = new ArrayList<>();
         for (String nbt : nbtDataList) {
-            serializableItemStacks.add(SerializableItemStack.fromNBT(nbt).getItemStack());
+            serializableItemStacks.add(SerializableItemStack.fromNBT(nbt));
         }
         return serializableItemStacks;
     }
@@ -182,6 +191,34 @@ public class SerializableItemStack implements Serializable {
      */
     public ItemStack getItemStack() {
         return itemStack;
+    }
+
+    /**
+     * Retrieves the amount of the ItemStack.
+     *
+     * @return The amount of the ItemStack.
+     */
+    public BigInteger getAmount() {
+        return amount;
+    }
+
+    /**
+     * Sets the ItemStack.
+     *
+     * @param itemStack The ItemStack to be set.
+     */
+    public void setItemStack(@NotNull ItemStack itemStack) {
+        this.itemStack = itemStack.clone();
+        this.itemStack.setAmount(1);
+    }
+
+    /**
+     * Sets the amount of the ItemStack.
+     *
+     * @param amount The amount to be set.
+     */
+    public void setAmount(BigInteger amount) {
+        this.amount = amount;
     }
 
     /**
@@ -224,6 +261,8 @@ public class SerializableItemStack implements Serializable {
 
     @Override
     public String toString() {
-        return NBTItem.convertItemtoNBT(this.itemStack).toString();
+        NBTContainer nbtItem = NBTItem.convertItemtoNBT(this.itemStack);
+        nbtItem.setString("sAmount", this.amount.toString());
+        return nbtItem.toString();
     }
 }
