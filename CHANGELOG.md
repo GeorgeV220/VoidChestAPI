@@ -1,3 +1,10 @@
+# [1.12.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0-alpha.1...v1.12.0-alpha.2) (2023-11-12)
+
+
+### Features
+
+* Add serializeItemStacksToNBT(List<SerializableItemStack>) ([f62d62a](https://github.com/GeorgeV220/VoidChestAPI/commit/f62d62adec9402eb62e3d5d7bd6ee8f9e32d446e))
+
 # [1.12.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.11.0...v1.12.0-alpha.1) (2023-11-12)
 
 
