@@ -1,3 +1,10 @@
+# [1.12.0-alpha.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0-alpha.2...v1.12.0-alpha.3) (2023-11-12)
+
+
+### Features
+
+* **Stats:** Add methods for retrieving and updating items stored count ([5921fe5](https://github.com/GeorgeV220/VoidChestAPI/commit/5921fe5580dcf2d3d7c4f58e5f039d02cd80b13b))
+
 # [1.12.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0-alpha.1...v1.12.0-alpha.2) (2023-11-12)
 
 
