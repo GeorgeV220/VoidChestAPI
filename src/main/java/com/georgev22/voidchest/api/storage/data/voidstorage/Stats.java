@@ -32,6 +32,27 @@ public interface Stats extends Entity {
     void addMoney(BigDecimal money);
 
     /**
+     * Retrieves the number of items stored in the void chest.
+     *
+     * @return The number of items stored as a BigInteger.
+     */
+    BigInteger itemsStored();
+
+    /**
+     * Sets the number of items stored in the void chest.
+     *
+     * @param itemsStored The number of items stored to set as a BigInteger.
+     */
+    void itemsStored(BigInteger itemsStored);
+
+    /**
+     * Adds the specified number of items stored to the current count associated with the void chest.
+     *
+     * @param itemsStored The number of items stored to add as a BigInteger.
+     */
+    void addItemsStored(BigInteger itemsStored);
+
+    /**
      * Retrieves the number of items sold by the void chest.
      *
      * @return The number of items sold as a BigInteger.
