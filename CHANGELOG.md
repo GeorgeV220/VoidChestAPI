@@ -1,3 +1,19 @@
+# [1.12.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.11.0...v1.12.0) (2023-11-13)
+
+
+### Bug Fixes
+
+* **SerializableItemStack:** Fixed method calls ([4a25196](https://github.com/GeorgeV220/VoidChestAPI/commit/4a25196be5d2eb8b2de0378b6a35d35aa56e27d1))
+
+
+### Features
+
+* Add inventory methods to IVoidStorageManager ([2ff785f](https://github.com/GeorgeV220/VoidChestAPI/commit/2ff785fbdab4cc951b1803fcb634696f07471e77))
+* Add serializeItemStacksToNBT(List<SerializableItemStack>) ([f62d62a](https://github.com/GeorgeV220/VoidChestAPI/commit/f62d62adec9402eb62e3d5d7bd6ee8f9e32d446e))
+* Add splitBigIntegerTo method to Utilities ([107d45c](https://github.com/GeorgeV220/VoidChestAPI/commit/107d45c1fd6f40926bb5b6cc7376634fe44f738c))
+* Add support for item stack amount in SerializableItemStack ([c39629b](https://github.com/GeorgeV220/VoidChestAPI/commit/c39629b1573792e17fd9b7d082b0c2cbbe179a41))
+* **Stats:** Add methods for retrieving and updating items stored count ([5921fe5](https://github.com/GeorgeV220/VoidChestAPI/commit/5921fe5580dcf2d3d7c4f58e5f039d02cd80b13b))
+
 # [1.12.0-alpha.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0-alpha.2...v1.12.0-alpha.3) (2023-11-12)
 
 
