@@ -7,8 +7,10 @@ import com.georgev22.voidchest.api.event.Event;
 import com.georgev22.voidchest.api.event.HandlerList;
 import com.georgev22.voidchest.api.event.interfaces.Cancellable;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigInteger;
 
@@ -22,7 +24,8 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
 
     private final SerializableItemStack itemStack;
 
-    private boolean cancelled;
+    private final @Nullable Item item;
+    private boolean cancelled = false;
 
     /**
      * Constructs a new SerializableItemStackSpawnEvent with the given SerializableItemStack.
@@ -31,6 +34,7 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
      */
     public SerializableItemStackSpawnEvent(SerializableItemStack itemStack) {
         this.itemStack = itemStack;
+        this.item = null;
     }
 
     /**
@@ -40,6 +44,30 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
      * @param amount    The amount of the ItemStack being spawned.
      */
     public SerializableItemStackSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount) {
+        this.item = null;
+        this.itemStack = new SerializableItemStack(itemStack, amount);
+    }
+
+    /**
+     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity and amount.
+     *
+     * @param item   The Item entity.
+     * @param amount The amount of the ItemStack being spawned.
+     */
+    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull BigInteger amount) {
+        this.item = item;
+        this.itemStack = new SerializableItemStack(item.getItemStack(), amount);
+    }
+
+    /**
+     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity, ItemStack, and amount.
+     *
+     * @param item      The Item entity.
+     * @param itemStack The base ItemStack being spawned.
+     * @param amount    The amount of the ItemStack being spawned.
+     */
+    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull BigInteger amount) {
+        this.item = item;
         this.itemStack = new SerializableItemStack(itemStack, amount);
     }
 
@@ -51,6 +79,16 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
     public SerializableItemStack getItemStack() {
         return itemStack;
     }
+
+    /**
+     * Gets the Item entity associated with this event.
+     *
+     * @return The Item entity, or {@code null} if not applicable.
+     */
+    public @Nullable Item getItem() {
+        return item;
+    }
+
 
     /**
      * Gets the HandlerList for this event.
