@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.13.0...v1.14.0) (2023-11-14)
+
+
+### Features
+
+* Update SerializableItemStackSpawnEvent ([eaa1a51](https://github.com/GeorgeV220/VoidChestAPI/commit/eaa1a51f84d84cb4e299d8cdeb1156e4063d1533))
+
 # [1.13.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.12.0...v1.13.0) (2023-11-14)
 
 
