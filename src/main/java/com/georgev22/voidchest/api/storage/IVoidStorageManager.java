@@ -66,6 +66,7 @@ public interface IVoidStorageManager extends EntityManager<IVoidStorage> {
     enum InventoryType {
         STORAGE,
         WHITELIST,
-        BLACKLIST
+        BLACKLIST,
+        MENU
     }
 }
