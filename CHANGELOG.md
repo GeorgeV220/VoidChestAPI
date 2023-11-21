@@ -1,3 +1,11 @@
+# [1.15.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.14.0...v1.15.0) (2023-11-21)
+
+
+### Features
+
+* Add VoidInventoryHolder#inventoryType() method ([886db1c](https://github.com/GeorgeV220/VoidChestAPI/commit/886db1c17b2da88ecee976d7c4974a2345471eac))
+* MENU Inventory Type ([7d6bc53](https://github.com/GeorgeV220/VoidChestAPI/commit/7d6bc53db45fc15c05a21cab549460621e149828))
+
 # [1.14.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.13.0...v1.14.0) (2023-11-14)
 
 
