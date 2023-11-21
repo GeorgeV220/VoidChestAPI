@@ -1,5 +1,7 @@
 package com.georgev22.voidchest.api.storage.data;
 
+import com.georgev22.voidchest.api.storage.IVoidStorageManager;
+import com.georgev22.voidchest.api.storage.IVoidStorageManager.InventoryType;
 import org.bukkit.inventory.InventoryHolder;
 
 import java.io.Serializable;
@@ -30,5 +32,12 @@ public interface VoidInventoryHolder extends InventoryHolder, Serializable {
      * @return The VoidStorage associated with the inventory.
      */
     IVoidStorage voidStorage();
+
+    /**
+     * Retrieves the inventory type.
+     *
+     * @return The inventory type.
+     */
+    InventoryType inventoryType();
 
 }
