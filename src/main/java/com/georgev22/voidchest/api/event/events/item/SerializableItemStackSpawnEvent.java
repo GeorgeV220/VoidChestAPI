@@ -7,6 +7,7 @@ import com.georgev22.voidchest.api.event.Event;
 import com.georgev22.voidchest.api.event.HandlerList;
 import com.georgev22.voidchest.api.event.interfaces.Cancellable;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
+import org.bukkit.Location;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +17,6 @@ import java.math.BigInteger;
 
 /**
  * Represents an event triggered when a SerializableItemStack is spawned.
- * This event is called when an ItemStack is converted to a SerializableItemStack.
  */
 public class SerializableItemStackSpawnEvent extends Event implements Cancellable {
 
@@ -25,6 +25,7 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
     private final SerializableItemStack itemStack;
 
     private final @Nullable Item item;
+    private final @Nullable Location location;
     private boolean cancelled = false;
 
     /**
@@ -35,6 +36,19 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
     public SerializableItemStackSpawnEvent(SerializableItemStack itemStack) {
         this.itemStack = itemStack;
         this.item = null;
+        this.location = null;
+    }
+
+    /**
+     * Constructs a new SerializableItemStackSpawnEvent with the given SerializableItemStack and location.
+     *
+     * @param itemStack The SerializableItemStack being spawned.
+     * @param location  The location associated with the event (nullable).
+     */
+    public SerializableItemStackSpawnEvent(SerializableItemStack itemStack, @Nullable Location location) {
+        this.itemStack = itemStack;
+        this.item = null;
+        this.location = location;
     }
 
     /**
@@ -45,6 +59,20 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
      */
     public SerializableItemStackSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount) {
         this.item = null;
+        this.location = null;
+        this.itemStack = new SerializableItemStack(itemStack, amount);
+    }
+
+    /**
+     * Constructs a new SerializableItemStackSpawnEvent with the given ItemStack, amount and location.
+     *
+     * @param itemStack The base ItemStack being spawned.
+     * @param amount    The amount of the ItemStack being spawned.
+     * @param location  The location associated with the event (nullable).
+     */
+    public SerializableItemStackSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location) {
+        this.item = null;
+        this.location = location;
         this.itemStack = new SerializableItemStack(itemStack, amount);
     }
 
@@ -56,6 +84,20 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
      */
     public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull BigInteger amount) {
         this.item = item;
+        this.location = item.getLocation();
+        this.itemStack = new SerializableItemStack(item.getItemStack(), amount);
+    }
+
+    /**
+     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity, amount and location.
+     *
+     * @param item     The Item entity.
+     * @param amount   The amount of the ItemStack being spawned.
+     * @param location The location associated with the event (nullable).
+     */
+    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull BigInteger amount, @Nullable Location location) {
+        this.item = item;
+        this.location = location;
         this.itemStack = new SerializableItemStack(item.getItemStack(), amount);
     }
 
@@ -68,6 +110,21 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
      */
     public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull BigInteger amount) {
         this.item = item;
+        this.location = item.getLocation();
+        this.itemStack = new SerializableItemStack(itemStack, amount);
+    }
+
+    /**
+     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity, ItemStack, amount and location.
+     *
+     * @param item      The Item entity.
+     * @param itemStack The base ItemStack being spawned.
+     * @param amount    The amount of the ItemStack being spawned.
+     * @param location  The location associated with the event (nullable).
+     */
+    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location) {
+        this.item = item;
+        this.location = location;
         this.itemStack = new SerializableItemStack(itemStack, amount);
     }
 
@@ -89,6 +146,14 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
         return item;
     }
 
+    /**
+     * Retrieves the location associated with this object.
+     *
+     * @return the location of the object, or null if not available
+     */
+    public @Nullable Location getLocation() {
+        return location;
+    }
 
     /**
      * Gets the HandlerList for this event.
@@ -112,7 +177,7 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
     /**
      * Cancels the event.
      *
-     * @return {@code true} if the event was successfully cancelled, {@code false} otherwise
+     * @return {@code true} if the event was successfully canceled, {@code false} otherwise
      */
     @Override
     public boolean cancel() {
@@ -122,7 +187,7 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
     /**
      * Returns whether the event has been cancelled.
      *
-     * @return {@code true} if the event has been cancelled, {@code false} otherwise
+     * @return {@code true} if the event has been canceled, {@code false} otherwise
      */
     @Override
     public boolean isCancelled() {
