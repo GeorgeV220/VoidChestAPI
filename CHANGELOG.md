@@ -1,3 +1,10 @@
+# [1.17.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0-beta.1...v1.17.0-beta.2) (2023-11-25)
+
+
+### Features
+
+* Remove SerializableItemStackSpawnEvent ([a468aad](https://github.com/GeorgeV220/VoidChestAPI/commit/a468aad90ccbabd151efd5c5bdc14c8cdcd01cdf)), closes [#29329aff2dc880e3bae10069bc092a27bdf13044](https://github.com/GeorgeV220/VoidChestAPI/issues/29329aff2dc880e3bae10069bc092a27bdf13044)
+
 # [1.17.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.16.0...v1.17.0-beta.1) (2023-11-25)
 
 
