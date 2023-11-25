@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.15.0...v1.16.0) (2023-11-25)
+
+
+### Features
+
+* Add Location to SerializableItemStackSpawnEvent.java ([dce2fdc](https://github.com/GeorgeV220/VoidChestAPI/commit/dce2fdc891d932dd6f15c86f57dc62f10a806b51))
+
 # [1.15.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.14.0...v1.15.0) (2023-11-21)
 
 
