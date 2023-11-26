@@ -1,3 +1,10 @@
+# [1.17.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0-beta.2...v1.17.0-beta.3) (2023-11-26)
+
+
+### Features
+
+* Added VoidStorageConfigurationFileCache to manage the voidstorage CFGs files ([7507b24](https://github.com/GeorgeV220/VoidChestAPI/commit/7507b24a3d3ca6bc6e27c75aa302cc038b302b57))
+
 # [1.17.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0-beta.1...v1.17.0-beta.2) (2023-11-25)
 
 
