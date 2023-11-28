@@ -1,6 +1,3 @@
-/**
- * Represents an event triggered when a SerializableItemStack is spawned.
- */
 package com.georgev22.voidchest.api.event.events.item;
 
 import com.georgev22.voidchest.api.event.Event;
@@ -16,9 +13,21 @@ import org.jetbrains.annotations.Nullable;
 import java.math.BigInteger;
 
 /**
- * Represents an event triggered when a SerializableItemStack is spawned.
+ * This event is fired when a SerializableItemStack is spawned,
+ * and the VoidStorage instant collector ability is enabled.
+ *
+ * <p>
+ * If you have instant pickup disabled, use {@link ItemSpawnEvent} instead.
+ *
+ * <p>
+ * Fire this event if you want to instantly collect items when the VoidStorage instant collector ability is enabled.
+ * <p>
+ * This event requires the VoidStorage instant collector ability to be enabled for instant item pickup.
+ *
+ * <p>You can use VoidChestAPI.getInstance().eventManager().callEvent(new InstantItemSpawnEvent );
+ * to fire this event.
  */
-public class SerializableItemStackSpawnEvent extends Event implements Cancellable {
+public class InstantItemSpawnEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
@@ -29,100 +38,100 @@ public class SerializableItemStackSpawnEvent extends Event implements Cancellabl
     private boolean cancelled = false;
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given SerializableItemStack.
+     * Constructs a new InstantItemSpawnEvent with the given SerializableItemStack.
      *
      * @param itemStack The SerializableItemStack being spawned.
      */
-    public SerializableItemStackSpawnEvent(SerializableItemStack itemStack) {
+    public InstantItemSpawnEvent(SerializableItemStack itemStack) {
         this.itemStack = itemStack;
         this.item = null;
         this.location = null;
     }
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given SerializableItemStack and location.
+     * Constructs a new InstantItemSpawnEvent with the given SerializableItemStack and location.
      *
      * @param itemStack The SerializableItemStack being spawned.
      * @param location  The location associated with the event (nullable).
      */
-    public SerializableItemStackSpawnEvent(SerializableItemStack itemStack, @Nullable Location location) {
+    public InstantItemSpawnEvent(SerializableItemStack itemStack, @Nullable Location location) {
         this.itemStack = itemStack;
         this.item = null;
         this.location = location;
     }
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given ItemStack and amount.
+     * Constructs a new InstantItemSpawnEvent with the given ItemStack and amount.
      *
      * @param itemStack The base ItemStack being spawned.
      * @param amount    The amount of the ItemStack being spawned.
      */
-    public SerializableItemStackSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount) {
+    public InstantItemSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount) {
         this.item = null;
         this.location = null;
         this.itemStack = new SerializableItemStack(itemStack, amount);
     }
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given ItemStack, amount and location.
+     * Constructs a new InstantItemSpawnEvent with the given ItemStack, amount and location.
      *
      * @param itemStack The base ItemStack being spawned.
      * @param amount    The amount of the ItemStack being spawned.
      * @param location  The location associated with the event (nullable).
      */
-    public SerializableItemStackSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location) {
+    public InstantItemSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location) {
         this.item = null;
         this.location = location;
         this.itemStack = new SerializableItemStack(itemStack, amount);
     }
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity and amount.
+     * Constructs a new InstantItemSpawnEvent with the given Item entity and amount.
      *
      * @param item   The Item entity.
      * @param amount The amount of the ItemStack being spawned.
      */
-    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull BigInteger amount) {
+    public InstantItemSpawnEvent(@NotNull Item item, @NotNull BigInteger amount) {
         this.item = item;
         this.location = item.getLocation();
         this.itemStack = new SerializableItemStack(item.getItemStack(), amount);
     }
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity, amount and location.
+     * Constructs a new InstantItemSpawnEvent with the given Item entity, amount and location.
      *
      * @param item     The Item entity.
      * @param amount   The amount of the ItemStack being spawned.
      * @param location The location associated with the event (nullable).
      */
-    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull BigInteger amount, @Nullable Location location) {
+    public InstantItemSpawnEvent(@NotNull Item item, @NotNull BigInteger amount, @Nullable Location location) {
         this.item = item;
         this.location = location;
         this.itemStack = new SerializableItemStack(item.getItemStack(), amount);
     }
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity, ItemStack, and amount.
+     * Constructs a new InstantItemSpawnEvent with the given Item entity, ItemStack, and amount.
      *
      * @param item      The Item entity.
      * @param itemStack The base ItemStack being spawned.
      * @param amount    The amount of the ItemStack being spawned.
      */
-    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull BigInteger amount) {
+    public InstantItemSpawnEvent(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull BigInteger amount) {
         this.item = item;
         this.location = item.getLocation();
         this.itemStack = new SerializableItemStack(itemStack, amount);
     }
 
     /**
-     * Constructs a new SerializableItemStackSpawnEvent with the given Item entity, ItemStack, amount and location.
+     * Constructs a new InstantItemSpawnEvent with the given Item entity, ItemStack, amount and location.
      *
      * @param item      The Item entity.
      * @param itemStack The base ItemStack being spawned.
      * @param amount    The amount of the ItemStack being spawned.
      * @param location  The location associated with the event (nullable).
      */
-    public SerializableItemStackSpawnEvent(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location) {
+    public InstantItemSpawnEvent(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location) {
         this.item = item;
         this.location = location;
         this.itemStack = new SerializableItemStack(itemStack, amount);

@@ -12,6 +12,7 @@ import com.georgev22.voidchest.api.stacker.IStackerManager;
 import com.georgev22.voidchest.api.storage.IPlayerManager;
 import com.georgev22.voidchest.api.storage.IVoidStorageManager;
 import com.georgev22.voidchest.api.storage.voidmanager.IVoidItemManager;
+import com.georgev22.voidchest.api.utilities.config.voidchests.VoidStorageConfigurationFileCache;
 import com.georgev22.voidchest.api.voideconomy.IVoidEconomyManager;
 
 /**
@@ -29,7 +30,8 @@ public record VoidChestAPI(IEconomyManager economyManager,
                            IPlayerManager playerManager,
                            IVoidStorageManager voidStorageManager,
                            EventManager eventManager,
-                           MinecraftScheduler minecraftScheduler) {
+                           MinecraftScheduler minecraftScheduler,
+                           VoidStorageConfigurationFileCache voidStorageConfigurationFileCache) {
 
     /**
      * The singleton instance of the VoidChestAPI class.

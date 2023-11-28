@@ -1,3 +1,26 @@
+# [1.17.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0-beta.2...v1.17.0-beta.3) (2023-11-26)
+
+
+### Features
+
+* Added VoidStorageConfigurationFileCache to manage the voidstorage CFGs files ([7507b24](https://github.com/GeorgeV220/VoidChestAPI/commit/7507b24a3d3ca6bc6e27c75aa302cc038b302b57))
+
+# [1.17.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0-beta.1...v1.17.0-beta.2) (2023-11-25)
+
+
+### Features
+
+* Remove SerializableItemStackSpawnEvent ([a468aad](https://github.com/GeorgeV220/VoidChestAPI/commit/a468aad90ccbabd151efd5c5bdc14c8cdcd01cdf)), closes [#29329aff2dc880e3bae10069bc092a27bdf13044](https://github.com/GeorgeV220/VoidChestAPI/issues/29329aff2dc880e3bae10069bc092a27bdf13044)
+
+# [1.17.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.16.0...v1.17.0-beta.1) (2023-11-25)
+
+
+### Features
+
+* Add ItemSpawnEvent ([b3b17ac](https://github.com/GeorgeV220/VoidChestAPI/commit/b3b17ac9dd54394cb193fe1558c7a1f774a926d7))
+* Add MONITOR EventPriority ([0ef0c63](https://github.com/GeorgeV220/VoidChestAPI/commit/0ef0c63f337c6eabb7799ff09fb9446f0fe47924))
+* Rename SerializableItemStackSpawnEvent to InstantItemSpawnEvent ([29329af](https://github.com/GeorgeV220/VoidChestAPI/commit/29329aff2dc880e3bae10069bc092a27bdf13044))
+
 # [1.16.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.15.0...v1.16.0) (2023-11-25)
 
 
