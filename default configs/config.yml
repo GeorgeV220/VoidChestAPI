@@ -26,6 +26,22 @@ Options:
   # Locale option
   locale: "en_US"
 
+  # WARNING: Only use this feature if you know what you're doing.
+  #
+  # In case of you having issues with voidchests being deleted upon a restart, increase the number by a bit.
+  #
+  # How many ticks should the plugin wait before loading data (voidchests, player related data, etc.)
+  # This will allow worlds and other things to load before voidchest so that you can avoid issues such as voidchest
+  # attempting to load voidchests in worlds that have yet to load.
+  #
+  # This should only be modified if servers are having issues with worlds loading after the voidchest plugin has loaded.
+  # The Recommended load-delay interval is any number from 1 to 10,
+  #the higher, the more time the data will delay to load.
+  #
+  # Any number that is < 1 will make the plugin instantly load data when the plugin is enabled as well.
+  # It Is NOT RECOMMENDED to set this to < 1.
+  load delay: 2
+
   # Experimental features option
   experimental features: false
 
@@ -64,8 +80,8 @@ Options:
       user: "youruser"      # MongoDB username
       password: "yourpassword"   # MongoDB password
       database: "voidchest"   # MongoDB database name
-      users collection: "voidchest_users"   # MongoDB collection for users
-      voidchest collection: "voidchest_voidchests"   # MongoDB collection for voidchests
+      users collection: "voidchest_users"   # MongoDB's collection for users
+      voidchest collection: "voidchest_voidchests"   # MongoDB's collection for voidchests
 
   # Certain timings are automatically converted into d,h,m,s.
   # For example, charge time, hologram sell interval, etc.
@@ -115,10 +131,13 @@ Options:
   # Ignore item meta option
   ignore item meta: true
 
-  # Single task
+  # Should all voidchests have a single sell interval?
+  # Set to false if you want voidchests to have different sell intervals.
   single task: false
 
-  # Sell interval option
+  # The interval is being run in seconds.
+  #This will only be selected if the path can't be found in the void chest's file itself
+  # or when you have the single task option enabled.
   sell interval: 10
 
   # Chunk see options
