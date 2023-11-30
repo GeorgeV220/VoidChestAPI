@@ -1,3 +1,10 @@
+# [1.18.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0...v1.18.0-alpha.1) (2023-11-30)
+
+
+### Features
+
+* **IVoidStorage:** Added blockInventory method() ([bcc2f5f](https://github.com/GeorgeV220/VoidChestAPI/commit/bcc2f5fc7701fdc6589cefd82cb83a705ef2ff7e))
+
 # [1.17.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.16.0...v1.17.0) (2023-11-28)
 
 
