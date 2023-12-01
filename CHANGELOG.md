@@ -1,3 +1,10 @@
+# [1.18.0-alpha.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.4...v1.18.0-alpha.5) (2023-12-01)
+
+
+### Features
+
+* Added InventoryHandler and changed VoidInventory to interface ([6f6eb50](https://github.com/GeorgeV220/VoidChestAPI/commit/6f6eb50171b69aa490f3b8b3f33d3eed61b71c51))
+
 # [1.18.0-alpha.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.3...v1.18.0-alpha.4) (2023-12-01)
 
 
