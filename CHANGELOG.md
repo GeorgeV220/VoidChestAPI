@@ -1,3 +1,10 @@
+# [1.18.0-alpha.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.3...v1.18.0-alpha.4) (2023-12-01)
+
+
+### Bug Fixes
+
+* Mark IVoidStorage blockInventoryItemStacks for removal ([be4684b](https://github.com/GeorgeV220/VoidChestAPI/commit/be4684b11850fd3558093fddf2bb27b40b2f4c64))
+
 # [1.18.0-alpha.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.2...v1.18.0-alpha.3) (2023-12-01)
 
 
