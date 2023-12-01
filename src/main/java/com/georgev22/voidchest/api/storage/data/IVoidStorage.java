@@ -1,13 +1,13 @@
 package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.utilities.Entity;
+import com.georgev22.voidchest.api.handler.VoidInventory;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
-import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,7 +49,7 @@ public interface IVoidStorage extends Entity {
      * @return The inventory of the block associated with the VoidStorage.
      */
     @ApiStatus.Experimental
-    @NotNull Inventory blockInventory();
+    @NotNull VoidInventory blockInventory();
 
     /**
      * Retrieves the whitelist item stacks of the VoidStorage as a List of SerializableItemStack.
