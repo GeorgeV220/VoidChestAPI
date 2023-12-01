@@ -1,3 +1,10 @@
+# [1.18.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.1...v1.18.0-alpha.2) (2023-12-01)
+
+
+### Features
+
+* **Options:** Added OPTIONS_INFINITE_ITEM_LORE and OPTIONS_SHOP_ITEM_LORE to VoidChestOptionsUtil ([728e03e](https://github.com/GeorgeV220/VoidChestAPI/commit/728e03ef219fedf4b3c68b17f93585e57eeecefa))
+
 # [1.18.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0...v1.18.0-alpha.1) (2023-11-30)
 
 
