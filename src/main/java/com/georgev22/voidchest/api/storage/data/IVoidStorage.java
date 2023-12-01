@@ -38,7 +38,7 @@ public interface IVoidStorage extends Entity {
      *
      * @return The item stacks of the block associated with the VoidStorage.
      */
-    @Deprecated
+    @Deprecated(forRemoval = true, since = "1.18.0-alpha.3")
     @NotNull List<SerializableItemStack> blockInventoryItemStacks();
 
     /**
