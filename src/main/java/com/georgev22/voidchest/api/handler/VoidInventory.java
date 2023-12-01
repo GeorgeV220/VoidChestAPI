@@ -11,11 +11,11 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class VoidInventory implements Inventory {
+public interface VoidInventory extends Inventory {
 
-    public abstract ObjectMap<Integer, SerializableItemStack> addItems(SerializableItemStack... items);
+    ObjectMap<Integer, SerializableItemStack> addItems(SerializableItemStack... items);
 
-    public ObjectMap<Integer, ItemStack> addItems(ItemStack... items) {
+    default ObjectMap<Integer, ItemStack> addItems(ItemStack... items) {
         return this.addItems(
                         Arrays.stream(items).map(
                                 itemStack -> new SerializableItemStack(itemStack, BigInteger.valueOf(itemStack.getAmount()))
