@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("unused")
 public enum VoidChestOptionsUtil {
 
     MECHANICS_AUTO_SELL("Mechanics.auto sell", false, Optional.empty()),
@@ -77,6 +76,10 @@ public enum VoidChestOptionsUtil {
     OPTIONS_TITLE("Options.inventory.title", "%voidchest% Inventory", Optional.empty()),
 
     OPTIONS_SIZE("Options.inventory.size", 27, Optional.empty()),
+
+    OPTIONS_INFINITE_ITEM_LORE("Options.inventory.infinite item lore", List.of("&7Amount:&r &a%amount%"), Optional.empty()),
+
+    OPTIONS_SHOP_ITEM_LORE("Options.inventory.shop item lore", List.of("&7Price:&r &a%price%"), Optional.empty()),
 
     OPTIONS_ITEM_DROP_STRAIGHT_TO_INVENTORY("Options.item.drop straight to inventory", false, Optional.empty()),
 
