@@ -1,3 +1,10 @@
+# [1.18.0-alpha.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.5...v1.18.0-alpha.6) (2023-12-02)
+
+
+### Bug Fixes
+
+* **SerializableItemStack:** NBT (de)serialization ([6d180fd](https://github.com/GeorgeV220/VoidChestAPI/commit/6d180fd1fdd67b3d20435c57ab440538f33dadad))
+
 # [1.18.0-alpha.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.4...v1.18.0-alpha.5) (2023-12-01)
 
 
