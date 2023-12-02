@@ -3,8 +3,6 @@ package com.georgev22.voidchest.api.utilities;
 import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.exceptions.SerializerException;
 import de.tr7zw.changeme.nbtapi.NBT;
-import de.tr7zw.changeme.nbtapi.NBTContainer;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -144,14 +142,12 @@ public class SerializableItemStack implements Serializable {
      */
     public static @NotNull SerializableItemStack fromNBT(String nbtString) throws SerializerException {
         ReadWriteNBT readWriteNBT = NBT.parseNBT(nbtString);
-        ItemStack itemStack = NBT.itemStackFromNBT(readWriteNBT);
         BigInteger amount = new BigInteger(readWriteNBT.getOrDefault("sAmount", "1"));
+        readWriteNBT.removeKey("sAmount");
+        ItemStack itemStack = NBT.itemStackFromNBT(readWriteNBT);
         if (itemStack == null) {
             throw new SerializerException("Could not deserialize item stack");
         }
-        NBTItem nbtItem = new NBTItem(itemStack);
-        nbtItem.removeKey("sAmount");
-        itemStack = nbtItem.getItem();
         return new SerializableItemStack(itemStack, amount);
     }
 
@@ -263,11 +259,14 @@ public class SerializableItemStack implements Serializable {
     private void readObject(@NotNull ObjectInputStream inputStream) throws IOException, ClassNotFoundException, SerializerException {
         try {
             ReadWriteNBT readWriteNBT = NBT.parseNBT(inputStream.readUTF());
+            BigInteger amount = new BigInteger(readWriteNBT.getOrDefault("sAmount", "1"));
+            readWriteNBT.removeKey("sAmount");
             ItemStack itemStack = NBT.itemStackFromNBT(readWriteNBT);
             if (itemStack == null) {
                 throw new SerializerException("Could not deserialize item stack");
             }
             this.itemStack = itemStack;
+            this.amount = amount;
         } catch (Exception e) {
             throw new SerializerException("Error during deserialization of ItemStack: " + e.getMessage());
         }
@@ -275,8 +274,8 @@ public class SerializableItemStack implements Serializable {
 
     @Override
     public String toString() {
-        NBTContainer nbtItem = NBTItem.convertItemtoNBT(this.itemStack);
-        nbtItem.setString("sAmount", this.amount.toString());
-        return nbtItem.toString();
+        ReadWriteNBT nbt = NBT.itemStackToNBT(this.itemStack);
+        nbt.setString("sAmount", this.amount.toString());
+        return nbt.toString();
     }
 }
