@@ -1,3 +1,10 @@
+# [1.18.0-alpha.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.7...v1.18.0-alpha.8) (2023-12-05)
+
+
+### Features
+
+* Rename ShopManager to IShopManager ([4712ead](https://github.com/GeorgeV220/VoidChestAPI/commit/4712eadda114dd5c8cf10f7a1a12bdc685d886da))
+
 # [1.18.0-alpha.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.6...v1.18.0-alpha.7) (2023-12-05)
 
 
