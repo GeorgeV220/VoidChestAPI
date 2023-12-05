@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.utilities.Entity;
-import com.georgev22.voidchest.api.handler.VoidInventory;
+import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;

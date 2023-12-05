@@ -1,15 +1,18 @@
 package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.library.maps.ObjectMap;
+import com.georgev22.library.yaml.serialization.ConfigurationSerializable;
 import com.georgev22.voidchest.api.exceptions.SerializerException;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +64,7 @@ import java.util.Map;
  * during the serialization and deserialization process.
  * </p>
  */
-public class SerializableItemStack implements Serializable {
+public class SerializableItemStack implements Serializable, ConfigurationSerializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -277,5 +280,39 @@ public class SerializableItemStack implements Serializable {
         ReadWriteNBT nbt = NBT.itemStackToNBT(this.itemStack);
         nbt.setString("sAmount", this.amount.toString());
         return nbt.toString();
+    }
+
+    /**
+     * Creates a Map representation of this class.
+     * <p>
+     * This class must provide a method to restore this class, as defined in
+     * the {@link ConfigurationSerializable} interface javadocs.
+     *
+     * @return Map containing the current state of this class
+     */
+    @Override
+    public @NotNull Map<String, Object> serialize() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("serializedItemStack", this.toString());
+        return data;
+    }
+
+    public static @Nullable SerializableItemStack deserialize(@NotNull Map<String, Object> serialized) {
+        if (!serialized.containsKey("serializedItemStack")) {
+            return null;
+        }
+        try {
+            return SerializableItemStack.fromNBT((String) serialized.get("serializedItemStack"));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static @Nullable SerializableItemStack valueOf(@NotNull String nbtData) {
+        try {
+            return SerializableItemStack.fromNBT(nbtData);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
