@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface InventoryManager {
 
-    @NotNull InventoryHandler inventory(IVoidStorage voidStorage, InventoryType type);
+    @NotNull VoidInventory inventory(IVoidStorage voidStorage, InventoryType type);
 
-    @NotNull InventoryHandler inventory(UUID voidStorageUUID, InventoryType type);
+    @NotNull VoidInventory inventory(UUID voidStorageUUID, InventoryType type);
 
     enum InventoryType {
         STORAGE,
