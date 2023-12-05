@@ -1,3 +1,10 @@
+# [1.18.0-alpha.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.6...v1.18.0-alpha.7) (2023-12-05)
+
+
+### Features
+
+* **Inventory:** Refactor Inventory classes, removed SerializableInventory and added VoidInventoryItemStack and InventoryHandler ([c709f4c](https://github.com/GeorgeV220/VoidChestAPI/commit/c709f4ceb536de13c7c63215525952159353bd50))
+
 # [1.18.0-alpha.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.5...v1.18.0-alpha.6) (2023-12-02)
 
 
