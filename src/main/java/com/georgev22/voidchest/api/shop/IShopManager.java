@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Manages the creation, loading, and saving of shops within the VoidChest plugin.
  *
- * <p>The {@code ShopManager} interface provides methods for retrieving, loading, and saving shops.
+ * <p>The {@code IShopManager} interface provides methods for retrieving, loading, and saving shops.
  * It is responsible for managing the collection of shops associated with the VoidStorage plugin.
  * </p>
  *
@@ -31,7 +31,7 @@ import java.util.List;
  * @version 1.0
  * @since 2023-11-10
  */
-public interface ShopManager {
+public interface IShopManager {
 
     /**
      * Gets a list of all registered shops.

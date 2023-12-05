@@ -8,7 +8,7 @@ import com.georgev22.voidchest.api.economy.IEconomyManager;
 import com.georgev22.voidchest.api.event.EventManager;
 import com.georgev22.voidchest.api.inventory.InventoryManager;
 import com.georgev22.voidchest.api.hologram.IHologramManager;
-import com.georgev22.voidchest.api.shop.ShopManager;
+import com.georgev22.voidchest.api.shop.IShopManager;
 import com.georgev22.voidchest.api.stacker.IStackerManager;
 import com.georgev22.voidchest.api.storage.IPlayerManager;
 import com.georgev22.voidchest.api.storage.IVoidStorageManager;
@@ -21,7 +21,7 @@ import com.georgev22.voidchest.api.voideconomy.IVoidEconomyManager;
  */
 public record VoidChestAPI(IEconomyManager economyManager,
                            IVoidEconomyManager voidEconomyManager,
-                           ShopManager shopManager,
+                           IShopManager IShopManager,
                            IBankManager bankManager,
                            IBankTNTManager bankTNTManager,
                            IStackerManager stackerManager,
