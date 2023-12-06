@@ -1,3 +1,10 @@
+# [1.18.0-alpha.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.8...v1.18.0-alpha.9) (2023-12-06)
+
+
+### Features
+
+* Added JavaDocs to inventory classes and new methods to VoidInventory ([a415405](https://github.com/GeorgeV220/VoidChestAPI/commit/a415405d57093fa85570b4d41ab17f39963339d2))
+
 # [1.18.0-alpha.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.7...v1.18.0-alpha.8) (2023-12-05)
 
 
