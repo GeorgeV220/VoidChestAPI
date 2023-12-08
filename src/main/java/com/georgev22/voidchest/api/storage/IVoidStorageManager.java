@@ -3,7 +3,10 @@ package com.georgev22.voidchest.api.storage;
 import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.library.utilities.EntityManager;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.utilities.SerializableBlock;
+import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
@@ -39,6 +42,31 @@ public interface IVoidStorageManager extends EntityManager<IVoidStorage> {
      * @return The VoidStorage associated with the block, or null if not found.
      */
     @Nullable IVoidStorage voidStorage(Block block);
+
+    /**
+     * Retrieves the VoidStorage associated with the specified block.
+     *
+     * @param block The block to retrieve the VoidStorage for.
+     * @return The VoidStorage associated with the block, or null if not found.
+     */
+    @Nullable IVoidStorage voidStorage(SerializableBlock block);
+
+    /**
+     * Retrieves the VoidStorage associated with the specified location.
+     *
+     * @param location The location to retrieve the VoidStorage for.
+     * @return The VoidStorage associated with the location, or null if not found.
+     */
+    @Nullable IVoidStorage voidStorage(Location location);
+
+    /**
+     * Retrieves the VoidStorage associated with the specified location.
+     *
+     * @param location The location to retrieve the VoidStorage for.
+     * @return The VoidStorage associated with the location, or null if not found.
+     */
+    @Nullable IVoidStorage voidStorage(SerializableLocation location);
+
 
     /**
      * Retrieves the VoidStorage associated with the specified chunk.
