@@ -1,3 +1,10 @@
+# [1.18.0-alpha.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.10...v1.18.0-alpha.11) (2023-12-08)
+
+
+### Features
+
+* **IVoidStorage:** Removed whitelistInventoryItemStacks blacklistInventoryItemStacks and blockInventoryItemStacks ([0a25186](https://github.com/GeorgeV220/VoidChestAPI/commit/0a2518686b7399d821926ec2f5d126a9f56ea4a3))
+
 # [1.18.0-alpha.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.9...v1.18.0-alpha.10) (2023-12-08)
 
 
