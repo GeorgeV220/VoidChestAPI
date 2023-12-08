@@ -6,12 +6,11 @@ import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
-import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -34,17 +33,7 @@ public interface IVoidStorage extends Entity {
     @NotNull SerializableBlock block();
 
     /**
-     * Retrieves the item stacks of the block associated with the VoidStorage as a List of SerializableItemStack
-     *
-     * @return The item stacks of the block associated with the VoidStorage.
-     */
-    @Deprecated(forRemoval = true, since = "1.18.0-alpha.3")
-    @NotNull List<SerializableItemStack> blockInventoryItemStacks();
-
-    /**
      * Retrieves the inventory of the block associated with the VoidStorage.
-     * <p>
-     * This method may not be added in stable API versions.
      *
      * @return The inventory of the block associated with the VoidStorage.
      */
@@ -52,18 +41,18 @@ public interface IVoidStorage extends Entity {
     @NotNull VoidInventory blockInventory();
 
     /**
-     * Retrieves the whitelist item stacks of the VoidStorage as a List of SerializableItemStack.
+     * Retrieves the whitelist inventory of the VoidStorage.
      *
-     * @return The whitelist item stacks of the VoidStorage.
+     * @return The whitelist inventory of the VoidStorage.
      */
-    @NotNull List<SerializableItemStack> whitelistInventoryItemStacks();
+    @NotNull Inventory whitelistInventory();
 
     /**
-     * Retrieves the blacklist item stacks of the VoidStorage as a List of SerializableItemStack.
+     * Retrieves the blacklist inventory of the VoidStorage.
      *
-     * @return The blacklist item stacks of the VoidStorage.
+     * @return The blacklist inventory of the VoidStorage.
      */
-    @NotNull List<SerializableItemStack> blacklistInventoryItemStacks();
+    @NotNull Inventory blacklistInventory();
 
     /**
      * Retrieves the location of the block associated with the VoidStorage as a SerializableLocation.
