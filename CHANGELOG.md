@@ -1,3 +1,11 @@
+# [1.18.0-alpha.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.9...v1.18.0-alpha.10) (2023-12-08)
+
+
+### Features
+
+* **IVoidStorageManager:** Added voidStorage(SerializableBlock) voidStorage(Location) and voidStorage(SerializableLocation) ([1a62155](https://github.com/GeorgeV220/VoidChestAPI/commit/1a6215524a674da9a43f9b750b1cabba5e4db7f8))
+* Removed unused InventoryManager ([03cb843](https://github.com/GeorgeV220/VoidChestAPI/commit/03cb843d65827da10476dd7eabd25403bc91da84))
+
 # [1.18.0-alpha.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.8...v1.18.0-alpha.9) (2023-12-06)
 
 
