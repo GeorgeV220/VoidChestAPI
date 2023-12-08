@@ -6,7 +6,6 @@ import com.georgev22.voidchest.api.banktnt.IBankTNTManager;
 import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
 import com.georgev22.voidchest.api.economy.IEconomyManager;
 import com.georgev22.voidchest.api.event.EventManager;
-import com.georgev22.voidchest.api.inventory.InventoryManager;
 import com.georgev22.voidchest.api.hologram.IHologramManager;
 import com.georgev22.voidchest.api.shop.IShopManager;
 import com.georgev22.voidchest.api.stacker.IStackerManager;
@@ -32,8 +31,7 @@ public record VoidChestAPI(IEconomyManager economyManager,
                            IVoidStorageManager voidStorageManager,
                            EventManager eventManager,
                            MinecraftScheduler minecraftScheduler,
-                           VoidStorageConfigurationFileCache voidStorageConfigurationFileCache,
-                           InventoryManager inventoryManager) {
+                           VoidStorageConfigurationFileCache voidStorageConfigurationFileCache) {
 
     /**
      * The singleton instance of the VoidChestAPI class.

@@ -38,7 +38,7 @@ public interface VoidInventoryHolder extends InventoryHolder, Serializable {
      *
      * @return The inventory type.
      */
-    InventoryManager.InventoryType inventoryType();
+    InventoryType inventoryType();
 
     /**
      * Get the object's inventory.
