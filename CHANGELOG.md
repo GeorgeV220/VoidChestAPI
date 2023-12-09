@@ -1,3 +1,10 @@
+# [1.18.0-alpha.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.11...v1.18.0-alpha.12) (2023-12-09)
+
+
+### Features
+
+* **VoidInventory:** Added update methods ([9e08dbe](https://github.com/GeorgeV220/VoidChestAPI/commit/9e08dbe85fe4b5a388853d00824b07663e0b1846))
+
 # [1.18.0-alpha.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.10...v1.18.0-alpha.11) (2023-12-08)
 
 
