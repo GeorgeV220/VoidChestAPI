@@ -1,3 +1,10 @@
+# [1.18.0-alpha.13](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.12...v1.18.0-alpha.13) (2023-12-09)
+
+
+### Bug Fixes
+
+* **VoidInventory:** modify the update methods ([0ade079](https://github.com/GeorgeV220/VoidChestAPI/commit/0ade0796f3bccfeb10329c3bf08c1ee9cb95e9b6))
+
 # [1.18.0-alpha.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.11...v1.18.0-alpha.12) (2023-12-09)
 
 
