@@ -1,3 +1,10 @@
+# [1.18.0-alpha.17](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.16...v1.18.0-alpha.17) (2023-12-09)
+
+
+### Features
+
+* **VoidInventory:** Added internal open(Player) method ([429b9e1](https://github.com/GeorgeV220/VoidChestAPI/commit/429b9e156d694f575bd3097864473a0f4d423296))
+
 # [1.18.0-alpha.16](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.15...v1.18.0-alpha.16) (2023-12-09)
 
 
