@@ -1,3 +1,10 @@
+# [1.18.0-alpha.16](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.15...v1.18.0-alpha.16) (2023-12-09)
+
+
+### Bug Fixes
+
+* **NullableFixedSizeList:** Fixed clear method ([dee3c24](https://github.com/GeorgeV220/VoidChestAPI/commit/dee3c240671681793d90a045d3b78fa5bf8bf681))
+
 # [1.18.0-alpha.15](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.14...v1.18.0-alpha.15) (2023-12-09)
 
 
