@@ -1,3 +1,10 @@
+# [1.18.0-alpha.14](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.13...v1.18.0-alpha.14) (2023-12-09)
+
+
+### Features
+
+* Added NullablePreFilledArrayList ([6452271](https://github.com/GeorgeV220/VoidChestAPI/commit/64522718366301251f8424488384d4732d4fd04a))
+
 # [1.18.0-alpha.13](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.12...v1.18.0-alpha.13) (2023-12-09)
 
 
