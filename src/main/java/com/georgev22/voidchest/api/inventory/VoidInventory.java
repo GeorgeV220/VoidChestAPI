@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.library.maps.ObjectMap;
-import com.georgev22.voidchest.api.utilities.NullablePreFilledArrayList;
+import com.georgev22.voidchest.api.utilities.NullableFixedSizeList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -77,14 +77,14 @@ public interface VoidInventory extends Inventory {
      *
      * @return The list of void chest item stacks.
      */
-    NullablePreFilledArrayList<VoidInventoryItemStack> getItems();
+    NullableFixedSizeList<VoidInventoryItemStack> getItems();
 
     /**
      * Sets the items in the void chest to the specified list of {@link VoidInventoryItemStack}s.
      *
      * @param items The list of void chest item stacks to set.
      */
-    default void setItems(NullablePreFilledArrayList<VoidInventoryItemStack> items) {
+    default void setItems(NullableFixedSizeList<VoidInventoryItemStack> items) {
         this.getItems().clear();
         this.getItems().addAll(items);
     }
