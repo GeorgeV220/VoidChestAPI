@@ -1,3 +1,10 @@
+# [1.18.0-alpha.15](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.14...v1.18.0-alpha.15) (2023-12-09)
+
+
+### Features
+
+* Added NullableFixedSizeList(Integer, Collection) constructor to NullableFixedSizeList ([2e8fa38](https://github.com/GeorgeV220/VoidChestAPI/commit/2e8fa384f7cefea810d3dd385f7ec8a4c505c09f))
+
 # [1.18.0-alpha.14](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.13...v1.18.0-alpha.14) (2023-12-09)
 
 
