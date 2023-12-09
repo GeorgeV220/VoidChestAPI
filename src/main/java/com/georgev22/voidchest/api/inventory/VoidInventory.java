@@ -4,6 +4,7 @@ import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.NullableFixedSizeList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
@@ -160,4 +161,13 @@ public interface VoidInventory extends Inventory {
     default void update(int slot, VoidInventoryItemStack voidInventoryItemStack) {
         this.getItems().set(slot, voidInventoryItemStack);
     }
+
+    /**
+     * This method is used to open the void inventory and also add the specified listeners.
+     *
+     * @param player The player to open the inventory for
+     */
+    @ApiStatus.Internal
+    @ApiStatus.Experimental
+    void open(Player player);
 }
