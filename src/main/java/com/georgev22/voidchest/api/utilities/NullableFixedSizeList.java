@@ -54,6 +54,12 @@ public class NullableFixedSizeList<E> extends ArrayList<E> {
         }
     }
 
+    @Override
+    public void clear() {
+        super.clear();
+        initializeListWithNull();
+    }
+
     /**
      * Adds the specified element to the first null position in the list.
      *
