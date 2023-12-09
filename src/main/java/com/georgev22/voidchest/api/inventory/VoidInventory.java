@@ -5,6 +5,7 @@ import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -139,4 +140,18 @@ public interface VoidInventory extends Inventory {
     default void forEachVoidItemStack(Consumer<? super VoidInventoryItemStack> action) {
         this.getItems().forEach(action);
     }
+
+    /**
+     * The API shouldn't call this method
+     */
+    @ApiStatus.Internal
+    @ApiStatus.Experimental
+    void update();
+
+    /**
+     * The API shouldn't call this method
+     */
+    @ApiStatus.Internal
+    @ApiStatus.Experimental
+    void update(int slot);
 }
