@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.library.maps.ObjectMap;
+import com.georgev22.voidchest.api.utilities.NullablePreFilledArrayList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -10,7 +11,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigInteger;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -73,14 +77,14 @@ public interface VoidInventory extends Inventory {
      *
      * @return The list of void chest item stacks.
      */
-    List<VoidInventoryItemStack> getItems();
+    NullablePreFilledArrayList<VoidInventoryItemStack> getItems();
 
     /**
      * Sets the items in the void chest to the specified list of {@link VoidInventoryItemStack}s.
      *
      * @param items The list of void chest item stacks to set.
      */
-    default void setItems(List<VoidInventoryItemStack> items) {
+    default void setItems(NullablePreFilledArrayList<VoidInventoryItemStack> items) {
         this.getItems().clear();
         this.getItems().addAll(items);
     }
