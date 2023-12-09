@@ -143,15 +143,17 @@ public interface VoidInventory extends Inventory {
 
     /**
      * The API shouldn't call this method
+     * <p>
+     * Updates the item stack at the specified slot in the void chest.
+     * <p>
+     * Used when a player modifies a specific slot in the void chest
+     *
+     * @param slot                   The slot index
+     * @param voidInventoryItemStack The item stack
      */
     @ApiStatus.Internal
     @ApiStatus.Experimental
-    void update();
-
-    /**
-     * The API shouldn't call this method
-     */
-    @ApiStatus.Internal
-    @ApiStatus.Experimental
-    void update(int slot);
+    default void update(int slot, VoidInventoryItemStack voidInventoryItemStack) {
+        this.getItems().set(slot, voidInventoryItemStack);
+    }
 }
