@@ -64,13 +64,32 @@ public interface VoidInventory extends Inventory {
      * @param items The item stacks to add.
      * @return A {@link HashMap} containing the slot indices and corresponding item stacks.
      */
-    @Override
     @NotNull
     default HashMap<Integer, ItemStack> addItem(ItemStack... items) {
-        return this.addItems(items).entrySet().stream().collect(Collectors.toMap(
-                Map.Entry::getKey,
-                Map.Entry::getValue, (a, b) -> b, HashObjectMap::new
-        ));
+        return this.addItem(false, items);
+    }
+
+    /**
+     * Overrides the default Bukkit {@link Inventory#addItem(ItemStack...)} method to use void chest-specific behavior.
+     *
+     * @param items     The item stacks to add.
+     * @param callSuper Whether to call the super method (CraftInventory#addItem(ItemStack...)) or not.
+     * @return A {@link HashMap} containing the slot indices and corresponding item stacks.
+     */
+    @NotNull
+    default HashMap<Integer, ItemStack> addItem(boolean callSuper, ItemStack... items) {
+        if (callSuper) {
+            return new HashMap<>();
+        } else {
+            return this.addItems(
+                            Arrays.stream(items).map(
+                                    itemStack -> new SerializableItemStack(itemStack, BigInteger.valueOf(itemStack.getAmount()))
+                            ).toArray(SerializableItemStack[]::new))
+                    .entrySet().stream().collect(Collectors.toMap(
+                            Map.Entry::getKey,
+                            entry -> entry.getValue().getItemStack().clone(), (a, b) -> b, HashMap::new
+                    ));
+        }
     }
 
     /**
