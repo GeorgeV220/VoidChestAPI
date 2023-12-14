@@ -1,3 +1,10 @@
+# [1.18.0-alpha.18](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.17...v1.18.0-alpha.18) (2023-12-14)
+
+
+### Features
+
+* **VoidInventory:** Added addItem(boolean, ItemStack...) ([1f07ad7](https://github.com/GeorgeV220/VoidChestAPI/commit/1f07ad7bb63bf4ff92ca751d9f48fff3289c6199))
+
 # [1.18.0-alpha.17](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.16...v1.18.0-alpha.17) (2023-12-09)
 
 
