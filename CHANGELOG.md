@@ -1,3 +1,10 @@
+# [1.18.0-alpha.19](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.18...v1.18.0-alpha.19) (2023-12-14)
+
+
+### Features
+
+* **VoidInventory:** Added firstPartial ([c68d317](https://github.com/GeorgeV220/VoidChestAPI/commit/c68d317e8e14aa6ba8bd0e3a30b7e0345b499fa0))
+
 # [1.18.0-alpha.18](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.17...v1.18.0-alpha.18) (2023-12-14)
 
 
