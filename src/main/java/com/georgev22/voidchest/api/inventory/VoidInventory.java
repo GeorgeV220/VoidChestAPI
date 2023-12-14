@@ -100,6 +100,14 @@ public interface VoidInventory extends Inventory {
     NullableFixedSizeList<VoidInventoryItemStack> getItems();
 
     /**
+     * Retrieves the index of the first partial match of the specified item in the void chest.
+     *
+     * @param item The item to search for.
+     * @return The index of the first partial match, or {@code -1} if no partial match is found.
+     */
+    int firstPartial(ItemStack item);
+
+    /**
      * Sets the items in the void chest to the specified list of {@link VoidInventoryItemStack}s.
      *
      * @param items The list of void chest item stacks to set.
