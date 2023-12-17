@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.inventory;
 
-import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.NullableFixedSizeList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
@@ -11,13 +10,9 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * The {@code VoidInventory} interface represents a void chest inventory,
@@ -42,55 +37,13 @@ public interface VoidInventory extends Inventory {
     ObjectMap<Integer, SerializableItemStack> addItems(SerializableItemStack... items);
 
     /**
-     * Adds an array of {@link ItemStack}s to the void chest, converting them to {@link SerializableItemStack}s.
-     *
-     * @param items The item stacks to add.
-     * @return An {@link ObjectMap} containing the slot indices and corresponding item stacks.
-     */
-    default ObjectMap<Integer, ItemStack> addItems(ItemStack... items) {
-        return this.addItems(
-                        Arrays.stream(items).map(
-                                itemStack -> new SerializableItemStack(itemStack, BigInteger.valueOf(itemStack.getAmount()))
-                        ).toArray(SerializableItemStack[]::new))
-                .entrySet().stream().collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        entry -> entry.getValue().getItemStack().clone(), (a, b) -> b, HashObjectMap::new
-                ));
-    }
-
-    /**
      * Overrides the default Bukkit {@link Inventory#addItem(ItemStack...)} method to use void chest-specific behavior.
      *
      * @param items The item stacks to add.
      * @return A {@link HashMap} containing the slot indices and corresponding item stacks.
      */
     @NotNull
-    default HashMap<Integer, ItemStack> addItem(ItemStack... items) {
-        return this.addItem(false, items);
-    }
-
-    /**
-     * Overrides the default Bukkit {@link Inventory#addItem(ItemStack...)} method to use void chest-specific behavior.
-     *
-     * @param items     The item stacks to add.
-     * @param callSuper Whether to call the super method (CraftInventory#addItem(ItemStack...)) or not.
-     * @return A {@link HashMap} containing the slot indices and corresponding item stacks.
-     */
-    @NotNull
-    default HashMap<Integer, ItemStack> addItem(boolean callSuper, ItemStack... items) {
-        if (callSuper) {
-            return new HashMap<>();
-        } else {
-            return this.addItems(
-                            Arrays.stream(items).map(
-                                    itemStack -> new SerializableItemStack(itemStack, BigInteger.valueOf(itemStack.getAmount()))
-                            ).toArray(SerializableItemStack[]::new))
-                    .entrySet().stream().collect(Collectors.toMap(
-                            Map.Entry::getKey,
-                            entry -> entry.getValue().getItemStack().clone(), (a, b) -> b, HashMap::new
-                    ));
-        }
-    }
+    HashMap<Integer, ItemStack> addItem(ItemStack... items);
 
     /**
      * Retrieves a list of {@link VoidInventoryItemStack}s representing all items in the void chest.
