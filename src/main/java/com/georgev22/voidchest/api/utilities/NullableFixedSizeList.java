@@ -56,8 +56,9 @@ public class NullableFixedSizeList<E> extends ArrayList<E> {
 
     @Override
     public void clear() {
-        super.clear();
-        initializeListWithNull();
+        for (int i = 0; i < maxSize; i++) {
+            this.set(i, null);
+        }
     }
 
     /**
