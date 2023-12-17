@@ -1,3 +1,10 @@
+# [1.18.0-alpha.20](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.19...v1.18.0-alpha.20) (2023-12-17)
+
+
+### Features
+
+* **revert/VoidInventory:** remove unnecessary methods ([e69dfb7](https://github.com/GeorgeV220/VoidChestAPI/commit/e69dfb7770c0a25628dc5e1f5b147e3a269265b2))
+
 # [1.18.0-alpha.19](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.18...v1.18.0-alpha.19) (2023-12-14)
 
 
