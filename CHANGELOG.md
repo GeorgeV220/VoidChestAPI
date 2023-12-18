@@ -1,3 +1,10 @@
+# [1.18.0-alpha.21](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.20...v1.18.0-alpha.21) (2023-12-18)
+
+
+### Bug Fixes
+
+* Change VoidChestAPI IShopManager to shopManager ([168b4fa](https://github.com/GeorgeV220/VoidChestAPI/commit/168b4fa765de4b9dc58f771d1041c3d97f1b56ad))
+
 # [1.18.0-alpha.20](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.19...v1.18.0-alpha.20) (2023-12-17)
 
 
