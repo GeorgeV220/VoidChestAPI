@@ -20,7 +20,7 @@ import com.georgev22.voidchest.api.voideconomy.IVoidEconomyManager;
  */
 public record VoidChestAPI(IEconomyManager economyManager,
                            IVoidEconomyManager voidEconomyManager,
-                           IShopManager IShopManager,
+                           IShopManager shopManager,
                            IBankManager bankManager,
                            IBankTNTManager bankTNTManager,
                            IStackerManager stackerManager,
