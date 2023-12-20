@@ -1,3 +1,11 @@
+# [1.18.0-alpha.23](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.22...v1.18.0-alpha.23) (2023-12-20)
+
+
+### Features
+
+* **IEconomyManager:** Added IEconomyManager.isHooked ([62336a1](https://github.com/GeorgeV220/VoidChestAPI/commit/62336a1c458beed9842fd466fe57ab46d5dbfdc8))
+* **IVoidEconomyManager:** Removed IVoidEconomyManager.hookVoidEconomy ([15aa05f](https://github.com/GeorgeV220/VoidChestAPI/commit/15aa05f461495e6e73bce3e5d34f373c66489688))
+
 # [1.18.0-alpha.22](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.21...v1.18.0-alpha.22) (2023-12-20)
 
 
