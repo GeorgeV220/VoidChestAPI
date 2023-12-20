@@ -1,3 +1,11 @@
+# [1.18.0-alpha.22](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.21...v1.18.0-alpha.22) (2023-12-20)
+
+
+### Features
+
+* **IPlayerData:** Added balance method. ([bd0e119](https://github.com/GeorgeV220/VoidChestAPI/commit/bd0e1196fa28ceebe73109210689d0384d05a5c9))
+* **IPlayerData:** Deprecation of IPlayerData.sellHandler ([fe2dbf9](https://github.com/GeorgeV220/VoidChestAPI/commit/fe2dbf9db1e91c74f2e258d9560b1d1c2c7c621c))
+
 # [1.18.0-alpha.21](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.20...v1.18.0-alpha.21) (2023-12-18)
 
 
