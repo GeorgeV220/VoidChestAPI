@@ -38,7 +38,9 @@ public interface IPlayerData extends Entity {
      * Retrieves the sell handler for the player.
      *
      * @return The sell handler for the player as a SellHandler object.
+     * @deprecated The sell handler shouldn't be in IPlayerData and will be moved in a future version.
      */
+    @Deprecated(forRemoval = true)
     SellHandler sellHandler();
 
     /**
