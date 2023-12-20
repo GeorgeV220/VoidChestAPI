@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.voideconomy;
 
 /**
  * The IVoidEconomyManager interface provides methods for managing the VoidChest economy.
+ * Note: This manager hooks into a Shop plugin to retrieve item prices.
  */
 public interface IVoidEconomyManager {
 
@@ -9,13 +10,6 @@ public interface IVoidEconomyManager {
      * Hooks into the economy system.
      */
     void hook();
-
-    /**
-     * Hooks the specified VoidEconomy instance into the economy system.
-     *
-     * @param instance The VoidEconomy instance to hook.
-     */
-    void hookVoidEconomy(IVoidEconomy instance);
 
     /**
      * Checks if the economy system is hooked.
