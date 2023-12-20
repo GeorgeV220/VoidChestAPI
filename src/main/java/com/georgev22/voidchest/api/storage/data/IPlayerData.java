@@ -5,6 +5,7 @@ import com.georgev22.voidchest.api.storage.data.player.Booster;
 import com.georgev22.voidchest.api.storage.data.player.SellHandler;
 import com.georgev22.voidchest.api.storage.data.player.Stats;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -49,6 +50,24 @@ public interface IPlayerData extends Entity {
      * @return The booster for the player as a Booster object.
      */
     Booster booster();
+
+    /**
+     * Retrieves the current balance of the player.
+     * <p>
+     * Note: This method does not update the balance of the player.
+     * The balance is retrieved as a BigDecimal
+     * to ensure precision, especially when dealing with large values.
+     * <p>
+     * Important: Some Economy implementations may not return accurate balances.
+     * For instance, when using Vault,
+     * the limitation arises from Vault's use of double precision,
+     * which can lead to inaccuracies if the balance exceeds
+     * the limits of a double.
+     * In such cases, consider alternative methods or implementations to handle large balances.
+     *
+     * @return The current balance of the player as a BigDecimal.
+     */
+    BigDecimal balance();
 
     /**
      * Closes all open VoidChest inventories for the player.
