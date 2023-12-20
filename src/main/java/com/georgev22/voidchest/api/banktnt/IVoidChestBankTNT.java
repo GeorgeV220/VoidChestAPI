@@ -10,9 +10,9 @@ import java.util.UUID;
 public interface IVoidChestBankTNT {
 
     /**
-     * Deposits the specified amount of bank TNT to the bank associated with the given UUID.
+     * Deposits the specified amount of TNT to the bank associated with the given UUID.
      *
-     * @param amount The amount of bank TNT to deposit.
+     * @param amount The amount of TNT to deposit.
      * @param id     The UUID of the bank to deposit to.
      * @return True if the deposit is successful, false otherwise.
      */
