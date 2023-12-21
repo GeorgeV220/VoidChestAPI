@@ -1,3 +1,10 @@
+# [1.18.0-alpha.24](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.23...v1.18.0-alpha.24) (2023-12-21)
+
+
+### Features
+
+* **IVoidEconomy:** Removed isVaultDependent ([04ea461](https://github.com/GeorgeV220/VoidChestAPI/commit/04ea461131c3b465f6ece2dc1fe333cf7a8c537b))
+
 # [1.18.0-alpha.23](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.22...v1.18.0-alpha.23) (2023-12-20)
 
 
