@@ -1,3 +1,10 @@
+# [1.18.0-alpha.25](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.24...v1.18.0-alpha.25) (2023-12-21)
+
+
+### Features
+
+* **IVoidStorage:** Removed location() and @ApiStatus.Experimental from blockInventory() ([866c978](https://github.com/GeorgeV220/VoidChestAPI/commit/866c9787a5e661ec41f1ef2a38ca6e850208c3df))
+
 # [1.18.0-alpha.24](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.23...v1.18.0-alpha.24) (2023-12-21)
 
 
