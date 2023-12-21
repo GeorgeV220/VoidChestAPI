@@ -1,3 +1,41 @@
+# [1.18.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0...v1.18.0) (2023-12-21)
+
+
+### Bug Fixes
+
+* Change VoidChestAPI IShopManager to shopManager ([168b4fa](https://github.com/GeorgeV220/VoidChestAPI/commit/168b4fa765de4b9dc58f771d1041c3d97f1b56ad))
+* Mark IVoidStorage blockInventoryItemStacks for removal ([be4684b](https://github.com/GeorgeV220/VoidChestAPI/commit/be4684b11850fd3558093fddf2bb27b40b2f4c64))
+* **NullableFixedSizeList:** Fixed clear method ([dee3c24](https://github.com/GeorgeV220/VoidChestAPI/commit/dee3c240671681793d90a045d3b78fa5bf8bf681))
+* **SerializableItemStack:** NBT (de)serialization ([6d180fd](https://github.com/GeorgeV220/VoidChestAPI/commit/6d180fd1fdd67b3d20435c57ab440538f33dadad))
+* **VoidInventory:** modify the update methods ([0ade079](https://github.com/GeorgeV220/VoidChestAPI/commit/0ade0796f3bccfeb10329c3bf08c1ee9cb95e9b6))
+
+
+### Features
+
+* Added InventoryHandler and changed VoidInventory to interface ([6f6eb50](https://github.com/GeorgeV220/VoidChestAPI/commit/6f6eb50171b69aa490f3b8b3f33d3eed61b71c51))
+* Added JavaDocs to inventory classes and new methods to VoidInventory ([a415405](https://github.com/GeorgeV220/VoidChestAPI/commit/a415405d57093fa85570b4d41ab17f39963339d2))
+* Added NullableFixedSizeList(Integer, Collection) constructor to NullableFixedSizeList ([2e8fa38](https://github.com/GeorgeV220/VoidChestAPI/commit/2e8fa384f7cefea810d3dd385f7ec8a4c505c09f))
+* Added NullablePreFilledArrayList ([6452271](https://github.com/GeorgeV220/VoidChestAPI/commit/64522718366301251f8424488384d4732d4fd04a))
+* Added VoidInventory ([050f188](https://github.com/GeorgeV220/VoidChestAPI/commit/050f188f721bc8f50acc2a6fd19030c9d37b5083))
+* **IEconomyManager:** Added IEconomyManager.isHooked ([62336a1](https://github.com/GeorgeV220/VoidChestAPI/commit/62336a1c458beed9842fd466fe57ab46d5dbfdc8))
+* **Inventory:** Refactor Inventory classes, removed SerializableInventory and added VoidInventoryItemStack and InventoryHandler ([c709f4c](https://github.com/GeorgeV220/VoidChestAPI/commit/c709f4ceb536de13c7c63215525952159353bd50))
+* **IPlayerData:** Added balance method. ([bd0e119](https://github.com/GeorgeV220/VoidChestAPI/commit/bd0e1196fa28ceebe73109210689d0384d05a5c9))
+* **IPlayerData:** Deprecation of IPlayerData.sellHandler ([fe2dbf9](https://github.com/GeorgeV220/VoidChestAPI/commit/fe2dbf9db1e91c74f2e258d9560b1d1c2c7c621c))
+* **IVoidEconomyManager:** Removed IVoidEconomyManager.hookVoidEconomy ([15aa05f](https://github.com/GeorgeV220/VoidChestAPI/commit/15aa05f461495e6e73bce3e5d34f373c66489688))
+* **IVoidEconomy:** Removed isVaultDependent ([04ea461](https://github.com/GeorgeV220/VoidChestAPI/commit/04ea461131c3b465f6ece2dc1fe333cf7a8c537b))
+* **IVoidStorage:** Added blockInventory method() ([bcc2f5f](https://github.com/GeorgeV220/VoidChestAPI/commit/bcc2f5fc7701fdc6589cefd82cb83a705ef2ff7e))
+* **IVoidStorageManager:** Added voidStorage(SerializableBlock) voidStorage(Location) and voidStorage(SerializableLocation) ([1a62155](https://github.com/GeorgeV220/VoidChestAPI/commit/1a6215524a674da9a43f9b750b1cabba5e4db7f8))
+* **IVoidStorage:** Removed location() and @ApiStatus.Experimental from blockInventory() ([866c978](https://github.com/GeorgeV220/VoidChestAPI/commit/866c9787a5e661ec41f1ef2a38ca6e850208c3df))
+* **IVoidStorage:** Removed whitelistInventoryItemStacks blacklistInventoryItemStacks and blockInventoryItemStacks ([0a25186](https://github.com/GeorgeV220/VoidChestAPI/commit/0a2518686b7399d821926ec2f5d126a9f56ea4a3))
+* **Options:** Added OPTIONS_INFINITE_ITEM_LORE and OPTIONS_SHOP_ITEM_LORE to VoidChestOptionsUtil ([728e03e](https://github.com/GeorgeV220/VoidChestAPI/commit/728e03ef219fedf4b3c68b17f93585e57eeecefa))
+* Removed unused InventoryManager ([03cb843](https://github.com/GeorgeV220/VoidChestAPI/commit/03cb843d65827da10476dd7eabd25403bc91da84))
+* Rename ShopManager to IShopManager ([4712ead](https://github.com/GeorgeV220/VoidChestAPI/commit/4712eadda114dd5c8cf10f7a1a12bdc685d886da))
+* **revert/VoidInventory:** remove unnecessary methods ([e69dfb7](https://github.com/GeorgeV220/VoidChestAPI/commit/e69dfb7770c0a25628dc5e1f5b147e3a269265b2))
+* **VoidInventory:** Added addItem(boolean, ItemStack...) ([1f07ad7](https://github.com/GeorgeV220/VoidChestAPI/commit/1f07ad7bb63bf4ff92ca751d9f48fff3289c6199))
+* **VoidInventory:** Added firstPartial ([c68d317](https://github.com/GeorgeV220/VoidChestAPI/commit/c68d317e8e14aa6ba8bd0e3a30b7e0345b499fa0))
+* **VoidInventory:** Added internal open(Player) method ([429b9e1](https://github.com/GeorgeV220/VoidChestAPI/commit/429b9e156d694f575bd3097864473a0f4d423296))
+* **VoidInventory:** Added update methods ([9e08dbe](https://github.com/GeorgeV220/VoidChestAPI/commit/9e08dbe85fe4b5a388853d00824b07663e0b1846))
+
 # [1.18.0-alpha.25](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0-alpha.24...v1.18.0-alpha.25) (2023-12-21)
 
 
