@@ -37,7 +37,6 @@ public interface IVoidStorage extends Entity {
      *
      * @return The inventory of the block associated with the VoidStorage.
      */
-    @ApiStatus.Experimental
     @NotNull VoidInventory blockInventory();
 
     /**
@@ -60,13 +59,6 @@ public interface IVoidStorage extends Entity {
      * @return The location of the block associated with the VoidStorage.
      */
     @NotNull SerializableLocation blockLocation();
-
-    /**
-     * Retrieves the location of the VoidStorage as a SerializableLocation.
-     *
-     * @return The location of the VoidStorage.
-     */
-    @NotNull SerializableLocation location();
 
     /**
      * Retrieves the name of the VoidStorage.
