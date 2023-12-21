@@ -72,12 +72,4 @@ public interface IVoidEconomy {
      * @return The name of the VoidEconomy as a String.
      */
     String getName();
-
-    /**
-     * Checks if the VoidEconomy is dependent on Vault.
-     *
-     * @return True if the VoidEconomy is Vault dependent, false otherwise.
-     */
-    boolean isVaultDependent();
-
 }
