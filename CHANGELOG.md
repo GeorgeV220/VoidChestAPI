@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0...v1.19.0) (2023-12-27)
+
+
+### Features
+
+* replace Task with SchedulerTask in SellHandler (VoidChest 2.4.0) ([1f2c8b6](https://github.com/GeorgeV220/VoidChestAPI/commit/1f2c8b68c4e158f21ada2da5f8e8711228f43eb6))
+
 # [1.18.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.17.0...v1.18.0) (2023-12-21)
 
 
