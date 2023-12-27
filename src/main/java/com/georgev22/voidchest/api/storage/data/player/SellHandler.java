@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.library.scheduler.interfaces.Task;
+import com.georgev22.library.minecraft.scheduler.SchedulerTask;
 import com.georgev22.library.utilities.Entity;
 
 /**
@@ -30,7 +30,7 @@ public interface SellHandler extends Entity {
      * @param voidChest The VoidChest to set the task for.
      * @param task      The task to set.
      */
-    void setTask(final String voidChest, Task task);
+    void setTask(final String voidChest, SchedulerTask task);
 
     /**
      * Retrieves the task for the specified VoidChest.
@@ -38,20 +38,20 @@ public interface SellHandler extends Entity {
      * @param voidChest The VoidChest to retrieve the task for.
      * @return The task for the VoidChest.
      */
-    Task task(final String voidChest);
+    SchedulerTask task(final String voidChest);
 
     /**
      * Retrieves the task for all VoidChests.
      *
      * @return The task for all VoidChests.
      */
-    Task task();
+    SchedulerTask task();
 
     /**
      * Sets the task for all VoidChests.
      *
      * @param task The task to set for all VoidChests.
      */
-    void setTask(Task task);
+    void setTask(SchedulerTask task);
 
 }
