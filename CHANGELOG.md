@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.19.0...v1.20.0) (2024-01-05)
+
+
+### Features
+
+* add Bukkit imports and update library version (2.4.0) ([f7112fa](https://github.com/GeorgeV220/VoidChestAPI/commit/f7112fa1061e8c13229311b853ddf3414b938f48))
+
 # [1.19.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.18.0...v1.19.0) (2023-12-27)
 
 
