@@ -14,6 +14,10 @@ import com.georgev22.voidchest.api.storage.IVoidStorageManager;
 import com.georgev22.voidchest.api.storage.voidmanager.IVoidItemManager;
 import com.georgev22.voidchest.api.utilities.config.voidchests.VoidStorageConfigurationFileCache;
 import com.georgev22.voidchest.api.voideconomy.IVoidEconomyManager;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.plugin.Plugin;
 
 /**
  * The VoidChestAPI class provides access to various managers and services for the VoidChest plugin.
@@ -30,7 +34,7 @@ public record VoidChestAPI(IEconomyManager economyManager,
                            IPlayerManager playerManager,
                            IVoidStorageManager voidStorageManager,
                            EventManager eventManager,
-                           MinecraftScheduler minecraftScheduler,
+                           MinecraftScheduler<Plugin, Location, World, Chunk> minecraftScheduler,
                            VoidStorageConfigurationFileCache voidStorageConfigurationFileCache) {
 
     /**
