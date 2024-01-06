@@ -7,13 +7,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 
 /**
  * A wrapper for event listeners, containing metadata about the listener and the method it should invoke when an event
  * occurs.
  */
 public record ListenerWrapper(
+        ExecutorService executorService,
         Class<?> aClass,
         EventListener listener,
         Method method,
@@ -24,6 +25,7 @@ public record ListenerWrapper(
     /**
      * Creates a new listener wrapper instance.
      *
+     * @param executorService The executor service to use for asynchronous event handling.
      * @param aClass          The class that this listener belongs to.
      * @param listener        The listener objects itself.
      * @param method          The method to invoke when an event occurs.
@@ -31,12 +33,14 @@ public record ListenerWrapper(
      * @param ignoreCancelled Whether this listener should ignore cancelled events.
      */
     public ListenerWrapper(
+            ExecutorService executorService,
             Class<?> aClass,
             EventListener listener,
             Method method,
             EventPriority eventPriority,
             boolean ignoreCancelled
     ) {
+        this.executorService = executorService;
         this.aClass = aClass;
         this.listener = listener;
         this.method = method;
@@ -56,13 +60,24 @@ public record ListenerWrapper(
                 return;
             }
         }
-        (event.isAsynchronous() ? new AsyncExecutor() : new SyncExecutor()).execute(() -> {
-            try {
-                method.invoke(listener, event);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                throw new EventException("Event " + event.getEventName() + " failed to fire due to an error", e);
-            }
-        });
+
+        if (event.isAsynchronous()) {
+            executeAsync(() -> invokeMethod(event));
+        } else {
+            invokeMethod(event);
+        }
+    }
+
+    private void invokeMethod(Event event) {
+        try {
+            method.invoke(listener, event);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new EventException("Event " + event.getEventName() + " failed to fire due to an error", e);
+        }
+    }
+
+    private void executeAsync(@NotNull Runnable runnable) {
+        executorService.execute(runnable);
     }
 
     @Override
@@ -74,43 +89,5 @@ public record ListenerWrapper(
                 ", eventPriority=" + eventPriority.name() + " (slot: " + eventPriority.getValue() + ")" +
                 ", ignoreCancelled=" + ignoreCancelled +
                 '}';
-    }
-
-    private static class AsyncExecutor implements Executor {
-
-        /**
-         * Executes the given command at some time in the future.
-         * The command
-         * may execute in a new thread, in a pooled thread, or in the calling
-         * thread, at the discretion of the {@code Executor} implementation.
-         *
-         * @param runnable the runnable task
-         * @throws java.util.concurrent.RejectedExecutionException if this task cannot be
-         *                                                         accepted for execution
-         * @throws NullPointerException                            if command is null
-         */
-        @Override
-        public void execute(@NotNull Runnable runnable) {
-            new Thread(runnable).start();
-        }
-    }
-
-    private static class SyncExecutor implements Executor {
-
-        /**
-         * Executes the given command at some time in the future.
-         * The command
-         * may execute in a new thread, in a pooled thread, or in the calling
-         * thread, at the discretion of the {@code Executor} implementation.
-         *
-         * @param runnable the runnable task
-         * @throws java.util.concurrent.RejectedExecutionException if this task cannot be
-         *                                                         accepted for execution
-         * @throws NullPointerException                            if command is null
-         */
-        @Override
-        public void execute(@NotNull Runnable runnable) {
-            runnable.run();
-        }
     }
 }

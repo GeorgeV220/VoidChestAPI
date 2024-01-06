@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 /**
@@ -24,6 +26,8 @@ public class EventManager {
      * The class that owns this event manager.
      */
     private final Class<?> clazz;
+
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     /**
      * Constructs a new EventManager with the given logger and class.
@@ -110,7 +114,7 @@ public class EventManager {
             method.setAccessible(true);
             Set<ListenerWrapper> eventSet = ret.computeIfAbsent(eventClass, k -> new HashSet<>());
 
-            eventSet.add(new ListenerWrapper(clazz, listener, method, eh.priority(), eh.ignoreCancelled()));
+            eventSet.add(new ListenerWrapper(executorService, clazz, listener, method, eh.priority(), eh.ignoreCancelled()));
 
         }
         return ret;
