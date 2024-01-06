@@ -1,3 +1,10 @@
+# [1.21.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.20.0...v1.21.0-alpha.1) (2024-01-06)
+
+
+### Features
+
+* use ExecutorService for async event handling (alpha) ([00460ba](https://github.com/GeorgeV220/VoidChestAPI/commit/00460bacb1597251bbe18cb6dbecd62b4eac9364))
+
 # [1.20.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.19.0...v1.20.0) (2024-01-05)
 
 
