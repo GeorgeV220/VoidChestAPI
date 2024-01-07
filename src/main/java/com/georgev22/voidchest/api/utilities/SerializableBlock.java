@@ -1,7 +1,5 @@
 package com.georgev22.voidchest.api.utilities;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -48,8 +46,6 @@ import java.io.Serializable;
  * <p>It is recommended to handle potential exceptions or null values during the serialization and deserialization process.
  * </p>
  */
-@Getter
-@Setter
 public class SerializableBlock implements Serializable {
 
     @Serial
@@ -162,5 +158,77 @@ public class SerializableBlock implements Serializable {
             return world.getBlockAt(x, y, z);
         }
         return null;
+    }
+
+    /**
+     * Returns the x-coordinate of the block.
+     *
+     * @return The x-coordinate of the block.
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Returns the y-coordinate of the block.
+     *
+     * @return The y-coordinate of the block.
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * Returns the z-coordinate of the block.
+     *
+     * @return The z-coordinate of the block.
+     */
+    public int getZ() {
+        return z;
+    }
+
+    /**
+     * Returns the name of the world containing the block.
+     *
+     * @return The name of the world containing the block.
+     */
+    public String getWorldName() {
+        return worldName;
+    }
+
+    /**
+     * Sets the x-coordinate of the block.
+     *
+     * @param x The new x-coordinate.
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * Sets the y-coordinate of the block.
+     *
+     * @param y The new y-coordinate.
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     * Sets the z-coordinate of the block.
+     *
+     * @param z The new z-coordinate.
+     */
+    public void setZ(int z) {
+        this.z = z;
+    }
+
+    /**
+     * Sets the name of the world containing the block.
+     *
+     * @param worldName The new name of the world.
+     */
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
     }
 }
