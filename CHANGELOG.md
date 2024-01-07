@@ -1,3 +1,10 @@
+# [2.0.0-alpha.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2024-01-07)
+
+
+### Features
+
+* **NullableFixedSizeList:** add isEmpty method ([3be799a](https://github.com/GeorgeV220/VoidChestAPI/commit/3be799adecd8d19898dfe985468d45dec7a8a7bc))
+
 # [2.0.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2024-01-07)
 
 
