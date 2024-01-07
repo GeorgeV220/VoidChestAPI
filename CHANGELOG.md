@@ -1,3 +1,10 @@
+# [2.0.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2024-01-07)
+
+
+### Features
+
+* **VoidChestAPI:** add SellHandler parameter to constructor (2.4.0) ([bffbc94](https://github.com/GeorgeV220/VoidChestAPI/commit/bffbc942ef1b7fffb16afe3fdd9ee815e0d73c59))
+
 # [2.0.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.21.0-alpha.1...v2.0.0-alpha.1) (2024-01-07)
 
 
