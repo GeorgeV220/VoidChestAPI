@@ -1,3 +1,22 @@
+# [2.0.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.21.0-alpha.1...v2.0.0-alpha.1) (2024-01-07)
+
+
+### Code Refactoring
+
+* remove deprecated sell handler from IPlayerData (2.4.0) ([7ffa86b](https://github.com/GeorgeV220/VoidChestAPI/commit/7ffa86b5e5bf31653757d73ac7516d1d91cb865b))
+
+
+### Features
+
+* **Booster:** add plugin support for booster methods (2.4.0) ([468c2d0](https://github.com/GeorgeV220/VoidChestAPI/commit/468c2d0c1d2b8bb807e5f5cbe0e2076f4b3710ac))
+* Removed whitelist/blacklist item methods from Abilities ([f3b6200](https://github.com/GeorgeV220/VoidChestAPI/commit/f3b6200887d1ddc976cc1d212c71647716db2f10))
+* **tasks:** add SellHandler interface for void chest entities (2.4.0) ([2b419f4](https://github.com/GeorgeV220/VoidChestAPI/commit/2b419f44c7f6b2a994738a7a0c32827f9fcb67b6))
+
+
+### BREAKING CHANGES
+
+* The sell handler is no longer part of the IPlayerData interface and will be moved to a different class.
+
 # [1.21.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.20.0...v1.21.0-alpha.1) (2024-01-06)
 
 
