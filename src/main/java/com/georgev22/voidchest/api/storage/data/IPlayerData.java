@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.utilities.Entity;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
-import com.georgev22.voidchest.api.storage.data.player.SellHandler;
+
 import com.georgev22.voidchest.api.storage.data.player.Stats;
 
 import java.math.BigDecimal;
@@ -34,15 +34,6 @@ public interface IPlayerData extends Entity {
      * @return The statistics of the player as a Stats object.
      */
     Stats stats();
-
-    /**
-     * Retrieves the sell handler for the player.
-     *
-     * @return The sell handler for the player as a SellHandler object.
-     * @deprecated The sell handler shouldn't be in IPlayerData and will be moved in a future version.
-     */
-    @Deprecated(forRemoval = true)
-    SellHandler sellHandler();
 
     /**
      * Retrieves the booster for the player.
