@@ -147,4 +147,19 @@ public class NullableFixedSizeList<E> extends ArrayList<E> {
     public int getMaxSize() {
         return maxSize;
     }
+
+    /**
+     * Checks if the list is empty by checking if all elements are null or if the size is 0 (super).
+     *
+     * @return true if the list is empty, false otherwise
+     */
+    @Override
+    public boolean isEmpty() {
+        for (E e : this) {
+            if (e != null) {
+                return false;
+            }
+        }
+        return super.isEmpty();
+    }
 }
