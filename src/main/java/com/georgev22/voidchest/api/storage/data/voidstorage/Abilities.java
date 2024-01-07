@@ -1,9 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
 import com.georgev22.library.utilities.Entity;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
 
 
 /**
@@ -124,53 +121,11 @@ public interface Abilities extends Entity {
     void whitelist(boolean whitelist);
 
     /**
-     * Retrieves the list of whitelist items.
-     *
-     * @return The list of whitelist items as an ArrayList of ItemStacks.
-     */
-    ArrayList<ItemStack> whitelistItems();
-
-    /**
-     * Sets the list of whitelist items.
-     *
-     * @param whitelistItems The list of whitelist items as an ArrayList of ItemStacks.
-     */
-    void whitelistItems(ArrayList<ItemStack> whitelistItems);
-
-    /**
-     * Adds the specified whitelist item.
-     *
-     * @param whitelistItem The whitelist item to add as a ItemStack.
-     */
-    void addWhitelistItem(ItemStack whitelistItem);
-
-    /**
-     * Adds the specified whitelist items.
-     *
-     * @param whitelistItems The whitelist items to add as an ArrayList of ItemStacks.
-     */
-    void addWhitelistItems(ArrayList<ItemStack> whitelistItems);
-
-    /**
-     * Adds the specified whitelist items.
-     *
-     * @param whitelistItems The whitelist items to add as an array of ItemStacks.
-     */
-    void addWhitelistItems(ItemStack... whitelistItems);
-
-    /**
      * Checks if blacklist is enabled.
      *
      * @return True if blacklist is enabled, false otherwise.
      */
     boolean blacklist();
-
-    /**
-     * Retrieves the list of blacklist items.
-     *
-     * @return The list of blacklist items as an ArrayList of ItemStacks.
-     */
-    ArrayList<ItemStack> blacklistItems();
 
     /**
      * Sets the state of the blacklist feature.
@@ -179,32 +134,5 @@ public interface Abilities extends Entity {
      */
     void blacklist(boolean blacklist);
 
-    /**
-     * Sets the list of blacklist items.
-     *
-     * @param blacklistItems The list of blacklist items as an ArrayList of ItemStacks.
-     */
-    void blacklistItems(ArrayList<ItemStack> blacklistItems);
-
-    /**
-     * Adds the specified blacklist item.
-     *
-     * @param blacklistItem The blacklist item to add as a ItemStack.
-     */
-    void addBlacklistItem(ItemStack blacklistItem);
-
-    /**
-     * Adds the specified blacklist items.
-     *
-     * @param blacklistItems The blacklist items to add as an ArrayList of ItemStacks.
-     */
-    void addBlacklistItems(ArrayList<ItemStack> blacklistItems);
-
-    /**
-     * Adds the specified blacklist items.
-     *
-     * @param blacklistItems The blacklist items to add as an array of ItemStacks.
-     */
-    void addBlacklistItems(ItemStack... blacklistItems);
 
 }
