@@ -40,11 +40,9 @@ repositories {
 
 dependencies {
     compileOnly "dev.folia:folia-api:${mcVersion}-R0.1-SNAPSHOT"
-
     compileOnly "org.jetbrains:annotations:${jetbrainsAnnotationsVersion}"
-
     compileOnly "com.github.MilkBowl:VaultAPI:${vaultVersion}"
-    implementation "io.papermc:paperlib:${paperlibVersion}"
+
     implementation "com.georgev22.library:database:${libraryVersion}"
     implementation "com.georgev22.library:maps:${libraryVersion}"
     implementation "com.georgev22.library:scheduler:${libraryVersion}"
