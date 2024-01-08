@@ -3,6 +3,7 @@ package com.georgev22.voidchest.api.event;
 import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.event.annotations.EventHandler;
+import com.georgev22.voidchest.api.event.interfaces.EventExecutor;
 import com.georgev22.voidchest.api.event.interfaces.EventListener;
 import org.jetbrains.annotations.NotNull;
 
@@ -77,7 +78,11 @@ public class EventManager {
      */
     public Event callEvent(@NotNull Event event) {
         for (ListenerWrapper listenerWrapper : event.getHandlers().getListenerWrappers()) {
-            listenerWrapper.callEvent(event);
+            if (event.isAsynchronous()) {
+                executorService.execute(() -> listenerWrapper.callEvent(event));
+            } else {
+                listenerWrapper.callEvent(event);
+            }
         }
         return event;
     }
@@ -114,7 +119,8 @@ public class EventManager {
             method.setAccessible(true);
             Set<ListenerWrapper> eventSet = ret.computeIfAbsent(eventClass, k -> new HashSet<>());
 
-            eventSet.add(new ListenerWrapper(executorService, clazz, listener, method, eh.priority(), eh.ignoreCancelled()));
+            EventExecutor executor = EventExecutor.create(method, eventClass);
+            eventSet.add(new ListenerWrapper(executor, clazz, listener, method, eh.priority(), eh.ignoreCancelled()));
 
         }
         return ret;
