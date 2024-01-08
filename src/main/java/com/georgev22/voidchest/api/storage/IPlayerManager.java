@@ -62,4 +62,12 @@ public interface IPlayerManager extends EntityManager<IPlayerData> {
      * @return A map of placeholders.
      */
     ObjectMap<String, String> getPlaceHolders(final @NotNull IPlayerData data, final @NotNull IVoidStorage storage);
+
+    /**
+     * Retrieves a map of placeholders for the specified player data.
+     *
+     * @param data The player data to retrieve placeholders for.
+     * @return A map of placeholders.
+     */
+    ObjectMap<String, String> getPlaceHolders(final @NotNull IPlayerData data);
 }
