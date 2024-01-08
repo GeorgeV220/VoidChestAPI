@@ -1,3 +1,11 @@
+# [2.0.0-alpha.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2024-01-08)
+
+
+### Features
+
+* **Booster:** Add isBoosterActive(Plugin) and getBoosters() methods ([ab1237b](https://github.com/GeorgeV220/VoidChestAPI/commit/ab1237b005be75cad9fcea17a752f79830905dc4))
+* **SerializableLocation:** Add new constructor and getters. ([13efdb3](https://github.com/GeorgeV220/VoidChestAPI/commit/13efdb3f8920f25b22c76d6fb867c02fe8dc8d96))
+
 # [2.0.0-alpha.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2024-01-07)
 
 
