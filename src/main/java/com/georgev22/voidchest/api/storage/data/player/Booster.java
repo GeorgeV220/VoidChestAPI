@@ -13,7 +13,9 @@ public interface Booster extends Entity {
      * Retrieves the booster value.
      *
      * @return The booster value as a double.
+     * @deprecated Use {@link #booster(String)} instead.
      */
+    @Deprecated(forRemoval = true, since = "2.0.0")
     double booster();
 
     /**
@@ -28,7 +30,9 @@ public interface Booster extends Entity {
      * Sets the booster value.
      *
      * @param booster The booster value to set as a double.
+     * @deprecated Use {@link #booster(double, String)} instead.
      */
+    @Deprecated(forRemoval = true, since = "2.0.0")
     void booster(double booster);
 
     /**
@@ -43,7 +47,9 @@ public interface Booster extends Entity {
      * Retrieves the formatted time left for the booster.
      *
      * @return The formatted time left as a String.
+     * @deprecated Use {@link #boosterTimeLeft(String)} instead.
      */
+    @Deprecated(forRemoval = true, since = "2.0.0")
     String boosterTimeLeft();
 
     /**
@@ -58,7 +64,9 @@ public interface Booster extends Entity {
      * Retrieves the boost time in milliseconds.
      *
      * @return The boost time in milliseconds as a long.
+     * @deprecated Use {@link #boostTime(String)} instead.
      */
+    @Deprecated(forRemoval = true, since = "2.0.0")
     long boostTime();
 
     /**
@@ -73,6 +81,7 @@ public interface Booster extends Entity {
      * Sets the boost time in milliseconds.
      *
      * @param boostTime The boost time to set in milliseconds as a long.
+     * @deprecated Use {@link #boostTime(long, String)} instead.
      */
     void boostTime(long boostTime);
 
