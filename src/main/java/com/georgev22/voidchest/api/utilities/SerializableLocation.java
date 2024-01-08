@@ -65,6 +65,25 @@ public class SerializableLocation implements Serializable {
     }
 
     /**
+     * Constructs a new SerializableLocation with explicit values.
+     *
+     * @param worldName The name of the world.
+     * @param x         The x-coordinate.
+     * @param y         The y-coordinate.
+     * @param z         The z-coordinate.
+     * @param yaw       The yaw angle.
+     * @param pitch     The pitch angle.
+     */
+    public SerializableLocation(String worldName, double x, double y, double z, float yaw, float pitch) {
+        this.worldName = worldName;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.yaw = yaw;
+        this.pitch = pitch;
+    }
+
+    /**
      * Creates a new SerializableLocation from a Bukkit Location.
      *
      * @param location The Bukkit Location to be serialized.
@@ -82,45 +101,47 @@ public class SerializableLocation implements Serializable {
      * @return A string representation of the SerializableLocation.
      */
     public @NotNull String toString() {
+        //noinspection StringBufferReplaceableByString
         StringBuilder stringBuilder = new StringBuilder();
-        Location loc = location.clone();
         stringBuilder
-                .append(loc.getWorld().getName())
+                .append(this.worldName)
                 .append(":")
-                .append(loc.getX())
+                .append(this.x)
                 .append(":")
-                .append(loc.getY())
+                .append(this.y)
                 .append(":")
-                .append(loc.getZ())
+                .append(this.z)
                 .append(":")
-                .append(loc.getPitch())
+                .append(this.pitch)
                 .append(":")
-                .append(loc.getYaw());
+                .append(this.yaw);
 
         return stringBuilder.toString();
     }
 
     /**
-     * Creates a Bukkit Location from a string representation.
+     * Creates a SerializableLocation from a string representation.
      *
      * @param string The string representation of the location.
-     * @return The Bukkit Location, or {@code null} if the string is empty or invalid.
+     * @return The SerializableLocation, or {@code null} if the string is empty or invalid.
      */
-    public static @Nullable Location fromString(@NotNull String string) {
+    public static @Nullable SerializableLocation fromString(@NotNull String string) {
         if (string.trim().isEmpty()) {
             return null;
         }
         String[] parts = string.split(":");
-        World world = Bukkit.getServer().getWorld(parts[0]);
+        String worldName = parts[0];
+        World world = Bukkit.getServer().getWorld(worldName);
         double x = Double.parseDouble(parts[1]);
         double y = Double.parseDouble(parts[2]);
         double z = Double.parseDouble(parts[3]);
         float pitch = Float.parseFloat(parts[4]);
         float yaw = Float.parseFloat(parts[5]);
-        if (world != null) {
-            return new Location(world, x, y, z, pitch, yaw);
+        if (world == null) {
+            return new SerializableLocation(worldName, x, y, z, pitch, yaw);
+        } else {
+            return new SerializableLocation(new Location(world, x, y, z, yaw, pitch));
         }
-        return null;
     }
 
     /**
@@ -134,6 +155,60 @@ public class SerializableLocation implements Serializable {
             location = new Location(world, x, y, z, yaw, pitch);
         }
         return location;
+    }
+
+    /**
+     * Gets the name of the world.
+     *
+     * @return The world name.
+     */
+    public String getWorldName() {
+        return worldName;
+    }
+
+    /**
+     * Gets the x-coordinate.
+     *
+     * @return The x-coordinate.
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * Gets the y-coordinate.
+     *
+     * @return The y-coordinate.
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
+     * Gets the z-coordinate.
+     *
+     * @return The z-coordinate.
+     */
+    public double getZ() {
+        return z;
+    }
+
+    /**
+     * Gets the pitch angle.
+     *
+     * @return The pitch angle.
+     */
+    public float getPitch() {
+        return pitch;
+    }
+
+    /**
+     * Gets the yaw angle.
+     *
+     * @return The yaw angle.
+     */
+    public float getYaw() {
+        return yaw;
     }
 
     /**
