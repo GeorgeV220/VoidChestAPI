@@ -149,10 +149,12 @@ public class SerializableLocation implements Serializable {
      *
      * @return The Bukkit Location represented by this SerializableLocation.
      */
-    public Location toLocation() {
-        World world = Bukkit.getWorld(worldName);
-        if (world != null) {
-            location = new Location(world, x, y, z, yaw, pitch);
+    public @Nullable Location toLocation() {
+        if (location == null) {
+            World world = Bukkit.getWorld(worldName);
+            if (world != null) {
+                location = new Location(world, x, y, z, yaw, pitch);
+            }
         }
         return location;
     }
