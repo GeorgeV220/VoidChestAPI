@@ -1,3 +1,10 @@
+# [2.0.0-alpha.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2024-01-08)
+
+
+### Bug Fixes
+
+* **SerializableLocation:** Make 'toLocation()' method return null if the world is null/not loaded. ([c483d9e](https://github.com/GeorgeV220/VoidChestAPI/commit/c483d9eb504a4ed12cfdd168752b2c42494b1d0f))
+
 # [2.0.0-alpha.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2024-01-08)
 
 
