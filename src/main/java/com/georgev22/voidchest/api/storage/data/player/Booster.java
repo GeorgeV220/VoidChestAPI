@@ -2,7 +2,6 @@ package com.georgev22.voidchest.api.storage.data.player;
 
 import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.library.utilities.Entity;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
@@ -20,10 +19,10 @@ public interface Booster extends Entity {
     /**
      * Retrieves the booster value.
      *
-     * @param plugin The plugin that added the booster.
+     * @param pluginName The plugin that added the booster.
      * @return The booster value as a double.
      */
-    double booster(Plugin plugin);
+    double booster(String pluginName);
 
     /**
      * Sets the booster value.
@@ -38,7 +37,7 @@ public interface Booster extends Entity {
      * @param booster The booster value to set as a double.
      * @param plugin  The plugin that set the booster value.
      */
-    void booster(double booster, Plugin plugin);
+    void booster(double booster, String plugin);
 
     /**
      * Retrieves the formatted time left for the booster.
@@ -50,10 +49,10 @@ public interface Booster extends Entity {
     /**
      * Retrieves the formatted time left for the booster.
      *
-     * @param plugin The plugin that added the booster.
+     * @param pluginName The plugin that added the booster.
      * @return The formatted time left as a String.
      */
-    String boosterTimeLeft(Plugin plugin);
+    String boosterTimeLeft(String pluginName);
 
     /**
      * Retrieves the boost time in milliseconds.
@@ -65,10 +64,10 @@ public interface Booster extends Entity {
     /**
      * Retrieves the boost time in milliseconds.
      *
-     * @param plugin The plugin that added the booster.
+     * @param pluginName The plugin that added the booster.
      * @return The boost time in milliseconds as a long.
      */
-    long boostTime(Plugin plugin);
+    long boostTime(String pluginName);
 
     /**
      * Sets the boost time in milliseconds.
@@ -83,16 +82,16 @@ public interface Booster extends Entity {
      * @param plugin    The plugin that adds the booster.
      * @param boostTime The boost time to set in milliseconds as a long.
      */
-    void boostTime(long boostTime, Plugin plugin);
+    void boostTime(long boostTime, String plugin);
 
     /**
      * Checks if the booster for a specific plugin is still active.
      *
-     * @param plugin The plugin that added the booster.
+     * @param pluginName The plugin that added the booster.
      * @return true if the booster is active, false otherwise.
      */
     @ApiStatus.Experimental
-    boolean isBoosterActive(Plugin plugin);
+    boolean isBoosterActive(String pluginName);
 
     /**
      * Retrieves the player's boosters.
