@@ -1,3 +1,10 @@
+# [2.0.0-alpha.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.6...v2.0.0-alpha.7) (2024-01-08)
+
+
+### Features
+
+* mark old Booster methods are deprecated for removal. ([4b4e3b6](https://github.com/GeorgeV220/VoidChestAPI/commit/4b4e3b6089fadb8d3b377142646e7f5f091e168e))
+
 # [2.0.0-alpha.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.5...v2.0.0-alpha.6) (2024-01-08)
 
 
