@@ -1,7 +1,9 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
+import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.library.utilities.Entity;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * The Booster interface extends the Entity interface and provides methods for managing a booster.
@@ -82,5 +84,24 @@ public interface Booster extends Entity {
      * @param boostTime The boost time to set in milliseconds as a long.
      */
     void boostTime(long boostTime, Plugin plugin);
+
+    /**
+     * Checks if the booster for a specific plugin is still active.
+     *
+     * @param plugin The plugin that added the booster.
+     * @return true if the booster is active, false otherwise.
+     */
+    @ApiStatus.Experimental
+    boolean isBoosterActive(Plugin plugin);
+
+    /**
+     * Retrieves the player's boosters.
+     * The boosters are represented as a map where the key is the booster name (plugin name),
+     * and the value is the corresponding booster strength.
+     *
+     * @return A map of boosters for the player.
+     */
+    @ApiStatus.Experimental
+    ObjectMap<String, Double> getBoosters();
 
 }
