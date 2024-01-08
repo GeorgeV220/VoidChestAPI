@@ -1,20 +1,18 @@
 package com.georgev22.voidchest.api.event;
 
 import com.georgev22.voidchest.api.event.interfaces.Cancellable;
+import com.georgev22.voidchest.api.event.interfaces.EventExecutor;
 import com.georgev22.voidchest.api.event.interfaces.EventListener;
-import com.georgev22.voidchest.api.exceptions.EventException;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.concurrent.ExecutorService;
 
 /**
  * A wrapper for event listeners, containing metadata about the listener and the method it should invoke when an event
  * occurs.
  */
 public record ListenerWrapper(
-        ExecutorService executorService,
+        EventExecutor eventExecutor,
         Class<?> aClass,
         EventListener listener,
         Method method,
@@ -25,7 +23,7 @@ public record ListenerWrapper(
     /**
      * Creates a new listener wrapper instance.
      *
-     * @param executorService The executor service to use for asynchronous event handling.
+     * @param eventExecutor   The event executor that this listener belongs to.
      * @param aClass          The class that this listener belongs to.
      * @param listener        The listener objects itself.
      * @param method          The method to invoke when an event occurs.
@@ -33,14 +31,14 @@ public record ListenerWrapper(
      * @param ignoreCancelled Whether this listener should ignore cancelled events.
      */
     public ListenerWrapper(
-            ExecutorService executorService,
+            EventExecutor eventExecutor,
             Class<?> aClass,
             EventListener listener,
             Method method,
             EventPriority eventPriority,
             boolean ignoreCancelled
     ) {
-        this.executorService = executorService;
+        this.eventExecutor = eventExecutor;
         this.aClass = aClass;
         this.listener = listener;
         this.method = method;
@@ -56,28 +54,11 @@ public record ListenerWrapper(
      */
     public void callEvent(@NotNull final Event event) {
         if (event instanceof Cancellable) {
-            if (((Cancellable) event).isCancelled() && ignoreCancelled()) {
+            if (((Cancellable) event).isCancelled() && ignoreCancelled) {
                 return;
             }
         }
-
-        if (event.isAsynchronous()) {
-            executeAsync(() -> invokeMethod(event));
-        } else {
-            invokeMethod(event);
-        }
-    }
-
-    private void invokeMethod(Event event) {
-        try {
-            method.invoke(listener, event);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new EventException("Event " + event.getEventName() + " failed to fire due to an error", e);
-        }
-    }
-
-    private void executeAsync(@NotNull Runnable runnable) {
-        executorService.execute(runnable);
+        eventExecutor.execute(listener, event);
     }
 
     @Override
