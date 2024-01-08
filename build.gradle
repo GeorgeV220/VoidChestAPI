@@ -50,6 +50,33 @@ dependencies {
     implementation "com.georgev22.library:yaml:${libraryVersion}"
     implementation "com.georgev22.library:minecraft:${libraryVersion}"
     implementation "de.tr7zw:item-nbt-api:${nbtAPIVersion}"
+    implementation "org.ow2.asm:asm:${asmVersion}"
+    implementation "org.ow2.asm:asm-util:${asmVersion}"
+    implementation "org.ow2.asm:asm-commons:${asmVersion}"
+
+
+
+
+    // Tests
+    testImplementation "org.jetbrains:annotations:${jetbrainsAnnotationsVersion}"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+
+    testImplementation "org.ow2.asm:asm:${asmVersion}"
+    testImplementation "org.ow2.asm:asm-util:${asmVersion}"
+    testImplementation "org.ow2.asm:asm-commons:${asmVersion}"
+    testImplementation "com.georgev22.library:database:${libraryVersion}"
+    testImplementation "com.georgev22.library:maps:${libraryVersion}"
+    testImplementation "com.georgev22.library:scheduler:${libraryVersion}"
+    testImplementation "com.georgev22.library:utilities:${libraryVersion}"
+    testImplementation "com.georgev22.library:yaml:${libraryVersion}"
+    testImplementation "com.georgev22.library:minecraft:${libraryVersion}"
+
+    testImplementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    testImplementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+    testImplementation 'com.google.guava:guava:33.0.0-jre'
+    testImplementation 'org.slf4j:slf4j-api:2.0.10'
 }
 
 tasks.publishShadowPublicationToGeorgeV22Repository {
