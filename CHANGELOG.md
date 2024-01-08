@@ -1,3 +1,10 @@
+# [2.0.0-alpha.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.7...v2.0.0-alpha.8) (2024-01-08)
+
+
+### Features
+
+* **IPlayerManager:** Add IPlayerManager.getPlaceHolders(IPlayerData) method ([45bdf96](https://github.com/GeorgeV220/VoidChestAPI/commit/45bdf96d8ae47170a4e6f1fc06069333eddb9f7e))
+
 # [2.0.0-alpha.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.6...v2.0.0-alpha.7) (2024-01-08)
 
 
