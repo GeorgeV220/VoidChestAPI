@@ -1,3 +1,10 @@
+# [2.0.0-alpha.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.5...v2.0.0-alpha.6) (2024-01-08)
+
+
+### Features
+
+* Change Booster plugin methods to take String instead of a Plugin object. ([0537ee8](https://github.com/GeorgeV220/VoidChestAPI/commit/0537ee843f5a69b7a4cc3d73236e7aa97e34d1a3))
+
 # [2.0.0-alpha.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2024-01-08)
 
 
