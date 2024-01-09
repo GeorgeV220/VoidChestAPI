@@ -1,3 +1,10 @@
+# [2.0.0-alpha.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.10...v2.0.0-alpha.11) (2024-01-09)
+
+
+### Bug Fixes
+
+* **build:** Do not shade ASM into the API ([54c532b](https://github.com/GeorgeV220/VoidChestAPI/commit/54c532b10465869a862aec8f29144a5a5d22a63b))
+
 # [2.0.0-alpha.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.9...v2.0.0-alpha.10) (2024-01-09)
 
 
