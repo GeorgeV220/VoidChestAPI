@@ -1,3 +1,10 @@
+# [2.0.0-alpha.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.11...v2.0.0-alpha.12) (2024-01-09)
+
+
+### Features
+
+* **storage:** Add playerUUID to IPlayerData and storageUUID to IVoidStorage ([0431261](https://github.com/GeorgeV220/VoidChestAPI/commit/0431261777842ecbf383e3756ee1e4eb61235587))
+
 # [2.0.0-alpha.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.10...v2.0.0-alpha.11) (2024-01-09)
 
 
