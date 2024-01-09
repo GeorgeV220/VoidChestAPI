@@ -42,6 +42,9 @@ dependencies {
     compileOnly "dev.folia:folia-api:${mcVersion}-R0.1-SNAPSHOT"
     compileOnly "org.jetbrains:annotations:${jetbrainsAnnotationsVersion}"
     compileOnly "com.github.MilkBowl:VaultAPI:${vaultVersion}"
+    compileOnly "org.ow2.asm:asm:${asmVersion}"
+    compileOnly "org.ow2.asm:asm-util:${asmVersion}"
+    compileOnly "org.ow2.asm:asm-commons:${asmVersion}"
 
     implementation "com.georgev22.library:database:${libraryVersion}"
     implementation "com.georgev22.library:maps:${libraryVersion}"
@@ -50,9 +53,6 @@ dependencies {
     implementation "com.georgev22.library:yaml:${libraryVersion}"
     implementation "com.georgev22.library:minecraft:${libraryVersion}"
     implementation "de.tr7zw:item-nbt-api:${nbtAPIVersion}"
-    implementation "org.ow2.asm:asm:${asmVersion}"
-    implementation "org.ow2.asm:asm-util:${asmVersion}"
-    implementation "org.ow2.asm:asm-commons:${asmVersion}"
 
 
 
