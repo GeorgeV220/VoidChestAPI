@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.library.utilities.Entity;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
@@ -8,7 +7,6 @@ import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -16,7 +14,7 @@ import java.util.UUID;
 /**
  * The IVoidStorage interface extends the Entity interface and provides methods for managing a VoidStorage.
  */
-public interface IVoidStorage extends Entity {
+public interface IVoidStorage {
 
     /**
      * Retrieves the size of the VoidStorage.

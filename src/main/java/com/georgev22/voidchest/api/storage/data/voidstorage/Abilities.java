@@ -1,12 +1,9 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
-import com.georgev22.library.utilities.Entity;
-
-
 /**
  * The Abilities interface extends the Entity interface and provides methods for managing the abilities of a void chest.
  */
-public interface Abilities extends Entity {
+public interface Abilities {
 
     /**
      * Checks if auto-selling is enabled.

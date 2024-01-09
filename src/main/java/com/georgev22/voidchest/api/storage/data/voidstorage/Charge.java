@@ -1,12 +1,9 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
-
-import com.georgev22.library.utilities.Entity;
-
 /**
  * The Charge interface extends the Entity interface and provides methods for managing the charge state of a void chest.
  */
-public interface Charge extends Entity {
+public interface Charge {
 
     /**
      * Retrieves the maximum charge time in seconds.

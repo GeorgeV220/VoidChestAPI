@@ -1,11 +1,9 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.library.utilities.Entity;
-
 /**
  * The Booster interface extends the Entity interface and provides methods for managing a booster.
  */
-public interface Booster extends Entity {
+public interface Booster {
 
     /**
      * Retrieves the booster value.

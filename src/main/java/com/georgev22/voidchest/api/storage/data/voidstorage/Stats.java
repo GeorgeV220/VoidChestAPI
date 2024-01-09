@@ -1,14 +1,12 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
-import com.georgev22.library.utilities.Entity;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
  * The Stats interface extends the Entity interface and provides methods for managing statistics of a void chest.
  */
-public interface Stats extends Entity {
+public interface Stats {
 
     /**
      * Retrieves the amount of money associated with the void chest.

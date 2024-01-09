@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.library.utilities.Entity;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
 import com.georgev22.voidchest.api.storage.data.player.Stats;
 
@@ -12,7 +11,7 @@ import java.util.UUID;
 /**
  * The IPlayerData interface extends the Entity interface and provides methods for managing player data.
  */
-public interface IPlayerData extends Entity {
+public interface IPlayerData {
 
     /**
      * Retrieves the name of the player associated with the data.

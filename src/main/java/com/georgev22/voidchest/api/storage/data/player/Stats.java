@@ -1,14 +1,12 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.library.utilities.Entity;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
  * The Stats interface extends the Entity interface and provides methods for managing statistics of an entity.
  */
-public interface Stats extends Entity {
+public interface Stats {
 
     /**
      * Checks if messaging is enabled.
