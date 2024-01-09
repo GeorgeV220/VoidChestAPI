@@ -103,4 +103,11 @@ public interface IPlayerData {
      * Reloads the player data.
      */
     void reloadPlayerData();
+
+    /**
+     * Retrieves the UUID of the player associated with the data.
+     *
+     * @return The UUID of the player.
+     */
+    UUID playerUUID();
 }

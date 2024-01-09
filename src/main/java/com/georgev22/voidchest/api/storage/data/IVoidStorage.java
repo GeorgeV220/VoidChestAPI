@@ -100,6 +100,14 @@ public interface IVoidStorage {
      */
     UUID ownerUUID();
 
+
+    /**
+     * Retrieves the UUID of the void storage.
+     *
+     * @return The UUID of the void storage.
+     */
+    UUID storageUUID();
+
     /**
      * Reloads the void storage.
      */
