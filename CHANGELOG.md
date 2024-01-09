@@ -1,3 +1,16 @@
+# [2.0.0-alpha.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.8...v2.0.0-alpha.9) (2024-01-09)
+
+
+### Features
+
+* **IPlayerData:** add List<Booster> boosters() method and mark Booster booster() as deprecated ([2348a03](https://github.com/GeorgeV220/VoidChestAPI/commit/2348a03393fe487f551a2f257c240f857e6c1295))
+* **IVoidStorageManager:** Add voidStorages(Chunk) and mark voidStorage(Chunk) as deprecated. ([01b3a1b](https://github.com/GeorgeV220/VoidChestAPI/commit/01b3a1b8c3478df68b9615d665d635c0146d2f29))
+
+
+### Reverts
+
+* **Booster:** Remove plugin methods from Booster and add pluginIdentifier() (2.4.0) ([e487165](https://github.com/GeorgeV220/VoidChestAPI/commit/e487165e5286efa6516b850aab8df0ea44df0934))
+
 # [2.0.0-alpha.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.7...v2.0.0-alpha.8) (2024-01-08)
 
 
