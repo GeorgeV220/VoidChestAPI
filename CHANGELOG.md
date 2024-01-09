@@ -1,3 +1,10 @@
+# [2.0.0-alpha.14](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.13...v2.0.0-alpha.14) (2024-01-09)
+
+
+### Bug Fixes
+
+* **IVoidStorageManager:** Fix getLocationCache and getBlockCache wrong return type ([5790ad5](https://github.com/GeorgeV220/VoidChestAPI/commit/5790ad5f12b8980bf6b44e4c6c2e3a099986e8e3))
+
 # [2.0.0-alpha.13](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.12...v2.0.0-alpha.13) (2024-01-09)
 
 
