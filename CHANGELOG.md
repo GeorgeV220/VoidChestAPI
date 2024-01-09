@@ -1,3 +1,10 @@
+# [2.0.0-alpha.13](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.12...v2.0.0-alpha.13) (2024-01-09)
+
+
+### Bug Fixes
+
+* **storage:** Add custom data methods ([bb59573](https://github.com/GeorgeV220/VoidChestAPI/commit/bb595732b359f1cd29e28b7aff5873fdc51749bf))
+
 # [2.0.0-alpha.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.11...v2.0.0-alpha.12) (2024-01-09)
 
 
