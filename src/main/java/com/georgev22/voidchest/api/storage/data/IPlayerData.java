@@ -2,11 +2,11 @@ package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.utilities.Entity;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
-
 import com.georgev22.voidchest.api.storage.data.player.Stats;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -39,8 +39,19 @@ public interface IPlayerData extends Entity {
      * Retrieves the booster for the player.
      *
      * @return The booster for the player as a Booster object.
+     * @deprecated This will return the VoidChest booster.
+     * Use {@link #boosters()} instead.
      */
+    @Deprecated(since = "2.0.0")
     Booster booster();
+
+    /**
+     * Retrieves a list of boosters for the player.
+     *
+     * @return The list of boosters as a List.
+     * @since 2.0.0
+     */
+    List<Booster> boosters();
 
     /**
      * Retrieves the current balance of the player.
