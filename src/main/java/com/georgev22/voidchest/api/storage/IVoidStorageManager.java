@@ -210,7 +210,7 @@ public interface IVoidStorageManager {
      *
      * @return An UnmodifiableObjectMap of the location cache.
      */
-    UnmodifiableObjectMap<Location, List<IVoidStorage>> getLocationCache();
+    UnmodifiableObjectMap<Location, IVoidStorage> getLocationCache();
 
     /**
      * Adds the specified {@link IVoidStorage} to the cache associated with the given {@link Block}.
@@ -235,7 +235,7 @@ public interface IVoidStorageManager {
      *
      * @return An UnmodifiableObjectMap of the block cache.
      */
-    UnmodifiableObjectMap<Block, List<IVoidStorage>> getBlockCache();
+    UnmodifiableObjectMap<Block, IVoidStorage> getBlockCache();
 
     /**
      * Removes the specified {@link IVoidStorage} from all caches.
