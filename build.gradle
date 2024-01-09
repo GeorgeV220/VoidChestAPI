@@ -43,7 +43,6 @@ dependencies {
     compileOnly "org.jetbrains:annotations:${jetbrainsAnnotationsVersion}"
     compileOnly "com.github.MilkBowl:VaultAPI:${vaultVersion}"
     compileOnly "org.ow2.asm:asm:${asmVersion}"
-    compileOnly "org.ow2.asm:asm-util:${asmVersion}"
     compileOnly "org.ow2.asm:asm-commons:${asmVersion}"
 
     implementation "com.georgev22.library:database:${libraryVersion}"
