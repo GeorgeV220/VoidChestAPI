@@ -1,10 +1,12 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
+import com.georgev22.library.maps.ConcurrentObjectMap;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * The Stats interface extends the Entity interface and provides methods for managing statistics of a void chest.
+ * The Stats interface provides methods for managing statistics of a void chest.
  */
 public interface Stats {
 
@@ -92,4 +94,45 @@ public interface Stats {
      */
     void addItemsPurged(BigInteger itemsPurged);
 
+    /**
+     * Adds custom data to the Stats with the specified key and value.
+     *
+     * @param key   the key of the custom data
+     * @param value the value of the custom data
+     * @return the updated Stats with the added custom data
+     */
+    default Stats addCustomData(String key, Object value) {
+        this.getCustomData().append(key, value);
+        return this;
+    }
+
+    /**
+     * Adds custom data to the Stats with the specified key and value if the key does not already exist.
+     *
+     * @param key   the key of the custom data
+     * @param value the value of the custom data
+     * @return the updated Stats with the added custom data (if the key did not already exist)
+     */
+    default Stats addCustomDataIfNotExists(String key, Object value) {
+        this.getCustomData().appendIfTrue(key, value, !this.getCustomData().containsKey(key));
+        return this;
+    }
+
+    /**
+     * Retrieves the value of the custom data associated with the specified key.
+     *
+     * @param key the key of the custom data
+     * @param <T> the type of the value to retrieve
+     * @return the value associated with the specified key, or {@code null} if the key does not exist
+     */
+    default <T> T getCustomData(String key) {
+        return (T) getCustomData().get(key);
+    }
+
+    /**
+     * Retrieves the map of custom data associated with the Stats.
+     *
+     * @return the {@link ConcurrentObjectMap} containing the custom data of the void storage stats
+     */
+    ConcurrentObjectMap<String, Object> getCustomData();
 }
