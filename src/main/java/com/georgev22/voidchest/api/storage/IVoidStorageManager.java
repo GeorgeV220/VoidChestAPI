@@ -73,8 +73,22 @@ public interface IVoidStorageManager extends EntityManager<IVoidStorage> {
      *
      * @param chunk The chunk to retrieve the VoidStorage for.
      * @return The VoidStorage associated with the chunk, or null if not found.
+     * @deprecated A chunk may have multiple VoidStorages associated with it.
+     * The method will not be removed, but it may return incorrect results.
+     * Use {@link #voidStorage(SerializableLocation)}, {@link #voidStorage(SerializableBlock)},
+     * {@link #voidStorage(Location)} or {@link #voidStorage(Block)} instead.
      */
+    @Deprecated(since = "2.0.0")
     @Nullable IVoidStorage voidStorage(Chunk chunk);
+
+    /**
+     * Retrieves a list of VoidStorages associated with the specified chunk.
+     *
+     * @param chunk The chunk to retrieve the list of VoidStorages for.
+     * @return A list of VoidStorages associated with the chunk, or an empty list if none are found.
+     * @since 2.0.0
+     */
+    List<IVoidStorage> voidStorages(Chunk chunk);
 
     /**
      * Internal method. Retrieves a map of loaded entities.
