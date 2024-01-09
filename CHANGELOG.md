@@ -1,3 +1,17 @@
+# [2.0.0-alpha.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.9...v2.0.0-alpha.10) (2024-01-09)
+
+
+### Bug Fixes
+
+* **Utilities:** return false in isChunkLoaded when location or world is null ([c39147d](https://github.com/GeorgeV220/VoidChestAPI/commit/c39147da901e9c7b25b8fea891d1df845fefdeb8))
+
+
+### Features
+
+* **ASM:** Use ASM instead of reflection. (Paper patch) ([6fa3810](https://github.com/GeorgeV220/VoidChestAPI/commit/6fa3810876f1f1894af0fffca7d406194a724de6))
+* **IVoidStorageManager:** Add cache methods. ([4f517d0](https://github.com/GeorgeV220/VoidChestAPI/commit/4f517d067ac19638002476ceece5f27e7aecdeb3))
+* **storage:** Do not use Entity and EntityManager interfaces. ([0e5437e](https://github.com/GeorgeV220/VoidChestAPI/commit/0e5437e91e400bb592640935dfccf3faf62dc42b))
+
 # [2.0.0-alpha.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.8...v2.0.0-alpha.9) (2024-01-09)
 
 
