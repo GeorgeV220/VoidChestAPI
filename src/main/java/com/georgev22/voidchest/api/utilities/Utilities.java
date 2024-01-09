@@ -42,7 +42,13 @@ public class Utilities {
      * @param loc The location to check.
      * @return `true` if the chunk is loaded, otherwise `false`.
      */
-    public static boolean isChunkLoaded(final @NotNull Location loc) {
+    public static boolean isChunkLoaded(final Location loc) {
+        if (loc == null) {
+            return false;
+        }
+        if (loc.getWorld() == null) {
+            return false;
+        }
         return loc.getWorld().isChunkLoaded(loc.getBlockX() >> 4, loc.getBlockZ() >> 4);
     }
 
