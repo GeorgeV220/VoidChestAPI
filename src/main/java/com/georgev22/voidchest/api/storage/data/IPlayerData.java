@@ -2,11 +2,12 @@ package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
+import com.georgev22.voidchest.api.storage.data.player.Boosters;
 import com.georgev22.voidchest.api.storage.data.player.Stats;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -43,6 +44,7 @@ public interface IPlayerData {
      * Use {@link #boosters()} instead.
      */
     @Deprecated(since = "2.0.0")
+    @ApiStatus.Obsolete(since = "2.0.0")
     Booster booster();
 
     /**
@@ -51,7 +53,7 @@ public interface IPlayerData {
      * @return The list of boosters as a List.
      * @since 2.0.0
      */
-    List<Booster> boosters();
+    Boosters boosters();
 
     /**
      * Retrieves the current balance of the player.
