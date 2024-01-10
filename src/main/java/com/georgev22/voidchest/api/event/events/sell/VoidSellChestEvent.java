@@ -6,8 +6,11 @@ import com.georgev22.voidchest.api.storage.data.IVoidStorage;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The VoidSellChestEvent class is an event that is fired when a VoidStorage is sold.
+ * The VoidSellChestEvent class is an event fired when the sell task for a specific VoidStorage starts.
  * It extends the VoidEvent class.
+ * <p>
+ * This event should be used for monitoring and logging purposes,
+ * and no data manipulation should occur within this event.
  */
 public class VoidSellChestEvent extends VoidEvent {
 

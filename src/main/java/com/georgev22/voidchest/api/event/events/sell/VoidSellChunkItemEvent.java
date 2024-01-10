@@ -10,8 +10,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * The VoidSellChunkItemEvent class is an event that is fired when an item from a VoidStorage is sold in a chunk.
+ * The VoidSellChunkItemEvent class is an event that is fired
+ * when an item from the chunk containing a VoidStorage is about to be sold.
  * It extends the VoidEvent class.
+ * <p>
+ * This event provides information about the item being sold, including the VoidStorage, dropped item, item amount,
+ * and price.
  */
 public class VoidSellChunkItemEvent extends VoidEvent {
     private static final HandlerList HANDLERS = new HandlerList();
@@ -23,9 +27,9 @@ public class VoidSellChunkItemEvent extends VoidEvent {
      * Constructs a new VoidSellChunkItemEvent with the specified VoidStorage, dropped item, item amount, and price.
      *
      * @param voidStorage The VoidStorage associated with the event.
-     * @param droppedItem The dropped item being sold.
-     * @param itemAmount  The amount of the item being sold.
-     * @param price       The price of the item being sold.
+     * @param droppedItem The dropped item from the chunk about to be sold.
+     * @param itemAmount  The amount of the item about to be sold.
+     * @param price       The price of the item about to be sold.
      */
     public VoidSellChunkItemEvent(@NotNull final IVoidStorage voidStorage, @NotNull final Item droppedItem,
                                   final BigInteger itemAmount, final BigDecimal price) {
@@ -55,27 +59,27 @@ public class VoidSellChunkItemEvent extends VoidEvent {
     }
 
     /**
-     * Retrieves the price of the item being sold.
+     * Retrieves the price of the item about to be sold.
      *
-     * @return The price of the item being sold.
+     * @return The price of the item about to be sold.
      */
     public BigDecimal getPrice() {
         return price;
     }
 
     /**
-     * Sets the price of the item being sold.
+     * Sets the price of the item about to be sold.
      *
-     * @param price The price of the item being sold.
+     * @param price The price of the item about to be sold.
      */
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
     /**
-     * Retrieves the dropped item being sold.
+     * Retrieves the dropped item about to be sold.
      *
-     * @return The dropped item being sold.
+     * @return The dropped item about to be sold.
      */
     @NotNull
     public Item getDroppedItem() {
@@ -83,18 +87,18 @@ public class VoidSellChunkItemEvent extends VoidEvent {
     }
 
     /**
-     * Retrieves the amount of the item being sold.
+     * Retrieves the amount of the item about to be sold.
      *
-     * @return The amount of the item being sold.
+     * @return The amount of the item about to be sold.
      */
     public BigInteger getItemAmount() {
         return itemAmount;
     }
 
     /**
-     * Sets the amount of the item being sold.
+     * Sets the amount of the item about to be sold.
      *
-     * @param itemAmount The amount of the item being sold.
+     * @param itemAmount The amount of the item about to be sold.
      */
     public void setItemAmount(BigInteger itemAmount) {
         this.itemAmount = itemAmount;
