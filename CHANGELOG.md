@@ -1,3 +1,10 @@
+# [2.0.0-alpha.18](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.17...v2.0.0-alpha.18) (2024-01-10)
+
+
+### Features
+
+* **player:** introduce HashObjectMap for booster storage ([7ae6b94](https://github.com/GeorgeV220/VoidChestAPI/commit/7ae6b9475442a2eeed96c0efd9bc0d95386ce6a1))
+
 # [2.0.0-alpha.17](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.16...v2.0.0-alpha.17) (2024-01-10)
 
 
