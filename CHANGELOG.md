@@ -1,3 +1,10 @@
+# [2.0.0-alpha.16](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.15...v2.0.0-alpha.16) (2024-01-10)
+
+
+### Features
+
+* Introduce "Boosters" class and replace IPlayerData.boosters() List<Booster> with Boosters ([85fb9d8](https://github.com/GeorgeV220/VoidChestAPI/commit/85fb9d81b2864085ae596aac283a6bd1d00d3ddc))
+
 # [2.0.0-alpha.15](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.14...v2.0.0-alpha.15) (2024-01-10)
 
 
