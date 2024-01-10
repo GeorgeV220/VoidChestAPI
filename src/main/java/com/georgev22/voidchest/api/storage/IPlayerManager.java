@@ -1,17 +1,18 @@
 package com.georgev22.voidchest.api.storage;
 
 import com.georgev22.library.maps.ObjectMap;
+import com.georgev22.library.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * The IPlayerManager interface extends the EntityManager interface for managing player data.
+ * The IPlayerManager interface for managing player data.
  */
 public interface IPlayerManager {
 
@@ -36,7 +37,6 @@ public interface IPlayerManager {
      * @param entityId the {@link UUID} of the {@link IPlayerData} to be loaded
      * @return a {@link CompletableFuture} containing the loaded {@link IPlayerData} object
      */
-
     CompletableFuture<IPlayerData> load(UUID entityId);
 
     /**
@@ -45,7 +45,6 @@ public interface IPlayerManager {
      * @param playerData the {@link IPlayerData} to save
      * @return a {@link CompletableFuture} that completes when the {@link IPlayerData} is saved
      */
-
     CompletableFuture<Void> save(IPlayerData playerData);
 
     /**
@@ -54,7 +53,6 @@ public interface IPlayerManager {
      * @param playerData the {@link IPlayerData} to delete
      * @return a {@link CompletableFuture} that completes when the {@link IPlayerData} is deleted
      */
-
     CompletableFuture<Void> delete(IPlayerData playerData);
 
     /**
@@ -63,7 +61,6 @@ public interface IPlayerManager {
      * @param entityId the {@link UUID} of the @{@link IPlayerData} to create
      * @return a {@link CompletableFuture} that returns the newly created {@link IPlayerData}
      */
-
     CompletableFuture<IPlayerData> createEntity(UUID entityId);
 
     /**
@@ -72,7 +69,6 @@ public interface IPlayerManager {
      * @param entityId the {@link UUID} of the {@link IPlayerData} to check
      * @return a {@link CompletableFuture} that returns true if a {@link IPlayerData} with the specified ID exists, false otherwise
      */
-
     CompletableFuture<Boolean> exists(UUID entityId);
 
     /**
@@ -84,22 +80,49 @@ public interface IPlayerManager {
      *
      * @param entityId the {@link UUID} of the {@link IPlayerData} to retrieve
      * @return a {@link CompletableFuture} that will contain the {@link IPlayerData} with the given id
+     * @since 2.0.0
      */
-
     CompletableFuture<IPlayerData> getEntity(UUID entityId);
+
+    /**
+     * Retrieves the player data associated with the specified entity UUID.
+     *
+     * @param entityId The UUID of the player entity.
+     * @return The player data associated with the entity UUID, or {@code null} if not found.
+     * @since 2.0.0
+     */
+    @Nullable
+    default IPlayerData playerData(UUID entityId) {
+        if (this.getLoadedEntities().isEmpty()) return null;
+        if (!this.getLoadedEntities().containsKey(entityId)) return null;
+        return this.getLoadedEntities().get(entityId);
+    }
+
+    /**
+     * Retrieves the player data associated with the specified entity UUID.
+     * If the player data is not found and the 'load' parameter is set to true,
+     * attempts to load the data using the {@link  #getEntity(UUID)} method.
+     *
+     * @param entityId The UUID of the player entity.
+     * @param load     If true, attempts to load the data if not found.
+     * @return The player data associated with the entity UUID, or loaded data if 'load' is true and data is not found.
+     * Returns {@code null} if not found and 'load' is false.
+     */
+    @Nullable
+    default IPlayerData playerData(UUID entityId, boolean load) {
+        return this.getLoadedEntities().getOrDefault(entityId, load ? this.getEntity(entityId).join() : null);
+    }
 
     /**
      * Saves all the loaded {@link IPlayerData}s in the {@link #getLoadedEntities()} map.
      * For each {@link IPlayerData} in the map,
      * this method calls the {@link #save(IPlayerData)} method to persist the {@link IPlayerData}.
      */
-
     void saveAll();
 
     /**
      * Loads all the entities by retrieving their IDs and invoking the {@link #load(UUID)} method.
      */
-
     void loadAll();
 
     /**
@@ -107,9 +130,7 @@ public interface IPlayerManager {
      *
      * @return The map of loaded entities.
      */
-
-    @ApiStatus.Internal
-    ObjectMap<UUID, IPlayerData> getLoadedEntities();
+    UnmodifiableObjectMap<UUID, IPlayerData> getLoadedEntities();
 
     /**
      * Attempts to stop the sell task for the specified player data.

@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.storage;
 
-import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.library.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
@@ -8,7 +7,6 @@ import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -16,7 +14,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * The IVoidStorageManager interface extends the EntityManager interface for managing VoidStorages.
+ * The IVoidStorageManager interface for managing VoidStorages.
  */
 public interface IVoidStorageManager {
 
@@ -49,6 +47,7 @@ public interface IVoidStorageManager {
      * @param block The block to retrieve the VoidStorage for.
      * @return The VoidStorage associated with the block, or null if not found.
      */
+
     @Nullable IVoidStorage voidStorage(SerializableBlock block);
 
     /**
@@ -159,8 +158,7 @@ public interface IVoidStorageManager {
      *
      * @return The map of loaded entities.
      */
-    @ApiStatus.Internal
-    ObjectMap<UUID, IVoidStorage> getLoadedEntities();
+    UnmodifiableObjectMap<UUID, IVoidStorage> getLoadedEntities();
 
     /**
      * Adds the specified {@link IVoidStorage} to the cache associated with the given {@link Chunk}.
