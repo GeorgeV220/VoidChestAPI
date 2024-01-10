@@ -1,3 +1,10 @@
+# [2.0.0-alpha.17](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.16...v2.0.0-alpha.17) (2024-01-10)
+
+
+### Features
+
+* **api:** add BoosterEvent class ([895f81d](https://github.com/GeorgeV220/VoidChestAPI/commit/895f81da91e26f0a15a47e6c07db76aabb9a6641))
+
 # [2.0.0-alpha.16](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.15...v2.0.0-alpha.16) (2024-01-10)
 
 
