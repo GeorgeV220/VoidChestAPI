@@ -1,3 +1,10 @@
+# [2.0.0-alpha.15](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.14...v2.0.0-alpha.15) (2024-01-10)
+
+
+### Features
+
+* **IPlayerManager:** add playerData(UUID) and playerData(UUID, boolean) methods to retrieve IPlayerData objects ([2bdbedd](https://github.com/GeorgeV220/VoidChestAPI/commit/2bdbedd7b1814bcb9de48ef52f3bd389e61ab49b))
+
 # [2.0.0-alpha.14](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.13...v2.0.0-alpha.14) (2024-01-09)
 
 
