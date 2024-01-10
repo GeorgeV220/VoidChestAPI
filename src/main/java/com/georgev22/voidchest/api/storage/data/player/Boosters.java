@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
+import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.library.utilities.Utils;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -14,19 +15,19 @@ import java.util.List;
  * @since 2.0.0
  */
 @ApiStatus.AvailableSince(value = "2.0.0")
-@ApiStatus.NonExtendable()
+@ApiStatus.NonExtendable
 public class Boosters {
 
     /**
      * List of boosters stored in this collection.
      */
-    private final List<Booster> boosters;
+    private final HashObjectMap<String, Booster> boosters;
 
     /**
      * Constructs an empty Boosters collection.
      */
     public Boosters() {
-        this.boosters = new ArrayList<>();
+        this.boosters = new HashObjectMap<>();
     }
 
     /**
@@ -35,7 +36,8 @@ public class Boosters {
      * @param boosters The list of boosters to initialize the collection.
      */
     public Boosters(List<Booster> boosters) {
-        this.boosters = boosters;
+        this.boosters = new HashObjectMap<>();
+        boosters.forEach(booster -> this.boosters.append(booster.pluginIdentifier(), booster));
     }
 
     /**
@@ -44,8 +46,8 @@ public class Boosters {
      * @param booster The booster to be added to the collection.
      */
     public Boosters(Booster booster) {
-        this.boosters = new ArrayList<>();
-        this.boosters.add(booster);
+        this.boosters = new HashObjectMap<>();
+        this.boosters.append(booster.pluginIdentifier(), booster);
     }
 
     /**
@@ -54,27 +56,37 @@ public class Boosters {
      * @param boosters The boosters to be added to the collection.
      */
     public Boosters(Booster... boosters) {
-        this.boosters = new ArrayList<>();
-        this.boosters.addAll(Arrays.asList(boosters));
+        this.boosters = new HashObjectMap<>();
+        Arrays.stream(boosters).forEach(booster -> this.boosters.append(booster.pluginIdentifier(), booster));
     }
 
     /**
-     * Gets the list of boosters stored in this collection.
+     * Gets the list of boosters stored in the HashObjectMap.
      *
      * @return The list of boosters.
      */
-    public List<Booster> getBoosters() {
-        return this.boosters;
+    public List<Booster> getBoostersAsList() {
+        return new ArrayList<>(this.boosters.values());
+    }
+
+    /**
+     * Gets the boosters stored in the HashObjectMap.
+     *
+     * @return The HashObjectMap containing boosters.
+     */
+    public HashObjectMap<String, Booster> getBoosters() {
+        return boosters;
     }
 
     /**
      * Adds a booster to the collection.
+     * If a booster with the same plugin identifier already exists, it will be replaced.
      *
-     * @param booster The booster to be added.
-     * @return The Boosters object after adding the specified booster.
+     * @param booster The booster to be added or replaced.
+     * @return The Boosters object after adding or replacing the specified booster.
      */
     public Boosters addBooster(Booster booster) {
-        this.boosters.add(booster);
+        this.boosters.append(booster.pluginIdentifier(), booster);
         return this;
     }
 
@@ -85,7 +97,9 @@ public class Boosters {
      * @return The Boosters object after removing the specified booster.
      */
     public Boosters removeBooster(Booster booster) {
-        this.boosters.remove(booster);
+        if (booster == null) return this;
+        if (!this.boosters.containsKey(booster.pluginIdentifier())) return this;
+        this.boosters.remove(booster.pluginIdentifier());
         return this;
     }
 
@@ -96,7 +110,9 @@ public class Boosters {
      * @return The Boosters object after removing the specified booster.
      */
     public Boosters removeBooster(String pluginIdentifier) {
-        this.boosters.removeIf(booster -> booster.pluginIdentifier() != null && booster.pluginIdentifier().equals(pluginIdentifier));
+        if (pluginIdentifier == null) return this;
+        if (!this.boosters.containsKey(pluginIdentifier)) return this;
+        this.boosters.remove(pluginIdentifier);
         return this;
     }
 
@@ -106,7 +122,7 @@ public class Boosters {
      * @return The total booster value.
      */
     public double booster() {
-        return this.boosters.stream().filter(Booster::isBoosterActive).mapToDouble(Booster::booster).sum();
+        return this.boosters.values().stream().filter(Booster::isBoosterActive).mapToDouble(Booster::booster).sum();
     }
 
     /**
@@ -115,7 +131,7 @@ public class Boosters {
      * @return The total boost time in milliseconds.
      */
     public long boostTime() {
-        return this.boosters.stream().filter(Booster::isBoosterActive).mapToLong(Booster::boostTime).sum();
+        return this.boosters.values().stream().filter(Booster::isBoosterActive).mapToLong(Booster::boostTime).sum();
     }
 
     /**
