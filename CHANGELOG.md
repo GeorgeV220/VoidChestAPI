@@ -1,3 +1,10 @@
+# [2.0.0-alpha.19](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.18...v2.0.0-alpha.19) (2024-01-12)
+
+
+### Features
+
+* introduce booster events in Boosters class ([b82a4e9](https://github.com/GeorgeV220/VoidChestAPI/commit/b82a4e9101e43b80f8e595f0fa23eb0242ed1ecb))
+
 # [2.0.0-alpha.18](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.17...v2.0.0-alpha.18) (2024-01-10)
 
 
