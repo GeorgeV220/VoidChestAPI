@@ -40,7 +40,7 @@ public class Boosters {
      */
     public Boosters(List<Booster> boosters) {
         this.boosters = new HashObjectMap<>();
-        boosters.forEach(booster -> this.boosters.append(booster.pluginIdentifier(), booster));
+        boosters.forEach(this::addBooster);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Boosters {
      */
     public Boosters(Booster booster) {
         this.boosters = new HashObjectMap<>();
-        this.boosters.append(booster.pluginIdentifier(), booster);
+        this.addBooster(booster);
     }
 
     /**
@@ -60,7 +60,7 @@ public class Boosters {
      */
     public Boosters(Booster... boosters) {
         this.boosters = new HashObjectMap<>();
-        Arrays.stream(boosters).forEach(booster -> this.boosters.append(booster.pluginIdentifier(), booster));
+        Arrays.stream(boosters).forEach(this::addBooster);
     }
 
     /**
@@ -134,7 +134,7 @@ public class Boosters {
      */
     public double booster() {
         if (this.boosters.isEmpty()) return 1;
-        double booster = this.boosters.values().stream().filter(Booster::isBoosterActive).mapToDouble(Booster::booster).sum();
+        double booster = this.boosters.values().stream().filter(Booster::isBoosterActive).mapToDouble(value -> value.booster() > 1D ? value.booster() : 0D).sum();
         if (booster < 1) booster = 1;
         return booster;
     }
@@ -155,7 +155,6 @@ public class Boosters {
     /**
      * Calculates and returns the time left for active boosters.
      *
-     * @param input           The base time input.
      * @param secondInput     The label for seconds.
      * @param secondsInput    The label for plural seconds.
      * @param minuteInput     The label for minutes.
@@ -168,12 +167,13 @@ public class Boosters {
      * @param noActiveBooster The message when no active boosters are present.
      * @return The formatted time left for active boosters.
      */
-    public String boosterTimeLeft(long input, String secondInput, String secondsInput, String minuteInput,
-                                  String minutesInput, String hourInput, String hoursInput, String dayInput, String daysInput,
-                                  String invalidInput, String noActiveBooster) {
+    public String boosterTimeLeft(String secondInput, String secondsInput, String minuteInput,
+                                  String minutesInput, String hourInput, String hoursInput,
+                                  String dayInput, String daysInput, String invalidInput,
+                                  String noActiveBooster) {
         String returnValue;
         long boostTime = this.boostTime();
-        if (this.booster() <= 1d || boostTime <= 0L || ((boostTime - Instant.now().toEpochMilli()) / 1000) + 1 <= 0) {
+        if (this.booster() <= 1d || boostTime <= 0L || boostTime <= Instant.now().toEpochMilli()) {
             returnValue = noActiveBooster;
         } else {
             returnValue = Utils.convertSeconds(((boostTime - Instant.now().toEpochMilli()) / 1000) + 1,
