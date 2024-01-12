@@ -1,3 +1,10 @@
+# [2.0.0-alpha.21](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.20...v2.0.0-alpha.21) (2024-01-12)
+
+
+### Bug Fixes
+
+* **Boosters:** adjust booster calculations ([a80ba93](https://github.com/GeorgeV220/VoidChestAPI/commit/a80ba9366a2fb4def633e7aef42057e33e2ceb93))
+
 # [2.0.0-alpha.20](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.19...v2.0.0-alpha.20) (2024-01-12)
 
 
