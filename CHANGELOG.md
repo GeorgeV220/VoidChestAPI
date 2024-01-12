@@ -1,3 +1,10 @@
+# [2.0.0-alpha.20](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.19...v2.0.0-alpha.20) (2024-01-12)
+
+
+### Bug Fixes
+
+* handle edge cases in booster and boostTime calculations ([bfe66bb](https://github.com/GeorgeV220/VoidChestAPI/commit/bfe66bbfce5a5d5f1d3949c6e5fe0e3544d0c1b9))
+
 # [2.0.0-alpha.19](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.18...v2.0.0-alpha.19) (2024-01-12)
 
 
