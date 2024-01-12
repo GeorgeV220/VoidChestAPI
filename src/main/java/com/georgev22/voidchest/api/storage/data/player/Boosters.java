@@ -133,7 +133,10 @@ public class Boosters {
      * @return The total booster value.
      */
     public double booster() {
-        return this.boosters.values().stream().filter(Booster::isBoosterActive).mapToDouble(Booster::booster).sum();
+        if (this.boosters.isEmpty()) return 1;
+        double booster = this.boosters.values().stream().filter(Booster::isBoosterActive).mapToDouble(Booster::booster).sum();
+        if (booster < 1) booster = 1;
+        return booster;
     }
 
     /**
@@ -142,7 +145,11 @@ public class Boosters {
      * @return The total boost time in milliseconds.
      */
     public long boostTime() {
-        return this.boosters.values().stream().filter(Booster::isBoosterActive).mapToLong(Booster::boostTime).sum();
+        if (this.boosters.isEmpty()) return 0;
+        if (this.boosters.values().stream().noneMatch(Booster::isBoosterActive)) return 0;
+        long boostTime = this.boosters.values().stream().filter(Booster::isBoosterActive).mapToLong(Booster::boostTime).sum();
+        if (boostTime < 0) boostTime = 0;
+        return boostTime;
     }
 
     /**
@@ -165,10 +172,11 @@ public class Boosters {
                                   String minutesInput, String hourInput, String hoursInput, String dayInput, String daysInput,
                                   String invalidInput, String noActiveBooster) {
         String returnValue;
-        if (this.booster() <= 1d) {
+        long boostTime = this.boostTime();
+        if (this.booster() <= 1d || boostTime <= 0L || ((boostTime - Instant.now().toEpochMilli()) / 1000) + 1 <= 0) {
             returnValue = noActiveBooster;
         } else {
-            returnValue = Utils.convertSeconds(((this.boostTime() - Instant.now().toEpochMilli()) / 1000) + 1,
+            returnValue = Utils.convertSeconds(((boostTime - Instant.now().toEpochMilli()) / 1000) + 1,
                     secondInput,
                     secondsInput,
                     minuteInput,
