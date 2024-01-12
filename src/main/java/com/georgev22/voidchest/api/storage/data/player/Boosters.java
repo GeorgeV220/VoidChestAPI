@@ -99,6 +99,8 @@ public class Boosters {
     public Boosters removeBooster(Booster booster) {
         if (booster == null) return this;
         if (!this.boosters.containsKey(booster.pluginIdentifier())) return this;
+        booster.booster(0d);
+        booster.boostTime(0L);
         this.boosters.remove(booster.pluginIdentifier());
         return this;
     }
@@ -112,6 +114,9 @@ public class Boosters {
     public Boosters removeBooster(String pluginIdentifier) {
         if (pluginIdentifier == null) return this;
         if (!this.boosters.containsKey(pluginIdentifier)) return this;
+        Booster booster = this.boosters.get(pluginIdentifier);
+        booster.booster(0d);
+        booster.boostTime(0L);
         this.boosters.remove(pluginIdentifier);
         return this;
     }
@@ -154,7 +159,7 @@ public class Boosters {
                                   String minutesInput, String hourInput, String hoursInput, String dayInput, String daysInput,
                                   String invalidInput, String noActiveBooster) {
         String returnValue;
-        if (this.booster() == 1d) {
+        if (this.booster() <= 1d) {
             returnValue = noActiveBooster;
         } else {
             returnValue = Utils.convertSeconds(((this.boostTime() - Instant.now().toEpochMilli()) / 1000) + 1,
