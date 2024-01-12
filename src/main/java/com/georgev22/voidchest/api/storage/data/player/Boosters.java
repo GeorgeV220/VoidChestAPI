@@ -2,6 +2,9 @@ package com.georgev22.voidchest.api.storage.data.player;
 
 import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.library.utilities.Utils;
+import com.georgev22.voidchest.api.VoidChestAPI;
+import com.georgev22.voidchest.api.event.events.booster.BoosterAddEvent;
+import com.georgev22.voidchest.api.event.events.booster.BoosterRemoveEvent;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.time.Instant;
@@ -86,6 +89,10 @@ public class Boosters {
      * @return The Boosters object after adding or replacing the specified booster.
      */
     public Boosters addBooster(Booster booster) {
+        if (booster == null) return this;
+        BoosterAddEvent boosterAddEvent = new BoosterAddEvent(this, booster);
+        VoidChestAPI.getInstance().eventManager().callEvent(boosterAddEvent);
+        if (boosterAddEvent.isCancelled()) return this;
         this.boosters.append(booster.pluginIdentifier(), booster);
         return this;
     }
@@ -99,6 +106,9 @@ public class Boosters {
     public Boosters removeBooster(Booster booster) {
         if (booster == null) return this;
         if (!this.boosters.containsKey(booster.pluginIdentifier())) return this;
+        BoosterRemoveEvent boosterRemoveEvent = new BoosterRemoveEvent(this, booster);
+        VoidChestAPI.getInstance().eventManager().callEvent(boosterRemoveEvent);
+        if (boosterRemoveEvent.isCancelled()) return this;
         booster.booster(0d);
         booster.boostTime(0L);
         this.boosters.remove(booster.pluginIdentifier());
@@ -114,11 +124,7 @@ public class Boosters {
     public Boosters removeBooster(String pluginIdentifier) {
         if (pluginIdentifier == null) return this;
         if (!this.boosters.containsKey(pluginIdentifier)) return this;
-        Booster booster = this.boosters.get(pluginIdentifier);
-        booster.booster(0d);
-        booster.boostTime(0L);
-        this.boosters.remove(pluginIdentifier);
-        return this;
+        return this.removeBooster(this.boosters.get(pluginIdentifier));
     }
 
     /**
