@@ -132,12 +132,12 @@ public interface VoidInventory extends Inventory {
      * Updates the item stack at the specified slot in the void chest.
      * <p>
      * Used when a player modifies a specific slot in the void chest
+     * For API usage it is always better to use {@link #addItems(SerializableItemStack...)}
      *
      * @param slot                   The slot index
      * @param voidInventoryItemStack The item stack
      */
     @ApiStatus.Internal
-    @ApiStatus.Experimental
     default void update(int slot, VoidInventoryItemStack voidInventoryItemStack) {
         this.getItems().set(slot, voidInventoryItemStack);
     }
@@ -147,7 +147,5 @@ public interface VoidInventory extends Inventory {
      *
      * @param player The player to open the inventory for
      */
-    @ApiStatus.Internal
-    @ApiStatus.Experimental
     void open(Player player);
 }
