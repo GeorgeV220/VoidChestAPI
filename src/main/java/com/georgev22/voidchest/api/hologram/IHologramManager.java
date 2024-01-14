@@ -1,12 +1,10 @@
 package com.georgev22.voidchest.api.hologram;
 
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
-import org.jetbrains.annotations.ApiStatus;
 
 /**
  * The IHologramManager interface provides methods for managing holograms.
  */
-@ApiStatus.Internal
 public interface IHologramManager {
 
     /**
