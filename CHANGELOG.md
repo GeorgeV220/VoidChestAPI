@@ -1,3 +1,57 @@
+# [2.0.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.20.0...v2.0.0) (2024-01-16)
+
+
+### Bug Fixes
+
+* **Boosters:** adjust booster calculations ([a80ba93](https://github.com/GeorgeV220/VoidChestAPI/commit/a80ba9366a2fb4def633e7aef42057e33e2ceb93))
+* **build:** Do not shade ASM into the API ([54c532b](https://github.com/GeorgeV220/VoidChestAPI/commit/54c532b10465869a862aec8f29144a5a5d22a63b))
+* handle edge cases in booster and boostTime calculations ([bfe66bb](https://github.com/GeorgeV220/VoidChestAPI/commit/bfe66bbfce5a5d5f1d3949c6e5fe0e3544d0c1b9))
+* **IVoidStorageManager:** Fix getLocationCache and getBlockCache wrong return type ([5790ad5](https://github.com/GeorgeV220/VoidChestAPI/commit/5790ad5f12b8980bf6b44e4c6c2e3a099986e8e3))
+* **SerializableLocation:** Make 'toLocation()' method return null if the world is null/not loaded. ([c483d9e](https://github.com/GeorgeV220/VoidChestAPI/commit/c483d9eb504a4ed12cfdd168752b2c42494b1d0f))
+* **storage:** Add custom data methods ([bb59573](https://github.com/GeorgeV220/VoidChestAPI/commit/bb595732b359f1cd29e28b7aff5873fdc51749bf))
+* **Utilities:** return false in isChunkLoaded when location or world is null ([c39147d](https://github.com/GeorgeV220/VoidChestAPI/commit/c39147da901e9c7b25b8fea891d1df845fefdeb8))
+
+
+### Code Refactoring
+
+* remove deprecated sell handler from IPlayerData (2.4.0) ([7ffa86b](https://github.com/GeorgeV220/VoidChestAPI/commit/7ffa86b5e5bf31653757d73ac7516d1d91cb865b))
+
+
+### Features
+
+* **api:** add BoosterEvent class ([895f81d](https://github.com/GeorgeV220/VoidChestAPI/commit/895f81da91e26f0a15a47e6c07db76aabb9a6641))
+* **ASM:** Use ASM instead of reflection. (Paper patch) ([6fa3810](https://github.com/GeorgeV220/VoidChestAPI/commit/6fa3810876f1f1894af0fffca7d406194a724de6))
+* **Booster:** Add isBoosterActive(Plugin) and getBoosters() methods ([ab1237b](https://github.com/GeorgeV220/VoidChestAPI/commit/ab1237b005be75cad9fcea17a752f79830905dc4))
+* **Booster:** add plugin support for booster methods (2.4.0) ([468c2d0](https://github.com/GeorgeV220/VoidChestAPI/commit/468c2d0c1d2b8bb807e5f5cbe0e2076f4b3710ac))
+* Change Booster plugin methods to take String instead of a Plugin object. ([0537ee8](https://github.com/GeorgeV220/VoidChestAPI/commit/0537ee843f5a69b7a4cc3d73236e7aa97e34d1a3))
+* Introduce "Boosters" class and replace IPlayerData.boosters() List<Booster> with Boosters ([85fb9d8](https://github.com/GeorgeV220/VoidChestAPI/commit/85fb9d81b2864085ae596aac283a6bd1d00d3ddc))
+* introduce booster events in Boosters class ([b82a4e9](https://github.com/GeorgeV220/VoidChestAPI/commit/b82a4e9101e43b80f8e595f0fa23eb0242ed1ecb))
+* **IPlayerData:** add List<Booster> boosters() method and mark Booster booster() as deprecated ([2348a03](https://github.com/GeorgeV220/VoidChestAPI/commit/2348a03393fe487f551a2f257c240f857e6c1295))
+* **IPlayerManager:** Add IPlayerManager.getPlaceHolders(IPlayerData) method ([45bdf96](https://github.com/GeorgeV220/VoidChestAPI/commit/45bdf96d8ae47170a4e6f1fc06069333eddb9f7e))
+* **IPlayerManager:** add playerData(UUID) and playerData(UUID, boolean) methods to retrieve IPlayerData objects ([2bdbedd](https://github.com/GeorgeV220/VoidChestAPI/commit/2bdbedd7b1814bcb9de48ef52f3bd389e61ab49b))
+* **IVoidStorageManager:** Add cache methods. ([4f517d0](https://github.com/GeorgeV220/VoidChestAPI/commit/4f517d067ac19638002476ceece5f27e7aecdeb3))
+* **IVoidStorageManager:** Add voidStorages(Chunk) and mark voidStorage(Chunk) as deprecated. ([01b3a1b](https://github.com/GeorgeV220/VoidChestAPI/commit/01b3a1b8c3478df68b9615d665d635c0146d2f29))
+* mark old Booster methods are deprecated for removal. ([4b4e3b6](https://github.com/GeorgeV220/VoidChestAPI/commit/4b4e3b6089fadb8d3b377142646e7f5f091e168e))
+* **NullableFixedSizeList:** add isEmpty method ([3be799a](https://github.com/GeorgeV220/VoidChestAPI/commit/3be799adecd8d19898dfe985468d45dec7a8a7bc))
+* **player:** introduce HashObjectMap for booster storage ([7ae6b94](https://github.com/GeorgeV220/VoidChestAPI/commit/7ae6b9475442a2eeed96c0efd9bc0d95386ce6a1))
+* Removed whitelist/blacklist item methods from Abilities ([f3b6200](https://github.com/GeorgeV220/VoidChestAPI/commit/f3b6200887d1ddc976cc1d212c71647716db2f10))
+* **SerializableLocation:** Add new constructor and getters. ([13efdb3](https://github.com/GeorgeV220/VoidChestAPI/commit/13efdb3f8920f25b22c76d6fb867c02fe8dc8d96))
+* **storage:** Add playerUUID to IPlayerData and storageUUID to IVoidStorage ([0431261](https://github.com/GeorgeV220/VoidChestAPI/commit/0431261777842ecbf383e3756ee1e4eb61235587))
+* **storage:** Do not use Entity and EntityManager interfaces. ([0e5437e](https://github.com/GeorgeV220/VoidChestAPI/commit/0e5437e91e400bb592640935dfccf3faf62dc42b))
+* **tasks:** add SellHandler interface for void chest entities (2.4.0) ([2b419f4](https://github.com/GeorgeV220/VoidChestAPI/commit/2b419f44c7f6b2a994738a7a0c32827f9fcb67b6))
+* use ExecutorService for async event handling (alpha) ([00460ba](https://github.com/GeorgeV220/VoidChestAPI/commit/00460bacb1597251bbe18cb6dbecd62b4eac9364))
+* **VoidChestAPI:** add SellHandler parameter to constructor (2.4.0) ([bffbc94](https://github.com/GeorgeV220/VoidChestAPI/commit/bffbc942ef1b7fffb16afe3fdd9ee815e0d73c59))
+
+
+### Reverts
+
+* **Booster:** Remove plugin methods from Booster and add pluginIdentifier() (2.4.0) ([e487165](https://github.com/GeorgeV220/VoidChestAPI/commit/e487165e5286efa6516b850aab8df0ea44df0934))
+
+
+### BREAKING CHANGES
+
+* The sell handler is no longer part of the IPlayerData interface and will be moved to a different class.
+
 # [2.0.0-alpha.21](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0-alpha.20...v2.0.0-alpha.21) (2024-01-12)
 
 
