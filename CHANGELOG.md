@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0...v2.1.0) (2024-01-17)
+
+
+### Features
+
+* **api:** add debug mode to VoidChestAPI ([ea20fec](https://github.com/GeorgeV220/VoidChestAPI/commit/ea20fec15e38c8bfbfc7bc6ed0901a2a6952ced3))
+
 # [2.0.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v1.20.0...v2.0.0) (2024-01-16)
 
 
