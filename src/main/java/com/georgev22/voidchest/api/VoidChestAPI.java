@@ -45,6 +45,11 @@ public record VoidChestAPI(IEconomyManager economyManager,
     private static VoidChestAPI instance;
 
     /**
+     * The debug flag.
+     */
+    private static boolean debug = false;
+
+    /**
      * Sets the singleton instance of the VoidChestAPI class.
      *
      * @param voidChestAPI The instance to set.
@@ -61,5 +66,23 @@ public record VoidChestAPI(IEconomyManager economyManager,
      */
     public static VoidChestAPI getInstance() {
         return instance;
+    }
+
+    /**
+     * Returns true if debug mode is enabled.
+     *
+     * @return true if debug mode is enabled
+     */
+    public static boolean debug() {
+        return debug;
+    }
+
+    /**
+     * Enables or disables debug mode.
+     *
+     * @param debug true to enable debug mode, false to disable
+     */
+    public static void setDebug(boolean debug) {
+        VoidChestAPI.debug = debug;
     }
 }
