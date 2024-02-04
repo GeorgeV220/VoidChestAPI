@@ -100,9 +100,12 @@ public class SerializableBlock implements Serializable {
      *
      * @return A string representation of the block's location.
      */
-    public @NotNull String toString() {
+    public @Nullable String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         Block block = this.toBlock();
+        if (block == null) {
+            return null;
+        }
         Location location = block.getLocation().clone();
         stringBuilder
                 .append(location.getWorld().getName())
@@ -152,7 +155,7 @@ public class SerializableBlock implements Serializable {
      *
      * @return The Block represented by this SerializableBlock, or {@code null} if the world is not found.
      */
-    public Block toBlock() {
+    public @Nullable Block toBlock() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             return world.getBlockAt(x, y, z);
