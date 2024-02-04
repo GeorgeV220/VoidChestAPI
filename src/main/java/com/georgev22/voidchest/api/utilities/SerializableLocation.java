@@ -156,7 +156,7 @@ public class SerializableLocation implements Serializable {
                 location = new Location(world, x, y, z, yaw, pitch);
             }
         }
-        return location;
+        return location.clone();
     }
 
     /**
