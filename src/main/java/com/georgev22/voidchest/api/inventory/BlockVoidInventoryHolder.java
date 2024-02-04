@@ -2,19 +2,20 @@ package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.voidchest.api.exceptions.InvalidInventoryTypeException;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
-import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.BlockInventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
 /**
- * The VoidInventoryHolder interface extends the InventoryHolder interface and provides additional methods
- * for managing a VoidChest inventory holder.
- * This InventoryHolder is utilized for all VoidChest inventories except for VoidChest item inventory.
+ * The BlockVoidInventoryHolder interface extends the BlockInventoryHolder interface and provides additional methods
+ * for managing a VoidChest inventory with a specific inventory type of {@link InventoryType#STORAGE}.
+ * This InventoryHolder is specifically designed for VoidChest item inventories and is not intended for other types
+ * of VoidChest inventories like menus.
  *
- * @see BlockVoidInventoryHolder
+ * @see VoidInventoryHolder
  */
-public interface VoidInventoryHolder extends InventoryHolder, Serializable {
+public interface BlockVoidInventoryHolder extends BlockInventoryHolder, Serializable {
 
     /**
      * Retrieves the name of the inventory.
@@ -41,7 +42,7 @@ public interface VoidInventoryHolder extends InventoryHolder, Serializable {
      * Retrieves the inventory type.
      *
      * @return The inventory type.
-     * @throws InvalidInventoryTypeException If the inventory type is {@link InventoryType#STORAGE}.
+     * @throws InvalidInventoryTypeException If the inventory type is not {@link InventoryType#STORAGE}.
      */
     InventoryType inventoryType() throws InvalidInventoryTypeException;
 
