@@ -1,3 +1,15 @@
+# [2.2.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.1.0...v2.2.0-alpha.1) (2024-02-04)
+
+
+### Bug Fixes
+
+* **SerializableLocation:** change toLocation() to return a clone of the location to prevent changes to the original object ([e86a9a2](https://github.com/GeorgeV220/VoidChestAPI/commit/e86a9a2def87a1ebf0e8f7dbc5eaf5da32a47386))
+
+
+### Features
+
+* **inventory:** Add BlockVoidInventoryHolder for STORAGE InventoryType ([0e2d3af](https://github.com/GeorgeV220/VoidChestAPI/commit/0e2d3affb628ec1a1f63af665fd60ec31bb4477d))
+
 # [2.1.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.0.0...v2.1.0) (2024-01-17)
 
 
