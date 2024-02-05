@@ -5,10 +5,12 @@ import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
+import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -65,6 +67,17 @@ public interface IVoidStorage {
      * @return The name of the VoidStorage.
      */
     @NotNull String name();
+
+    /**
+     * Retrieves the bounding box that defines the area from which the VoidChest will collect items.
+     * If the bounding box is not explicitly set, the area will default to the chunk where the VoidChest is placed.
+     *
+     * @return The bounding box defining the collection area.
+     */
+    @Nullable
+    default BoundingBox boundingBox() throws IllegalStateException {
+        return blockLocation().getBoundingBox();
+    }
 
     /**
      * Retrieves the booster value of the VoidStorage.
