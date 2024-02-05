@@ -48,6 +48,8 @@ public class SerializableLocation implements Serializable {
     private final double z;
     private final float yaw;
     private final float pitch;
+    private final int minY;
+    private final int maxY;
 
     /**
      * Constructs a new SerializableLocation from the provided Bukkit Location.
@@ -62,6 +64,8 @@ public class SerializableLocation implements Serializable {
         this.z = location.getZ();
         this.yaw = location.getYaw();
         this.pitch = location.getPitch();
+        this.minY = location.getWorld().getMinHeight();
+        this.maxY = location.getWorld().getMaxHeight();
     }
 
     /**
@@ -81,6 +85,31 @@ public class SerializableLocation implements Serializable {
         this.z = z;
         this.yaw = yaw;
         this.pitch = pitch;
+        this.minY = 0;
+        this.maxY = 256;
+    }
+
+    /**
+     * Constructs a new SerializableLocation with explicit values.
+     *
+     * @param worldName The name of the world.
+     * @param x         The x-coordinate.
+     * @param y         The y-coordinate.
+     * @param z         The z-coordinate.
+     * @param yaw       The yaw angle.
+     * @param pitch     The pitch angle.
+     * @param minY      The minimum y-coordinate.
+     * @param maxY      The maximum y-coordinate.
+     */
+    public SerializableLocation(String worldName, double x, double y, double z, float yaw, float pitch, int minY, int maxY) {
+        this.worldName = worldName;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.yaw = yaw;
+        this.pitch = pitch;
+        this.minY = minY;
+        this.maxY = maxY;
     }
 
     /**
@@ -137,6 +166,11 @@ public class SerializableLocation implements Serializable {
         double z = Double.parseDouble(parts[3]);
         float pitch = Float.parseFloat(parts[4]);
         float yaw = Float.parseFloat(parts[5]);
+        if (parts.length > 6) {
+            int minY = Integer.parseInt(parts[6]);
+            int maxY = Integer.parseInt(parts[7]);
+            return new SerializableLocation(worldName, x, y, z, pitch, yaw, minY, maxY);
+        }
         if (world == null) {
             return new SerializableLocation(worldName, x, y, z, pitch, yaw);
         } else {
@@ -184,6 +218,40 @@ public class SerializableLocation implements Serializable {
      */
     public double getY() {
         return y;
+    }
+
+    /**
+     * Gets the minimum y-coordinate.
+     *
+     * @return The minimum y-coordinate.
+     */
+    public int getMinY() {
+        return minY;
+    }
+
+    /**
+     * Gets the maximum y-coordinate
+     *
+     * @return The maximum y-coordinate
+     */
+    public int getMaxY() {
+        return maxY;
+    }
+
+    /**
+     * Gets the bounding box of the location.
+     *
+     * @return The bounding box of the location.
+     */
+    public BoundingBox getBoundingBox() {
+        int chunkX = (int) getX() >> 4;
+        int chunkZ = (int) getZ() >> 4;
+
+        int minChunkX = chunkX << 4;
+        int minChunkZ = chunkZ << 4;
+        int maxChunkX = minChunkX + 15;
+        int maxChunkZ = minChunkZ + 15;
+        return new BoundingBox(minChunkX, minY, minChunkZ, maxChunkX, maxY, maxChunkZ);
     }
 
     /**
