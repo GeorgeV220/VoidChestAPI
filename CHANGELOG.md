@@ -1,3 +1,12 @@
+# [2.2.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.1...v2.2.0-alpha.2) (2024-02-05)
+
+
+### Features
+
+* add BoundingBox class for 3D space representation ([c60231d](https://github.com/GeorgeV220/VoidChestAPI/commit/c60231d0f16c192d2a8b0ff01c61c6ed25c361ad))
+* add minY and maxY fields to SerializableLocation ([f698f0d](https://github.com/GeorgeV220/VoidChestAPI/commit/f698f0dce2773233765467a301b3aea2704018a3))
+* **IVoidStorage:** add boundingBox method ([972a83b](https://github.com/GeorgeV220/VoidChestAPI/commit/972a83b61fae7c9dc1eb7c23cf283568235a3f56))
+
 # [2.2.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.1.0...v2.2.0-alpha.1) (2024-02-04)
 
 
