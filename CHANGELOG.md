@@ -1,3 +1,16 @@
+# [2.2.0-alpha.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.2...v2.2.0-alpha.3) (2024-02-06)
+
+
+### Bug Fixes
+
+* **BoundingBox:** Change clone method to public ([4b82ed6](https://github.com/GeorgeV220/VoidChestAPI/commit/4b82ed612147f603dca146287b8cfac7d017bb3d))
+
+
+### Features
+
+* **SerializableLocation:** implements Cloneable and add clone() method ([5005e11](https://github.com/GeorgeV220/VoidChestAPI/commit/5005e11ad4208d2d95cbd646c2422199d7257deb))
+* **storage/IVoidStorage:** Introduce Filter class and deprecate blacklistInventory and whitelistInventory methods ([70e4a3e](https://github.com/GeorgeV220/VoidChestAPI/commit/70e4a3e7864bf3db1fdde6886d61499ed9e07090))
+
 # [2.2.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.1...v2.2.0-alpha.2) (2024-02-05)
 
 
