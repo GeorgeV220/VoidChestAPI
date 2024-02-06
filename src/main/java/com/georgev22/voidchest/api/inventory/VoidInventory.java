@@ -6,7 +6,6 @@ import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -127,18 +126,18 @@ public interface VoidInventory extends Inventory {
     }
 
     /**
-     * The API shouldn't call this method
-     * <p>
      * Updates the item stack at the specified slot in the void chest.
-     * <p>
-     * Used when a player modifies a specific slot in the void chest
-     * For API usage it is always better to use {@link #addItems(SerializableItemStack...)}
      *
      * @param slot                   The slot index
      * @param voidInventoryItemStack The item stack
      */
-    @ApiStatus.Internal
-    default void update(int slot, VoidInventoryItemStack voidInventoryItemStack) {
+    default void update(int slot, @Nullable VoidInventoryItemStack voidInventoryItemStack) {
+        if (voidInventoryItemStack == null) {
+            this.clear(slot);
+            this.getItems().set(slot, null);
+            return;
+        }
+        this.setItem(slot, voidInventoryItemStack.getVisibleItemStack());
         this.getItems().set(slot, voidInventoryItemStack);
     }
 
