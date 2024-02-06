@@ -36,7 +36,7 @@ import java.io.*;
  * to ensure proper error reporting and user feedback.
  * </p>
  */
-public class SerializableLocation implements Serializable {
+public class SerializableLocation implements Serializable, Cloneable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -279,6 +279,15 @@ public class SerializableLocation implements Serializable {
      */
     public float getYaw() {
         return yaw;
+    }
+
+    @Override
+    public SerializableLocation clone() {
+        try {
+            return (SerializableLocation) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error(e);
+        }
     }
 
     /**
