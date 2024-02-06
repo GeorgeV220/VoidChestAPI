@@ -1,21 +1,21 @@
-package com.georgev22.voidchest.api.inventory;
+package com.georgev22.voidchest.api.inventory.holder;
 
 import com.georgev22.voidchest.api.exceptions.InvalidInventoryTypeException;
+import com.georgev22.voidchest.api.inventory.InventoryType;
+import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
-import org.bukkit.inventory.BlockInventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
 /**
- * The BlockVoidInventoryHolder interface extends the BlockInventoryHolder interface and provides additional methods
- * for managing a VoidChest inventory with a specific inventory type of {@link InventoryType#STORAGE}.
- * This InventoryHolder is specifically designed for VoidChest item inventories and is not intended for other types
- * of VoidChest inventories like menus.
+ * The MenuVoidInventoryHolder interface extends the VoidInventoryHolder interface and provides additional methods
+ * for managing a VoidChest inventory with a specific inventory type of {@link InventoryType#MENU} or {@link InventoryType#FILTERS}.
  *
+ * @see BlockVoidInventoryHolder
  * @see VoidInventoryHolder
  */
-public interface BlockVoidInventoryHolder extends BlockInventoryHolder, Serializable {
+public interface MenuVoidInventoryHolder extends VoidInventoryHolder, Serializable {
 
     /**
      * Retrieves the name of the inventory.
@@ -42,7 +42,7 @@ public interface BlockVoidInventoryHolder extends BlockInventoryHolder, Serializ
      * Retrieves the inventory type.
      *
      * @return The inventory type.
-     * @throws InvalidInventoryTypeException If the inventory type is not {@link InventoryType#STORAGE}.
+     * @throws InvalidInventoryTypeException If the inventory type is {@link InventoryType#STORAGE}.
      */
     InventoryType inventoryType() throws InvalidInventoryTypeException;
 
@@ -53,4 +53,5 @@ public interface BlockVoidInventoryHolder extends BlockInventoryHolder, Serializ
      */
     @Override
     @NotNull VoidInventory getInventory();
+
 }
