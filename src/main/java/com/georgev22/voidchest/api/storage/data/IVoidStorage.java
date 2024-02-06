@@ -4,6 +4,7 @@ import com.georgev22.library.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
+import com.georgev22.voidchest.api.storage.data.voidstorage.Filter;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
 import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -44,15 +46,41 @@ public interface IVoidStorage {
      * Retrieves the whitelist inventory of the VoidStorage.
      *
      * @return The whitelist inventory of the VoidStorage.
+     * @deprecated Use {@link #itemFilters()}
+     * Changes to the whitelist inventory will not be reflected in the item filters.
+     * The method will not be removed to maintain backwards compatibility.
      */
+    @Deprecated
     @NotNull Inventory whitelistInventory();
 
     /**
      * Retrieves the blacklist inventory of the VoidStorage.
      *
      * @return The blacklist inventory of the VoidStorage.
+     * @deprecated Use {@link #itemFilters()}
+     * Changes to the blacklist inventory will not be reflected in the item filters.
+     * The method will not be removed to maintain backwards compatibility.
      */
+    @Deprecated
     @NotNull Inventory blacklistInventory();
+
+    /**
+     * Retrieves the item filters of the VoidStorage.
+     * Filters are used to determine which items can be collected from the VoidChest.
+     * <p>
+     * If an item is not in any of the filters, the default behavior set by the VoidChest config will be used.
+     * <p>
+     * Both the blacklist and whitelist inventories are automatically added as filters
+     * when the VoidStorage is initialized.
+     * <p>
+     * Notes: <p>
+     * Modifications to the {@link #blacklistInventory()} and {@link #whitelistInventory()} inventories
+     * after the VoidStorage has loaded will not automatically update the filters,
+     * and changes to the filters will not be reflected in the inventories.
+     *
+     * @return The item filters of the VoidStorage.
+     */
+    @NotNull List<Filter> itemFilters();
 
     /**
      * Retrieves the location of the block associated with the VoidStorage as a SerializableLocation.
