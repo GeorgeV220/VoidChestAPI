@@ -70,12 +70,13 @@ public interface IVoidStorage {
      * <p>
      * If an item is not in any of the filters, the default behavior set by the VoidChest config will be used.
      * <p>
-     * Both the blacklist and whitelist inventories are automatically added as filters
+     * Both the blacklist and whitelist inventories contain the items that are used to create the filters
      * when the VoidStorage is initialized.
+     * Modifications to those methods will not be saved.
      * <p>
      * Notes: <p>
      * Modifications to the {@link #blacklistInventory()} and {@link #whitelistInventory()} inventories
-     * after the VoidStorage has loaded will not automatically update the filters,
+     * not update the filters,
      * and changes to the filters will not be reflected in the inventories.
      *
      * @return The item filters of the VoidStorage.
