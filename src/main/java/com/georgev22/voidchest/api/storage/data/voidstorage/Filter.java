@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
-import com.georgev22.voidchest.api.utilities.SerializableItemStack;
+import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.UUID;
  * The Filter interface provides methods for managing a VoidChest item filter.
  * An item filter is used to determine if an item is allowed for collection from the VoidChest.
  */
+@ApiStatus.Experimental
 public interface Filter {
 
     /**
@@ -16,7 +18,7 @@ public interface Filter {
      *
      * @return The item that the filter applies to.
      */
-    @NotNull SerializableItemStack item();
+    @NotNull VoidInventoryItemStack item();
 
     /**
      * Retrieves the filter identifier.
