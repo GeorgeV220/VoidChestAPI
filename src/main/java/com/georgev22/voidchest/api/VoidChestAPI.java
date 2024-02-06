@@ -18,6 +18,7 @@ import com.georgev22.voidchest.api.voideconomy.IVoidEconomyManager;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -35,7 +36,7 @@ public record VoidChestAPI(IEconomyManager economyManager,
                            IPlayerManager playerManager,
                            IVoidStorageManager voidStorageManager,
                            EventManager eventManager,
-                           MinecraftScheduler<Plugin, Location, World, Chunk> minecraftScheduler,
+                           MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
                            VoidStorageConfigurationFileCache voidStorageConfigurationFileCache,
                            SellHandler sellHandler) {
 
