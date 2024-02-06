@@ -1,3 +1,10 @@
+# [2.2.0-alpha.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.4...v2.2.0-alpha.5) (2024-02-06)
+
+
+### Bug Fixes
+
+* **storage/IVoidStorage:** Update JavaDocs and mark white/blacklist inventories forRemoval ([49c0474](https://github.com/GeorgeV220/VoidChestAPI/commit/49c047487ac088ffd77d8e755611a3d31b527f91))
+
 # [2.2.0-alpha.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.3...v2.2.0-alpha.4) (2024-02-06)
 
 
