@@ -1,3 +1,12 @@
+# [2.2.0-alpha.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.5...v2.2.0-alpha.6) (2024-02-06)
+
+
+### Features
+
+* **inventory/holder:** Add MenuVoidInventoryHolder and update BlockVoidInventoryHolder and VoidInventoryHolder docs ([f1d185b](https://github.com/GeorgeV220/VoidChestAPI/commit/f1d185be280b3631c93e0cb2ab20d9d41b288562))
+* **inventory/InventoryType:** Add FILTERS and mark for removal WHITELIST/BLACKLIST ([6564661](https://github.com/GeorgeV220/VoidChestAPI/commit/656466131c85f2c3639f777b526e5948febbe19f))
+* **inventory/VoidInventory:** Remove ApiStatus.Internal from the update method and update JavaDocs. ([bef9bbc](https://github.com/GeorgeV220/VoidChestAPI/commit/bef9bbc0cec5bee3d5e026205ab16f3bb33bf4da))
+
 # [2.2.0-alpha.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.4...v2.2.0-alpha.5) (2024-02-06)
 
 
