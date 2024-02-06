@@ -1,3 +1,10 @@
+# [2.2.0-alpha.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.3...v2.2.0-alpha.4) (2024-02-06)
+
+
+### Bug Fixes
+
+* **VoidChestAPI:** Update the library version and add Entity to Minecraft Scheduler ([4e0382d](https://github.com/GeorgeV220/VoidChestAPI/commit/4e0382d3e97261456241e236fb41985bbcb4f607))
+
 # [2.2.0-alpha.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.2...v2.2.0-alpha.3) (2024-02-06)
 
 
