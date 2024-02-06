@@ -192,7 +192,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
     }
 
     @Override
-    protected BoundingBox clone() {
+    public BoundingBox clone() {
         try {
             return (BoundingBox) super.clone();
         } catch (CloneNotSupportedException e) {
