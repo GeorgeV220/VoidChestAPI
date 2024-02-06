@@ -2,6 +2,8 @@ package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
+import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
+import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Filter;
@@ -63,6 +65,28 @@ public interface IVoidStorage {
      */
     @Deprecated(forRemoval = true)
     @NotNull Inventory blacklistInventory();
+
+    /**
+     * Creates an inventory for the VoidStorage with the specified owner, name, size, and items.
+     * <p>
+     * The inventory will be created with the specified owner, name, size, and items.
+     * If the items are null, the inventory will be created with no items.
+     * <p>
+     * To open the inventory, use the {@link VoidInventory#open(org.bukkit.entity.Player)} method
+     * otherwise issues may occur.
+     *
+     * @param owner          The owner of the inventory.
+     * @param inventoryName  The name of the inventory.
+     * @param inventorySize  The size of the inventory.
+     * @param inventoryItems The items of the inventory.
+     * @return The created inventory.
+     */
+    @NotNull VoidInventory createInventory(
+            @NotNull VoidInventoryHolder owner,
+            @NotNull String inventoryName,
+            int inventorySize,
+            @Nullable List<VoidInventoryItemStack> inventoryItems
+    );
 
     /**
      * Retrieves the item filters of the VoidStorage.
