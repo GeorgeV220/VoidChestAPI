@@ -1,3 +1,11 @@
+# [2.2.0-alpha.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.6...v2.2.0-alpha.7) (2024-02-06)
+
+
+### Features
+
+* **inventory/IVoidStorage:** Add a method to create a new VoidInventory ([a222013](https://github.com/GeorgeV220/VoidChestAPI/commit/a222013dd7431775a0aa2efdc7cc16f2d9139ddb))
+* **inventory/IVoidStorage:** Add a method to get the paginated block inventory (WIP) ([29e984a](https://github.com/GeorgeV220/VoidChestAPI/commit/29e984a277881952b8b1b1989eeb17e9ee459f03))
+
 # [2.2.0-alpha.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.5...v2.2.0-alpha.6) (2024-02-06)
 
 
