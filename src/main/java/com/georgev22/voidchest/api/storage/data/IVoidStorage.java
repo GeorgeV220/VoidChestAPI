@@ -48,9 +48,9 @@ public interface IVoidStorage {
      * @return The whitelist inventory of the VoidStorage.
      * @deprecated Use {@link #itemFilters()}
      * Changes to the whitelist inventory will not be reflected in the item filters.
-     * The method will not be removed to maintain backwards compatibility.
+     * The method is marked for removal but will not be removed to maintain backwards compatibility.
      */
-    @Deprecated
+    @Deprecated(forRemoval = true)
     @NotNull Inventory whitelistInventory();
 
     /**
@@ -59,9 +59,9 @@ public interface IVoidStorage {
      * @return The blacklist inventory of the VoidStorage.
      * @deprecated Use {@link #itemFilters()}
      * Changes to the blacklist inventory will not be reflected in the item filters.
-     * The method will not be removed to maintain backwards compatibility.
+     * The method is marked for removal but will not be removed to maintain backwards compatibility.
      */
-    @Deprecated
+    @Deprecated(forRemoval = true)
     @NotNull Inventory blacklistInventory();
 
     /**
