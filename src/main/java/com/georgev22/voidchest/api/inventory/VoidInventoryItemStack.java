@@ -6,10 +6,10 @@ import org.bukkit.inventory.ItemStack;
 /**
  * The {@code VoidInventoryItemStack} class represents an item stack within a Void Chest inventory.
  * It encapsulates both a {@link SerializableItemStack} for data serialization
- * and an {@link ItemStack} for the visible representation of the item in the inventory.
+ * and an {@link SerializableItemStack} for the visible representation of the item in the inventory.
  *
  * <p>This class provides methods to retrieve and modify both the serializable and visible item stacks.
- * Additionally, it offers a method to obtain the original {@link ItemStack} from the serializable item stack.
+ * Additionally, it offers a method to obtain the original {@link SerializableItemStack} from the serializable item stack.
  */
 public class VoidInventoryItemStack {
 
@@ -21,7 +21,7 @@ public class VoidInventoryItemStack {
     /**
      * The visible item stack used for the representation of the item in the inventory.
      */
-    private ItemStack visibleItemStack;
+    private SerializableItemStack visibleItemStack;
 
     /**
      * Constructs a new {@code VoidInventoryItemStack} with the specified serializable and visible item stacks.
@@ -29,7 +29,7 @@ public class VoidInventoryItemStack {
      * @param serializableItemStack The serializable item stack.
      * @param visibleItemStack      The visible item stack.
      */
-    public VoidInventoryItemStack(SerializableItemStack serializableItemStack, ItemStack visibleItemStack) {
+    public VoidInventoryItemStack(SerializableItemStack serializableItemStack, SerializableItemStack visibleItemStack) {
         this.serializableItemStack = serializableItemStack;
         this.visibleItemStack = visibleItemStack;
     }
@@ -48,7 +48,7 @@ public class VoidInventoryItemStack {
      *
      * @return The visible item stack.
      */
-    public ItemStack getVisibleItemStack() {
+    public SerializableItemStack getVisibleItemStack() {
         return visibleItemStack;
     }
 
@@ -66,7 +66,7 @@ public class VoidInventoryItemStack {
      *
      * @param visibleItemStack The new visible item stack.
      */
-    public void setVisibleItemStack(ItemStack visibleItemStack) {
+    public void setVisibleItemStack(SerializableItemStack visibleItemStack) {
         this.visibleItemStack = visibleItemStack;
     }
 

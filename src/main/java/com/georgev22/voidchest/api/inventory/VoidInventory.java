@@ -112,7 +112,7 @@ public interface VoidInventory extends Inventory {
     default void forEachVisibleItemStacks(Consumer<? super ItemStack> action) {
         this.getItems().stream()
                 .filter(Objects::nonNull)
-                .map(VoidInventoryItemStack::getVisibleItemStack)
+                .map(itemStack -> itemStack.getVisibleItemStack().getItemStack())
                 .forEach(action);
     }
 
@@ -137,7 +137,7 @@ public interface VoidInventory extends Inventory {
             this.getItems().set(slot, null);
             return;
         }
-        this.setItem(slot, voidInventoryItemStack.getVisibleItemStack());
+        this.setItem(slot, voidInventoryItemStack.getVisibleItemStack().getItemStack());
         this.getItems().set(slot, voidInventoryItemStack);
     }
 
