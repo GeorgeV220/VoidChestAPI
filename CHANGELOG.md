@@ -1,3 +1,11 @@
+# [2.2.0-alpha.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.8...v2.2.0-alpha.9) (2024-02-06)
+
+
+### Features
+
+* **inventory/VoidInventoryItemStack:** Change visibleItemStack to SerializableItemStack to store custom data ([c44f20e](https://github.com/GeorgeV220/VoidChestAPI/commit/c44f20e59321787ad6f7cd6becdb090a3ef7fbd3))
+* **storage/Filter:** Change item() method from SerializableItemStack to VoidInventoryItemStack ([e8afbca](https://github.com/GeorgeV220/VoidChestAPI/commit/e8afbca3b87c749bedcff92b64ddc07db37d2bc7))
+
 # [2.2.0-alpha.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.7...v2.2.0-alpha.8) (2024-02-06)
 
 
