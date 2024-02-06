@@ -1,3 +1,10 @@
+# [2.2.0-alpha.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.7...v2.2.0-alpha.8) (2024-02-06)
+
+
+### Features
+
+* **storage/Filter:** Add filterIdentifier() method ([6061577](https://github.com/GeorgeV220/VoidChestAPI/commit/606157758a2919d224eb04bc03a679f8a5a7a62b))
+
 # [2.2.0-alpha.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.6...v2.2.0-alpha.7) (2024-02-06)
 
 
