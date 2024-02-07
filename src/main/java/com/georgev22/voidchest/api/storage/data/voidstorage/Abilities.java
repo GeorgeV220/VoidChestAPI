@@ -106,32 +106,20 @@ public interface Abilities {
     void bank(boolean bank);
 
     /**
-     * Checks if whitelist is enabled.
+     * Checks if the user has enabled the `allow mode`.
+     * If the `user allow mode` option is disabled, this will also return false.
      *
-     * @return True if whitelist is enabled, false otherwise.
+     * @return True if the user has enabled the `allow mode`, false otherwise.
      */
-    boolean whitelist();
+    boolean filtersAllowMode();
 
     /**
-     * Sets the state of the whitelist feature.
+     * Sets the state of the `allow mode`.
+     * If the `user allow mode` option is disabled, this has no effect.
      *
-     * @param whitelist True to enable the whitelist feature, false to disable it.
+     * @param allowMode True to enable the `allow mode`, false to disable it.
      */
-    void whitelist(boolean whitelist);
-
-    /**
-     * Checks if blacklist is enabled.
-     *
-     * @return True if blacklist is enabled, false otherwise.
-     */
-    boolean blacklist();
-
-    /**
-     * Sets the state of the blacklist feature.
-     *
-     * @param blacklist True to enable the blacklist feature, false to disable it.
-     */
-    void blacklist(boolean blacklist);
+    void filtersAllowMode(boolean allowMode);
 
     /**
      * Adds custom data to the Abilities with the specified key and value.
