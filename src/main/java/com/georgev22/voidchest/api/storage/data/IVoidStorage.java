@@ -49,7 +49,7 @@ public interface IVoidStorage {
      * Retrieves the inventory of the block associated with the VoidStorage.
      * This inventory is paginated when infinite storage is enabled.
      * <p>
-     * Note: This method is not implemented and will return null.<br>
+     * Note: This method is not ready and it may return null.<br>
      * When it is ready to be used,
      * it will get renamed to blockInventory() and the current blockInventory() will be removed.
      *
