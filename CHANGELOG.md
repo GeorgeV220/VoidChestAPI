@@ -1,3 +1,10 @@
+# [2.2.0-alpha.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.9...v2.2.0-alpha.10) (2024-02-07)
+
+
+### Features
+
+* **voidstorage/Abilities:** Replace whitelist/blacklist with filters. ([1f4582e](https://github.com/GeorgeV220/VoidChestAPI/commit/1f4582e28bd0b671dca33f3599c774d84c594465))
+
 # [2.2.0-alpha.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.8...v2.2.0-alpha.9) (2024-02-06)
 
 
