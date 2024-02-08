@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.event;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An interface that represents an event.
+ * An abstract class that represents an event.
  */
 public abstract class Event {
 
