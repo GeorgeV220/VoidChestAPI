@@ -9,8 +9,20 @@ public interface Cancellable {
      * Cancels the event.
      *
      * @return {@code true} if the event was successfully cancelled, {@code false} otherwise
+     * @deprecated Use {@link #setCancelled(boolean)} instead
      */
-    boolean cancel();
+    @Deprecated
+    default boolean cancel() {
+        setCancelled(true);
+        return true;
+    }
+
+    /**
+     * Sets whether the event has been cancelled.
+     *
+     * @param cancelled {@code true} if the event should be cancelled, {@code false} otherwise
+     */
+    void setCancelled(boolean cancelled);
 
     /**
      * Returns whether the event has been cancelled.
