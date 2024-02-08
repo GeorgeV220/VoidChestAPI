@@ -36,13 +36,13 @@ public abstract class PlayerEvent extends Event implements Cancellable {
     }
 
     /**
-     * Sets the event as cancelled.
+     * Sets whether the event has been cancelled.
      *
-     * @return True if the event is successfully cancelled, false otherwise.
+     * @param cancelled {@code true} if the event should be cancelled, {@code false} otherwise
      */
     @Override
-    public boolean cancel() {
-        return this.cancel = true;
+    public void setCancelled(boolean cancelled) {
+        this.cancel = cancelled;
     }
 
     /**

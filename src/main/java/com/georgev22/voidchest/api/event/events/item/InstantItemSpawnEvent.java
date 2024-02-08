@@ -184,13 +184,13 @@ public class InstantItemSpawnEvent extends Event implements Cancellable {
     }
 
     /**
-     * Cancels the event.
+     * Sets whether the event has been cancelled.
      *
-     * @return {@code true} if the event was successfully canceled, {@code false} otherwise
+     * @param cancelled {@code true} if the event should be cancelled, {@code false} otherwise
      */
     @Override
-    public boolean cancel() {
-        return this.cancelled = true;
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     /**
