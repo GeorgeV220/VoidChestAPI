@@ -1,3 +1,13 @@
+# [2.2.0-alpha.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.10...v2.2.0-alpha.11) (2024-02-08)
+
+
+### Features
+
+* **Cancellable:** Deprecate cancel() and add setCancelled(boolean) method ([758e18c](https://github.com/GeorgeV220/VoidChestAPI/commit/758e18c6259da09212fb61bb1b32df909cb58592))
+* **event/API:** Add new setCancelled API ([efeaca6](https://github.com/GeorgeV220/VoidChestAPI/commit/efeaca6c8bc70fd287d897c6f0238d284f097a81))
+* **inventory/API:** Add VoidInventoryUtils class. ([dd7362b](https://github.com/GeorgeV220/VoidChestAPI/commit/dd7362b210e669477a627f8678c20ebe83131937))
+* **inventory/Events:** Add new Inventory Events ([093b77f](https://github.com/GeorgeV220/VoidChestAPI/commit/093b77f7b519133146740d94757aba91a785b442))
+
 # [2.2.0-alpha.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.9...v2.2.0-alpha.10) (2024-02-07)
 
 
