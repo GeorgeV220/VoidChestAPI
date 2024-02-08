@@ -1,3 +1,10 @@
+# [2.2.0-alpha.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.11...v2.2.0-alpha.12) (2024-02-08)
+
+
+### Features
+
+* **inventory/API:** Add new createInventory methods ([7ffeecf](https://github.com/GeorgeV220/VoidChestAPI/commit/7ffeecfcd0c5e216fbd962d6d768ac74e5278fce))
+
 # [2.2.0-alpha.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.10...v2.2.0-alpha.11) (2024-02-08)
 
 
