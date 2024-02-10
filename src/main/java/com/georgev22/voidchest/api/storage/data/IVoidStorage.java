@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.inventory.IPaginatedVoidInventory;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
 import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
@@ -56,7 +57,7 @@ public interface IVoidStorage {
      * @return The paginated inventory of the block associated with the VoidStorage.
      */
     @ApiStatus.Experimental
-    default @Nullable VoidInventory blockInventoryPaginated() {
+    default @Nullable IPaginatedVoidInventory blockInventoryPaginated() {
         return null;
     }
 
