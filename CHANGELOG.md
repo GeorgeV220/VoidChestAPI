@@ -1,3 +1,10 @@
+# [2.2.0-alpha.15](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.14...v2.2.0-alpha.15) (2024-02-10)
+
+
+### Features
+
+* **storage/IFilterManager:** add methods to check if item is allowed for collection ([eefd5e9](https://github.com/GeorgeV220/VoidChestAPI/commit/eefd5e9b64e2917faefd041508e5d948777da363))
+
 # [2.2.0-alpha.14](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.13...v2.2.0-alpha.14) (2024-02-10)
 
 
