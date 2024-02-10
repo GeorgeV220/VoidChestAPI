@@ -1,3 +1,10 @@
+# [2.2.0-alpha.20](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.19...v2.2.0-alpha.20) (2024-02-10)
+
+
+### Features
+
+* add NullableArrayList class and use it in VoidInventory ([61524ad](https://github.com/GeorgeV220/VoidChestAPI/commit/61524ad47c4edca7a2749621c346838efac966ae))
+
 # [2.2.0-alpha.19](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.18...v2.2.0-alpha.19) (2024-02-10)
 
 
