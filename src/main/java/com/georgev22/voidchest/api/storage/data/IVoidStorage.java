@@ -117,7 +117,9 @@ public interface IVoidStorage {
      * Notes: <p>
      * Modifications to the {@link #blacklistInventory()} and {@link #whitelistInventory()} inventories
      * not update the filters,
-     * and changes to the filters will not be reflected in the inventories.
+     * and changes to the filters will not be reflected in the inventories.<br>
+     * This list returns the filters that players can modify.
+     * Administrators should use {@link com.georgev22.voidchest.api.storage.IFilterManager}
      *
      * @return The item filters of the VoidStorage.
      */
