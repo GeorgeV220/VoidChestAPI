@@ -1,3 +1,10 @@
+# [2.2.0-alpha.19](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.18...v2.2.0-alpha.19) (2024-02-10)
+
+
+### Features
+
+* **storage/Filter:** remove unused imports and methods ([8ac7bbf](https://github.com/GeorgeV220/VoidChestAPI/commit/8ac7bbf7544178b4f4653ba6049034a2422462ac))
+
 # [2.2.0-alpha.18](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.17...v2.2.0-alpha.18) (2024-02-10)
 
 
