@@ -1,10 +1,7 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
 import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
 
 /**
  * The Filter interface provides methods for managing a VoidChest item filter.
@@ -18,16 +15,6 @@ public interface Filter {
      * @return The item that the filter applies to.
      */
     @NotNull VoidInventoryItemStack item();
-
-    /**
-     * Retrieves the filter identifier.
-     * The filter identifier is used to identify the filter internally when saving and loading data.
-     * The filter identifier is not meant to be used for any other purpose other than internal identification.
-     *
-     * @return The filter identifier.
-     */
-    @ApiStatus.Internal
-    @NotNull UUID filterIdentifier();
 
     /**
      * Checks if the item is allowed for collection from the VoidChest.
