@@ -1,3 +1,10 @@
+# [2.2.0-alpha.18](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.17...v2.2.0-alpha.18) (2024-02-10)
+
+
+### Features
+
+* **storage:** add load and save methods for item filters ([ec0eb3d](https://github.com/GeorgeV220/VoidChestAPI/commit/ec0eb3dca4de19f7a7ad36045df34c22a6fd4dc1))
+
 # [2.2.0-alpha.17](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.16...v2.2.0-alpha.17) (2024-02-10)
 
 
