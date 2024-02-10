@@ -10,6 +10,7 @@ import com.georgev22.voidchest.api.hologram.IHologramManager;
 import com.georgev22.voidchest.api.inventory.VoidInventoryUtils;
 import com.georgev22.voidchest.api.shop.IShopManager;
 import com.georgev22.voidchest.api.stacker.IStackerManager;
+import com.georgev22.voidchest.api.storage.IFilterManager;
 import com.georgev22.voidchest.api.storage.IPlayerManager;
 import com.georgev22.voidchest.api.storage.IVoidStorageManager;
 import com.georgev22.voidchest.api.storage.voidmanager.IVoidItemManager;
@@ -36,6 +37,7 @@ public record VoidChestAPI(IEconomyManager economyManager,
                            IVoidItemManager voidItemManager,
                            IPlayerManager playerManager,
                            IVoidStorageManager voidStorageManager,
+                           IFilterManager filterManager,
                            EventManager eventManager,
                            MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
                            VoidStorageConfigurationFileCache voidStorageConfigurationFileCache,
