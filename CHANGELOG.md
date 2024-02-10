@@ -1,3 +1,10 @@
+# [2.2.0-alpha.14](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.13...v2.2.0-alpha.14) (2024-02-10)
+
+
+### Features
+
+* add filter manager to VoidChestAPI ([39d4554](https://github.com/GeorgeV220/VoidChestAPI/commit/39d45540f74467e485348a76796942708b23f27f))
+
 # [2.2.0-alpha.13](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.12...v2.2.0-alpha.13) (2024-02-10)
 
 
