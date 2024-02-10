@@ -10,7 +10,6 @@ import java.util.UUID;
  * The Filter interface provides methods for managing a VoidChest item filter.
  * An item filter is used to determine if an item is allowed for collection from the VoidChest.
  */
-@ApiStatus.Experimental
 public interface Filter {
 
     /**
@@ -27,6 +26,7 @@ public interface Filter {
      *
      * @return The filter identifier.
      */
+    @ApiStatus.Internal
     @NotNull UUID filterIdentifier();
 
     /**
