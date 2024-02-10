@@ -1,3 +1,10 @@
+# [2.2.0-alpha.13](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.12...v2.2.0-alpha.13) (2024-02-10)
+
+
+### Features
+
+* **storage:** add IFilterManager interface and update IVoidStorage docs ([2f0c27a](https://github.com/GeorgeV220/VoidChestAPI/commit/2f0c27a9aec79c618c16e326f48e9b379c3a57f8))
+
 # [2.2.0-alpha.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.11...v2.2.0-alpha.12) (2024-02-08)
 
 
