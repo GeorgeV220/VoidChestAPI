@@ -1,3 +1,10 @@
+# [2.2.0-alpha.17](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.16...v2.2.0-alpha.17) (2024-02-10)
+
+
+### Features
+
+* add loadAll and saveAll methods to IFilterManager ([81a3af4](https://github.com/GeorgeV220/VoidChestAPI/commit/81a3af445a0d3e7019cc350b30049eb6457f7683))
+
 # [2.2.0-alpha.16](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.15...v2.2.0-alpha.16) (2024-02-10)
 
 
