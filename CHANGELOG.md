@@ -1,3 +1,10 @@
+# [2.2.0-alpha.16](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.15...v2.2.0-alpha.16) (2024-02-10)
+
+
+### Features
+
+* add paginated void inventory API (WIP) ([9db98f1](https://github.com/GeorgeV220/VoidChestAPI/commit/9db98f13b9d479e17a041cfb6a4a43dbe77c95cb))
+
 # [2.2.0-alpha.15](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.14...v2.2.0-alpha.15) (2024-02-10)
 
 
