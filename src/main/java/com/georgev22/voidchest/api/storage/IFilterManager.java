@@ -60,10 +60,30 @@ public interface IFilterManager {
      */
     boolean isItemAllowed(@Nullable IVoidStorage voidStorage, VoidInventoryItemStack item);
 
+
+    /**
+     * Loads the specified item filter from the storage.
+     * <p>
+     * Notes: <br>
+     * This method will overwrite any loaded existing filters by the same name.<br>
+     * If the filter does not exist, this method will do nothing.<br>
+     * The default filter name is `global`
+     *
+     * @param filterName The name of the item filter to load.
+     */
+    void load(String filterName);
+
+    /**
+     * Saves the specified item filter to the storage.
+     *
+     * @param filterName The name of the item filter to save.
+     */
+    void save(String filterName);
+
     /**
      * Loads all `item filters` from the storage.
      * <p>
-     * Note: This method will overwrite any existing filters.
+     * Note: This method will overwrite any loaded existing filters.
      */
     void loadAll();
 
