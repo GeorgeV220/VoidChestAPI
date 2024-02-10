@@ -60,4 +60,16 @@ public interface IFilterManager {
      */
     boolean isItemAllowed(@Nullable IVoidStorage voidStorage, VoidInventoryItemStack item);
 
+    /**
+     * Loads all `item filters` from the storage.
+     * <p>
+     * Note: This method will overwrite any existing filters.
+     */
+    void loadAll();
+
+    /**
+     * Saves all `item filters` to the storage.
+     */
+    void saveAll();
+
 }
