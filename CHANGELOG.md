@@ -1,3 +1,10 @@
+# [2.2.0-alpha.21](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.20...v2.2.0-alpha.21) (2024-02-11)
+
+
+### Features
+
+* **revert:** use NullableFixedSizeList instead of NullableArrayList ([54769b1](https://github.com/GeorgeV220/VoidChestAPI/commit/54769b17f5a6335c3c392359aeaa171cabeffd7c))
+
 # [2.2.0-alpha.20](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.19...v2.2.0-alpha.20) (2024-02-10)
 
 
