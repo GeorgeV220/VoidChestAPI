@@ -1,3 +1,10 @@
+# [2.2.0-alpha.25](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.24...v2.2.0-alpha.25) (2024-02-11)
+
+
+### Features
+
+* **inventory:** add player-specific pages to paginated void inventory ([8694654](https://github.com/GeorgeV220/VoidChestAPI/commit/869465472f30cbcd9455898cf73708f48c92b44b))
+
 # [2.2.0-alpha.24](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.23...v2.2.0-alpha.24) (2024-02-11)
 
 
