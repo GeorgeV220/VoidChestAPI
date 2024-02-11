@@ -1,16 +1,19 @@
 package com.georgev22.voidchest.api.inventory.holder;
 
+import com.georgev22.library.maps.HashObjectMap;
 import com.georgev22.voidchest.api.exceptions.InvalidInventoryTypeException;
 import com.georgev22.voidchest.api.inventory.InventoryType;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.inventory.extras.NavigationButton;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
 import com.georgev22.voidchest.api.utilities.NullableArrayList;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * A class that represents a paginated void inventory holder.
@@ -21,8 +24,8 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
     private final int rows;
     private final List<ItemStack> itemStacks;
     private final @Nullable IVoidStorage voidStorage;
-    private NullableArrayList<VoidInventory> voidInventories;
-    private int page = 1;
+    private final NullableArrayList<VoidInventory> voidInventories;
+    private final Map<Player, Integer> page = new HashObjectMap<>();
 
     private final List<NavigationButton> navigationButtons;
 
@@ -126,24 +129,26 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
     }
 
     /**
-     * Returns the current page of the inventory.
+     * Returns the current page of the inventory for the player.
      *
-     * @return The current page of the inventory.
+     * @param player The player to get the page for.
+     * @return The current page of the inventory for the player.
      */
-    public int getPage() {
-        return page;
+    public int getPage(Player player) {
+        return this.page.computeIfAbsent(player, k -> 1);
     }
 
     /**
-     * Sets the current page of the inventory and updates it accordingly.
+     * Sets the active page of the inventory for the player.
      *
-     * @param page The new page of the inventory.
+     * @param page   the page number to set. The page must be a positive integer.
+     * @param player the player whose inventory page is being set
      */
-    public void setPage(int page) {
+    public void setPage(int page, Player player) {
         if (page < 1) {
             page = 1;
         }
-        this.page = page;
+        this.page.put(player, page);
     }
 
     /**
