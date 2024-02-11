@@ -1,3 +1,10 @@
+# [2.2.0-alpha.24](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.23...v2.2.0-alpha.24) (2024-02-11)
+
+
+### Features
+
+* **api:** remove createInventory method from PaginatedVoidInventoryHolder ([a9975e5](https://github.com/GeorgeV220/VoidChestAPI/commit/a9975e549786a527dc75db4075bca6c4edefcaa9))
+
 # [2.2.0-alpha.23](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.22...v2.2.0-alpha.23) (2024-02-11)
 
 
