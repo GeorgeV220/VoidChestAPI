@@ -1,3 +1,10 @@
+# [2.2.0-alpha.23](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.22...v2.2.0-alpha.23) (2024-02-11)
+
+
+### Features
+
+* **inventory:** add voidInventories field to PaginatedVoidInventoryHolder ([44ad665](https://github.com/GeorgeV220/VoidChestAPI/commit/44ad665b775c3028c1d9303d116fc702af47db5c))
+
 # [2.2.0-alpha.22](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.21...v2.2.0-alpha.22) (2024-02-11)
 
 
