@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.inventory.holder;
 
-import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.exceptions.InvalidInventoryTypeException;
 import com.georgev22.voidchest.api.inventory.InventoryType;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
@@ -51,7 +50,6 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
         this.itemStacks = itemStacks;
         this.navigationButtons = navigationButtons;
         this.voidInventories = voidInventories;
-        this.createInventory();
     }
 
     /**
@@ -146,7 +144,6 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
             page = 1;
         }
         this.page = page;
-        this.createInventory();
     }
 
     /**
@@ -183,20 +180,5 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      */
     public String getTitle() {
         return title;
-    }
-
-    /**
-     * Creates the void inventory object.
-     */
-    public void createInventory() {
-        VoidInventory voidInventory = this.voidInventories.get(page - 1);
-        if (voidInventory == null) {
-            voidInventory = VoidChestAPI.getInstance().voidInventoryUtils().createInventory(
-                    this,
-                    title + " - Page " + page,
-                    rows * 9
-            );
-            this.voidInventories.set(page - 1, voidInventory);
-        }
     }
 }
