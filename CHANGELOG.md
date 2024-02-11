@@ -1,3 +1,10 @@
+# [2.2.0-alpha.22](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.21...v2.2.0-alpha.22) (2024-02-11)
+
+
+### Features
+
+* add support for multiple void inventories per holder ([0f9d719](https://github.com/GeorgeV220/VoidChestAPI/commit/0f9d71937b2c16ff402cc6d8070cf41a28777034))
+
 # [2.2.0-alpha.21](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.20...v2.2.0-alpha.21) (2024-02-11)
 
 
