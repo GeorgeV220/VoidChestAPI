@@ -6,6 +6,7 @@ import com.georgev22.voidchest.api.inventory.InventoryType;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.inventory.extras.NavigationButton;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.utilities.NullableArrayList;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,14 +18,14 @@ import java.util.List;
  */
 public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolder {
 
-    private final String title; // The title of the inventory
-    private final int rows; // The number of rows in the inventory
-    private final List<ItemStack> itemStacks; // The list of item stacks to display in the inventory
-    private final @Nullable IVoidStorage voidStorage; // The void storage associated with the inventory
-    private VoidInventory voidInventory; // The void inventory object
-    private int page = 1; // The current page of the inventory
+    private final String title;
+    private final int rows;
+    private final List<ItemStack> itemStacks;
+    private final @Nullable IVoidStorage voidStorage;
+    private NullableArrayList<VoidInventory> voidInventories;
+    private int page = 1;
 
-    private final List<NavigationButton> navigationButtons; // The list of navigation buttons for the inventory
+    private final List<NavigationButton> navigationButtons;
 
     /**
      * Creates a new paginated void inventory holder with the given parameters.
@@ -93,10 +94,34 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      * Returns the void inventory object.
      *
      * @return The void inventory object.
+     * @deprecated Use {@link #getVoidInventories()} instead.
      */
+    @Deprecated
     @Override
     public @NotNull VoidInventory getInventory() {
-        return this.voidInventory;
+        return this.voidInventories.get(0);
+    }
+
+    /**
+     * Returns the list of void inventories.
+     *
+     * @return The list of void inventories.
+     */
+    public NullableArrayList<VoidInventory> getVoidInventories() {
+        return voidInventories;
+    }
+
+    /**
+     * Returns the VoidInventory object for the specified page or null if it doesn't exist.
+     *
+     * @param page The page number.
+     * @return The VoidInventory object for the specified page or null if it doesn't exist.
+     */
+    public @Nullable VoidInventory getPage(int page) {
+        if (page < 1) {
+            page = 1;
+        }
+        return voidInventories.get(page - 1);
     }
 
     /**
@@ -161,10 +186,14 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      * Creates the void inventory object.
      */
     public void createInventory() {
-        this.voidInventory = VoidChestAPI.getInstance().voidInventoryUtils().createInventory(
-                this,
-                title + " - Page " + page,
-                rows * 9
-        );
+        VoidInventory voidInventory = this.voidInventories.get(page - 1);
+        if (voidInventory == null) {
+            voidInventory = VoidChestAPI.getInstance().voidInventoryUtils().createInventory(
+                    this,
+                    title + " - Page " + page,
+                    rows * 9
+            );
+            this.voidInventories.set(page - 1, voidInventory);
+        }
     }
 }

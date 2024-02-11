@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a paginated void inventory that can display multiple pages of items.
  */
-public interface IPaginatedVoidInventory extends VoidInventory {
+public interface IPaginatedVoidInventory {
 
     /**
      * Opens the specified page of the inventory for the player.
@@ -37,6 +37,5 @@ public interface IPaginatedVoidInventory extends VoidInventory {
      *
      * @return the holder of the inventory
      */
-    @Override
     @NotNull PaginatedVoidInventoryHolder getHolder();
 }
