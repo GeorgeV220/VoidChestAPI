@@ -35,19 +35,22 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      * @param rows              The number of rows in the inventory.
      * @param navigationButtons The list of navigation buttons for the inventory.
      * @param itemStacks        The list of item stacks to display in the inventory.
+     * @param voidInventories   The list of void inventories associated with the inventory.
      */
     public PaginatedVoidInventoryHolder(
             @Nullable IVoidStorage voidStorage,
             @NotNull String title,
             int rows,
             @NotNull List<NavigationButton> navigationButtons,
-            @NotNull List<ItemStack> itemStacks
+            @NotNull List<ItemStack> itemStacks,
+            @NotNull NullableArrayList<VoidInventory> voidInventories
     ) {
         this.voidStorage = voidStorage;
         this.title = title;
         this.rows = rows;
         this.itemStacks = itemStacks;
         this.navigationButtons = navigationButtons;
+        this.voidInventories = voidInventories;
         this.createInventory();
     }
 
@@ -108,7 +111,7 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      * @return The list of void inventories.
      */
     public NullableArrayList<VoidInventory> getVoidInventories() {
-        return voidInventories;
+        return this.voidInventories;
     }
 
     /**
