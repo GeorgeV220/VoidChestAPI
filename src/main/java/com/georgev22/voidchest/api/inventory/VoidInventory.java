@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.library.maps.ObjectMap;
-import com.georgev22.voidchest.api.utilities.NullableArrayList;
+import com.georgev22.voidchest.api.utilities.NullableFixedSizeList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -49,7 +49,7 @@ public interface VoidInventory extends Inventory {
      *
      * @return The list of void chest item stacks.
      */
-    NullableArrayList<VoidInventoryItemStack> getItems();
+    NullableFixedSizeList<VoidInventoryItemStack> getItems();
 
     /**
      * Retrieves the index of the first partial match of the specified item in the void chest.
@@ -64,7 +64,7 @@ public interface VoidInventory extends Inventory {
      *
      * @param items The list of void chest item stacks to set.
      */
-    default void setItems(NullableArrayList<VoidInventoryItemStack> items) {
+    default void setItems(NullableFixedSizeList<VoidInventoryItemStack> items) {
         this.getItems().clear();
         this.getItems().addAll(items);
     }
