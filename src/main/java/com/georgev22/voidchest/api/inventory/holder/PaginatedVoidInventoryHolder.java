@@ -12,13 +12,18 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 /**
- * A class that represents a paginated void inventory holder.
+ * A class that represents a paginated void inventory holder. <br>
+ * WARNING: Avoid using Inventory methods directly for item manipulation as changes may not
+ * reflect correctly in the Pagination system.
+ * Use the provided add and remove methods to
+ * ensure proper synchronization with the Pagination system.
  */
-public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolder {
+public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolder, Iterable<VoidInventory> {
 
     private final String title;
     private final int rows;
@@ -166,7 +171,7 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      * @return The list of item stacks to display in the inventory.
      */
     public List<ItemStack> getItemStacks() {
-        return this.itemStacks;
+        return new NullableArrayList<>(this.itemStacks);
     }
 
     /**
@@ -175,7 +180,7 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      * @return The list of navigation buttons for the inventory.
      */
     public List<NavigationButton> getNavigationButtons() {
-        return navigationButtons;
+        return new NullableArrayList<>(this.navigationButtons);
     }
 
     /**
@@ -184,6 +189,19 @@ public abstract class PaginatedVoidInventoryHolder implements VoidInventoryHolde
      * @return The title of the inventory.
      */
     public String getTitle() {
-        return title;
+        return this.title;
+    }
+
+    /**
+     * Returns an iterator over elements of type {@link VoidInventory}.
+     * <p>
+     * Note: This iterator can return null values.
+     *
+     * @return An iterator over elements of type {@link VoidInventory}.
+     */
+    @NotNull
+    @Override
+    public Iterator<VoidInventory> iterator() {
+        return this.getVoidInventories().iterator();
     }
 }
