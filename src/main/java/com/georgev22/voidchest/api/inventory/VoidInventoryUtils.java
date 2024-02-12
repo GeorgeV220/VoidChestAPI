@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.inventory;
 
+import com.georgev22.voidchest.api.inventory.holder.PaginatedVoidInventoryHolder;
 import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
 import org.bukkit.entity.Player;
@@ -29,6 +30,20 @@ public interface VoidInventoryUtils {
     );
 
     /**
+     * Creates a new PaginatedVoidInventory.
+     *
+     * @param owner         The owner of the inventory
+     * @param inventoryName The name of the inventory
+     * @param inventorySize The size of the inventory
+     * @return The created PaginatedVoidInventory
+     */
+    @NotNull IPaginatedVoidInventory createPaginatedInventory(
+            @NotNull PaginatedVoidInventoryHolder owner,
+            @NotNull String inventoryName,
+            int inventorySize
+    );
+
+    /**
      * Creates a new VoidInventory.
      *
      * @param owner          The owner of the inventory
@@ -45,23 +60,19 @@ public interface VoidInventoryUtils {
     );
 
     /**
-     * Creates a new VoidInventory.
+     * Creates a new PaginatedVoidInventory.
      *
-     * @param owner                   The owner of the inventory
-     * @param inventoryName           The name of the inventory
-     * @param inventorySize           The size of the inventory
-     * @param inventoryItems          The items to add to the inventory
-     * @param infiniteInventory       if the inventory is infinite
-     * @param infiniteVisibleItemLore the lore of the infinite visible items
-     * @return The created VoidInventory
+     * @param owner          The owner of the inventory
+     * @param inventoryName  The name of the inventory
+     * @param inventorySize  The size of the inventory
+     * @param inventoryItems The items to add to the inventory
+     * @return The created PaginatedVoidInventory
      */
-    @NotNull VoidInventory createInventory(
-            @Nullable VoidInventoryHolder owner,
+    @NotNull IPaginatedVoidInventory createPaginatedInventory(
+            @NotNull PaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems,
-            boolean infiniteInventory,
-            @Nullable List<String> infiniteVisibleItemLore
+            @NotNull List<VoidInventoryItemStack> inventoryItems
     );
 
     /**
@@ -106,29 +117,36 @@ public interface VoidInventoryUtils {
     );
 
     /**
-     * Creates a new VoidInventory for the given VoidStorage.
-     * <p>
-     * VoidStorage parameter is required
-     * to be able to create an inventory that returns {@link VoidInventory#getLocation()}
-     * and also update the items stored stat for the VoidStorage.
+     * Creates a new PaginatedVoidInventory for the given VoidStorage.
      *
-     * @param voidStorage             The {@link IVoidStorage} of the inventory
-     * @param owner                   The owner of the inventory
-     * @param inventoryName           The name of the inventory
-     * @param inventorySize           The size of the inventory
-     * @param inventoryItems          The items to add to the inventory
-     * @param infiniteInventory       if the inventory is infinite
-     * @param infiniteVisibleItemLore the lore of the infinite visible items
-     * @return The created VoidInventory
+     * @param owner         The owner of the inventory
+     * @param inventoryName The name of the inventory
+     * @param inventorySize The size of the inventory
+     * @return The created PaginatedVoidInventory
      */
-    @NotNull VoidInventory createInventory(
+    @NotNull IPaginatedVoidInventory createPaginatedInventory(
             @NotNull IVoidStorage voidStorage,
-            @Nullable VoidInventoryHolder owner,
+            @NotNull PaginatedVoidInventoryHolder owner,
+            @NotNull String inventoryName,
+            int inventorySize
+    );
+
+    /**
+     * Creates a new PaginatedVoidInventory for the given VoidStorage.
+     *
+     * @param voidStorage    The {@link IVoidStorage} of the inventory
+     * @param owner          The owner of the inventory
+     * @param inventoryName  The name of the inventory
+     * @param inventorySize  The size of the inventory
+     * @param inventoryItems The items to add to the inventory
+     * @return The created PaginatedVoidInventory
+     */
+    @NotNull IPaginatedVoidInventory createPaginatedInventory(
+            @NotNull IVoidStorage voidStorage,
+            @NotNull PaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems,
-            boolean infiniteInventory,
-            @Nullable List<String> infiniteVisibleItemLore
+            @NotNull List<VoidInventoryItemStack> inventoryItems
     );
 
     /**
