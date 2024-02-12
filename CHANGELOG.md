@@ -1,3 +1,10 @@
+# [2.2.0-alpha.28](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.27...v2.2.0-alpha.28) (2024-02-12)
+
+
+### Features
+
+* simplify IPaginatedVoidInventoryHolder interface ([bf6f7c4](https://github.com/GeorgeV220/VoidChestAPI/commit/bf6f7c4b5a88cd663925123b6826b869f3e844e6))
+
 # [2.2.0-alpha.27](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.26...v2.2.0-alpha.27) (2024-02-12)
 
 
