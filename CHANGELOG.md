@@ -1,3 +1,13 @@
+# [2.2.0-alpha.26](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.25...v2.2.0-alpha.26) (2024-02-12)
+
+
+### Features
+
+* add and remove methods for paginated void inventory ([42053eb](https://github.com/GeorgeV220/VoidChestAPI/commit/42053ebf596fbf2a1dbc376a8e80baecde65c09f))
+* add paginated inventory methods to VoidInventoryUtils (#alpha) ([7943f53](https://github.com/GeorgeV220/VoidChestAPI/commit/7943f535e9793a41f7f114597e78bc99178f6fb1))
+* **PaginatedVoidInventoryHolder:** add Iterable interface and null safety ([c9de35d](https://github.com/GeorgeV220/VoidChestAPI/commit/c9de35d4c16c274bda936f348b65efb9380a0091))
+* **VoidInventoryItemStack:** add index field and getter ([53728ff](https://github.com/GeorgeV220/VoidChestAPI/commit/53728ff12e957653dbc180572c797976680ce13b))
+
 # [2.2.0-alpha.25](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.24...v2.2.0-alpha.25) (2024-02-11)
 
 
