@@ -1,11 +1,18 @@
 package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.voidchest.api.inventory.holder.PaginatedVoidInventoryHolder;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a paginated void inventory that can display multiple pages of items.
+ * Represents a paginated void inventory that can display multiple pages of items.<br>
+ * WARNING: Avoid using Inventory methods directly for item manipulation as changes may not
+ * reflect correctly in the Pagination system.
+ * Use the provided add and remove methods to
+ * ensure proper synchronization with the Pagination system.
  */
 public interface IPaginatedVoidInventory {
 
@@ -31,6 +38,106 @@ public interface IPaginatedVoidInventory {
      */
     void openPreviousPage(Player player);
 
+
+    /**
+     * Adds the specified item stacks to the inventory.
+     * <p>
+     * The method first attempts to fill partial item stacks up to their maximum stack size
+     * defined by {@link Material#getMaxStackSize()}.
+     * Any remaining items are added to new slots/pages.
+     * <p>
+     * Note: It is recommended to use this method for item addition to ensure proper synchronization
+     * with the Pagination system.
+     * Avoid using {@link VoidInventory#addItem(ItemStack...)} and {@link VoidInventory#addItems(SerializableItemStack...)}
+     * directly for item manipulation, as changes may not reflect correctly.
+     *
+     * @param itemStacks The item stacks to add.
+     */
+    void addItems(ItemStack... itemStacks);
+
+    /**
+     * Tries to remove all instances of the specified item stacks from all pages of the inventory.
+     * The difference from {@link #remove(ItemStack...)} is that this method attempts to remove as
+     * many items as possible up to the {@link ItemStack#getAmount()}.
+     * <p>
+     * Note: It is recommended to use this method for item removal to ensure proper synchronization
+     * with the Pagination system.
+     * <p>
+     * Avoid using<br>
+     * {@link VoidInventory#remove(ItemStack)},<br>
+     * {@link VoidInventory#remove(Material)},<br>
+     * {@link VoidInventory#removeItem(ItemStack...)},<br>
+     * {@link VoidInventory#removeItemAnySlot(ItemStack...)}<br>
+     * directly for item manipulation,
+     * as changes may not reflect correctly.
+     *
+     * @param itemStacks The item stacks to remove.
+     */
+    void removeItems(ItemStack... itemStacks);
+
+    /**
+     * Removes all instances of the specified item stacks from all pages of the inventory.
+     * <p>
+     * To successfully remove an item stack, both the type and the amount must match.
+     * <p>
+     * Note: It is recommended to use this method for item removal to ensure proper synchronization
+     * with the Pagination system.
+     * <p>
+     * Avoid using<br>
+     * {@link VoidInventory#remove(ItemStack)},<br>
+     * {@link VoidInventory#remove(Material)},<br>
+     * {@link VoidInventory#removeItem(ItemStack...)},<br>
+     * {@link VoidInventory#removeItemAnySlot(ItemStack...)}<br>
+     * directly for item manipulation,
+     * as changes may not reflect correctly.
+     *
+     * @param itemStack The item stacks to remove.
+     */
+    void remove(ItemStack... itemStack);
+
+    /**
+     * Removes all instances of the specified material from all pages of the inventory.
+     * <p>
+     * To successfully remove an item stack, the material type must match.
+     * <p>
+     * Note: It is recommended to use this method for item removal to ensure proper synchronization
+     * with the Pagination system.
+     * <p>
+     * Avoid using<br>
+     * {@link VoidInventory#remove(ItemStack)},<br>
+     * {@link VoidInventory#remove(Material)},<br>
+     * {@link VoidInventory#removeItem(ItemStack...)},<br>
+     * {@link VoidInventory#removeItemAnySlot(ItemStack...)}<br>
+     * directly for item manipulation,
+     * as changes may not reflect correctly.
+     *
+     * @param material The material of the item stack to remove.
+     */
+
+    void remove(Material material);
+
+    /**
+     * Clears the current page of the inventory.
+     */
+    void clear();
+
+    /**
+     * Clears a specific page of the inventory.
+     *
+     * @param page the page number to clear. The page must be positive
+     */
+    void clear(int page);
+
+
+    /**
+     * Clears all pages of the inventory.
+     */
+    void clearAll();
+
+    /**
+     * Closes the inventory.
+     */
+    void close();
 
     /**
      * Retrieves the holder of the inventory.
