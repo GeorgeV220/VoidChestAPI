@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.inventory;
 
-import com.georgev22.voidchest.api.inventory.holder.PaginatedVoidInventoryHolder;
+import com.georgev22.voidchest.api.inventory.holder.IPaginatedVoidInventoryHolder;
 import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
 import org.bukkit.entity.Player;
@@ -32,15 +32,11 @@ public interface VoidInventoryUtils {
     /**
      * Creates a new PaginatedVoidInventory.
      *
-     * @param owner         The owner of the inventory
-     * @param inventoryName The name of the inventory
-     * @param inventorySize The size of the inventory
+     * @param owner The owner of the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
-            @NotNull PaginatedVoidInventoryHolder owner,
-            @NotNull String inventoryName,
-            int inventorySize
+            @NotNull IPaginatedVoidInventoryHolder owner
     );
 
     /**
@@ -63,15 +59,11 @@ public interface VoidInventoryUtils {
      * Creates a new PaginatedVoidInventory.
      *
      * @param owner          The owner of the inventory
-     * @param inventoryName  The name of the inventory
-     * @param inventorySize  The size of the inventory
      * @param inventoryItems The items to add to the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
-            @NotNull PaginatedVoidInventoryHolder owner,
-            @NotNull String inventoryName,
-            int inventorySize,
+            @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull List<VoidInventoryItemStack> inventoryItems
     );
 
@@ -126,7 +118,7 @@ public interface VoidInventoryUtils {
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
             @NotNull IVoidStorage voidStorage,
-            @NotNull PaginatedVoidInventoryHolder owner,
+            @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize
     );
@@ -143,7 +135,7 @@ public interface VoidInventoryUtils {
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
             @NotNull IVoidStorage voidStorage,
-            @NotNull PaginatedVoidInventoryHolder owner,
+            @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
             @NotNull List<VoidInventoryItemStack> inventoryItems
