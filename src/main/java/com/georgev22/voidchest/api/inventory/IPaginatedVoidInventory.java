@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.inventory;
 
-import com.georgev22.voidchest.api.inventory.holder.PaginatedVoidInventoryHolder;
+import com.georgev22.voidchest.api.inventory.holder.IPaginatedVoidInventoryHolder;
+import com.georgev22.voidchest.api.utilities.NullableArrayList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -37,6 +38,15 @@ public interface IPaginatedVoidInventory {
      * @param player the player to open the inventory for
      */
     void openPreviousPage(Player player);
+
+    /**
+     * Returns a copy list with the items in the paginated inventory.
+     * <br>
+     * Note: Changes to this list won't reflect to the paginated inventory.
+     *
+     * @return a copy list with the items in the paginated inventory.
+     */
+    @NotNull NullableArrayList<ItemStack> getItems();
 
 
     /**
@@ -144,5 +154,5 @@ public interface IPaginatedVoidInventory {
      *
      * @return the holder of the inventory
      */
-    @NotNull PaginatedVoidInventoryHolder getHolder();
+    @NotNull IPaginatedVoidInventoryHolder getHolder();
 }
