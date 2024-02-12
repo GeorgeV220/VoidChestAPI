@@ -32,11 +32,15 @@ public interface VoidInventoryUtils {
     /**
      * Creates a new PaginatedVoidInventory.
      *
-     * @param owner The owner of the inventory
+     * @param owner         The owner of the inventory
+     * @param inventoryName The name of the inventory
+     * @param inventorySize The size of the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
-            @NotNull IPaginatedVoidInventoryHolder owner
+            @NotNull IPaginatedVoidInventoryHolder owner,
+            @NotNull String inventoryName,
+            int inventorySize
     );
 
     /**
@@ -59,11 +63,15 @@ public interface VoidInventoryUtils {
      * Creates a new PaginatedVoidInventory.
      *
      * @param owner          The owner of the inventory
+     * @param inventoryName  The name of the inventory
+     * @param inventorySize  The size of the inventory
      * @param inventoryItems The items to add to the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
             @NotNull IPaginatedVoidInventoryHolder owner,
+            @NotNull String inventoryName,
+            int inventorySize,
             @NotNull List<VoidInventoryItemStack> inventoryItems
     );
 

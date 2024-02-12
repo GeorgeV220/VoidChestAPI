@@ -4,11 +4,7 @@ import com.georgev22.voidchest.api.exceptions.InvalidInventoryTypeException;
 import com.georgev22.voidchest.api.inventory.IPaginatedVoidInventory;
 import com.georgev22.voidchest.api.inventory.InventoryType;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
-import com.georgev22.voidchest.api.inventory.extras.NavigationButton;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
-import com.georgev22.voidchest.api.utilities.NullableArrayList;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,12 +54,12 @@ public interface IPaginatedVoidInventoryHolder extends VoidInventoryHolder, Iter
      * It may return null even if it is annotated as NotNull
      *
      * @return The void inventory object.
-     * @deprecated Use {@link #getVoidInventories()} instead.
+     * @deprecated Use {@link #getPaginatedInventory()} instead.
      */
     @Override
     @Deprecated
     default @NotNull VoidInventory getInventory() {
-        return getVoidInventories().get(0);
+        return getPaginatedInventory().getVoidInventories().get(0);
     }
 
     /**
@@ -73,57 +69,6 @@ public interface IPaginatedVoidInventoryHolder extends VoidInventoryHolder, Iter
      */
     @NotNull IPaginatedVoidInventory getPaginatedInventory();
 
-    /**
-     * Returns the list of void inventories.
-     *
-     * @return The list of void inventories.
-     */
-    NullableArrayList<VoidInventory> getVoidInventories();
-
-    /**
-     * Returns the VoidInventory object for the specified page or null if it doesn't exist.
-     *
-     * @param page The page number.
-     * @return The VoidInventory object for the specified page or null if it doesn't exist.
-     */
-    @Nullable VoidInventory getPage(int page);
-
-    /**
-     * Returns the current page of the inventory for the player.
-     *
-     * @param player The player to get the page for.
-     * @return The current page of the inventory for the player.
-     */
-    int getPage(Player player);
-
-    /**
-     * Sets the active page of the inventory for the player.
-     *
-     * @param page   the page number to set. The page must be a positive integer.
-     * @param player the player whose inventory page is being set
-     */
-    void setPage(int page, Player player);
-
-    /**
-     * Returns the number of rows in the inventory.
-     *
-     * @return The number of rows in the inventory.
-     */
-    int getRows();
-
-    /**
-     * Returns the list of item stacks to display in the inventory.
-     *
-     * @return The list of item stacks to display in the inventory.
-     */
-    NullableArrayList<ItemStack> getItemStacks();
-
-    /**
-     * Returns the list of navigation buttons for the inventory.
-     *
-     * @return The list of navigation buttons for the inventory.
-     */
-    NullableArrayList<NavigationButton> getNavigationButtons();
 
     /**
      * Returns an iterator over elements of type {@link VoidInventory}.
