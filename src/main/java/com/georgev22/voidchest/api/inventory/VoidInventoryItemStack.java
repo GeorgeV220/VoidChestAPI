@@ -24,19 +24,12 @@ public class VoidInventoryItemStack {
     private SerializableItemStack visibleItemStack;
 
     /**
-     * The index of the item stack.
-     */
-    private final int index;
-
-    /**
      * Constructs a new {@code VoidInventoryItemStack} with the specified serializable and visible item stacks.
      *
-     * @param index                 The index of the item stack.
      * @param serializableItemStack The serializable item stack.
      * @param visibleItemStack      The visible item stack.
      */
-    public VoidInventoryItemStack(int index, SerializableItemStack serializableItemStack, SerializableItemStack visibleItemStack) {
-        this.index = index;
+    public VoidInventoryItemStack(SerializableItemStack serializableItemStack, SerializableItemStack visibleItemStack) {
         this.serializableItemStack = serializableItemStack;
         this.visibleItemStack = visibleItemStack;
     }
@@ -84,9 +77,5 @@ public class VoidInventoryItemStack {
      */
     public ItemStack getOriginalItemStack() {
         return this.serializableItemStack.getItemStack();
-    }
-
-    public int getIndex() {
-        return index;
     }
 }
