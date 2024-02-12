@@ -1,3 +1,16 @@
+# [2.2.0-alpha.27](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.26...v2.2.0-alpha.27) (2024-02-12)
+
+
+### Features
+
+* add getItems method and change holder type in IPaginatedVoidInventory (#alpha) ([d95fe06](https://github.com/GeorgeV220/VoidChestAPI/commit/d95fe064933611d282f7c98aadf0d540d25932be))
+* add IPaginatedVoidInventoryHolder interface ([304c8a7](https://github.com/GeorgeV220/VoidChestAPI/commit/304c8a726c5eca6c68462cd8607abac6e3b4e082))
+
+
+### Reverts
+
+* Revert "feat(VoidInventoryItemStack): add index field and getter" ([c6002ec](https://github.com/GeorgeV220/VoidChestAPI/commit/c6002ec0e2eebb14d700ae62ce81b58c265e3bf1))
+
 # [2.2.0-alpha.26](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.25...v2.2.0-alpha.26) (2024-02-12)
 
 
