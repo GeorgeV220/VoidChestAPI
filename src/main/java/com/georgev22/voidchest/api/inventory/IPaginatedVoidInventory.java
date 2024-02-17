@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * Represents a paginated void inventory that can display multiple pages of items.<br>
  * WARNING: Avoid using Inventory methods directly for item manipulation as changes may not
@@ -55,8 +57,9 @@ public interface IPaginatedVoidInventory {
      * directly for item manipulation, as changes may not reflect correctly.
      *
      * @param itemStacks The item stacks to add.
+     * @return The list of items that could not be added.
      */
-    void addItems(ItemStack... itemStacks);
+    List<ItemStack> addItems(ItemStack... itemStacks);
 
     /**
      * Tries to remove all instances of the specified item stacks from all pages of the inventory.
@@ -208,6 +211,27 @@ public interface IPaginatedVoidInventory {
      * @return the VoidStorage associated with the inventory
      */
     @Nullable IVoidStorage voidStorage();
+
+    /**
+     * Returns the maximum number of pages in the inventory
+     *
+     * @return the maximum number of pages in the inventory
+     */
+    int maxPages();
+
+    /**
+     * Returns the number of pages in the inventory
+     *
+     * @return the number of pages in the inventory
+     */
+    int totalPages();
+
+    /**
+     * Sets the maximum number of pages in the inventory
+     *
+     * @param pages the maximum number of pages in the inventory
+     */
+    void setMaxPages(int pages);
 
     /**
      * Retrieves the holder of the inventory.
