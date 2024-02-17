@@ -1,3 +1,10 @@
+# [2.2.0-alpha.29](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.28...v2.2.0-alpha.29) (2024-02-17)
+
+
+### Features
+
+* Add methods and return values to IPaginatedVoidInventory ([9bca481](https://github.com/GeorgeV220/VoidChestAPI/commit/9bca481a397a21db4db96a93b59d8828feeb1a1c))
+
 # [2.2.0-alpha.28](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.27...v2.2.0-alpha.28) (2024-02-12)
 
 
