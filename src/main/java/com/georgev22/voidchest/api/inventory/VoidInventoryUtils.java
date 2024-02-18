@@ -35,12 +35,14 @@ public interface VoidInventoryUtils {
      * @param owner         The owner of the inventory
      * @param inventoryName The name of the inventory
      * @param inventorySize The size of the inventory
+     * @param maxPages      The maximum number of pages in the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
-            int inventorySize
+            int inventorySize,
+            int maxPages
     );
 
     /**
@@ -66,13 +68,15 @@ public interface VoidInventoryUtils {
      * @param inventoryName  The name of the inventory
      * @param inventorySize  The size of the inventory
      * @param inventoryItems The items to add to the inventory
+     * @param maxPages       The maximum number of pages in the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems
+            @NotNull List<VoidInventoryItemStack> inventoryItems,
+            int maxPages
     );
 
     /**
@@ -122,13 +126,15 @@ public interface VoidInventoryUtils {
      * @param owner         The owner of the inventory
      * @param inventoryName The name of the inventory
      * @param inventorySize The size of the inventory
+     * @param maxPages      The maximum number of pages in the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
             @NotNull IVoidStorage voidStorage,
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
-            int inventorySize
+            int inventorySize,
+            int maxPages
     );
 
     /**
@@ -139,6 +145,7 @@ public interface VoidInventoryUtils {
      * @param inventoryName  The name of the inventory
      * @param inventorySize  The size of the inventory
      * @param inventoryItems The items to add to the inventory
+     * @param maxPages       The maximum number of pages in the inventory
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
@@ -146,7 +153,8 @@ public interface VoidInventoryUtils {
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems
+            @NotNull List<VoidInventoryItemStack> inventoryItems,
+            int maxPages
     );
 
     /**
