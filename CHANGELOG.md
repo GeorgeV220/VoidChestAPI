@@ -1,3 +1,12 @@
+# [2.2.0-alpha.30](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.29...v2.2.0-alpha.30) (2024-02-18)
+
+
+### Features
+
+* add maxPages parameter to createPaginatedInventory methods ([799d856](https://github.com/GeorgeV220/VoidChestAPI/commit/799d856320c2b98470dbaa23bd46b603902279a4))
+* **inventory:** add PaginatedInventorySwitchPageEvent ([b99d59d](https://github.com/GeorgeV220/VoidChestAPI/commit/b99d59d86d42c43b10670c99e6c290bcac53916c))
+* **inventory:** add VoidInventoryCloseEvent ([7f5161c](https://github.com/GeorgeV220/VoidChestAPI/commit/7f5161c38e544961e03c4056f9a9f074db45c84a))
+
 # [2.2.0-alpha.29](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.28...v2.2.0-alpha.29) (2024-02-17)
 
 
