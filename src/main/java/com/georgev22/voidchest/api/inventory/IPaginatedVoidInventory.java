@@ -206,6 +206,21 @@ public interface IPaginatedVoidInventory {
     NullableArrayList<NavigationButton> getNavigationButtons();
 
     /**
+     * Adds a navigation button to the inventory.
+     * If a button in the same page and slot already exists, it will be replaced with the new button.
+     * <p>
+     * If the total pages are 1, then the button will not be added.
+     * <p>
+     * Only the last row of the inventory can contain navigation buttons.
+     * ((rows - 1) * 9) is the starting slot of the last row.
+     *
+     * @param page              the page number of the navigation button
+     * @param navigationButtons the navigation buttons to add
+     * @return the paginated inventory
+     */
+    IPaginatedVoidInventory addNavigationButton(int page, NavigationButton... navigationButtons);
+
+    /**
      * Retrieves the VoidStorage associated with the inventory or null if it doesn't exist
      *
      * @return the VoidStorage associated with the inventory
