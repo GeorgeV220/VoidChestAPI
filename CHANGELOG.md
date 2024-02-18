@@ -1,3 +1,10 @@
+# [2.2.0-alpha.32](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.31...v2.2.0-alpha.32) (2024-02-18)
+
+
+### Features
+
+* **api:** remove page parameter from addNavigationButton method ([3b34830](https://github.com/GeorgeV220/VoidChestAPI/commit/3b34830484e9bd36f384fcab45c1809527ffdf2b))
+
 # [2.2.0-alpha.31](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.30...v2.2.0-alpha.31) (2024-02-18)
 
 
