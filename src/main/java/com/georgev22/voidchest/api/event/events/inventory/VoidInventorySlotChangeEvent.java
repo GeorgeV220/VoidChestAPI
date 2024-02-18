@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.event.events.inventory;
 
-import com.georgev22.voidchest.api.event.events.inventory.VoidInventoryClickEvent.Slot;
 import com.georgev22.voidchest.api.event.interfaces.Cancellable;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
