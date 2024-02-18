@@ -214,11 +214,10 @@ public interface IPaginatedVoidInventory {
      * Only the last row of the inventory can contain navigation buttons.
      * ((rows - 1) * 9) is the starting slot of the last row.
      *
-     * @param page              the page number of the navigation button
      * @param navigationButtons the navigation buttons to add
      * @return the paginated inventory
      */
-    IPaginatedVoidInventory addNavigationButton(int page, NavigationButton... navigationButtons);
+    IPaginatedVoidInventory addNavigationButton(NavigationButton... navigationButtons);
 
     /**
      * Retrieves the VoidStorage associated with the inventory or null if it doesn't exist
