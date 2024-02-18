@@ -1,3 +1,10 @@
+# [2.2.0-alpha.31](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.30...v2.2.0-alpha.31) (2024-02-18)
+
+
+### Features
+
+* **inventory:** add method to add navigation buttons ([34440ef](https://github.com/GeorgeV220/VoidChestAPI/commit/34440eff9b0e7ba5fb06eeee330f5187805af435))
+
 # [2.2.0-alpha.30](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.29...v2.2.0-alpha.30) (2024-02-18)
 
 
