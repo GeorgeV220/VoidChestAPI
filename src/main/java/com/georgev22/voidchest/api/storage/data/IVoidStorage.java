@@ -13,7 +13,6 @@ import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,25 +40,11 @@ public interface IVoidStorage {
 
     /**
      * Retrieves the inventory of the block associated with the VoidStorage.
-     *
-     * @return The inventory of the block associated with the VoidStorage.
-     */
-    @NotNull VoidInventory blockInventory();
-
-    /**
-     * Retrieves the inventory of the block associated with the VoidStorage.
      * This inventory is paginated when infinite storage is enabled.
-     * <p>
-     * Note: This method is not ready and it may return null.<br>
-     * When it is ready to be used,
-     * it will get renamed to blockInventory() and the current blockInventory() will be removed.
      *
      * @return The paginated inventory of the block associated with the VoidStorage.
      */
-    @ApiStatus.Experimental
-    default @Nullable IPaginatedVoidInventory blockInventoryPaginated() {
-        return null;
-    }
+    @Nullable IPaginatedVoidInventory blockInventory();
 
     /**
      * Retrieves the whitelist inventory of the VoidStorage.
