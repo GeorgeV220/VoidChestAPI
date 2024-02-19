@@ -1,3 +1,10 @@
+# [2.2.0-alpha.33](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.32...v2.2.0-alpha.33) (2024-02-19)
+
+
+### Features
+
+* **storage/IVoidStorage:** replace VoidInventory with IPaginatedVoidInventory ([aa3f0d0](https://github.com/GeorgeV220/VoidChestAPI/commit/aa3f0d0105039c40019b3bec34a494bd7f33b635))
+
 # [2.2.0-alpha.32](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.31...v2.2.0-alpha.32) (2024-02-18)
 
 
