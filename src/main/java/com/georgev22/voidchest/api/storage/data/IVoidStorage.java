@@ -3,7 +3,6 @@ package com.georgev22.voidchest.api.storage.data;
 import com.georgev22.library.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.inventory.IPaginatedVoidInventory;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
-import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
 import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
@@ -11,6 +10,7 @@ import com.georgev22.voidchest.api.storage.data.voidstorage.Filter;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
 import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -87,7 +87,7 @@ public interface IVoidStorage {
             @NotNull VoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @Nullable List<VoidInventoryItemStack> inventoryItems
+            @Nullable List<SerializableItemStack> inventoryItems
     );
 
     /**

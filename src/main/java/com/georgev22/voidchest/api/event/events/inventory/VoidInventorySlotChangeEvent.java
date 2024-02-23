@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.event.events.inventory;
 
 import com.georgev22.voidchest.api.event.interfaces.Cancellable;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
-import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 
 /**
  * The VoidInventorySlotChangeEvent is called when a player changes the item in a slot in a VoidInventory.
@@ -11,7 +11,7 @@ public class VoidInventorySlotChangeEvent extends VoidInventoryEvent implements 
 
     private boolean cancelled;
     private final Slot slot;
-    private VoidInventoryItemStack newItemStack;
+    private SerializableItemStack newItemStack;
 
     /**
      * Constructs a new VoidInventorySlotChangeEvent.
@@ -20,7 +20,7 @@ public class VoidInventorySlotChangeEvent extends VoidInventoryEvent implements 
      * @param slot         The slot that was clicked
      * @param newItemStack The new item stack that is going to be in the slot
      */
-    public VoidInventorySlotChangeEvent(VoidInventory inventory, Slot slot, VoidInventoryItemStack newItemStack) {
+    public VoidInventorySlotChangeEvent(VoidInventory inventory, Slot slot, SerializableItemStack newItemStack) {
         super(inventory);
         this.slot = slot;
         this.newItemStack = newItemStack;
@@ -40,7 +40,7 @@ public class VoidInventorySlotChangeEvent extends VoidInventoryEvent implements 
      *
      * @return The new item stack in the slot
      */
-    public VoidInventoryItemStack getNewItemStack() {
+    public SerializableItemStack getNewItemStack() {
         return newItemStack;
     }
 
@@ -49,7 +49,7 @@ public class VoidInventorySlotChangeEvent extends VoidInventoryEvent implements 
      *
      * @param newItemStack The new item stack in the slot
      */
-    public void setNewItemStack(VoidInventoryItemStack newItemStack) {
+    public void setNewItemStack(SerializableItemStack newItemStack) {
         this.newItemStack = newItemStack;
     }
 

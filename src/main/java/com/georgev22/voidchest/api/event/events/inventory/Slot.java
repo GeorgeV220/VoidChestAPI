@@ -1,11 +1,11 @@
 package com.georgev22.voidchest.api.event.events.inventory;
 
-import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 
 /**
  * Slot class to represent a slot in an inventory.
  */
-public record Slot(int index, VoidInventoryItemStack itemStack) {
+public record Slot(int index, SerializableItemStack itemStack) {
 
     /**
      * Constructs a new Slot object.

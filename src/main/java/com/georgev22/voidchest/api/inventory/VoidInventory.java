@@ -18,8 +18,7 @@ import java.util.function.Consumer;
  * extending the Bukkit {@link Inventory} interface.
  * It provides methods for adding, retrieving, and iterating over items within the void chest.
  *
- * <p>Items within the void chest are represented by {@link VoidInventoryItemStack}, which encapsulates both
- * a {@link SerializableItemStack} for data serialization and an {@link SerializableItemStack} for the visible representation
+ * <p>Items within the void chest are represented by {@link SerializableItemStack} for data serialization
  * of the item in the inventory.
  *
  * <p>This interface extends the Bukkit {@link Inventory} interface and adds additional functionality for handling
@@ -45,11 +44,11 @@ public interface VoidInventory extends Inventory {
     HashMap<Integer, ItemStack> addItem(ItemStack... items);
 
     /**
-     * Retrieves a list of {@link VoidInventoryItemStack}s representing all items in the void chest.
+     * Retrieves a list of {@link SerializableItemStack}s representing all items in the void chest.
      *
      * @return The list of void chest item stacks.
      */
-    NullableFixedSizeList<VoidInventoryItemStack> getItems();
+    NullableFixedSizeList<SerializableItemStack> getItems();
 
     /**
      * Retrieves the index of the first partial match of the specified item in the void chest.
@@ -60,22 +59,22 @@ public interface VoidInventory extends Inventory {
     int firstPartial(ItemStack item);
 
     /**
-     * Sets the items in the void chest to the specified list of {@link VoidInventoryItemStack}s.
+     * Sets the items in the void chest to the specified list of {@link SerializableItemStack}s.
      *
      * @param items The list of void chest item stacks to set.
      */
-    default void setItems(NullableFixedSizeList<VoidInventoryItemStack> items) {
+    default void setItems(NullableFixedSizeList<SerializableItemStack> items) {
         this.getItems().clear();
         this.getItems().addAll(items);
     }
 
     /**
-     * Retrieves the {@link VoidInventoryItemStack} at the specified slot in the void chest.
+     * Retrieves the {@link SerializableItemStack} at the specified slot in the void chest.
      *
      * @param slot The slot index.
      * @return The void chest item stack at the specified slot, or {@code null} if the slot is empty.
      */
-    default @Nullable VoidInventoryItemStack getVoidInventoryItem(int slot) {
+    default @Nullable SerializableItemStack getVoidInventoryItem(int slot) {
         if (this.getItems().size() <= slot) {
             return null;
         }
@@ -100,7 +99,7 @@ public interface VoidInventory extends Inventory {
     default void forEachOriginalItemStacks(Consumer<? super ItemStack> action) {
         this.getItems().stream()
                 .filter(Objects::nonNull)
-                .map(VoidInventoryItemStack::getOriginalItemStack)
+                .map(SerializableItemStack::getItemStack)
                 .forEach(action);
     }
 
@@ -112,33 +111,33 @@ public interface VoidInventory extends Inventory {
     default void forEachVisibleItemStacks(Consumer<? super ItemStack> action) {
         this.getItems().stream()
                 .filter(Objects::nonNull)
-                .map(itemStack -> itemStack.getVisibleItemStack().getItemStack())
+                .map(SerializableItemStack::getItemStack)
                 .forEach(action);
     }
 
     /**
-     * Iterates over all {@link VoidInventoryItemStack}s in the void chest using a specified action.
+     * Iterates over all {@link SerializableItemStack}s in the void chest using a specified action.
      *
      * @param action The action to be performed on each void chest item stack.
      */
-    default void forEachVoidItemStack(Consumer<? super VoidInventoryItemStack> action) {
+    default void forEachVoidItemStack(Consumer<? super SerializableItemStack> action) {
         this.getItems().forEach(action);
     }
 
     /**
      * Updates the item stack at the specified slot in the void chest.
      *
-     * @param slot                   The slot index
-     * @param voidInventoryItemStack The item stack
+     * @param slot                  The slot index
+     * @param serializableItemStack The item stack
      */
-    default void update(int slot, @Nullable VoidInventoryItemStack voidInventoryItemStack) {
-        if (voidInventoryItemStack == null) {
+    default void update(int slot, @Nullable SerializableItemStack serializableItemStack) {
+        if (serializableItemStack == null) {
             this.clear(slot);
             this.getItems().set(slot, null);
             return;
         }
-        this.setItem(slot, voidInventoryItemStack.getVisibleItemStack().getItemStack());
-        this.getItems().set(slot, voidInventoryItemStack);
+        this.setItem(slot, serializableItemStack.getItemStack());
+        this.getItems().set(slot, serializableItemStack);
     }
 
     /**

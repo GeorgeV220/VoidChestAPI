@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * The {@code VoidInventoryItemStack} class represents an item stack within a Void Chest inventory.
@@ -10,7 +11,10 @@ import org.bukkit.inventory.ItemStack;
  *
  * <p>This class provides methods to retrieve and modify both the serializable and visible item stacks.
  * Additionally, it offers a method to obtain the original {@link SerializableItemStack} from the serializable item stack.
+ * <p>
+ * This class won't get removed in case of need in the future but you should not use it in your code.
  */
+@ApiStatus.Obsolete
 public class VoidInventoryItemStack {
 
     /**

@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.storage;
 
-import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
 import com.georgev22.voidchest.api.storage.data.voidstorage.Filter;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public interface IFilterManager {
      * @param item            The item to check if it is allowed.
      * @return True if the item is allowed, false otherwise.
      */
-    boolean isItemAllowed(@Nullable String voidStorageName, VoidInventoryItemStack item);
+    boolean isItemAllowed(@Nullable String voidStorageName, SerializableItemStack item);
 
     /**
      * Checks if the specified item is allowed for collection from the specified VoidChest.
@@ -58,7 +58,7 @@ public interface IFilterManager {
      * @param item        The item to check if it is allowed.
      * @return True if the item is allowed, false otherwise.
      */
-    boolean isItemAllowed(@Nullable IVoidStorage voidStorage, VoidInventoryItemStack item);
+    boolean isItemAllowed(@Nullable IVoidStorage voidStorage, SerializableItemStack item);
 
 
     /**

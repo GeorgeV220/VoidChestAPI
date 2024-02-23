@@ -3,6 +3,7 @@ package com.georgev22.voidchest.api.inventory;
 import com.georgev22.voidchest.api.inventory.holder.IPaginatedVoidInventoryHolder;
 import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
 import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -58,7 +59,7 @@ public interface VoidInventoryUtils {
             @Nullable VoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems
+            @NotNull List<SerializableItemStack> inventoryItems
     );
 
     /**
@@ -75,7 +76,7 @@ public interface VoidInventoryUtils {
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems,
+            @NotNull List<SerializableItemStack> inventoryItems,
             int maxPages
     );
 
@@ -117,7 +118,7 @@ public interface VoidInventoryUtils {
             @Nullable VoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems
+            @NotNull List<SerializableItemStack> inventoryItems
     );
 
     /**
@@ -153,7 +154,7 @@ public interface VoidInventoryUtils {
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
-            @NotNull List<VoidInventoryItemStack> inventoryItems,
+            @NotNull List<SerializableItemStack> inventoryItems,
             int maxPages
     );
 

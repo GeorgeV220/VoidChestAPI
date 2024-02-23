@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
-import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,7 +14,7 @@ public interface Filter {
      *
      * @return The item that the filter applies to.
      */
-    @NotNull VoidInventoryItemStack item();
+    @NotNull SerializableItemStack item();
 
     /**
      * Checks if the item is allowed for collection from the VoidChest.
