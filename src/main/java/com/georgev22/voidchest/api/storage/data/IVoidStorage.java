@@ -41,10 +41,12 @@ public interface IVoidStorage {
     /**
      * Retrieves the inventory of the block associated with the VoidStorage.
      * This inventory is paginated when infinite storage is enabled.
+     * <p>
+     * This method should never return null, if returns null report it as a bug in the plugin.
      *
      * @return The paginated inventory of the block associated with the VoidStorage.
      */
-    @Nullable IPaginatedVoidInventory blockInventory();
+    @NotNull IPaginatedVoidInventory blockInventory();
 
     /**
      * Retrieves the whitelist inventory of the VoidStorage.
