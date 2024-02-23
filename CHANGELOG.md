@@ -1,3 +1,10 @@
+# [2.2.0-alpha.34](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.33...v2.2.0-alpha.34) (2024-02-23)
+
+
+### Bug Fixes
+
+* **api:** add null check for blockInventory() ([2cb50b1](https://github.com/GeorgeV220/VoidChestAPI/commit/2cb50b16821d00a5e3e2e3777172a237c910341a))
+
 # [2.2.0-alpha.33](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.32...v2.2.0-alpha.33) (2024-02-19)
 
 
