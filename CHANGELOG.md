@@ -1,3 +1,10 @@
+# [2.2.0-alpha.35](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.34...v2.2.0-alpha.35) (2024-02-24)
+
+
+### Bug Fixes
+
+* **filters:** replace SerializableItemStack with VoidInventoryItemStack ([1fa904b](https://github.com/GeorgeV220/VoidChestAPI/commit/1fa904b46b71dec978e84f1397fe1c8e885cb4a2))
+
 # [2.2.0-alpha.34](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.33...v2.2.0-alpha.34) (2024-02-23)
 
 
