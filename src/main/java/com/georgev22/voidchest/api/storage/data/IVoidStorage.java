@@ -4,10 +4,7 @@ import com.georgev22.library.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.inventory.IPaginatedVoidInventory;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
 import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
-import com.georgev22.voidchest.api.storage.data.voidstorage.Abilities;
-import com.georgev22.voidchest.api.storage.data.voidstorage.Charge;
-import com.georgev22.voidchest.api.storage.data.voidstorage.Filter;
-import com.georgev22.voidchest.api.storage.data.voidstorage.Stats;
+import com.georgev22.voidchest.api.storage.data.voidstorage.*;
 import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
@@ -137,6 +134,13 @@ public interface IVoidStorage {
     default BoundingBox boundingBox() throws IllegalStateException {
         return blockLocation().getBoundingBox();
     }
+
+    /**
+     * Retrieves the upgrades of the VoidStorage.
+     *
+     * @return The upgrades of the VoidStorage.
+     */
+    Upgrades upgrades();
 
     /**
      * Retrieves the booster value of the VoidStorage.
