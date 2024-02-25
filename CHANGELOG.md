@@ -1,3 +1,10 @@
+# [2.2.0-alpha.36](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.35...v2.2.0-alpha.36) (2024-02-25)
+
+
+### Features
+
+* add Upgrades interface and Upgrade class for void storage ([8fe93ec](https://github.com/GeorgeV220/VoidChestAPI/commit/8fe93ec6f61e5b0bf1be1fd29a1f5ccacf976beb))
+
 # [2.2.0-alpha.35](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.34...v2.2.0-alpha.35) (2024-02-24)
 
 
