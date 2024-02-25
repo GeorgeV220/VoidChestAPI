@@ -1,7 +1,9 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
 import com.georgev22.library.maps.ConcurrentObjectMap;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.List;
 
@@ -23,10 +25,53 @@ public interface Upgrades {
 
     /**
      * Retrieves the upgrades of the VoidStorage.
+     * <p>
+     * Modifications to this list will not be reflected in the VoidStorage.
      *
      * @return The upgrades of the VoidStorage.
      */
+    @UnmodifiableView
     List<Upgrade<?>> getUpgrades();
+
+    /**
+     * Retrieves the upgrades of the VoidStorage with the specified level.
+     * <p>
+     * Modifications to this list will not be reflected in the VoidStorage.
+     *
+     * @param level the level of the upgrades to retrieve
+     * @return The upgrades of the VoidStorage with the specified level.
+     */
+    @UnmodifiableView
+    List<Upgrade<?>> getUpgrades(int level);
+
+    /**
+     * Adds an Upgrade to the VoidStorage.
+     *
+     * @param upgrade the Upgrade to add
+     */
+    void addUpgrade(@NotNull Upgrade<?> upgrade);
+
+    /**
+     * Removes an Upgrade from the VoidStorage.
+     *
+     * @param upgrade the Upgrade to remove
+     */
+    void removeUpgrade(@NotNull Upgrade<?> upgrade);
+
+    /**
+     * Removes all Upgrades from the VoidStorage with the specified name.
+     *
+     * @param upgradeName the name of the Upgrades to remove
+     */
+    void removeUpgrade(@NotNull String upgradeName);
+
+    /**
+     * Removes an Upgrade from the VoidStorage with the specified name and level.
+     *
+     * @param upgradeName the name of the Upgrade to remove
+     * @param level       the level of the Upgrade to remove
+     */
+    void removeUpgrade(@NotNull String upgradeName, int level);
 
     /**
      * Retrieves the Upgrade with the specified name or null if it does not exist.
@@ -36,6 +81,16 @@ public interface Upgrades {
      */
     @Nullable
     Upgrade<?> getUpgrade(String upgradeName);
+
+    /**
+     * Retrieves the Upgrade with the specified name and level or null if it does not exist.
+     *
+     * @param upgradeName the name of the Upgrade
+     * @param level       the level of the Upgrade
+     * @return the Upgrade with the specified name and level or null if it does not exist.
+     */
+    @Nullable
+    Upgrade<?> getUpgrade(String upgradeName, int level);
 
     /**
      * Adds custom data to the Upgrades with the specified key and value.
