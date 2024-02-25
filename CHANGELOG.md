@@ -1,3 +1,10 @@
+# [2.2.0-alpha.38](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.37...v2.2.0-alpha.38) (2024-02-25)
+
+
+### Features
+
+* **Upgrades:** add methods for managing upgrades ([1fb00a3](https://github.com/GeorgeV220/VoidChestAPI/commit/1fb00a32ef3852d659f2dc977da7892211f1bd14))
+
 # [2.2.0-alpha.37](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.36...v2.2.0-alpha.37) (2024-02-25)
 
 
