@@ -12,13 +12,16 @@ public class Upgrade<U> {
     private final String upgradeName;
     private final U object;
 
+    private int level;
+
     /**
      * Constructs a new upgrade with a name and an object.
      *
      * @param upgradeName the name of the upgrade
      * @param upgrade     the upgrade object
+     * @param level       the level of the upgrade
      */
-    public Upgrade(String upgradeName, U upgrade) {
+    public Upgrade(String upgradeName, U upgrade, int level) {
         this.upgradeName = upgradeName;
         this.object = upgrade;
     }
@@ -48,6 +51,15 @@ public class Upgrade<U> {
      */
     public Class<?> getObjectClass() {
         return object.getClass();
+    }
+
+    /**
+     * Returns the level of the upgrade.
+     *
+     * @return the level of the upgrade
+     */
+    public int getLevel() {
+        return level;
     }
 
     /**

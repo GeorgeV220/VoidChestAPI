@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
 import com.georgev22.library.maps.ConcurrentObjectMap;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -28,11 +29,12 @@ public interface Upgrades {
     List<Upgrade<?>> getUpgrades();
 
     /**
-     * Retrieves the Upgrade with the specified name.
+     * Retrieves the Upgrade with the specified name or null if it does not exist.
      *
      * @param upgradeName the name of the Upgrade
-     * @return the Upgrade with the specified name
+     * @return the Upgrade with the specified name or null if it does not exist.
      */
+    @Nullable
     Upgrade<?> getUpgrade(String upgradeName);
 
     /**
