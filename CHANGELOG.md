@@ -1,3 +1,10 @@
+# [2.2.0-alpha.37](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.36...v2.2.0-alpha.37) (2024-02-25)
+
+
+### Features
+
+* **Upgrades:** add level and nullability annotations to Upgrade classes ([4adedf9](https://github.com/GeorgeV220/VoidChestAPI/commit/4adedf92dc846d555053bbc627f32c0bc45107a5))
+
 # [2.2.0-alpha.36](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.35...v2.2.0-alpha.36) (2024-02-25)
 
 
