@@ -1,3 +1,10 @@
+# [2.2.0-alpha.40](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.39...v2.2.0-alpha.40) (2024-02-28)
+
+
+### Features
+
+* **Upgrade:** make Upgrade class abstract and add upgrade method (#alpha) ([95c4b74](https://github.com/GeorgeV220/VoidChestAPI/commit/95c4b74e9eb4f5c3514919e215d3597363138811))
+
 # [2.2.0-alpha.39](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.38...v2.2.0-alpha.39) (2024-02-28)
 
 
