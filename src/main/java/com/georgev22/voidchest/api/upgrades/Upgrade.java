@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  *
  * @param <U> the type of the upgrade object
  */
-public class Upgrade<U> {
+public abstract class Upgrade<U> {
 
     private final NamespacedKey upgradeName;
     private U object;
@@ -60,6 +60,13 @@ public class Upgrade<U> {
             this.level++;
         }
     }
+
+    /**
+     * Upgrades the object.
+     * <p>
+     * This method should be overridden in subclasses.
+     */
+    public abstract void upgrade();
 
     /**
      * Returns the name of the upgrade.
