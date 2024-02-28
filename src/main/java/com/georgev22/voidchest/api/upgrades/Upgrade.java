@@ -114,6 +114,15 @@ public abstract class Upgrade<U> {
     }
 
     /**
+     * Returns the maximum level of the upgrade.
+     *
+     * @return the maximum level of the upgrade
+     */
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
+    /**
      * Checks if the object is an instance of the specified class.
      *
      * @param clazz the class to check for instance
