@@ -13,12 +13,12 @@ import java.util.Objects;
  */
 @SerializableAs("VoidChestBoundingBox")
 public final class BoundingBox implements Cloneable, ConfigurationSerializable {
-    private final int minX;
-    private final int minY;
-    private final int minZ;
-    private final int maxX;
-    private final int maxY;
-    private final int maxZ;
+    private int minX;
+    private int minY;
+    private int minZ;
+    private int maxX;
+    private int maxY;
+    private int maxZ;
 
 
     /**
@@ -121,6 +121,60 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      */
     public int maxZ() {
         return maxZ;
+    }
+
+    /**
+     * Sets the maximum X-coordinate of the bounding box.
+     *
+     * @param maxX The new maximum X-coordinate.
+     */
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    /**
+     * Sets the maximum Y-coordinate of the bounding box.
+     *
+     * @param maxY The new maximum Y-coordinate.
+     */
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    /**
+     * Sets the maximum Z-coordinate of the bounding box.
+     *
+     * @param maxZ The new maximum Z-coordinate.
+     */
+    public void setMaxZ(int maxZ) {
+        this.maxZ = maxZ;
+    }
+
+    /**
+     * Sets the minimum X-coordinate of the bounding box.
+     *
+     * @param minX The new minimum X-coordinate.
+     */
+    public void setMinX(int minX) {
+        this.minX = minX;
+    }
+
+    /**
+     * Sets the minimum Y-coordinate of the bounding box.
+     *
+     * @param minY The new minimum Y-coordinate.
+     */
+    public void setMinY(int minY) {
+        this.minY = minY;
+    }
+
+    /**
+     * Sets the minimum Z-coordinate of the bounding box.
+     *
+     * @param minZ The new minimum Z-coordinate.
+     */
+    public void setMinZ(int minZ) {
+        this.minZ = minZ;
     }
 
     /**
