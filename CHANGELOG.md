@@ -1,3 +1,12 @@
+# [2.2.0-alpha.39](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.38...v2.2.0-alpha.39) (2024-02-28)
+
+
+### Features
+
+* add UnmodifiableArrayList class ([28950ee](https://github.com/GeorgeV220/VoidChestAPI/commit/28950ee77ebbbd3e0cc2376ecb31c4c718a79c15))
+* add upgrade manager and upgrade classes for void chests ([aed120f](https://github.com/GeorgeV220/VoidChestAPI/commit/aed120feddd76a1e158a6fdfbd714728cc3562eb))
+* **BoundingBox:** add setters for coordinates ([d8626d3](https://github.com/GeorgeV220/VoidChestAPI/commit/d8626d3156c5b0438254393357878f84663e1ab1))
+
 # [2.2.0-alpha.38](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.37...v2.2.0-alpha.38) (2024-02-25)
 
 
