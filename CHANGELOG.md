@@ -1,3 +1,10 @@
+# [2.2.0-alpha.42](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.41...v2.2.0-alpha.42) (2024-02-29)
+
+
+### Features
+
+* **upgrades:** add setters for upgrade object and level ([5b6de42](https://github.com/GeorgeV220/VoidChestAPI/commit/5b6de4267047113cb012b429bc0e72b4efb8ee48))
+
 # [2.2.0-alpha.41](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.40...v2.2.0-alpha.41) (2024-02-29)
 
 
