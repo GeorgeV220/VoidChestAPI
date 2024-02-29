@@ -1,3 +1,10 @@
+# [2.2.0-alpha.43](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.42...v2.2.0-alpha.43) (2024-02-29)
+
+
+### Features
+
+* **BoundingBox:** add constructors and methods for center-based bounding boxes ([ea8cfe1](https://github.com/GeorgeV220/VoidChestAPI/commit/ea8cfe1cebbe64e17ba3b546c8dbc339b06a14ec))
+
 # [2.2.0-alpha.42](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.41...v2.2.0-alpha.42) (2024-02-29)
 
 
