@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.library.yaml.serialization.ConfigurationSerializable;
 import com.georgev22.library.yaml.serialization.SerializableAs;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -67,6 +68,65 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
         this.maxX = (int) Math.max(location1.getX(), location2.getX());
         this.maxY = (int) Math.max(location1.getY(), location2.getY());
         this.maxZ = (int) Math.max(location1.getZ(), location2.getZ());
+    }
+
+    /**
+     * Constructs a bounding box based on a center location and a range.
+     *
+     * @param center The center location of the bounding box.
+     * @param minX   The minimum X-coordinate.
+     * @param minY   The minimum Y-coordinate.
+     * @param minZ   The minimum Z-coordinate.
+     * @param maxX   The maximum X-coordinate.
+     * @param maxY   The maximum Y-coordinate.
+     * @param maxZ   The maximum Z-coordinate.
+     */
+    public BoundingBox(@NotNull SerializableLocation center, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        this.minX = (int) (center.getX() - minX);
+        this.minY = (int) (center.getY() - minY);
+        this.minZ = (int) (center.getZ() - minZ);
+        this.maxX = (int) (center.getX() + maxX);
+        this.maxY = (int) (center.getY() + maxY);
+        this.maxZ = (int) (center.getZ() + maxZ);
+    }
+
+    /**
+     * Sets the bounding box.
+     *
+     * @param minX The minimum X-coordinate.
+     * @param minY The minimum Y-coordinate.
+     * @param minZ The minimum Z-coordinate.
+     * @param maxX The maximum X-coordinate.
+     * @param maxY The maximum Y-coordinate.
+     * @param maxZ The maximum Z-coordinate.
+     */
+    public void setBoundingBox(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
+    }
+
+    /**
+     * Sets the bounding box based on a center location and a range.
+     *
+     * @param center The center location of the bounding box.
+     * @param minX   The minimum X-coordinate.
+     * @param minY   The minimum Y-coordinate.
+     * @param minZ   The minimum Z-coordinate.
+     * @param maxX   The maximum X-coordinate.
+     * @param maxY   The maximum Y-coordinate.
+     * @param maxZ   The maximum Z-coordinate.
+     */
+    public void setBoundingBox(@NotNull SerializableLocation center, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        this.minX = (int) (center.getX() - minX);
+        this.minY = (int) (center.getY() - minY);
+        this.minZ = (int) (center.getZ() - minZ);
+        this.maxX = (int) (center.getX() + maxX);
+        this.maxY = (int) (center.getY() + maxY);
+        this.maxZ = (int) (center.getZ() + maxZ);
     }
 
     /**
@@ -197,6 +257,17 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      */
     public boolean isInside(@NotNull SerializableLocation location) {
         return isInside((int) location.getX(), (int) location.getY(), (int) location.getZ());
+    }
+
+    /**
+     * Checks if the specified bounding box is inside this bounding box.
+     *
+     * @param other The bounding box to check.
+     * @return True if the bounding box is inside this bounding box, false otherwise.
+     */
+    @Contract(pure = true)
+    public boolean isInside(@NotNull BoundingBox other) {
+        return minX <= other.minX && maxX >= other.maxX && minY <= other.minY && maxY >= other.maxY && minZ <= other.minZ && maxZ >= other.maxZ;
     }
 
     /**
