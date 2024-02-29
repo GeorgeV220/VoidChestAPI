@@ -15,7 +15,6 @@ import com.georgev22.voidchest.api.storage.IPlayerManager;
 import com.georgev22.voidchest.api.storage.IVoidStorageManager;
 import com.georgev22.voidchest.api.storage.voidmanager.IVoidItemManager;
 import com.georgev22.voidchest.api.tasks.SellHandler;
-import com.georgev22.voidchest.api.upgrades.UpgradeManager;
 import com.georgev22.voidchest.api.utilities.config.voidchests.VoidStorageConfigurationFileCache;
 import com.georgev22.voidchest.api.voideconomy.IVoidEconomyManager;
 import org.bukkit.Chunk;
@@ -43,8 +42,7 @@ public record VoidChestAPI(IEconomyManager economyManager,
                            MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
                            VoidStorageConfigurationFileCache voidStorageConfigurationFileCache,
                            SellHandler sellHandler,
-                           VoidInventoryUtils voidInventoryUtils,
-                           UpgradeManager upgradeManager) {
+                           VoidInventoryUtils voidInventoryUtils) {
 
     /**
      * The singleton instance of the VoidChestAPI class.

@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.upgrades;
+package com.georgev22.voidchest.api.storage.data.voidstorage;
 
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
