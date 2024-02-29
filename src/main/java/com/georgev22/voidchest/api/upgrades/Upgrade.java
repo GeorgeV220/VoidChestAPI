@@ -96,6 +96,24 @@ public abstract class Upgrade<U> {
     }
 
     /**
+     * Sets the upgrade object.
+     *
+     * @param object the upgrade object
+     */
+    public void setObject(U object) {
+        this.object = object;
+    }
+
+    /**
+     * Sets the level of the upgrade.
+     *
+     * @param level the level of the upgrade
+     */
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    /**
      * Returns the class of the upgrade object.
      *
      * @return the class of the upgrade object
