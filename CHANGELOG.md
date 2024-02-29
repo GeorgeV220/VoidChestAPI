@@ -1,3 +1,10 @@
+# [2.2.0-alpha.41](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.40...v2.2.0-alpha.41) (2024-02-29)
+
+
+### Features
+
+* **upgrades:** add getMaxLevel method to Upgrade class ([7e07f17](https://github.com/GeorgeV220/VoidChestAPI/commit/7e07f17037792eef169e925b0081b271aeee380e))
+
 # [2.2.0-alpha.40](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.39...v2.2.0-alpha.40) (2024-02-28)
 
 
