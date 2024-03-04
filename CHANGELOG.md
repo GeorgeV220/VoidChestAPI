@@ -1,3 +1,10 @@
+# [2.2.0-alpha.45](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.44...v2.2.0-alpha.45) (2024-03-04)
+
+
+### Bug Fixes
+
+* **boundingbox:** use absolute values for coordinates ([0512b46](https://github.com/GeorgeV220/VoidChestAPI/commit/0512b46b01afbd36a2cdd9e097eca98c61b57b95))
+
 # [2.2.0-alpha.44](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.43...v2.2.0-alpha.44) (2024-03-04)
 
 
