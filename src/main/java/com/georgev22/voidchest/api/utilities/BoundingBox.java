@@ -82,12 +82,12 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @param maxZ   The maximum Z-coordinate.
      */
     public BoundingBox(@NotNull SerializableLocation center, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
-        this.minX = (int) (center.getX() - minX);
-        this.minY = (int) (center.getY() - minY);
-        this.minZ = (int) (center.getZ() - minZ);
-        this.maxX = (int) (center.getX() + maxX);
-        this.maxY = (int) (center.getY() + maxY);
-        this.maxZ = (int) (center.getZ() + maxZ);
+        this.minX = (int) (center.getX() - Math.abs(minX));
+        this.minY = (int) (center.getY() - Math.abs(minY));
+        this.minZ = (int) (center.getZ() - Math.abs(minZ));
+        this.maxX = (int) (center.getX() + Math.abs(maxX));
+        this.maxY = (int) (center.getY() + Math.abs(maxY));
+        this.maxZ = (int) (center.getZ() + Math.abs(maxZ));
     }
 
     /**
