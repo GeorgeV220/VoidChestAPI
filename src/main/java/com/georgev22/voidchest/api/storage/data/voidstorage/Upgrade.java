@@ -1,7 +1,9 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -65,8 +67,31 @@ public abstract class Upgrade<U> {
      * Upgrades the object.
      * <p>
      * This method should be overridden in subclasses.
+     *
+     * @param player the player who tries to upgrade the object
      */
-    public abstract void upgrade();
+    public abstract void upgrade(@Nullable Player player);
+
+    /**
+     * Attempts to upgrade the object by accepting a consumer. Returns true if the upgrade is successful, false otherwise.
+     * <p>
+     * This method should be overridden in subclasses.
+     *
+     * @param consumer the consumer that applies the upgrade
+     * @param player   the player who tries to upgrade the object
+     * @return true if the upgrade is successful, false otherwise
+     */
+    public abstract boolean upgrade(Consumer<U> consumer, @Nullable Player player);
+
+    /**
+     * Upgrades the object directly to the provided upgrade if the level is within acceptable bounds.
+     * <p>
+     * This method should be overridden in subclasses.
+     *
+     * @param upgrade the new upgrade object
+     * @param player  the player who tries to upgrade the object
+     */
+    public abstract void upgrade(U upgrade, @Nullable Player player);
 
     /**
      * Returns the name of the upgrade.
