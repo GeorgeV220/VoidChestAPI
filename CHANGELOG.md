@@ -1,3 +1,10 @@
+# [2.2.0-alpha.46](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.45...v2.2.0-alpha.46) (2024-03-06)
+
+
+### Features
+
+* **Upgrade:** add player parameter and methods to upgrade object ([e35d9d6](https://github.com/GeorgeV220/VoidChestAPI/commit/e35d9d6db26442bdd72159f1aeae2db036aaec78))
+
 # [2.2.0-alpha.45](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.44...v2.2.0-alpha.45) (2024-03-04)
 
 
