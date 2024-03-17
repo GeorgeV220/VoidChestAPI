@@ -1,3 +1,10 @@
+# [2.2.0-alpha.47](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.46...v2.2.0-alpha.47) (2024-03-17)
+
+
+### Features
+
+* **Upgrade:** add item stack handling methods ([04d1d1e](https://github.com/GeorgeV220/VoidChestAPI/commit/04d1d1eacabd969bc1189d438262982eed74e36d))
+
 # [2.2.0-alpha.46](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.45...v2.2.0-alpha.46) (2024-03-06)
 
 
