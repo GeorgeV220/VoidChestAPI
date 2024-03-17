@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.storage.data.voidstorage;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -164,6 +165,40 @@ public abstract class Upgrade<U> {
     public int getMaxLevel() {
         return maxLevel;
     }
+
+    /**
+     * Returns the item stack of the upgrade.
+     *
+     * @return the item stack of the upgrade
+     */
+    public ItemStack getUpgradeItemStack() {
+        return this.getUpgradeItemStack(level);
+    }
+
+    /**
+     * Sets the item stack of the upgrade.
+     *
+     * @param itemStack the item stack of the upgrade
+     */
+    public void setUpgradeItemStack(ItemStack itemStack) {
+        this.setUpgradeItemStack(level, itemStack);
+    }
+
+    /**
+     * Gets the item stack of the upgrade at the specified level.
+     *
+     * @param level the level of the upgrade
+     * @return the item stack of the upgrade
+     */
+    public abstract ItemStack getUpgradeItemStack(int level);
+
+    /**
+     * Sets the item stack of the upgrade at the specified level.
+     *
+     * @param level     the level of the upgrade
+     * @param itemStack the item stack of the upgrade
+     */
+    public abstract void setUpgradeItemStack(int level, ItemStack itemStack);
 
     /**
      * Checks if the object is an instance of the specified class.
