@@ -100,7 +100,7 @@ public abstract class Upgrade<U> {
      * @return the name of the upgrade
      */
     public String getUpgradeName() {
-        return upgradeName.asString();
+        return upgradeName.toString();
     }
 
     /**
