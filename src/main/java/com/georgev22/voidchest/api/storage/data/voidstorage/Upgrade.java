@@ -70,8 +70,9 @@ public abstract class Upgrade<U> {
      * This method should be overridden in subclasses.
      *
      * @param player the player who tries to upgrade the object
+     * @return true if the upgrade is successful, false otherwise
      */
-    public abstract void upgrade(@Nullable Player player);
+    public abstract boolean upgrade(@Nullable Player player);
 
     /**
      * Attempts to upgrade the object by accepting a consumer. Returns true if the upgrade is successful, false otherwise.
@@ -91,8 +92,9 @@ public abstract class Upgrade<U> {
      *
      * @param upgrade the new upgrade object
      * @param player  the player who tries to upgrade the object
+     * @return true if the upgrade is successful, false otherwise
      */
-    public abstract void upgrade(U upgrade, @Nullable Player player);
+    public abstract boolean upgrade(U upgrade, @Nullable Player player);
 
     /**
      * Returns the name of the upgrade.
