@@ -1,3 +1,10 @@
+# [2.2.0-alpha.48](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.47...v2.2.0-alpha.48) (2024-03-19)
+
+
+### Features
+
+* **Upgrade:** change upgrade methods to return boolean ([1c1b730](https://github.com/GeorgeV220/VoidChestAPI/commit/1c1b730d8336e7402ba3860fb627e932d70145a4))
+
 # [2.2.0-alpha.47](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.46...v2.2.0-alpha.47) (2024-03-17)
 
 
