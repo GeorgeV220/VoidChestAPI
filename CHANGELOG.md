@@ -1,3 +1,10 @@
+# [2.2.0-alpha.50](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.49...v2.2.0-alpha.50) (2024-03-20)
+
+
+### Bug Fixes
+
+* **Upgrade.java:** change return type of upgrade method ([83ddfff](https://github.com/GeorgeV220/VoidChestAPI/commit/83ddfffd8802dd52331b4c53f594ba97a6f45c2f))
+
 # [2.2.0-alpha.49](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.48...v2.2.0-alpha.49) (2024-03-20)
 
 
