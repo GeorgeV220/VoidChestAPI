@@ -92,9 +92,9 @@ public abstract class Upgrade<U> {
      *
      * @param upgrade the new upgrade object
      * @param player  the player who tries to upgrade the object
-     * @return true if the upgrade is successful, false otherwise
+     * @return {@link UpgradeResponse#SUCCESS} if the upgrade is successful, {@link UpgradeResponse#FAILED_ECONOMY}, or {@link UpgradeResponse#FAILED_UNKNOWN} or {@link UpgradeResponse#FAILED_MAX_LEVEL} otherwise
      */
-    public abstract boolean upgrade(U upgrade, @Nullable Player player);
+    public abstract UpgradeResponse upgrade(U upgrade, @Nullable Player player);
 
     /**
      * Returns the name of the upgrade.
