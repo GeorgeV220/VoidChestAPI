@@ -1,3 +1,10 @@
+# [2.2.0-alpha.49](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.48...v2.2.0-alpha.49) (2024-03-20)
+
+
+### Features
+
+* **Upgrade:** change upgrade method return type to enum ([f419cc1](https://github.com/GeorgeV220/VoidChestAPI/commit/f419cc1b31c484fe9e70ebc5c8d1e3f0324678d2))
+
 # [2.2.0-alpha.48](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.47...v2.2.0-alpha.48) (2024-03-19)
 
 
