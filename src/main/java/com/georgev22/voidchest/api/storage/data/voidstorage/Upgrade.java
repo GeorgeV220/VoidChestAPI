@@ -40,16 +40,16 @@ public abstract class Upgrade<U> {
      * Attempts to upgrade the object by accepting a consumer. Returns true if the upgrade is successful, false otherwise.
      *
      * @param consumer the consumer that applies the upgrade
-     * @return true if the upgrade is successful, false otherwise
+     * @return {@link UpgradeResponse#SUCCESS} if the upgrade is successful, {@link UpgradeResponse#FAILED_ECONOMY}, or {@link UpgradeResponse#FAILED_UNKNOWN} or {@link UpgradeResponse#FAILED_MAX_LEVEL} otherwise
      */
-    public boolean upgrade(Consumer<U> consumer) {
+    public UpgradeResponse upgrade(Consumer<U> consumer) {
         if (this.level < this.maxLevel) {
             consumer.accept(object);
             this.level++;
-            return true;
+            return UpgradeResponse.SUCCESS;
         }
 
-        return false;
+        return UpgradeResponse.FAILED_MAX_LEVEL;
     }
 
     /**
@@ -70,9 +70,9 @@ public abstract class Upgrade<U> {
      * This method should be overridden in subclasses.
      *
      * @param player the player who tries to upgrade the object
-     * @return true if the upgrade is successful, false otherwise
+     * @return {@link UpgradeResponse#SUCCESS} if the upgrade is successful, {@link UpgradeResponse#FAILED_ECONOMY}, or {@link UpgradeResponse#FAILED_UNKNOWN} or {@link UpgradeResponse#FAILED_MAX_LEVEL} otherwise
      */
-    public abstract boolean upgrade(@Nullable Player player);
+    public abstract UpgradeResponse upgrade(@Nullable Player player);
 
     /**
      * Attempts to upgrade the object by accepting a consumer. Returns true if the upgrade is successful, false otherwise.
@@ -81,9 +81,9 @@ public abstract class Upgrade<U> {
      *
      * @param consumer the consumer that applies the upgrade
      * @param player   the player who tries to upgrade the object
-     * @return true if the upgrade is successful, false otherwise
+     * @return {@link UpgradeResponse#SUCCESS} if the upgrade is successful, {@link UpgradeResponse#FAILED_ECONOMY}, or {@link UpgradeResponse#FAILED_UNKNOWN} or {@link UpgradeResponse#FAILED_MAX_LEVEL} otherwise
      */
-    public abstract boolean upgrade(Consumer<U> consumer, @Nullable Player player);
+    public abstract UpgradeResponse upgrade(Consumer<U> consumer, @Nullable Player player);
 
     /**
      * Upgrades the object directly to the provided upgrade if the level is within acceptable bounds.
@@ -210,5 +210,16 @@ public abstract class Upgrade<U> {
      */
     public boolean isInstanceOf(@NotNull Class<?> clazz) {
         return clazz.isInstance(object);
+    }
+
+    /**
+     * The response of an upgrade attempt.
+     */
+    public enum UpgradeResponse {
+        FAILED_ECONOMY,
+        FAILED_MAX_LEVEL,
+        FAILED_UNKNOWN,
+        SUCCESS,
+        UNKNOWN
     }
 }
