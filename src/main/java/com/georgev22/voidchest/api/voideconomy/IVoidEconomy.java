@@ -72,4 +72,11 @@ public interface IVoidEconomy {
      * @return The name of the VoidEconomy as a String.
      */
     String getName();
+
+    /**
+     * Returns whether the VoidEconomy requires the player to be online.
+     *
+     * @return True if the VoidEconomy requires the player to be online, false otherwise.
+     */
+    boolean requiresThePlayerToBeOnline();
 }
