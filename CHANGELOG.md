@@ -1,3 +1,10 @@
+# [2.2.0-alpha.51](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.50...v2.2.0-alpha.51) (2024-03-20)
+
+
+### Features
+
+* **IVoidEconomy:** add online player requirement method ([aa05d0e](https://github.com/GeorgeV220/VoidChestAPI/commit/aa05d0e5db0f7a745c691f7fe25a9090ac029a55))
+
 # [2.2.0-alpha.50](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.49...v2.2.0-alpha.50) (2024-03-20)
 
 
