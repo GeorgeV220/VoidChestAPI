@@ -36,4 +36,11 @@ public interface Stacker {
      */
     String getName();
 
+    /**
+     * Retrieves the simple name of the Stacker. E.g. UltimateStacker
+     *
+     * @return The simple name of the Stacker as a String.
+     */
+    String getSimpleName();
+
 }
