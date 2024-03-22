@@ -25,4 +25,11 @@ public interface IVoidChestBankTNT {
      */
     String getName();
 
+    /**
+     * Retrieves the simple name of the VoidChest bank TNT. E.g. FactionsUUID
+     *
+     * @return The simple name of the VoidChest bank TNT as a String.
+     */
+    String getSimpleName();
+
 }
