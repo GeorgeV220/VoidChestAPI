@@ -1,3 +1,14 @@
+# [2.2.0-alpha.52](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.51...v2.2.0-alpha.52) (2024-03-22)
+
+
+### Features
+
+* **IEconomy:** add getSimpleName method ([8914e6b](https://github.com/GeorgeV220/VoidChestAPI/commit/8914e6b1f5463d2810e231c093bcb1db51b20eb8))
+* **IVoidChestBankTNT:** add getSimpleName method ([8dcd950](https://github.com/GeorgeV220/VoidChestAPI/commit/8dcd950baf748ef69767400afe68a390e99e35d1))
+* **IVoidChestHologram:** add getName getSimpleName methods ([1532318](https://github.com/GeorgeV220/VoidChestAPI/commit/153231808e8cf890b357cf28bf4df3bd2d630477))
+* **IVoidEconomy:** add getSimpleName method ([832e157](https://github.com/GeorgeV220/VoidChestAPI/commit/832e157f634702e45e8795bce80011d4fce4fd2b))
+* **Stacker:** add getSimpleName method ([0c8b3b4](https://github.com/GeorgeV220/VoidChestAPI/commit/0c8b3b4602bdf23f200400b99c7b1e3b4117f1bc))
+
 # [2.2.0-alpha.51](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0-alpha.50...v2.2.0-alpha.51) (2024-03-20)
 
 
