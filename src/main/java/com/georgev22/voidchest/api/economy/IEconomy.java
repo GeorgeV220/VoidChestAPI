@@ -44,6 +44,13 @@ public interface IEconomy {
     String getName();
 
     /**
+     * Retrieves the simple name of the economy system. E.g. Vault
+     *
+     * @return The simple name of the economy system as a String.
+     */
+    String getSimpleName();
+
+    /**
      * Sets up the economy system.
      *
      * @return True if the setup is successful, false otherwise.
