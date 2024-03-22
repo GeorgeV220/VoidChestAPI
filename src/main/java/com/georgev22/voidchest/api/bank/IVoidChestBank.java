@@ -27,4 +27,11 @@ public interface IVoidChestBank {
      */
     String getName();
 
+    /**
+     * Retrieves the simple name of the VoidChest bank. E.g. SuperiorSkyblock2
+     *
+     * @return The simple name of the VoidChest bank as a String.
+     */
+    String getSimpleName();
+
 }
