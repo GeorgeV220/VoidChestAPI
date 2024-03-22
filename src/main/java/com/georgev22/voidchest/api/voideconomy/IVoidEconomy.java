@@ -74,6 +74,13 @@ public interface IVoidEconomy {
     String getName();
 
     /**
+     * Retrieves the simple name of the VoidEconomy e.g. EcoShop
+     *
+     * @return The simple name of the VoidEconomy as a String.
+     */
+    String getSimpleName();
+
+    /**
      * Returns whether the VoidEconomy requires the player to be online.
      *
      * @return True if the VoidEconomy requires the player to be online, false otherwise.
