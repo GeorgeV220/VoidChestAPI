@@ -27,4 +27,18 @@ public interface IVoidChestHologram {
      */
     void calculateLocation();
 
+    /**
+     * Retrieves the name of the hologram implementation.
+     *
+     * @return The name of the hologram implementation as a String.
+     */
+    String getName();
+
+    /**
+     * Retrieves the name of the hologram implementation. E.g. FancyHolograms
+     *
+     * @return The name of the hologram implementation as a String.
+     */
+    String getSimpleName();
+
 }
