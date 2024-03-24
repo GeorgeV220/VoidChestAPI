@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.4.0...v2.5.0) (2024-03-24)
+
+
+### Features
+
+* **AEconomy:** add method to retrieve economy modes ([c4c20f8](https://github.com/GeorgeV220/VoidChestAPI/commit/c4c20f8858d60b6c7674fdd07a94287fe8a552c6))
+
 # [2.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.3.0...v2.4.0) (2024-03-24)
 
 
