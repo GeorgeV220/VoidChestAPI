@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.5.0...v2.6.0) (2024-03-24)
+
+
+### Features
+
+* enforce non-null contracts and add InvalidEconomy class ([60dd556](https://github.com/GeorgeV220/VoidChestAPI/commit/60dd556ab99dfc9d285c19247934b35c989dd255))
+
 # [2.5.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.4.0...v2.5.0) (2024-03-24)
 
 
