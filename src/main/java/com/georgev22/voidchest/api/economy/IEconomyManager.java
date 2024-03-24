@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.economy;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -9,13 +10,11 @@ import org.jetbrains.annotations.Nullable;
 public interface IEconomyManager {
 
     /**
-     * Hooks the {@link AEconomy} instance into the manager.
-     *
-     * @param mode The economy mode to hook.
-     * @return True if the economy system is hooked, false otherwise. <p>
-     * If the {@link EconomyMode} is already hooked, this method will return false.
+     * Hooks the internal {@link AEconomy} implementation into the manager.
+     * This is used by VoidChest plugin to hook Vault or TheNewEconomy (User configurable)
      */
-    boolean hook(EconomyMode mode);
+    @ApiStatus.Internal
+    void hookInternalImplementations();
 
     /**
      * Hooks the {@link AEconomy} instance into the manager.
