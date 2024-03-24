@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.economy;
 
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The IEconomyManager interface provides methods for managing an economy system.
@@ -23,7 +23,7 @@ public interface IEconomyManager {
      *
      * @param economy The economy system to hook.
      */
-    void hook(AEconomy economy);
+    void hook(@NotNull AEconomy economy);
 
     /**
      * Checks if the economy with the specified mode is hooked.
@@ -31,14 +31,14 @@ public interface IEconomyManager {
      * @param mode The economy mode to check.
      * @return True if the economy is hooked, false otherwise.
      */
-    boolean isHooked(EconomyMode mode);
+    boolean isHooked(@NotNull EconomyMode mode);
 
     /**
-     * Retrieves the economy instance with the specified mode or null if it is not hooked.
+     * Retrieves the economy instance with the specified mode or {@link InvalidEconomy} if it is not hooked.
      *
      * @param mode The economy mode to retrieve.
-     * @return The economy instance with the specified mode or null if it is not hooked.
+     * @return The economy instance with the specified mode or {@link InvalidEconomy} if it is not hooked.
      */
-    @Nullable AEconomy economy(EconomyMode mode);
+    @NotNull AEconomy economy(EconomyMode mode);
 
 }
