@@ -99,4 +99,13 @@ public abstract class AEconomy {
     public boolean isWithdrawEconomy() {
         return this.economyModes.contains(EconomyMode.WITHDRAWAL);
     }
+
+    /**
+     * Retrieves the list of economy modes.
+     *
+     * @return The list of economy modes.
+     */
+    public List<EconomyMode> getEconomyModes() {
+        return economyModes;
+    }
 }
