@@ -1,5 +1,7 @@
 package com.georgev22.voidchest.api.economy;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * The IEconomyManager interface provides methods for managing an economy system.
  * Note: This manager hooks into an Economy Plugin to deposit and withdraw money but also get player balances.
@@ -7,22 +9,37 @@ package com.georgev22.voidchest.api.economy;
 public interface IEconomyManager {
 
     /**
-     * Hooks the economy manager.
+     * Hooks the {@link AEconomy} instance into the manager.
+     *
+     * @param mode The economy mode to hook.
+     * @return True if the economy system is hooked, false otherwise. <p>
+     * If the {@link EconomyMode} is already hooked, this method will return false.
      */
-    void hook();
+    boolean hook(EconomyMode mode);
 
     /**
-     * Checks if the economy system is hooked.
+     * Hooks the {@link AEconomy} instance into the manager.
+     * <p>
+     * This will override any previous {@link AEconomy} instance with the same mode(s).
      *
-     * @return True if the economy system is hooked, false otherwise.
+     * @param economy The economy system to hook.
      */
-    boolean isHooked();
+    void hook(AEconomy economy);
 
     /**
-     * Retrieves the economy instance.
+     * Checks if the economy with the specified mode is hooked.
      *
-     * @return The economy instance as an IEconomy object.
+     * @param mode The economy mode to check.
+     * @return True if the economy is hooked, false otherwise.
      */
-    IEconomy economy();
+    boolean isHooked(EconomyMode mode);
+
+    /**
+     * Retrieves the economy instance with the specified mode or null if it is not hooked.
+     *
+     * @param mode The economy mode to retrieve.
+     * @return The economy instance with the specified mode or null if it is not hooked.
+     */
+    @Nullable AEconomy economy(EconomyMode mode);
 
 }
