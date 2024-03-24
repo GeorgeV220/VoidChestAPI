@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.3.0...v2.4.0) (2024-03-24)
+
+
+### Features
+
+* **economy:** refactor economy interfaces and classes ([210b51e](https://github.com/GeorgeV220/VoidChestAPI/commit/210b51e2e3740f926c86d9ffff1f97ff8c0d931b))
+
 # [2.3.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.2.0...v2.3.0) (2024-03-22)
 
 
