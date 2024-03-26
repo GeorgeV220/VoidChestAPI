@@ -1,28 +1,26 @@
 package com.georgev22.voidchest.api.event.events.economy;
 
 import com.georgev22.voidchest.api.economy.AEconomy;
+import com.georgev22.voidchest.api.economy.EconomyMode;
 import com.georgev22.voidchest.api.event.Event;
 import com.georgev22.voidchest.api.event.HandlerList;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-/**
- * The EconomyHookEvent class is an event that is fired in order for 3rd party plugins to hook into VoidChest economy system.
- * It extends the Event class.
- * <p>
- *
- * @deprecated Use {@link com.georgev22.voidchest.api.economy.IEconomyManager#hook(AEconomy)} instead.
- */
-@Deprecated(forRemoval = true, since = "2.4.0")
-public class EconomyHookEvent extends Event {
+public class AEconomyHookEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
     private AEconomy economy;
+    private final EconomyMode economyMode;
 
     /**
-     * Constructs a new EconomyHookEvent.
+     * Constructs a new AEconomyHookEvent.
+     *
+     * @param economyMode The {@link EconomyMode} that is being hooked into VoidChest.
      */
-    public EconomyHookEvent() {
+    public AEconomyHookEvent(EconomyMode economyMode) {
+        this.economyMode = economyMode;
     }
 
     /**
@@ -49,8 +47,12 @@ public class EconomyHookEvent extends Event {
      *
      * @return The economy plugin being hooked into VoidChest.
      */
-    public AEconomy getEconomy() {
+    public @Nullable AEconomy getEconomy() {
         return economy;
+    }
+
+    public @NotNull EconomyMode getEconomyMode() {
+        return economyMode;
     }
 
     /**
