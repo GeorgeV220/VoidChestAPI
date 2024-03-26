@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.7.0...v2.8.0) (2024-03-26)
+
+
+### Features
+
+* update economy mode terminology ([0d2bc4e](https://github.com/GeorgeV220/VoidChestAPI/commit/0d2bc4e546b0a78c825922edfad6b3cb1c8d4793))
+
 # [2.7.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.6.0...v2.7.0) (2024-03-26)
 
 
