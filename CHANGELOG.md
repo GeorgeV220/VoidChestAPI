@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.8.0...v2.9.0) (2024-03-26)
+
+
+### Features
+
+* **IPlayerData:** add EconomyMode parameter to balance method ([3285936](https://github.com/GeorgeV220/VoidChestAPI/commit/32859367e5ba3c6702125f94371aedaa914dfd09))
+
 # [2.8.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.7.0...v2.8.0) (2024-03-26)
 
 
