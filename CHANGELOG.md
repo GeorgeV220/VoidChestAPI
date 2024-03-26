@@ -1,3 +1,10 @@
+## [2.10.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.10.0...v2.10.1) (2024-03-26)
+
+
+### Bug Fixes
+
+* bump library version to 11.12.0 ([b0c3a11](https://github.com/GeorgeV220/VoidChestAPI/commit/b0c3a110fd7f32c5bd6f5f03aa9ca86f67fd04ff))
+
 # [2.10.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.9.0...v2.10.0) (2024-03-26)
 
 
