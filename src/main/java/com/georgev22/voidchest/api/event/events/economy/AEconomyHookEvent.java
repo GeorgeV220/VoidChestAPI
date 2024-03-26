@@ -61,7 +61,7 @@ public class AEconomyHookEvent extends Event {
      * @param economy The economy plugin being hooked into VoidChest.
      */
     public void setEconomy(@NotNull AEconomy economy) {
-        Bukkit.getLogger().info("[VoidChest]: A plugin has registered their own economy: " + economy.getName());
+        Bukkit.getLogger().info("[VoidChest]: A plugin has registered their own economy: " + economy.getName() + " for mode: " + economyMode);
         this.economy = economy;
     }
 
