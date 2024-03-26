@@ -20,6 +20,8 @@ public class NullableFixedSizeList<E> extends ArrayList<E> {
      */
     private final int maxSize;
 
+    private final ArrayList<ListListener<E>> listeners = new ArrayList<>();
+
     /**
      * Constructs a new NullableFixedSizeList with the specified maximum size.
      *
@@ -124,7 +126,9 @@ public class NullableFixedSizeList<E> extends ArrayList<E> {
     @Override
     public E set(int index, E element) {
         checkIndex(index);
-        return super.set(index, element);
+        E previousElement = super.set(index, element);
+        notifyListeners(index, previousElement, element, ListListener.EventType.SET);
+        return previousElement;
     }
 
     /**
@@ -161,5 +165,37 @@ public class NullableFixedSizeList<E> extends ArrayList<E> {
             }
         }
         return super.isEmpty();
+    }
+
+    /**
+     * Register a listener to be notified of changes in the list.
+     *
+     * @param listener the listener to be registered
+     */
+    public void addListener(ListListener<E> listener) {
+        listeners.add(listener);
+    }
+
+    /**
+     * Unregister a listener from receiving notifications of changes in the list.
+     *
+     * @param listener the listener to be unregistered
+     */
+    public void removeListener(ListListener<E> listener) {
+        listeners.remove(listener);
+    }
+
+    /**
+     * Notify all registered listeners of a change in the list.
+     *
+     * @param index     the index at which the change occurred
+     * @param oldValue  the previous value at the index
+     * @param newValue  the new value at the index
+     * @param eventType the type of event that occurred
+     */
+    private void notifyListeners(int index, E oldValue, E newValue, ListListener.EventType eventType) {
+        for (ListListener<E> listener : listeners) {
+            listener.onListChanged(index, oldValue, newValue, eventType);
+        }
     }
 }

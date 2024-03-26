@@ -13,6 +13,8 @@ import java.util.Collection;
  */
 public class NullableArrayList<E> extends ArrayList<E> {
 
+    private final ArrayList<ListListener<E>> listeners = new ArrayList<>();
+
     /**
      * Constructs an empty list with an initial capacity of ten.
      */
@@ -68,12 +70,16 @@ public class NullableArrayList<E> extends ArrayList<E> {
     @Override
     public E set(int index, E element) {
         try {
-            return super.set(index, element);
+            E previousElement = super.set(index, element);
+            notifyListeners(index, previousElement, element, ListListener.EventType.SET);
+            return previousElement;
         } catch (IndexOutOfBoundsException e) {
             for (int i = size(); i <= index; i++) {
                 super.add(null);
             }
-            return super.set(index, element);
+            super.add(index, element);
+            notifyListeners(index, null, element, ListListener.EventType.SET);
+            return null;
         }
     }
 
@@ -88,11 +94,13 @@ public class NullableArrayList<E> extends ArrayList<E> {
     public void add(int index, E element) {
         try {
             super.add(index, element);
+            notifyListeners(index, null, element, ListListener.EventType.ADD);
         } catch (IndexOutOfBoundsException e) {
             for (int i = size(); i <= index; i++) {
                 super.add(null);
             }
             super.add(index, element);
+            notifyListeners(index, null, element, ListListener.EventType.ADD);
         }
     }
 
@@ -106,9 +114,43 @@ public class NullableArrayList<E> extends ArrayList<E> {
     @Override
     public E remove(int index) {
         try {
-            return this.set(index, null);
+            E removedElement = this.set(index, null);
+            notifyListeners(index, removedElement, null, ListListener.EventType.REMOVE);
+            return removedElement;
         } catch (IndexOutOfBoundsException e) {
             return null;
+        }
+    }
+
+    /**
+     * Register a listener to be notified of changes in the list.
+     *
+     * @param listener the listener to be registered
+     */
+    public void addListener(ListListener<E> listener) {
+        listeners.add(listener);
+    }
+
+    /**
+     * Unregister a listener from receiving notifications of changes in the list.
+     *
+     * @param listener the listener to be unregistered
+     */
+    public void removeListener(ListListener<E> listener) {
+        listeners.remove(listener);
+    }
+
+    /**
+     * Notify all registered listeners of a change in the list.
+     *
+     * @param index     the index at which the change occurred
+     * @param oldValue  the previous value at the index
+     * @param newValue  the new value at the index
+     * @param eventType the type of event that occurred
+     */
+    private void notifyListeners(int index, E oldValue, E newValue, ListListener.EventType eventType) {
+        for (ListListener<E> listener : listeners) {
+            listener.onListChanged(index, oldValue, newValue, eventType);
         }
     }
 }
