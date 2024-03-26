@@ -8,13 +8,13 @@ public enum EconomyMode {
     PAYOUT,
 
     /**
-     * The withdrawal economy mode.
+     * The charge economy mode.
      */
-    WITHDRAWAL,
+    CHARGE,
 
     /**
-     * The deposit economy mode.
+     * The upgrades economy mode.
      */
-    DEPOSIT
+    UPGRADES
 
 }

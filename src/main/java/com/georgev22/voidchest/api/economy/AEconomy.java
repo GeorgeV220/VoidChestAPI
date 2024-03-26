@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * The AEconomy abstract class that provides methods for managing player economy.<br>
  * Payout economy: The economy class is used to give the "rewards" when a sell is made by void chest.<br>
- * Withdrawal economy: The economy class is used to withdraw money from the player's account.<br>
- * Deposit economy: The economy class is used to deposit money into the player's account.<br>
+ * Charge economy: The economy class is used to add charge to void chests.<br>
+ * Upgrades economy: The economy class is used for the upgrades in void chests.<br>
  * <p>
  * Only one economy of each mode can be hooked.
  */
@@ -19,7 +19,7 @@ public abstract class AEconomy {
     private final List<EconomyMode> economyModes;
 
     public AEconomy() {
-        this(EconomyMode.PAYOUT, EconomyMode.WITHDRAWAL, EconomyMode.DEPOSIT);
+        this(EconomyMode.PAYOUT, EconomyMode.CHARGE, EconomyMode.UPGRADES);
     }
 
     public AEconomy(EconomyMode... modes) {
@@ -83,21 +83,21 @@ public abstract class AEconomy {
     }
 
     /**
-     * Checks if this economy is the deposit economy.
+     * Checks if this economy is the charge economy.
      *
-     * @return True if this economy is the deposit economy, false otherwise.
+     * @return True if this economy is the charge economy, false otherwise.
      */
-    public boolean isDepositEconomy() {
-        return this.economyModes.contains(EconomyMode.DEPOSIT);
+    public boolean isChargeEconomy() {
+        return this.economyModes.contains(EconomyMode.CHARGE);
     }
 
     /**
-     * Checks if this economy is the withdrawal economy.
+     * Checks if this economy is the upgrades' economy.
      *
-     * @return True if this economy is the withdrawal economy, false otherwise.
+     * @return True if this economy is the upgrades economy, false otherwise.
      */
-    public boolean isWithdrawEconomy() {
-        return this.economyModes.contains(EconomyMode.WITHDRAWAL);
+    public boolean isUpgradesEconomy() {
+        return this.economyModes.contains(EconomyMode.UPGRADES);
     }
 
     /**
