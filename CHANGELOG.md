@@ -1,3 +1,11 @@
+# [2.7.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.6.0...v2.7.0) (2024-03-26)
+
+
+### Features
+
+* enhance logging for economy registration ([6fe5683](https://github.com/GeorgeV220/VoidChestAPI/commit/6fe5683051c096068e33b1bee68927f939e18b35))
+* rename EconomyHookEvent to AEconomyHookEvent ([8fdd40b](https://github.com/GeorgeV220/VoidChestAPI/commit/8fdd40b82807b1a719cd8795c5a479087a60348f))
+
 # [2.6.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.5.0...v2.6.0) (2024-03-24)
 
 
