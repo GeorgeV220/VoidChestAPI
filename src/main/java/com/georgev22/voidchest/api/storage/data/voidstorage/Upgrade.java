@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -201,6 +202,40 @@ public abstract class Upgrade<U> {
      * @param itemStack the item stack of the upgrade
      */
     public abstract void setUpgradeItemStack(int level, ItemStack itemStack);
+
+    /**
+     * Gets the upgrade price of the upgrade.
+     *
+     * @return the upgrade price of the upgrade
+     */
+    public BigDecimal getUpgradePrice() {
+        return getUpgradePrice(level);
+    }
+
+    /**
+     * Gets the upgrade price of the upgrade at the specified level.
+     *
+     * @param level the level of the upgrade
+     * @return the upgrade price of the upgrade
+     */
+    public abstract BigDecimal getUpgradePrice(int level);
+
+    /**
+     * Sets the upgrade price of the upgrade.
+     *
+     * @param price the upgrade price of the upgrade
+     */
+    public void setUpgradePrice(BigDecimal price) {
+        setUpgradePrice(level, price);
+    }
+
+    /**
+     * Sets the upgrade price of the upgrade at the specified level.
+     *
+     * @param level the level of the upgrade
+     * @param price the upgrade price of the upgrade
+     */
+    public abstract void setUpgradePrice(int level, BigDecimal price);
 
     /**
      * Checks if the object is an instance of the specified class.
