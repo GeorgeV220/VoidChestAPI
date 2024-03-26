@@ -1,3 +1,10 @@
+# [2.10.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.9.0...v2.10.0) (2024-03-26)
+
+
+### Features
+
+* **Upgrade:** add price handling methods ([1b2f956](https://github.com/GeorgeV220/VoidChestAPI/commit/1b2f9567d47b658b9992524fe6300efe93e6b142))
+
 # [2.9.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.8.0...v2.9.0) (2024-03-26)
 
 
