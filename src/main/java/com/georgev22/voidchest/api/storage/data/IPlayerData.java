@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.library.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.economy.EconomyMode;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
 import com.georgev22.voidchest.api.storage.data.player.Boosters;
 import com.georgev22.voidchest.api.storage.data.player.Stats;
@@ -69,9 +70,10 @@ public interface IPlayerData {
      * the limits of a double.
      * In such cases, consider alternative methods or implementations to handle large balances.
      *
+     * @param economyMode The {@link EconomyMode} to use.
      * @return The current balance of the player as a BigDecimal.
      */
-    BigDecimal balance();
+    BigDecimal balance(EconomyMode economyMode);
 
     /**
      * Closes all open VoidChest inventories for the player.
