@@ -1,3 +1,10 @@
+# [2.11.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.10.1...v2.11.0) (2024-03-26)
+
+
+### Features
+
+* implement list change listeners in NullableArrayList and NullableFixedSizeList ([a6446a7](https://github.com/GeorgeV220/VoidChestAPI/commit/a6446a77f030b4b2213039d8a62821f950b096b8))
+
 ## [2.10.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.10.0...v2.10.1) (2024-03-26)
 
 
