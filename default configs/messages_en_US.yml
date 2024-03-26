@@ -1,4 +1,5 @@
 Messages:
+  no active booster: "&cThere is no active booster."
   item on cooldown: "&c&l(!)&c Please wait %seconds%s in order to use this item(%item%) again."
   no permission: "&c&l(!) &cYou do not have the correct permissions to do this!"
   plugin reload: "&a&l(!) &aAll data have been reloaded successfully. (%ms% ms)"
@@ -32,7 +33,15 @@ Messages:
     money logging: "The player %player% has made %amount% from a voidchest located in %location_world%, %location_x%, %location_y%, %location_z%"
     purchase fail:
       - '&7&l(!) &7You have failed to buy fuel for this voidchest.'
-      - '&7You currently have &e$%balance% &7and need &e$%money_need%'
+      - '&7You currently have &e$%balance_charge% &7and need &e$%money_need%'
+    upgrade:
+      success: "&a&l(!) &aYou have successfully applied this upgrade."
+      failure:
+        unknown: "&c&l(!) &cFailed to apply this upgrade for an unknown reason."
+        economy:
+          - "&c&l(!) &cFailed to apply this upgrade for insufficient funds."
+          - '&7You currently have &e$%balance_upgrades% &7and need &e$%money_need%'
+        max level: "&c&l(!) &cFailed to apply this upgrade as the max level has been reached."
     inventory already open: "&c&l(!)&c The current VoidChest inventory is already open by another player."
     whitelist inventory already open: "&c&l(!)&c The current VoidChest whitelist inventory is already open by another player."
     blacklist inventory already open: "&c&l(!)&c The current VoidChest blacklist inventory is already open by another player."
@@ -79,8 +88,35 @@ Messages:
       bank: "&a&lBANK"
       personal: "&a&lPERSONAL"
   locate:
-    top line: "&7&m             &m&8[&c %player% page: &7%current%&8/&7%max% &m&8]&7&m             "
-    information: "&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%"
+    top line: >
+      &7&m             
+      &m&8[&c %player% page:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eClick to view the previous page"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eClick to view the next page"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eClick to teleport to this voidchest">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%world%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m             
+      &m&8[&c Page:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eClick to view the previous page"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eClick to view the next page"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eClick to view void storages">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%storages%
   charge:
     maxed out: "&c&l(!) &cYou can't add any more charge to this voidchest."
     time limit: "&c&l(!) &cYou need to specify a charge timer higher than 0 seconds!"

@@ -32,7 +32,7 @@ Messages:
     money logging: "Hráč %player% vydělal %amount% z void truhly umístěné v %location_world%, %location_x%, %location_y%, %location_z%"
     purchase fail:
       - '&7&l(!) &7Nepodařilo se vám koupit palivo pro tuto void truhlu.'
-      - '&7Momentálně máte &e$%balance% &7a potřebujete &e$%money_need%'
+      - '&7Momentálně máte &e$%balance_charge% &7a potřebujete &e$%money_need%'
     inventory already open: "&c&l(!)&c Aktuální inventář Void truhly je již otevřen jiným hráčem."
     whitelist inventory already open: "&c&l(!)&c Aktuální inventář Whitelist Void truhly je již otevřen jiným hráčem."
     blacklist inventory already open: "&c&l(!)&c Aktuální inventář Blacklist Void truhly je již otevřen jiným hráčem."
@@ -79,8 +79,35 @@ Messages:
       bank: "&a&lBANKA"
       personal: "&a&lOSOBNÍ"
   locate:
-    top line: "&7&m             &m&8[&c %player% strana: &7%current%&8/&7%max% &m&8]&7&m             "
-    information: "&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%"
+    top line: >
+      &7&m             
+      &m&8[&c Strana %player%:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eKlikněte pro zobrazení předchozí strany"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eKlikněte pro zobrazení následující strany"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eKlikněte pro teleportaci k tomuto Void Chestu">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%world%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m             
+      &m&8[&c Stránka:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eKlikněte pro zobrazení předchozí strany"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eKlikněte pro zobrazení následující strany"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eKlikněte pro zobrazení Void skladů">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%storages%
   charge:
     maxed out: "&c&l(!) &cNemůžete přidat žádný další čas k nabíjení této void truhly."
     time limit: "&c&l(!) &cMusíte zadat čas nabíjení delší než 0 sekund!"

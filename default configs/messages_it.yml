@@ -31,8 +31,8 @@ Messages:
     list: '&7&l(!) &7Attualmente ci sono &e%amount% &7voidchest caricate: &e%voidchests%'
     money logging: Il/La player %player% ha guadagnato %amount% dalla voidchest situata su %location_world%, %location_x%, %location_y%, %location_z%
     purchase fail:
-    - '&7&l(!) &7Non sei riuscito a comprare il carburante per questa voidchest.'
-    - '&7Attualmente disponi di &e$%balance% &7e hai bisogno di &e$%money_need%'
+      - '&7&l(!) &7Non sei riuscito a comprare il carburante per questa voidchest.'
+      - '&7Attualmente disponi di &e$%balance_charge% &7e hai bisogno di &e$%money_need%'
     inventory already open: '&c&l(!)&c L’inventario di questa VoidChest è già aperto da un altro player.'
     whitelist inventory already open: '&c&l(!)&c L’inventario della whitelist di questa VoidChest è già aperto da un altro giocatore.'
     blacklist inventory already open: '&c&l(!)&c L’inventario della blacklist di questa VoidChest è già aperto da un altro giocatore.'
@@ -47,11 +47,11 @@ Messages:
     not facing a block: '&c&l(!) &cDevi guardare un blocco.'
     block not a void chest: '&c&l(!) &cQuesto blocco non è una voidchest.'
     mode:
-    - '&7&l(!) &7L’attuale modalità VoidChest in uso è: &e%voidchest_mode%'
-    - '&7&l(!) &7L’attuale plug-in in uso per l’economia è: &e%economy_mode%'
-    - '&7&l(!) &7L’attuale plug-in in uso per gli stack è: &e%stack_mode%'
-    - '&7&l(!) &7L’attuale plug-in in uso per la banca è: &e%bank_mode%'
-    - '&7&l(!) &7L’attuale plug-in in uso per la banca tnt è: &e%tnt_bank_mode%'
+      - '&7&l(!) &7L’attuale modalità VoidChest in uso è: &e%voidchest_mode%'
+      - '&7&l(!) &7L’attuale plug-in in uso per l’economia è: &e%economy_mode%'
+      - '&7&l(!) &7L’attuale plug-in in uso per gli stack è: &e%stack_mode%'
+      - '&7&l(!) &7L’attuale plug-in in uso per la banca è: &e%bank_mode%'
+      - '&7&l(!) &7L’attuale plug-in in uso per la banca tnt è: &e%tnt_bank_mode%'
     prevent:
       chests near void chests: '&c&l(!) &cNon puoi posizionare alcuna voidchest vicino a questa voidchest!'
       void chests near chests: '&c&l(!) &cNon puoi posizionare alcuna voidchest vicino a una chest!'
@@ -60,16 +60,16 @@ Messages:
       placing other void chests near: '&c&l(!) &cNon puoi inserire una %voidchest% voidchest vicino a altre voidchest!'
     break:
       permission deny:
-      - '&c&l(!) &cNon hai il permesso di rompere una voidchest di tipo &7%voidchest%.'
-      - '&c&oNecessiti del permesso %permission% per poterla rompere...'
+        - '&c&l(!) &cNon hai il permesso di rompere una voidchest di tipo &7%voidchest%.'
+        - '&c&oNecessiti del permesso %permission% per poterla rompere...'
       successful: '&7&l(!) &7Hai &crotto &7con successo una voidchest &6%voidchest%!'
       failed other:
-      - '&c&l(!) &cNon puoi rompere la voidchest di &4%player%.'
-      - '&cPuoi solo rompere quelle di tua proprietà.'
+        - '&c&l(!) &cNon puoi rompere la voidchest di &4%player%.'
+        - '&cPuoi solo rompere quelle di tua proprietà.'
     place:
       permission deny:
-      - '&c&l(!) &cNon hai il permesso di piazzare una voidchest di tipo &7%voidchest%.'
-      - '&c&oNecessiti del permesso %permission% per poterla piazzare...'
+        - '&c&l(!) &cNon hai il permesso di piazzare una voidchest di tipo &7%voidchest%.'
+        - '&c&oNecessiti del permesso %permission% per poterla piazzare...'
       successful: '&7&l(!) &7Hai &cpiazzato &7con successo una voidchest &6%voidchest%!'
     status:
       enabled: '&a&lABILITATO'
@@ -78,12 +78,36 @@ Messages:
       disable: '&c&lDISABILITARE'
       bank: '&a&lBANCA'
       personal: '&a&lPERSONALE'
-    locate:
-      top line: '&7&m             &m&8[&c %player% pagina: &7%current%&8/&7%max% &m&8]&7&m             '
-      information: '&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%'
   locate:
-    top line: '&7&m             &m&8[&c %player% pagina: &7%current%&8/&7%max% &m&8]&7&m             '
-    information: '&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%'
+    top line: >
+      &7&m             
+      &m&8[&c Pagina %player%:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eClicca per visualizzare la pagina precedente"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eClicca per visualizzare la pagina successiva"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eClicca per teletrasportarti a questa voidchest">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%mondo%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m             
+      &m&8[&c Pagina:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eClicca per visualizzare la pagina precedente"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eClicca per visualizzare la pagina successiva"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eClicca per visualizzare gli spazi vuoti">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%spazi_vuoti%
   charge:
     maxed out: '&c&l(!) &cNon puoi aggiungere ulteriore carica a questa voidchest.'
     time limit: '&c&l(!) &cDevi specificare un tempo di carica superiore a 0 secondi!'
@@ -98,46 +122,46 @@ Messages:
     time limit: '&c&l(!) &cÈ necessario specificare un timer di boost superiore a 0 secondi!'
   stats:
     self:
-    - ''
-    - '&7&l&m------==[&6 Le tue statistiche &7&l&m]==------'
-    - ''
-    - '&7Voidchest Totali: &6%voidchests%'
-    - '&7Booster: &a%booster%'
-    - '&7Tempo Booster rimanente: &a%timeleft%'
-    - '&7Soldi guadagnati: &a%money%'
-    - '&7Item venduti: &6%items_sold%'
-    - '&7Item cancellati: &6%items_purged%'
-    - ''
-    - '&7&l&m------==[&6 Le tue statistiche &7&l&m]==------'
+      - ''
+      - '&7&l&m------==[&6 Le tue statistiche &7&l&m]==------'
+      - ''
+      - '&7Voidchest Totali: &6%voidchests%'
+      - '&7Booster: &a%booster%'
+      - '&7Tempo Booster rimanente: &a%timeleft%'
+      - '&7Soldi guadagnati: &a%money%'
+      - '&7Item venduti: &6%items_sold%'
+      - '&7Item cancellati: &6%items_purged%'
+      - ''
+      - '&7&l&m------==[&6 Le tue statistiche &7&l&m]==------'
     other:
-    - ''
-    - '&7&l&m------==[&6 Statistiche di %player% &7&l&m]==------'
-    - ''
-    - '&7Voidchest Totali: &6%voidchests%'
-    - '&7Booster: &a%booster%'
-    - '&7Tempo Booster rimanente: &a%timeleft%'
-    - '&7Soldi guadagnati: &a%money%'
-    - '&7Item venduti: &6%items_sold%'
-    - '&7Item eliminati: &6%items_purged%'
-    - ''
-    - '&7&l&m------==[&6 Statistiche di %player% &7&l&m]==------'
+      - ''
+      - '&7&l&m------==[&6 Statistiche di %player% &7&l&m]==------'
+      - ''
+      - '&7Voidchest Totali: &6%voidchests%'
+      - '&7Booster: &a%booster%'
+      - '&7Tempo Booster rimanente: &a%timeleft%'
+      - '&7Soldi guadagnati: &a%money%'
+      - '&7Item venduti: &6%items_sold%'
+      - '&7Item eliminati: &6%items_purged%'
+      - ''
+      - '&7&l&m------==[&6 Statistiche di %player% &7&l&m]==------'
   help:
-  - ''
-  - '&c&l(!) &cComandi VoidChest :'
-  - ' &8» &7/voidchest &ereload &7- &oRicarica tutti i file del plugin.'
-  - ' &8» &7/voidchest &etoggle/ignore &7- &oImpedisce l’invio di messaggi di vendita.'
-  - ' &8» &7/voidchest &estats &o[player] &7- &oMostra le tue statistiche o di qualcun altro.'
-  - ' &8» &7/voidchest &elist &7- &oElenca tutti i nomi delle voidchest disponibili.'
-  - ' &8» &7/voidchest &emode &7- &oVisualizza la modalità attualmente utilizzata della voidchest.'
-  - ' &8» &7/voidchest &echunk &7- &oMostra i bordi del chunk con un effetto.'
-  - ' &8» &7/voidchest &egive <voidchest> &o[player] [amount] [charge-time] &7- &oDai voidchest a qualcuno.'
-  - ' &8» &7/voidchest &egiveall <voidchest> [amount] [charge-time] &7- &oDai voidchest a tutti.'
-  - ' &8» &7/voidchest &elocate &7- &oIndividua tutte le voidchest nel tuo mondo.'
-  - ' &8» &7/voidchest &elocate &o[player] &7- &oIndividua le voidchest di qualcuno.'
-  - ' &8» &7/voidchest &esell [hand] &7- &oVende l’oggetto in mano o tutto l’inventario.'
-  - ' &8» &7/voidchest &echarge &7- &oAggiungi tempo di carica extra alla voidchest.'
-  - ' &8» &7/voidchest &eboost &o[player] [boost] [time] &7- &oMigliora la voidchest di qualcun altro.'
-  - ' &8» &7/voidchest &eno-notify &7- &Disabilita le notifiche di vendita.'
-  - ' &8» &7/voidchest &einfo &7- &oMostra le informazioni del plugin.'
-  - ' &8» &7/voidchest &ehelp &7- &oMostra il menu di aiuto.'
-  - ''
+    - ''
+    - '&c&l(!) &cComandi VoidChest :'
+    - ' &8» &7/voidchest &ereload &7- &oRicarica tutti i file del plugin.'
+    - ' &8» &7/voidchest &etoggle/ignore &7- &oImpedisce l’invio di messaggi di vendita.'
+    - ' &8» &7/voidchest &estats &o[player] &7- &oMostra le tue statistiche o di qualcun altro.'
+    - ' &8» &7/voidchest &elist &7- &oElenca tutti i nomi delle voidchest disponibili.'
+    - ' &8» &7/voidchest &emode &7- &oVisualizza la modalità attualmente utilizzata della voidchest.'
+    - ' &8» &7/voidchest &echunk &7- &oMostra i bordi del chunk con un effetto.'
+    - ' &8» &7/voidchest &egive <voidchest> &o[player] [amount] [charge-time] &7- &oDai voidchest a qualcuno.'
+    - ' &8» &7/voidchest &egiveall <voidchest> [amount] [charge-time] &7- &oDai voidchest a tutti.'
+    - ' &8» &7/voidchest &elocate &7- &oIndividua tutte le voidchest nel tuo mondo.'
+    - ' &8» &7/voidchest &elocate &o[player] &7- &oIndividua le voidchest di qualcuno.'
+    - ' &8» &7/voidchest &esell [hand] &7- &oVende l’oggetto in mano o tutto l’inventario.'
+    - ' &8» &7/voidchest &echarge &7- &oAggiungi tempo di carica extra alla voidchest.'
+    - ' &8» &7/voidchest &eboost &o[player] [boost] [time] &7- &oMigliora la voidchest di qualcun altro.'
+    - ' &8» &7/voidchest &eno-notify &7- &Disabilita le notifiche di vendita.'
+    - ' &8» &7/voidchest &einfo &7- &oMostra le informazioni del plugin.'
+    - ' &8» &7/voidchest &ehelp &7- &oMostra il menu di aiuto.'
+    - ''

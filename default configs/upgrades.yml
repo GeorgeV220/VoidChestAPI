@@ -1,0 +1,148 @@
+Upgrades Menu:
+  title: "&b&lUpgrades Menu - Page (&a&l%currentPage%&b&l)"
+  navigation:
+    # Available slots 0-8
+    '0':
+      name: "&a&lInformation"
+      item: "PAPER"
+      skull property: ""
+      action: "NOTHING"
+      lores:
+        - "&7To upgrade just click on an item."
+    '1':
+      name: "&a&lBack"
+      item: "PLAYER_HEAD"
+      skull property: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTIxMjE3ZDdmZWU5ZmFmMmZiYzc0MWUwYWRiNWRlNmE4NGVhN2Q1NTM2Y2JjY2QxZGJjOGEzMjNmOTViOTkwZCJ9fX0="
+      action: "PREVIOUS_PAGE"
+      lores:
+        - "&7Go back to the previous page."
+    '4':
+      name: "&c&lClose Menu"
+      item: "PLAYER_HEAD"
+      skull property: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDQ2NjRlZGVhNzAxOTMzMjZhYTMxZjhmNTBmODBjMjkzN2I1YThmMDczNThhNWIwODQ5ZGRmNWI1YjJjOGMzNiJ9fX0="
+      action: "CLOSE"
+      lores:
+        - "&7Close the filter menu."
+    '8':
+      name: "&a&lNext"
+      item: "PLAYER_HEAD"
+      skull property: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc2YjM5NmEzNDZmYmQ1ZGM5OGRmOWMwNjA5N2JiNTkxZmVmZDc2OGVkNWIzYmI5MGJiMzJhZjg1ZWI5MTQwNiJ9fX0="
+      action: "NEXT_PAGE"
+      lores:
+        - "&7Go to the next page."
+
+BoundingBox:
+  1:
+    item:
+      type: DIRT
+      name: "&b&lCollection Range"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &a&l%nextLevel%&7"
+        - "Next Level Price: &a&l%nextLevelPrice%&7"
+        - "&7"
+        - "Max X: &a&l%maxX%&7"
+        - "Max Y: &a&l%maxY%&7"
+        - "Max Z: &a&l%maxZ%&7"
+        - "Min X: &a&l%minX%&7"
+        - "Min Y: &a&l%minY%&7"
+        - "Min Z: &a&l%minZ%&7"
+        - "&7"
+    price: 0
+    minX: -5
+    minY: -5
+    minZ: -5
+    maxX: 5
+    maxY: 5
+    maxZ: 5
+  2:
+    item:
+      type: GRASS_BLOCK
+      name: "&b&lCollection Range"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &a&l%nextLevel%&7"
+        - "Next Level Price: &a&l%nextLevelPrice%&7"
+        - "&7"
+        - "Max X: &a&l%maxX%&7"
+        - "Max Y: &a&l%maxY%&7"
+        - "Max Z: &a&l%maxZ%&7"
+        - "Min X: &a&l%minX%&7"
+        - "Min Y: &a&l%minY%&7"
+        - "Min Z: &a&l%minZ%&7"
+        - "&7"
+    price: 10000
+    minX: -10
+    minY: -10
+    minZ: -10
+    maxX: 10
+    maxY: 10
+    maxZ: 10
+  3:
+    item:
+      type: STONE
+      name: "&b&lCollection Range"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &c&lMax"
+        - "&7"
+        - "Max X: &a&l%maxX%&7"
+        - "Max Y: &a&l%maxY%&7"
+        - "Max Z: &a&l%maxZ%&7"
+        - "Min X: &a&l%minX%&7"
+        - "Min Y: &a&l%minY%&7"
+        - "Min Z: &a&l%minZ%&7"
+        - "&7"
+    price: 20000
+    minX: -15
+    minY: -15
+    minZ: -15
+    maxX: 15
+    maxY: 15
+    maxZ: 15
+
+BoostSell:
+  1:
+    item:
+      type: COAL
+      name: "&b&lSell Boost"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &a&l%nextLevel%&7"
+        - "Next Level Price: &a&l%nextLevelPrice%&7"
+        - "&7"
+        - "Boost: &a&l%boost%&7"
+        - "&7"
+    price: 0
+    value: 0.0
+  2:
+    item:
+      type: IRON_INGOT
+      name: "&b&lSell Boost"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &a&l%nextLevel%&7"
+        - "Next Level Price: &a&l%nextLevelPrice%&7"
+        - "&7"
+        - "Boost: &a&l%boost%&7"
+        - "&7"
+    price: 10000
+    value: 0.5
+  3:
+    item:
+      type: GOLD_INGOT
+      name: "&b&lSell Boost"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &c&lMax"
+        - "&7"
+        - "Boost: &a&l%boost%&7"
+        - "&7"
+    price: 20000
+    value: 1.0

@@ -35,11 +35,10 @@ Options:
   # attempting to load voidchests in worlds that have yet to load.
   #
   # This should only be modified if servers are having issues with worlds loading after the voidchest plugin has loaded.
-  # The Recommended load-delay interval is any number from 1 to 10,
-  #the higher, the more time the data will delay to load.
+  # Recommended load-delay interval is any number from 1 to 10, the highest, the more time the data will delay to load.
   #
-  # Any number that is < 1 will make the plugin instantly load data when the plugin is enabled as well.
-  # It Is NOT RECOMMENDED to set this to < 1.
+  # Any number that is < 1 will make the plugin instantly load data when the plugin enabled as well.
+  # Is NOT RECOMMENDED to set this to < 1.
   load delay: 2
 
   # Experimental features option
@@ -80,8 +79,8 @@ Options:
       user: "youruser"      # MongoDB username
       password: "yourpassword"   # MongoDB password
       database: "voidchest"   # MongoDB database name
-      users collection: "voidchest_users"   # MongoDB's collection for users
-      voidchest collection: "voidchest_voidchests"   # MongoDB's collection for voidchests
+      users collection: "voidchest_users"   # MongoDB collection for users
+      voidchest collection: "voidchest_voidchests"   # MongoDB collection for voidchests
 
   # Certain timings are automatically converted into d,h,m,s.
   # For example, charge time, hologram sell interval, etc.
@@ -95,19 +94,25 @@ Options:
     hours: hours
     day: day
     days: days
+    invalid: Invalid
 
   money format: "##.####"
 
-  # Available plugins: Vault, TheNewEconomy, Custom
+  # Available plugins: Vault, TheNewEconomy, VoidChest, Custom
   #
+  # VoidChest built in economy only supports EXP levels for charge upgrades and payouts.
   # Use "Custom" only if you know what you're doing, otherwise consult the developers.
-  economy: "Vault"
+  economy:
+    charge: "Vault"
+    upgrades: "Vault"
+    payout: "Vault"
 
   # From which plugin should items have their prices picked from?
   # Currently available: VoidChest, ShopGUIPlus, Essentials, CMI, EconomyShopGUI, DynamicShop, Custom.
   #
   # Use "Custom" only if you know what you're doing, otherwise consult the developers.
-  shop economy: "VoidChest"
+  shop economy:
+    plugin: "VoidChest"
 
   # Should the plugin attempt to hook to one of the plugins: WildStacker, UltimateStacker, SpaceStacker, RoseStacker, zItemStacker, CloudSpawners, None
   stacker: "None"
@@ -135,9 +140,8 @@ Options:
   # Set to false if you want voidchests to have different sell intervals.
   single task: false
 
-  # The interval is being run in seconds.
-  #This will only be selected if the path can't be found in the void chest's file itself
-  # or when you have the single task option enabled.
+  # The interval is being run in seconds. This will only be selected if the path can't be found in the voidchest's file itself
+  # or when you have single task enabled.
   sell interval: 10
 
   # Chunk see options

@@ -32,7 +32,7 @@ Messages:
     money logging: "Jucătorul %player% a câștigat %amount% dintr-o lada vidă situată în %location_world%, %location_x%, %location_y%, %location_z%"
     purchase fail:
       - '&7&l(!) &7Ai eșuat în a cumpăra combustibil pentru această lada vidă.'
-      - '&7În prezent ai &e$%balance% &7și ai nevoie de &e$%money_need%'
+      - '&7În prezent ai &e$%balance_charge% &7și ai nevoie de &e$%money_need%'
     inventory already open: "&c&l(!)&c Inventarul curent al lăzii vidă este deja deschis de către un alt jucător."
     whitelist inventory already open: "&c&l(!)&c Inventarul curent al listei albe a lăzii vidă este deja deschis de către un alt jucător."
     blacklist inventory already open: "&c&l(!)&c Inventarul curent al listei negre a lăzii vidă este deja deschis de către un alt jucător."
@@ -79,8 +79,35 @@ Messages:
       bank: "&a&lBANCĂ"
       personal: "&a&lPERSONALĂ"
   locate:
-    top line: "&7&m             &m&8[&c %player% pagină: &7%current%&8/&7%max% &m&8]&7&m             "
-    information: "&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%"
+    top line: >
+      &7&m             
+      &m&8[&c Pagina %player%:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eClick pentru a vizualiza pagina anterioară"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eClick pentru a vizualiza pagina următoare"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eClick pentru a teleporta la acest voidchest">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%world%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m             
+      &m&8[&c Pagina:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eClick pentru a vizualiza pagina anterioară"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eClick pentru a vizualiza pagina următoare"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eClick pentru a vizualiza void storages">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%storages%
   charge:
     maxed out: "&c&l(!) &cNu poți adăuga mai multă încărcare la această ladă vidă."
     time limit: "&c&l(!) &cTrebuie să specifici un cronometru de încărcare mai mare decât 0 secunde!"

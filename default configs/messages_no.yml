@@ -32,7 +32,7 @@ Messages:
     money logging: "Spilleren %player% har tjent %amount% fra en voidkiste plassert i %location_world%, %location_x%, %location_y%, %location_z%"
     purchase fail:
       - '&7&l(!) &7Du har mislyktes med å kjøpe drivstoff til denne voidkisten.'
-      - '&7Du har for øyeblikket $%balance% og trenger $%money_need%'
+      - '&7Du har for øyeblikket $%balance_charge% og trenger $%money_need%'
     inventory already open: "&c&l(!)&c Det nåværende VoidKist-inventaret er allerede åpent av en annen spiller."
     whitelist inventory already open: "&c&l(!)&c Det nåværende VoidKist-whitelist-inventaret er allerede åpent av en annen spiller."
     blacklist inventory already open: "&c&l(!)&c Det nåværende VoidKist-blacklist-inventaret er allerede åpent av en annen spiller."
@@ -79,8 +79,35 @@ Messages:
       bank: "&a&lBANK"
       personal: "&a&lPERSONLIG"
   locate:
-    top line: "&7&m             &m&8[&c %player% side: &7%current%&8/&7%max% &m&8]&7&m             "
-    information: "&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%"
+    top line: >
+      &7&m
+      &m&8[&c %player% side:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eKlikk for å se forrige side"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eKlikk for å se neste side"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eKlikk for å teleportere til denne voidchesten">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%world%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m
+      &m&8[&c Side:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eKlikk for å se forrige side"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eKlikk for å se neste side"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eKlikk for å se void-lagringer">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%storager%
   charge:
     maxed out: "&c&l(!) &cDu kan ikke legge til mer lading på denne voidkisten."
     time limit: "&c&l(!) &cDu må spesifisere en ladetimer høyere enn 0 sekunder!"

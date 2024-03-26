@@ -32,7 +32,7 @@ Messages:
     money logging: "El jugador %player% ha ganado %amount% de un VoidChest ubicado en %location_world%, %location_x%, %location_y%, %location_z%"
     purchase fail:
       - '&7&l(!) &7No pudiste comprar combustible para este VoidChest.'
-      - '&7Actualmente tienes &e$%balance% &7y necesitas &e$%money_need%'
+      - '&7Actualmente tienes &e$%balance_charge% &7y necesitas &e$%money_need%'
     inventory already open: "&c&l(!)&c El inventario actual de VoidChest ya está abierto por otro jugador."
     whitelist inventory already open: "&c&l(!)&c El inventario de lista blanca actual de VoidChest ya está abierto por otro jugador."
     blacklist inventory already open: "&c&l(!)&c El inventario de lista negra actual de VoidChest ya está abierto por otro jugador."
@@ -79,8 +79,35 @@ Messages:
       bank: "&a&lBANCO"
       personal: "&a&lPERSONAL"
   locate:
-    top line: "&7&m             &m&8[&c %player% página: &7%current%&8/&7%max% &m&8]&7&m             "
-    information: "&c&l(%count%) &7%voidchest%; &6%mundo%, %x%, %y%, %z%"
+    top line: >
+      &7&m             
+      &m&8[&c Página %player%:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eHaz clic para ver la página anterior"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eHaz clic para ver la siguiente página"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eHaz clic para teletransportarte a este Void Chest">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%world%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m             
+      &m&8[&c Página:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eHaz clic para ver la página anterior"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eHaz clic para ver la siguiente página"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eHaz clic para ver los Void Storages">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%storages%
   charge:
     maxed out: "&c&l(!) &cNo puedes añadir más carga a este VoidChest."
     time limit: "&c&l(!) &cDebes especificar un temporizador de carga mayor que 0 segundos."

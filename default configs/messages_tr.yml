@@ -32,7 +32,7 @@ messages:
     money logging: "Oyuncu %player%, %location_world%, %location_x%, %location_y%, %location_z% konumundaki bir boşluk sandığından %amount% kazandı."
     purchase fail:
       - '&7&l(!) &7Bu boşluk sandığı için yakıt satın alamadınız.'
-      - '&7Mevcut olarak &e$%balance% &7var ve &e$%money_need%&a ihtiyacınız var.'
+      - '&7Mevcut olarak &e$%balance_charge% &7var ve &e$%money_need%&a ihtiyacınız var.'
     inventory already open: "&c&l(!)&c Mevcut VoidChest envanteri zaten başka bir oyuncu tarafından açılmış durumda."
     whitelist inventory already open: "&c&l(!)&c Mevcut VoidChest beyaz listesi envanteri zaten başka bir oyuncu tarafından açılmış durumda."
     blacklist inventory already open: "&c&l(!)&c Mevcut VoidChest siyah listesi envanteri zaten başka bir oyuncu tarafından açılmış durumda."
@@ -79,8 +79,35 @@ messages:
       bank: "&a&lBANKA"
       personal: "&a&lKİŞİSEL"
   locate:
-    top line: "&7&m             &m&8[&c %player% sayfa: &7%current%&8/&7%max% &m&8]&7&m             "
-    information: "&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%"
+    top line: >
+      &7&m             
+      &m&8[&c %player% sayfa:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eÖnceki sayfayı görüntülemek için tıkla"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eSonraki sayfayı görüntülemek için tıkla"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eBu voidchest'e teleport etmek için tıkla">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%world%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m             
+      &m&8[&c Sayfa:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eÖnceki sayfayı görüntülemek için tıkla"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eSonraki sayfayı görüntülemek için tıkla"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eVoid depolama alanlarını görüntülemek için tıkla">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%storages%
   charge:
     maxed out: "&c&l(!) &cBu boşluk sandığına daha fazla ücret ekleyemezsiniz."
     time limit: "&c&l(!) &cLütfen 0 saniyeden daha yüksek bir ücret zamanlayıcısı belirtin!"

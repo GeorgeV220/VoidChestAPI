@@ -32,7 +32,7 @@ Messages:
     money logging: "Играчът %player% е направил %amount% от празна кутия, разположена в %location_world%, %location_x%, %location_y%, %location_z%"
     purchase fail:
       - '&7&l(!) &7Не успяхте да закупите гориво за тази празна кутия.'
-      - '&7В момента имате &e$%balance% &7и се нуждаете от &e$%money_need%'
+      - '&7В момента имате &e$%balance_charge% &7и се нуждаете от &e$%money_need%'
     inventory already open: "&c&l(!)&c Текущият инвентар на VoidChest вече е отворен от друг играч."
     whitelist inventory already open: "&c&l(!)&c Текущият инвентар на белия списък на VoidChest вече е отворен от друг играч."
     blacklist inventory already open: "&c&l(!)&c Текущият инвентар на черния списък на VoidChest вече е отворен от друг играч."
@@ -79,8 +79,35 @@ Messages:
       bank: "&a&lBANK"
       personal: "&a&lPERSONAL"
   locate:
-    top line: "&7&m             &m&8[&c %player% страница: &7%current%&8/&7%max% &m&8]&7&m             "
-    information: "&c&l(%count%) &7%voidchest%; &6%world%, %x%, %y%, %z%"
+    top line: >
+      &7&m             
+      &m&8[&c Страница на %player%:
+      <click:run_command:"/voidchest locate %player% %previous%">
+      <hover:show_text:"&eКликнете, за да видите предходната страница"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest locate %player% %next%">
+      <hover:show_text:"&eКликнете, за да видите следващата страница"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eКликнете, за да се телепортирате до този Void Chest">
+      <click:run_command:"/tp %player% %x% %y% %z%">
+      &c&l(%count%) &7%voidchest%: &6%world%, %x%, %y%, %z%
+  list:
+    top line: >
+      &7&m             
+      &m&8[&c Страница:
+      <click:run_command:"/voidchest list players %previous%">
+      <hover:show_text:"&eКликнете, за да видите предходната страница"> &7%current%</hover></click>
+      &8/
+      <click:run_command:"/voidchest list players %next%">
+      <hover:show_text:"&eКликнете, за да видите следващата страница"> &7%max%</hover></click>
+      &m&8]
+      &7&m
+    information: >
+      <hover:show_text:"&eКликнете, за да видите Void складовете">
+      <click:run_command:"/voidchest locate %player%">
+      &c&l(%count%) &7%player%; &6%storages%
   charge:
     maxed out: "&c&l(!) &cНе можете да добавите повече заряд на тази празна кутия."
     time limit: "&c&l(!) &cТрябва да посочите времеви лимит за зареждане по-голям от 0 секунди!"
