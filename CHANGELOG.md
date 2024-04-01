@@ -1,3 +1,10 @@
+# [2.12.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.11.0...v2.12.0) (2024-04-01)
+
+
+### Features
+
+* add setters for item fields in events ([38c4dd9](https://github.com/GeorgeV220/VoidChestAPI/commit/38c4dd96734524b21214b331db3dfd2c89d93cea))
+
 # [2.11.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.10.1...v2.11.0) (2024-03-26)
 
 
