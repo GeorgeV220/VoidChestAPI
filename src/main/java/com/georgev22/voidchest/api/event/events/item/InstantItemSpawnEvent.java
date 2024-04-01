@@ -31,9 +31,9 @@ public class InstantItemSpawnEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
-    private final SerializableItemStack itemStack;
+    private SerializableItemStack itemStack;
 
-    private final @Nullable Item item;
+    private @Nullable Item item;
     private final @Nullable Location location;
     private boolean cancelled = false;
 
@@ -147,12 +147,30 @@ public class InstantItemSpawnEvent extends Event implements Cancellable {
     }
 
     /**
+     * Sets the SerializableItemStack associated with this event.
+     *
+     * @param itemStack The SerializableItemStack being spawned.
+     */
+    public void setItemStack(@NotNull SerializableItemStack itemStack) {
+        this.itemStack = itemStack;
+    }
+
+    /**
      * Gets the Item entity associated with this event.
      *
      * @return The Item entity, or {@code null} if not applicable.
      */
     public @Nullable Item getItem() {
         return item;
+    }
+
+    /**
+     * Sets the Item entity associated with this event.
+     *
+     * @param item The Item entity, or {@code null} if not applicable.
+     */
+    public void setItem(@Nullable Item item) {
+        this.item = item;
     }
 
     /**
