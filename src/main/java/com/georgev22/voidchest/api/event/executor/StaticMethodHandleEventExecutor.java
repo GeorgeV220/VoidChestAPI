@@ -11,6 +11,8 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class StaticMethodHandleEventExecutor implements EventExecutor {
     private final Class<? extends Event> eventClass;
@@ -36,7 +38,7 @@ public class StaticMethodHandleEventExecutor implements EventExecutor {
         try {
             handle.invoke(event);
         } catch (Throwable throwable) {
-            // TODO LOGGING SneakyThrow.sneaky(throwable);
+            Logger.getGlobal().log(Level.SEVERE, "Error executing " + method, throwable);
         }
     }
 

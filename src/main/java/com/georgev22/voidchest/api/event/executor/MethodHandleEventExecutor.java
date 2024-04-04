@@ -9,6 +9,8 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MethodHandleEventExecutor implements EventExecutor {
     private final Class<? extends Event> eventClass;
@@ -38,7 +40,7 @@ public class MethodHandleEventExecutor implements EventExecutor {
         try {
             handle.invoke(listener, event);
         } catch (Throwable t) {
-            // TODO LOGGING SneakyThrow.sneaky(t);
+            Logger.getGlobal().log(Level.SEVERE, "Error executing " + method, t);
         }
     }
 
