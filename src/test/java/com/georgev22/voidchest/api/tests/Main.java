@@ -46,7 +46,7 @@ public class Main {
 
     public void createSimpleObject() {
         for (int i = 0; i < 100; i++) {
-            SimpleObject simpleObject = new SimpleObject(UUID.randomUUID());
+            SimpleObject simpleObject = new SimpleObject(UUID.randomUUID().toString(), false);
             for (int j = 0; j < 100; j++) {
                 simpleObject.addCustomData("key" + j, "value" + j);
             }

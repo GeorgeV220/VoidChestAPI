@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.tests.events;
 
-import com.georgev22.library.maps.ConcurrentObjectMap;
+import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.event.Event;
 import com.georgev22.voidchest.api.event.HandlerList;
 import com.georgev22.voidchest.api.tests.objects.SimpleObject;
@@ -11,17 +11,17 @@ public class SimpleObjectModifyEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final SimpleObject simpleObject;
-    private final ConcurrentObjectMap<String, Object> oldData;
-    private final ConcurrentObjectMap<String, Object> newData;
+    private final ObjectMap<String, Object> oldData;
+    private final ObjectMap<String, Object> newData;
 
-    public SimpleObjectModifyEvent(SimpleObject simpleObject, ConcurrentObjectMap<String, Object> oldData, ConcurrentObjectMap<String, Object> newData) {
+    public SimpleObjectModifyEvent(SimpleObject simpleObject, ObjectMap<String, Object> oldData, ObjectMap<String, Object> newData) {
         super(true);
         this.simpleObject = simpleObject;
         this.oldData = oldData;
         this.newData = newData;
     }
 
-    public SimpleObjectModifyEvent(SimpleObject simpleObject, ConcurrentObjectMap<String, Object> oldData, ConcurrentObjectMap<String, Object> newData, boolean async) {
+    public SimpleObjectModifyEvent(SimpleObject simpleObject, ObjectMap<String, Object> oldData, ObjectMap<String, Object> newData, boolean async) {
         super(async);
         this.simpleObject = simpleObject;
         this.oldData = oldData;
@@ -32,11 +32,11 @@ public class SimpleObjectModifyEvent extends Event {
         return simpleObject;
     }
 
-    public ConcurrentObjectMap<String, Object> getNewData() {
+    public ObjectMap<String, Object> getNewData() {
         return newData;
     }
 
-    public ConcurrentObjectMap<String, Object> getOldData() {
+    public ObjectMap<String, Object> getOldData() {
         return oldData;
     }
 
