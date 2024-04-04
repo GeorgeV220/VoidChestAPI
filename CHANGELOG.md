@@ -1,3 +1,15 @@
+# [2.13.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.12.0...v2.13.0) (2024-04-04)
+
+
+### Bug Fixes
+
+* **events/booster:** Add HandlerList to BoosterAddEvent and BoosterRemoveEvent ([8fc6208](https://github.com/GeorgeV220/VoidChestAPI/commit/8fc6208cd27d420e817e8d85e5cde1530f26b631))
+
+
+### Features
+
+* **events/executor:** Add logging ([909eac5](https://github.com/GeorgeV220/VoidChestAPI/commit/909eac5e6ac946013f1dcdaf1fcc0f4eb841360b))
+
 # [2.12.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.11.0...v2.12.0) (2024-04-01)
 
 
