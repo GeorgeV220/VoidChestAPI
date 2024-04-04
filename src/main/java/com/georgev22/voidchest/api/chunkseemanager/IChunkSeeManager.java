@@ -2,8 +2,6 @@ package com.georgev22.voidchest.api.chunkseemanager;
 
 import org.bukkit.entity.Player;
 
-import org.bukkit.entity.Player;
-
 /**
  * The IChunkSeeManager interface provides methods for managing chunk visibility.
  */
