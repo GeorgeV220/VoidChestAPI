@@ -62,4 +62,23 @@ public class BoosterAddEvent extends BoosterEvent implements Cancellable {
     public boolean isCancelled() {
         return this.cancelled;
     }
+
+    /**
+     * Retrieves the HandlerList for the event.
+     *
+     * @return The HandlerList for the event.
+     */
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
+
+    /**
+     * Retrieves the HandlerList for the event.
+     *
+     * @return The HandlerList for the event.
+     */
+    @Override
+    public @NotNull HandlerList getHandlers() {
+        return HANDLERS;
+    }
 }
