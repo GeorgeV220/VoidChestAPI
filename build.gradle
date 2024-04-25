@@ -30,7 +30,6 @@ repositories {
     maven { url = "https://repo.georgev22.com/snapshots/" }
     maven { url = 'https://repo.codemc.org/repository/maven-public/' }
     maven { url = 'https://repo.papermc.io/repository/maven-public/' }
-    maven { url = "https://repo.craftaro.com/repository/minecraft-plugins/" }
     maven { url = "https://libraries.minecraft.net/" }
     maven { url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
     maven { url = "https://jcenter.bintray.com/" }
