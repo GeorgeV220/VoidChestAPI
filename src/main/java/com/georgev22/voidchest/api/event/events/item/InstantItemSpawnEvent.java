@@ -36,6 +36,7 @@ public class InstantItemSpawnEvent extends Event implements Cancellable {
     private @Nullable Item item;
     private final @Nullable Location location;
     private boolean cancelled = false;
+    private boolean dropItem = false;
 
     /**
      * Constructs a new InstantItemSpawnEvent with the given SerializableItemStack.
@@ -61,6 +62,20 @@ public class InstantItemSpawnEvent extends Event implements Cancellable {
     }
 
     /**
+     * Constructs a new InstantItemSpawnEvent with the given SerializableItemStack and location.
+     *
+     * @param itemStack The SerializableItemStack being spawned.
+     * @param location  The location associated with the event (nullable).
+     * @param dropItem  Whether to drop the item if the event is cancelled or VoidStorage inventory is full.
+     */
+    public InstantItemSpawnEvent(SerializableItemStack itemStack, @Nullable Location location, boolean dropItem) {
+        this.dropItem = dropItem;
+        this.itemStack = itemStack;
+        this.item = null;
+        this.location = location;
+    }
+
+    /**
      * Constructs a new InstantItemSpawnEvent with the given ItemStack and amount.
      *
      * @param itemStack The base ItemStack being spawned.
@@ -80,6 +95,21 @@ public class InstantItemSpawnEvent extends Event implements Cancellable {
      * @param location  The location associated with the event (nullable).
      */
     public InstantItemSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location) {
+        this.item = null;
+        this.location = location;
+        this.itemStack = new SerializableItemStack(itemStack, amount);
+    }
+
+    /**
+     * Constructs a new InstantItemSpawnEvent with the given ItemStack, amount and location.
+     *
+     * @param itemStack The base ItemStack being spawned.
+     * @param amount    The amount of the ItemStack being spawned.
+     * @param location  The location associated with the event (nullable).
+     * @param dropItem  Whether to drop the item if the event is cancelled or VoidStorage inventory is full.
+     */
+    public InstantItemSpawnEvent(@NotNull ItemStack itemStack, @NotNull BigInteger amount, @Nullable Location location, boolean dropItem) {
+        this.dropItem = dropItem;
         this.item = null;
         this.location = location;
         this.itemStack = new SerializableItemStack(itemStack, amount);
@@ -180,6 +210,24 @@ public class InstantItemSpawnEvent extends Event implements Cancellable {
      */
     public @Nullable Location getLocation() {
         return location;
+    }
+
+    /**
+     * Checks if the item should be dropped.
+     *
+     * @return {@code true} if the item should be dropped, {@code false} otherwise
+     */
+    public boolean dropItem() {
+        return dropItem;
+    }
+
+    /**
+     * Sets whether the item should be dropped.
+     *
+     * @param dropItem {@code true} if the item should be dropped, {@code false} otherwise
+     */
+    public void shouldDropItem(boolean dropItem) {
+        this.dropItem = dropItem;
     }
 
     /**
