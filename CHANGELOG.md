@@ -1,3 +1,10 @@
+# [2.14.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.1...v2.14.0-beta.2) (2024-04-27)
+
+
+### Features
+
+* **api:** add JavaPlugin to VoidChestAPI ([7cba772](https://github.com/GeorgeV220/VoidChestAPI/commit/7cba772d666bc704ae854b3e839d3f68703830f7))
+
 # [2.14.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.13.0...v2.14.0-beta.1) (2024-04-25)
 
 
