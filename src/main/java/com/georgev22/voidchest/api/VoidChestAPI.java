@@ -23,12 +23,11 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.ApiStatus;
 
 /**
  * The VoidChestAPI class provides access to various managers and services for the VoidChest plugin.
  */
-public record VoidChestAPI(@ApiStatus.Internal JavaPlugin plugin,
+public record VoidChestAPI(JavaPlugin plugin,
                            IEconomyManager economyManager,
                            IVoidEconomyManager voidEconomyManager,
                            IShopManager shopManager,
