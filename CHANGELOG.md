@@ -1,3 +1,10 @@
+# [2.14.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.2...v2.14.0-beta.3) (2024-04-28)
+
+
+### Features
+
+* **IPaginatedVoidInventory:** Add addItems(SerializableItemStack...) method ([e1d4cb3](https://github.com/GeorgeV220/VoidChestAPI/commit/e1d4cb34e32f312c359939d047081fadff9962f3))
+
 # [2.14.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.1...v2.14.0-beta.2) (2024-04-27)
 
 
