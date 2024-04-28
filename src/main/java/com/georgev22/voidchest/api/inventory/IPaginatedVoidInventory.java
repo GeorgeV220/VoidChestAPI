@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,6 +62,23 @@ public interface IPaginatedVoidInventory {
      * @return The list of items that could not be added.
      */
     List<ItemStack> addItems(ItemStack... itemStacks);
+
+    /**
+     * Adds the specified item stacks to the inventory.
+     * <p>
+     * The method first attempts to fill partial item stacks up to their maximum stack size
+     * defined by {@link Material#getMaxStackSize()}.
+     * Any remaining items are added to new slots/pages.
+     * <p>
+     * Note: It is recommended to use this method for item addition to ensure proper synchronization
+     * with the Pagination system.
+     * Avoid using {@link VoidInventory#addItem(ItemStack...)} and {@link VoidInventory#addItems(SerializableItemStack...)}
+     * directly for item manipulation, as changes may not reflect correctly.
+     *
+     * @param itemStacks The item stacks to add.
+     * @return The list of items that could not be added.
+     */
+    List<SerializableItemStack> addItems(SerializableItemStack... itemStacks);
 
     /**
      * Tries to remove all instances of the specified item stacks from all pages of the inventory.
@@ -172,7 +191,8 @@ public interface IPaginatedVoidInventory {
      * @param page The page number.
      * @return The VoidInventory object for the specified page or null if it doesn't exist.
      */
-    @Nullable VoidInventory getPage(int page);
+    @Nullable
+    VoidInventory getPage(int page);
 
     /**
      * Returns the current page of the inventory for the player.
@@ -224,7 +244,8 @@ public interface IPaginatedVoidInventory {
      *
      * @return the VoidStorage associated with the inventory
      */
-    @Nullable IVoidStorage voidStorage();
+    @Nullable
+    IVoidStorage voidStorage();
 
     /**
      * Returns the maximum number of pages in the inventory
@@ -252,5 +273,6 @@ public interface IPaginatedVoidInventory {
      *
      * @return the holder of the inventory
      */
-    @NotNull IPaginatedVoidInventoryHolder getHolder();
+    @NotNull
+    IPaginatedVoidInventoryHolder getHolder();
 }
