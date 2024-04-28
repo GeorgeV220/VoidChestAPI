@@ -57,7 +57,7 @@ public interface IVoidStorage {
      * Changes to the whitelist inventory will not be reflected in the item filters.
      * The method is marked for removal but will not be removed to maintain backwards compatibility.
      */
-    @Deprecated(forRemoval = true)
+    @Deprecated
     @NotNull Inventory whitelistInventory();
 
     /**
@@ -68,7 +68,7 @@ public interface IVoidStorage {
      * Changes to the blacklist inventory will not be reflected in the item filters.
      * The method is marked for removal but will not be removed to maintain backwards compatibility.
      */
-    @Deprecated(forRemoval = true)
+    @Deprecated
     @NotNull Inventory blacklistInventory();
 
     /**
