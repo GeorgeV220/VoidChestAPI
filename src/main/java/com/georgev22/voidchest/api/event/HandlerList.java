@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.event;
 
-import com.georgev22.library.maps.ConcurrentObjectMap;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnmodifiableView;
@@ -32,11 +31,6 @@ public class HandlerList {
      * A static list of all HandlerList objects.
      */
     private static final ArrayList<HandlerList> allLists = new ArrayList<>();
-
-    /**
-     * A set of all event types for which there is at least one registered listener.
-     */
-    private static final Set<String> EVENT_TYPES = ConcurrentObjectMap.newKeySet();
 
     /**
      * Bakes the handler array for all registered HandlerList objects. This method
@@ -102,10 +96,6 @@ public class HandlerList {
      * Constructor that initializes the HandlerList object.
      */
     public HandlerList() {
-        StackWalker.getInstance(EnumSet.of(StackWalker.Option.RETAIN_CLASS_REFERENCE), 4)
-                .walk(s -> s.filter(f -> Event.class.isAssignableFrom(f.getDeclaringClass())).findFirst())
-                .map(f -> f.getDeclaringClass().getName())
-                .ifPresent(EVENT_TYPES::add);
         handlerSlots = new EnumMap<>(EventPriority.class);
         for (EventPriority o : EventPriority.values()) {
             handlerSlots.put(o, new ArrayList<>());
