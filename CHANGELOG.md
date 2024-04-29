@@ -1,3 +1,10 @@
+# [2.14.0-beta.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.3...v2.14.0-beta.4) (2024-04-29)
+
+
+### Features
+
+* **HandlerList:** Remove StackWalker ([010a8b0](https://github.com/GeorgeV220/VoidChestAPI/commit/010a8b0e7584634042306b8723d00185f90cb7d6))
+
 # [2.14.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.2...v2.14.0-beta.3) (2024-04-28)
 
 
