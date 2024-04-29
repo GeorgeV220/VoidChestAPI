@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
+import com.georgev22.library.minecraft.BukkitMinecraftUtils.MinecraftVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -39,17 +40,17 @@ import java.io.*;
 public class SerializableLocation implements Serializable, Cloneable {
 
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private transient Location location;
-    private final String worldName;
-    private final double x;
-    private final double y;
-    private final double z;
-    private final float yaw;
-    private final float pitch;
-    private final int minY;
-    private final int maxY;
+    private String worldName;
+    private double x;
+    private double y;
+    private double z;
+    private float yaw;
+    private float pitch;
+    private int minY;
+    private int maxY;
 
     /**
      * Constructs a new SerializableLocation from the provided Bukkit Location.
@@ -64,7 +65,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.z = location.getZ();
         this.yaw = location.getYaw();
         this.pitch = location.getPitch();
-        this.minY = location.getWorld().getMinHeight();
+        this.minY = MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_17_R1) ? location.getWorld().getMinHeight() : 0;
         this.maxY = location.getWorld().getMaxHeight();
     }
 
@@ -154,9 +155,9 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @param string The string representation of the location.
      * @return The SerializableLocation, or {@code null} if the string is empty or invalid.
      */
-    public static @Nullable SerializableLocation fromString(@NotNull String string) {
+    public static @NotNull SerializableLocation fromString(@NotNull String string) {
         if (string.trim().isEmpty()) {
-            return null;
+            throw new IllegalArgumentException("Invalid location string: " + string);
         }
         String[] parts = string.split(":");
         String worldName = parts[0];
@@ -298,7 +299,7 @@ public class SerializableLocation implements Serializable, Cloneable {
      */
     @Serial
     private void writeObject(@NotNull ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
+        out.writeUTF(toString());
     }
 
     /**
@@ -310,7 +311,15 @@ public class SerializableLocation implements Serializable, Cloneable {
      */
     @Serial
     private void readObject(@NotNull ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        toLocation();
+        String string = in.readUTF();
+        SerializableLocation location = fromString(string);
+        this.worldName = location.worldName;
+        this.x = location.x;
+        this.y = location.y;
+        this.z = location.z;
+        this.pitch = location.pitch;
+        this.yaw = location.yaw;
+        this.minY = location.minY;
+        this.maxY = location.maxY;
     }
 }
