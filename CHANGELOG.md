@@ -1,3 +1,10 @@
+# [2.14.0-beta.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.4...v2.14.0-beta.5) (2024-04-29)
+
+
+### Features
+
+* Update SerializableLocation class ([925886d](https://github.com/GeorgeV220/VoidChestAPI/commit/925886d9750ae2566a2adb6fd6df9a82aecab4d8))
+
 # [2.14.0-beta.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.3...v2.14.0-beta.4) (2024-04-29)
 
 
