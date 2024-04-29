@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.voidstorage;
 
-import org.bukkit.NamespacedKey;
+import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
