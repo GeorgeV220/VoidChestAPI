@@ -1,3 +1,15 @@
+# [2.14.0-beta.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.5...v2.14.0-beta.6) (2024-04-29)
+
+
+### Bug Fixes
+
+* **Upgrade:** Switch from bukkit NamespacedKey to VoidChest NamespacedKey ([4becaa9](https://github.com/GeorgeV220/VoidChestAPI/commit/4becaa9c649ef4bef19f994fa1ba4a2328668011))
+
+
+### Features
+
+* add NamespacedKey utility class ([30bd056](https://github.com/GeorgeV220/VoidChestAPI/commit/30bd056220345f39c55fabcbe322a4e8e31bf4d2))
+
 # [2.14.0-beta.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.4...v2.14.0-beta.5) (2024-04-29)
 
 
