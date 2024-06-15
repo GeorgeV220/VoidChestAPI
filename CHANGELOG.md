@@ -1,3 +1,10 @@
+# [2.14.0-beta.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.6...v2.14.0-beta.7) (2024-06-15)
+
+
+### Bug Fixes
+
+* **SerializableLocation:** adjust chunk boundary calculation ([9c64e76](https://github.com/GeorgeV220/VoidChestAPI/commit/9c64e76c3341c409bc7d48936622a68a38bfa177))
+
 # [2.14.0-beta.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.5...v2.14.0-beta.6) (2024-04-29)
 
 
