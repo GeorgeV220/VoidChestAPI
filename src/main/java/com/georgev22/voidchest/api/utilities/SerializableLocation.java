@@ -250,8 +250,8 @@ public class SerializableLocation implements Serializable, Cloneable {
 
         int minChunkX = chunkX << 4;
         int minChunkZ = chunkZ << 4;
-        int maxChunkX = minChunkX + 15;
-        int maxChunkZ = minChunkZ + 15;
+        int maxChunkX = minChunkX + 16;
+        int maxChunkZ = minChunkZ + 16;
         return new BoundingBox(minChunkX, minY, minChunkZ, maxChunkX, maxY, maxChunkZ);
     }
 
