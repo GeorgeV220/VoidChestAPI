@@ -51,6 +51,8 @@ public class SerializableLocation implements Serializable, Cloneable {
     private float pitch;
     private int minY;
     private int maxY;
+    private int chunkX;
+    private int chunkZ;
 
     /**
      * Constructs a new SerializableLocation from the provided Bukkit Location.
@@ -67,6 +69,8 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = location.getPitch();
         this.minY = MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_17_R1) ? location.getWorld().getMinHeight() : 0;
         this.maxY = location.getWorld().getMaxHeight();
+        this.chunkX = location.getChunk().getX();
+        this.chunkZ = location.getChunk().getZ();
     }
 
     /**
@@ -88,6 +92,8 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = pitch;
         this.minY = 0;
         this.maxY = 256;
+        this.chunkX = (int) getX() >> 4;
+        this.chunkZ = (int) getZ() >> 4;
     }
 
     /**
@@ -111,6 +117,35 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = pitch;
         this.minY = minY;
         this.maxY = maxY;
+        this.chunkX = (int) getX() >> 4;
+        this.chunkZ = (int) getZ() >> 4;
+    }
+
+    /**
+     * Constructs a new SerializableLocation with explicit values.
+     *
+     * @param worldName The name of the world.
+     * @param x         The x-coordinate.
+     * @param y         The y-coordinate.
+     * @param z         The z-coordinate.
+     * @param yaw       The yaw angle.
+     * @param pitch     The pitch angle.
+     * @param minY      The minimum y-coordinate.
+     * @param maxY      The maximum y-coordinate.
+     * @param chunkX    The x-coordinate of the chunk.
+     * @param chunkZ    The z-coordinate of the chunk.
+     */
+    public SerializableLocation(String worldName, double x, double y, double z, float yaw, float pitch, int minY, int maxY, int chunkX, int chunkZ) {
+        this.worldName = worldName;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.yaw = yaw;
+        this.pitch = pitch;
+        this.minY = minY;
+        this.maxY = maxY;
+        this.chunkX = chunkX;
+        this.chunkZ = chunkZ;
     }
 
     /**
@@ -144,7 +179,15 @@ public class SerializableLocation implements Serializable, Cloneable {
                 .append(":")
                 .append(this.pitch)
                 .append(":")
-                .append(this.yaw);
+                .append(this.yaw)
+                .append(":")
+                .append(this.minY)
+                .append(":")
+                .append(this.maxY)
+                .append(":")
+                .append(this.chunkX)
+                .append(":")
+                .append(this.chunkZ);
 
         return stringBuilder.toString();
     }
@@ -167,16 +210,22 @@ public class SerializableLocation implements Serializable, Cloneable {
         double z = Double.parseDouble(parts[3]);
         float pitch = Float.parseFloat(parts[4]);
         float yaw = Float.parseFloat(parts[5]);
-        if (parts.length > 6) {
-            int minY = Integer.parseInt(parts[6]);
-            int maxY = Integer.parseInt(parts[7]);
-            return new SerializableLocation(worldName, x, y, z, pitch, yaw, minY, maxY);
-        }
         if (world == null) {
-            return new SerializableLocation(worldName, x, y, z, pitch, yaw);
+            if (parts.length > 7) {
+                int minY = Integer.parseInt(parts[6]);
+                int maxY = Integer.parseInt(parts[7]);
+                if (parts.length == 10) {
+                    int chunkX = Integer.parseInt(parts[8]);
+                    int chunkZ = Integer.parseInt(parts[9]);
+                    return new SerializableLocation(worldName, x, y, z, pitch, yaw, minY, maxY, chunkX, chunkZ);
+                }
+                return new SerializableLocation(worldName, x, y, z, pitch, yaw, minY, maxY);
+            }
         } else {
             return new SerializableLocation(new Location(world, x, y, z, yaw, pitch));
         }
+
+        return new SerializableLocation(worldName, x, y, z, pitch, yaw);
     }
 
     /**
@@ -245,14 +294,20 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @return The bounding box of the location.
      */
     public BoundingBox getBoundingBox() {
-        int chunkX = (int) getX() >> 4;
-        int chunkZ = (int) getZ() >> 4;
+        int minChunkX = this.chunkX * 16;
+        int minChunkZ = this.chunkZ * 16;
+        int maxChunkX = minChunkX + 15;
+        int maxChunkZ = minChunkZ + 15;
 
-        int minChunkX = chunkX << 4;
-        int minChunkZ = chunkZ << 4;
-        int maxChunkX = minChunkX + 16;
-        int maxChunkZ = minChunkZ + 16;
-        return new BoundingBox(minChunkX, minY, minChunkZ, maxChunkX, maxY, maxChunkZ);
+        if (this.chunkX < 0) {
+            minChunkX++;
+            maxChunkX++;
+        }
+        if (this.chunkZ < 0) {
+            minChunkZ++;
+            maxChunkZ++;
+        }
+        return new BoundingBox(minChunkX, this.minY, minChunkZ, maxChunkX, this.maxY, maxChunkZ);
     }
 
     /**
@@ -280,6 +335,24 @@ public class SerializableLocation implements Serializable, Cloneable {
      */
     public float getYaw() {
         return yaw;
+    }
+
+    /**
+     * Gets the x-coordinate of the chunk.
+     *
+     * @return The x-coordinate of the chunk.
+     */
+    public int getChunkX() {
+        return chunkX;
+    }
+
+    /**
+     * Gets the z-coordinate of the chunk.
+     *
+     * @return The z-coordinate of the chunk.
+     */
+    public int getChunkZ() {
+        return chunkZ;
     }
 
     @Override
@@ -321,5 +394,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.yaw = location.yaw;
         this.minY = location.minY;
         this.maxY = location.maxY;
+        this.chunkX = location.chunkX;
+        this.chunkZ = location.chunkZ;
     }
 }
