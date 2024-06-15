@@ -1,3 +1,10 @@
+# [2.14.0-beta.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.7...v2.14.0-beta.8) (2024-06-15)
+
+
+### Features
+
+* **SerializableLocation:** add chunk coordinates and fix BoundingBox ([f81f605](https://github.com/GeorgeV220/VoidChestAPI/commit/f81f60582bfed5d6bbc686ef6879b118e26fe108))
+
 # [2.14.0-beta.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.6...v2.14.0-beta.7) (2024-06-15)
 
 
