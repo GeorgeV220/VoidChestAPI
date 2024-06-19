@@ -1,3 +1,10 @@
+# [2.14.0-beta.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.8...v2.14.0-beta.9) (2024-06-19)
+
+
+### Bug Fixes
+
+* **event/EventManager:** Correct the `unregister` method and fix imports ([9d197b7](https://github.com/GeorgeV220/VoidChestAPI/commit/9d197b76d65ab1a953c62c0eb7795d45b3c64e79))
+
 # [2.14.0-beta.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.7...v2.14.0-beta.8) (2024-06-15)
 
 
