@@ -23,22 +23,15 @@ public class EventManager {
      */
     private final Logger logger;
 
-    /**
-     * The class that owns this event manager.
-     */
-    private final Class<?> clazz;
-
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     /**
      * Constructs a new EventManager with the given logger and class.
      *
      * @param logger the logger to use
-     * @param clazz  the class that owns this event manager
      */
-    public EventManager(Logger logger, Class<?> clazz) {
+    public EventManager(Logger logger) {
         this.logger = logger;
-        this.clazz = clazz;
     }
 
     /**
@@ -46,9 +39,9 @@ public class EventManager {
      *
      * @param listeners the listeners to register
      */
-    public void register(EventListener @NotNull ... listeners) {
+    public void register(Class<?> clazz, EventListener @NotNull ... listeners) {
         for (EventListener listener : listeners) {
-            for (Map.Entry<Class<? extends Event>, Set<ListenerWrapper>> entry : createRegisteredListeners(listener).entrySet()) {
+            for (Map.Entry<Class<? extends Event>, Set<ListenerWrapper>> entry : createRegisteredListeners(clazz, listener).entrySet()) {
                 getEventListeners(getRegistrationClass(entry.getKey())).registerAll(entry.getValue());
             }
         }
@@ -61,8 +54,17 @@ public class EventManager {
      */
     public void unregister(EventListener @NotNull ... listeners) {
         for (EventListener listener : listeners) {
-            HandlerList.unregisterAll(listener.getClass());
+            HandlerList.unregisterAll(listener);
         }
+    }
+
+    /**
+     * Unregisters all listeners that have been registered under the given class.
+     *
+     * @param clazz the class that the listeners were registered under.
+     */
+    public void unregisterAll(Class<?> clazz) {
+        HandlerList.unregisterAll(clazz);
     }
 
     /**
@@ -94,7 +96,10 @@ public class EventManager {
      * @return the map of event classes to listener wrappers
      */
     @NotNull
-    public ObjectMap<Class<? extends Event>, Set<ListenerWrapper>> createRegisteredListeners(@NotNull EventListener listener) {
+    public ObjectMap<Class<? extends Event>, Set<ListenerWrapper>> createRegisteredListeners(
+            Class<?> clazz,
+            @NotNull EventListener listener
+    ) {
         ObjectMap<Class<? extends Event>, Set<ListenerWrapper>> ret = new HashObjectMap<>();
         List<Method> methods;
         try {

@@ -1,10 +1,12 @@
 package com.georgev22.voidchest.api.event;
 
+import com.georgev22.voidchest.api.event.interfaces.EventListener;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.*;
+
 
 /**
  * This class represents a list of event handlers, sorted by priority.
@@ -167,7 +169,6 @@ public class HandlerList {
      *
      * @param listener the EventListener that represents the event type
      */
-    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     public synchronized void unregister(@NotNull EventListener listener) {
         boolean changed = false;
         for (List<ListenerWrapper> list : handlerSlots.values()) {
