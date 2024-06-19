@@ -1,3 +1,23 @@
+# [2.14.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.13.0...v2.14.0) (2024-06-19)
+
+
+### Bug Fixes
+
+* **event/EventManager:** Correct the `unregister` method and fix imports ([9d197b7](https://github.com/GeorgeV220/VoidChestAPI/commit/9d197b76d65ab1a953c62c0eb7795d45b3c64e79))
+* **SerializableLocation:** adjust chunk boundary calculation ([9c64e76](https://github.com/GeorgeV220/VoidChestAPI/commit/9c64e76c3341c409bc7d48936622a68a38bfa177))
+* **Upgrade:** Switch from bukkit NamespacedKey to VoidChest NamespacedKey ([4becaa9](https://github.com/GeorgeV220/VoidChestAPI/commit/4becaa9c649ef4bef19f994fa1ba4a2328668011))
+
+
+### Features
+
+* add NamespacedKey utility class ([30bd056](https://github.com/GeorgeV220/VoidChestAPI/commit/30bd056220345f39c55fabcbe322a4e8e31bf4d2))
+* **api:** add dropItem flag to InstantItemSpawnEvent ([0595d05](https://github.com/GeorgeV220/VoidChestAPI/commit/0595d058d2a8f30368437c1a51d509c67d620f0e))
+* **api:** add JavaPlugin to VoidChestAPI ([7cba772](https://github.com/GeorgeV220/VoidChestAPI/commit/7cba772d666bc704ae854b3e839d3f68703830f7))
+* **HandlerList:** Remove StackWalker ([010a8b0](https://github.com/GeorgeV220/VoidChestAPI/commit/010a8b0e7584634042306b8723d00185f90cb7d6))
+* **IPaginatedVoidInventory:** Add addItems(SerializableItemStack...) method ([e1d4cb3](https://github.com/GeorgeV220/VoidChestAPI/commit/e1d4cb34e32f312c359939d047081fadff9962f3))
+* **SerializableLocation:** add chunk coordinates and fix BoundingBox ([f81f605](https://github.com/GeorgeV220/VoidChestAPI/commit/f81f60582bfed5d6bbc686ef6879b118e26fe108))
+* Update SerializableLocation class ([925886d](https://github.com/GeorgeV220/VoidChestAPI/commit/925886d9750ae2566a2adb6fd6df9a82aecab4d8))
+
 # [2.14.0-beta.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0-beta.8...v2.14.0-beta.9) (2024-06-19)
 
 
