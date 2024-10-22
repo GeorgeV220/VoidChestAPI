@@ -1,27 +1,42 @@
 ---
 icon: bullseye-arrow
+description: Installation Guide
 ---
 
 # Quickstart
 
-<figure><img src="https://gitbookio.github.io/onboarding-template-images/quickstart-hero.png" alt=""><figcaption></figcaption></figure>
+## Overview
 
-Beautiful documentation starts with the content you create — and GitBook makes it easy to get started with any pre-existing content.
+Installing **VoidChest** is straightforward and similar to installing any other Minecraft plugin. Follow these steps to get started:
 
-{% hint style="info" %}
-Want to learn about writing content from scratch? Head to the [Basics](https://github.com/GitbookIO/onboarding-template/blob/main/getting-started/broken-reference/README.md) section to learn more.
-{% endhint %}
+### Step-by-Step Installation
 
-### Import
+1. **Download the Plugin:**
+   * Obtain the latest version of the VoidChest plugin from [BuiltByBit](https://builtbybit.com/resources/voidchest-auto-sell-chunk-collector.10148/)
+2. **Download Dependencies:**
+   * Ensure you have the necessary dependencies, such as an Economy plugin (e.g., Vault, TheNewEconomy, or any other supported or custom one).
+3. **Move the Plugin to the Plugins Folder:**
+   * Place the downloaded VoidChest plugin JAR file into your Minecraft server's `plugins` directory.
+4. **Start the Server:**
+   * Start or restart your Minecraft server to load the plugin.
+5. **Verify Installation:**
+   * Check the server console for any errors or messages related to VoidChest. Ensure that the plugin has been successfully loaded.
 
-GitBook supports importing content from many popular writing tools and formats. If your content already exists, you can upload a file or group of files to be imported.
+### Required Dependencies
 
-<div data-full-width="false">
+* **Economy Plugin:** VoidChest requires an Economy plugin to handle payouts, charges, and upgrades. Supported plugins include:
+  * Vault
+  * TheNewEconomy
+  * Any other supported or custom Economy plugin
 
-<figure><img src="https://gitbookio.github.io/onboarding-template-images/quickstart-import.png" alt=""><figcaption></figcaption></figure>
+### Default Profit Calculator
 
-</div>
+* The default profit calculator for VoidChest is `VoidChest`. More detailed information on configuring profit calculators and other settings can be found in the Configuration section.
 
-### Sync a repository
+### Example Image
 
-GitBook also allows you to set up a bi-directional sync with an existing repository on GitHub or GitLab. Setting up Git Sync allows you and your team to write content in GitBook or in code, and never have to worry about your content becoming out of sync.
+<figure><img src="../.gitbook/assets/026C1DC0-3D0A-4842-97FA-BAABFD206065.png" alt=""><figcaption></figcaption></figure>
+
+***
+
+With VoidChest successfully installed, you can now configure the plugin to suit your server's specific needs. Refer to the Configuration section for detailed instructions on customizing VoidChest.

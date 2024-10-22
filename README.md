@@ -50,5 +50,3 @@ To begin using VoidChest, follow the steps outlined in the Installation Guide se
 We welcome contributions from the community! If you have suggestions, bug reports, or would like to contribute code, please visit our GitHub repository for more information.
 
 ### Jump right in
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Getting Started</strong></td><td>Create your first site</td><td></td><td></td><td><a href="getting-started/quickstart.md">quickstart.md</a></td></tr></tbody></table>
