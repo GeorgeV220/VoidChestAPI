@@ -11,6 +11,7 @@
 * [Menus](getting-started/menus.md)
 * [VoidChest Configuration Documentation](getting-started/voidchest-configuration-documentation.md)
 * [Permissions](getting-started/permissions.md)
+* [VoidChest Plugin Integrations](getting-started/voidchest-plugin-integrations.md)
 
 ## API usage
 
