@@ -10,6 +10,7 @@
 * [Upgrades](getting-started/upgrades.md)
 * [Menus](getting-started/menus.md)
 * [VoidChest Configuration Documentation](getting-started/voidchest-configuration-documentation.md)
+* [Permissions](getting-started/permissions.md)
 
 ## API usage
 
