@@ -91,10 +91,6 @@ Options:
     upgrades: "Vault"
     payout: "Vault"
 
-  # Shop economy options
-  shop economy:
-    plugin: "VoidChest"
-
   # Void chest economy mode
   void chest economy mode: "EXP"
 
@@ -350,23 +346,6 @@ Options:
       charge: "TheNewEconomy"
       upgrades: "VoidChest"
       payout: "Custom"
-    ```
-
-#### `shop economy`
-
-* **Type:** Map
-*   **Default:**
-
-    ```yaml
-    shop economy:
-      plugin: "VoidChest"
-    ```
-* **Description:** Specifies the plugin from which item prices should be fetched. The plugin supports multiple shop plugins, including `VoidChest`, `ShopGUIPlus`, `Essentials`, `CMI`, `EconomyShopGUI`, `DynamicShop`, and `Custom`.
-*   **Example:**
-
-    ```yaml
-    shop economy:
-      plugin: "ShopGUIPlus"
     ```
 
 #### `void chest economy mode`
