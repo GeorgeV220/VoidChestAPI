@@ -117,7 +117,7 @@ Each item in the inventory is defined by a set of properties:
 * **`TOGGLE_HOLOGRAM`**: Toggles the hologram feature.
 * **`ADD_CHARGE`**: Adds charge time to the VoidChest.
 * **`TOGGLE_TRANSFER_NON_SELLABLES`**: Toggles the transfer of non-sellable items.
-* **`OPEN_CHEST`**: Opens the chest inventory.
+* **`OPEN_CHEST`**: Opens the virtual voidchest inventory.
 * **`TOGGLE_BANK`**: Toggles the bank feature.
 * **`NOTHING`**: No action is performed.
 * **`OPEN_CONTAINER`**: Opens the Container's inventory (if exists)
