@@ -1,6 +1,6 @@
 ---
-description: VoidChest Menu Configuration Documentation
 icon: computer-mouse
+description: VoidChest Menu Configuration Documentation
 ---
 
 # Menus
@@ -120,6 +120,7 @@ Each item in the inventory is defined by a set of properties:
 * **`OPEN_CHEST`**: Opens the chest inventory.
 * **`TOGGLE_BANK`**: Toggles the bank feature.
 * **`NOTHING`**: No action is performed.
+* **`OPEN_CONTAINER`**: Opens the Container's inventory (if exists)
 * **`EXIT`**: Exits the menu.
 
 ### Examples
