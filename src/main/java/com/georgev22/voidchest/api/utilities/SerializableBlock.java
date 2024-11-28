@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.utilities;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.Contract;
@@ -16,7 +17,7 @@ import java.io.Serializable;
  * A serializable wrapper for Bukkit Block, representing a block's location.
  *
  * <p>The {@code SerializableBlock} class allows for easy serialization and deserialization
- * of Bukkit {@link org.bukkit.block.Block} objects by capturing the block's location details.
+ * of Bukkit {@link Block} objects by capturing the block's location details.
  * </p>
  *
  * <p>It implements the {@link Serializable} interface and includes custom methods for serialization and deserialization,
@@ -96,30 +97,6 @@ public class SerializableBlock implements Serializable {
     }
 
     /**
-     * Converts the SerializableBlock to a string representation.
-     *
-     * @return A string representation of the block's location.
-     */
-    public @Nullable String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        Block block = this.toBlock();
-        if (block == null) {
-            return null;
-        }
-        Location location = block.getLocation().clone();
-        stringBuilder
-                .append(location.getWorld().getName())
-                .append(":")
-                .append(location.getBlockX())
-                .append(":")
-                .append(location.getBlockY())
-                .append(":")
-                .append(location.getBlockZ());
-
-        return stringBuilder.toString();
-    }
-
-    /**
      * Creates a SerializableBlock from a string representation.
      *
      * @param string The string representation of the block's location.
@@ -151,6 +128,30 @@ public class SerializableBlock implements Serializable {
     }
 
     /**
+     * Converts the SerializableBlock to a string representation.
+     *
+     * @return A string representation of the block's location.
+     */
+    public @Nullable String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        Block block = this.toBlock();
+        if (block == null) {
+            return null;
+        }
+        Location location = block.getLocation().clone();
+        stringBuilder
+                .append(location.getWorld().getName())
+                .append(":")
+                .append(location.getBlockX())
+                .append(":")
+                .append(location.getBlockY())
+                .append(":")
+                .append(location.getBlockZ());
+
+        return stringBuilder.toString();
+    }
+
+    /**
      * Converts the SerializableBlock back to a Block.
      *
      * @return The Block represented by this SerializableBlock, or {@code null} if the world is not found.
@@ -164,39 +165,25 @@ public class SerializableBlock implements Serializable {
     }
 
     /**
+     * Returns the material of the block.
+     *
+     * @return The material of the block, or {@code null} if the block is not found.
+     */
+    public @Nullable Material getMaterial() {
+        Block block = this.toBlock();
+        if (block == null) {
+            return null;
+        }
+        return block.getType();
+    }
+
+    /**
      * Returns the x-coordinate of the block.
      *
      * @return The x-coordinate of the block.
      */
     public int getX() {
         return x;
-    }
-
-    /**
-     * Returns the y-coordinate of the block.
-     *
-     * @return The y-coordinate of the block.
-     */
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * Returns the z-coordinate of the block.
-     *
-     * @return The z-coordinate of the block.
-     */
-    public int getZ() {
-        return z;
-    }
-
-    /**
-     * Returns the name of the world containing the block.
-     *
-     * @return The name of the world containing the block.
-     */
-    public String getWorldName() {
-        return worldName;
     }
 
     /**
@@ -209,6 +196,15 @@ public class SerializableBlock implements Serializable {
     }
 
     /**
+     * Returns the y-coordinate of the block.
+     *
+     * @return The y-coordinate of the block.
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
      * Sets the y-coordinate of the block.
      *
      * @param y The new y-coordinate.
@@ -218,12 +214,30 @@ public class SerializableBlock implements Serializable {
     }
 
     /**
+     * Returns the z-coordinate of the block.
+     *
+     * @return The z-coordinate of the block.
+     */
+    public int getZ() {
+        return z;
+    }
+
+    /**
      * Sets the z-coordinate of the block.
      *
      * @param z The new z-coordinate.
      */
     public void setZ(int z) {
         this.z = z;
+    }
+
+    /**
+     * Returns the name of the world containing the block.
+     *
+     * @return The name of the world containing the block.
+     */
+    public String getWorldName() {
+        return worldName;
     }
 
     /**

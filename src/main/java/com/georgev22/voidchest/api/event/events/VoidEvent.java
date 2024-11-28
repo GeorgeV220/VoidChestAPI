@@ -2,8 +2,8 @@ package com.georgev22.voidchest.api.event.events;
 
 import com.georgev22.voidchest.api.event.Event;
 import com.georgev22.voidchest.api.event.interfaces.Cancellable;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
-import org.jetbrains.annotations.Nullable;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The VoidEvent class is an abstract base class for VoidChest related events.
@@ -11,16 +11,16 @@ import org.jetbrains.annotations.Nullable;
  */
 public abstract class VoidEvent extends Event implements Cancellable {
 
-    private final IVoidStorage voidStorage;
+    private final IVoidChest voidChest;
     private boolean cancel;
 
     /**
-     * Constructs a new VoidEvent with the specified VoidStorage.
+     * Constructs a new VoidEvent with the specified VoidChest.
      *
-     * @param voidStorage The VoidStorage associated with the event.
+     * @param voidChest The VoidChest associated with the event.
      */
-    public VoidEvent(@Nullable final IVoidStorage voidStorage) {
-        this.voidStorage = voidStorage;
+    public VoidEvent(@NotNull final IVoidChest voidChest) {
+        this.voidChest = voidChest;
     }
 
     /**
@@ -44,13 +44,13 @@ public abstract class VoidEvent extends Event implements Cancellable {
     }
 
     /**
-     * Retrieves the VoidStorage associated with the event.
+     * Retrieves the VoidChest associated with the event.
      *
-     * @return The VoidStorage associated with the event.
+     * @return The VoidChest associated with the event.
      */
-    @Nullable
-    public IVoidStorage getVoidStorage() {
-        return this.voidStorage;
+    @NotNull
+    public IVoidChest getVoidChest() {
+        return this.voidChest;
     }
 
 }

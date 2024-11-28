@@ -1,10 +1,10 @@
 package com.georgev22.voidchest.api.utilities;
 
-import com.georgev22.library.maps.ObjectMap;
-import com.georgev22.library.yaml.serialization.ConfigurationSerializable;
 import com.georgev22.voidchest.api.exceptions.SerializerException;
+import com.georgev22.voidchest.api.maps.ObjectMap;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +20,7 @@ import java.util.Map;
  * A serializable wrapper for Bukkit ItemStack, using NBT serialization.
  *
  * <p>The {@code SerializableItemStack} class allows for easy serialization and deserialization
- * of Bukkit {@link org.bukkit.inventory.ItemStack} objects using NBT (Named Binary Tag) serialization.
+ * of Bukkit {@link ItemStack} objects using NBT (Named Binary Tag) serialization.
  * </p>
  *
  * <p>It implements the {@link Serializable} interface and includes custom serialization methods
@@ -203,7 +203,7 @@ public class SerializableItemStack implements Serializable, ConfigurationSeriali
      * @return The original ItemStack.
      */
     public ItemStack getItemStack() {
-        return itemStack;
+        return itemStack.clone();
     }
 
     /**

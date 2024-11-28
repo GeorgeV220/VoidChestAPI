@@ -1,10 +1,10 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.library.maps.HashObjectMap;
-import com.georgev22.library.utilities.Utils;
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.event.events.booster.BoosterAddEvent;
 import com.georgev22.voidchest.api.event.events.booster.BoosterRemoveEvent;
+import com.georgev22.voidchest.api.maps.HashObjectMap;
+import com.georgev22.voidchest.api.utilities.Utils;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.time.Instant;

@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.event.events.voidchest;
 import com.georgev22.voidchest.api.event.HandlerList;
 import com.georgev22.voidchest.api.event.events.VoidEvent;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.jetbrains.annotations.NotNull;
@@ -22,15 +22,15 @@ public class VoidChestBreakEvent extends VoidEvent {
     private final IPlayerData playerData;
 
     /**
-     * Constructs a new VoidChestBreakEvent with the specified Entity, VoidStorage, Block, and PlayerData.
+     * Constructs a new VoidChestBreakEvent with the specified Entity, VoidChest, Block, and PlayerData.
      *
-     * @param entity       The Entity responsible for breaking the VoidChest.
-     * @param voidStorage  The VoidStorage associated with the VoidChest.
-     * @param block        The Block of the VoidChest being broken.
-     * @param playerData   The PlayerData associated with the VoidChest.
+     * @param entity      The Entity responsible for breaking the VoidChest.
+     * @param voidChest The VoidChest associated with the VoidChest.
+     * @param block       The Block of the VoidChest being broken.
+     * @param playerData  The PlayerData associated with the VoidChest.
      */
-    public VoidChestBreakEvent(final Entity entity, final IVoidStorage voidStorage, final Block block, final IPlayerData playerData) {
-        super(voidStorage);
+    public VoidChestBreakEvent(final Entity entity, final IVoidChest voidChest, final Block block, final IPlayerData playerData) {
+        super(voidChest);
         this.entity = entity;
         this.block = block;
         this.playerData = playerData;

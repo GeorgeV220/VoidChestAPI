@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.economy;
 
+import com.georgev22.voidchest.api.economy.modules.InvalidEconomy;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 

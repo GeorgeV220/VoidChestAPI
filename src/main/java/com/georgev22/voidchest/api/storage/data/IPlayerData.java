@@ -1,7 +1,8 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.library.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.economy.EconomyMode;
+import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
 import com.georgev22.voidchest.api.storage.data.player.Boosters;
 import com.georgev22.voidchest.api.storage.data.player.Stats;
@@ -14,7 +15,7 @@ import java.util.UUID;
 /**
  * The IPlayerData interface provides methods for managing player data.
  */
-public interface IPlayerData {
+public interface IPlayerData extends Entity {
 
     /**
      * Retrieves the name of the player associated with the data.
@@ -24,11 +25,11 @@ public interface IPlayerData {
     String name();
 
     /**
-     * Retrieves the list of UUIDs of the VoidStorages associated with the player.
+     * Retrieves the list of UUIDs of the VoidChests associated with the player.
      *
-     * @return The list of UUIDs of VoidStorages as an ArrayList.
+     * @return The list of UUIDs of VoidChests as an ArrayList.
      */
-    ArrayList<UUID> voidStorages();
+    ArrayList<UUID> voidChests();
 
     /**
      * Retrieves the statistics of the player.
@@ -81,7 +82,7 @@ public interface IPlayerData {
     void closeVoidInventories();
 
     /**
-     * Empties all VoidStorages associated with the player.
+     * Empties all VoidChests associated with the player.
      */
     void emptyStorages();
 
@@ -91,18 +92,18 @@ public interface IPlayerData {
     void removeAllChests();
 
     /**
-     * Removes the specified VoidStorage from the player's list of associated storages.
+     * Removes the specified VoidChest from the player's list of associated storages.
      *
-     * @param voidStorage The VoidStorage to remove.
+     * @param voidChest The VoidChest to remove.
      */
-    void removeVoidStorage(final IVoidStorage voidStorage);
+    void removeVoidChest(final IVoidChest voidChest);
 
     /**
-     * Adds the specified VoidStorage to the player's list of associated storages.
+     * Adds the specified VoidChest to the player's list of associated storages.
      *
-     * @param voidStorage The VoidStorage to add.
+     * @param voidChest The VoidChest to add.
      */
-    void addVoidStorage(final IVoidStorage voidStorage);
+    void addVoidChest(final IVoidChest voidChest);
 
     /**
      * Reloads the player data.
@@ -114,7 +115,7 @@ public interface IPlayerData {
      *
      * @return The UUID of the player.
      */
-    UUID playerUUID();
+    UUID getId();
 
     /**
      * Adds custom data to the IPlayerData with the specified key and value.
@@ -148,6 +149,7 @@ public interface IPlayerData {
      * @return the value associated with the specified key, or {@code null} if the key does not exist
      */
     default <T> T getCustomData(String key) {
+        //noinspection unchecked
         return (T) getCustomData().get(key);
     }
 
@@ -157,4 +159,12 @@ public interface IPlayerData {
      * @return the {@link ConcurrentObjectMap} containing the custom data of the player data
      */
     ConcurrentObjectMap<String, Object> getCustomData();
+
+    /**
+     * Retrieves a map of placeholders for player and the specified VoidChest.
+     *
+     * @param storage The VoidChest to retrieve placeholders for.
+     * @return A map of placeholders.
+     */
+    ObjectMap<String, String> getPlaceHolders(IVoidChest storage);
 }

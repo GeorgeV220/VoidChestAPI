@@ -26,7 +26,7 @@ package com.georgev22.voidchest.api.exceptions;
  * and user feedback when issues occur during serialization or deserialization.
  * </p>
  */
-public class SerializerException extends Exception {
+public class SerializerException extends RuntimeException {
 
     /**
      * Constructs a new SerializerException with the specified detail message.

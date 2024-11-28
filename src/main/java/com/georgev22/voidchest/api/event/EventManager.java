@@ -1,10 +1,10 @@
 package com.georgev22.voidchest.api.event;
 
-import com.georgev22.library.maps.HashObjectMap;
-import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.event.annotations.EventHandler;
 import com.georgev22.voidchest.api.event.interfaces.EventExecutor;
 import com.georgev22.voidchest.api.event.interfaces.EventListener;
+import com.georgev22.voidchest.api.maps.HashObjectMap;
+import com.georgev22.voidchest.api.maps.ObjectMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;

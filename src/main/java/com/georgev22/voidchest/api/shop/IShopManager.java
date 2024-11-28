@@ -6,13 +6,13 @@ import java.util.List;
  * Manages the creation, loading, and saving of shops within the VoidChest plugin.
  *
  * <p>The {@code IShopManager} interface provides methods for retrieving, loading, and saving shops.
- * It is responsible for managing the collection of shops associated with the VoidStorage plugin.
+ * It is responsible for managing the collection of shops associated with the VoidChest plugin.
  * </p>
  *
  * <p>The methods in this interface include:
  * <ul>
  *     <li>{@code List<Shop> getShops()} - Returns a list of all registered shops.</li>
- *     <li>{@code Shop getShop(String voidStorageName)} - Returns the shop associated with the specified VoidStorage name.</li>
+ *     <li>{@code Shop getShop(String voidChestName)} - Returns the shop associated with the specified VoidChest name.</li>
  *     <li>{@code void loadShop(String name)} - Loads a shop with the given name.</li>
  *     <li>{@code void saveShop(String name)} - Saves the state of a shop with the given name.</li>
  *     <li>{@code void loadShops()} - Loads all registered shops.</li>
@@ -41,12 +41,12 @@ public interface IShopManager {
     List<Shop> getShops();
 
     /**
-     * Gets the shop associated with the specified VoidStorage name.
+     * Gets the shop associated with the specified VoidChest name.
      *
-     * @param voidStorageName The name of the VoidStorage associated with the shop.
-     * @return The shop associated with the specified VoidStorage name, or {@code null} if not found.
+     * @param voidChestName The name of the VoidChest associated with the shop.
+     * @return The shop associated with the specified VoidChest name, or {@code null} if not found.
      */
-    Shop getShop(String voidStorageName);
+    Shop getShop(String voidChestName);
 
     /**
      * Loads a shop with the given name.

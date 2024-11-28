@@ -6,7 +6,6 @@ import com.georgev22.voidchest.api.event.executor.StaticMethodHandleEventExecuto
 import com.georgev22.voidchest.api.event.executor.asm.ASMEventExecutorGenerator;
 import com.georgev22.voidchest.api.event.executor.asm.ClassDefiner;
 import com.georgev22.voidchest.api.exceptions.EventException;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
