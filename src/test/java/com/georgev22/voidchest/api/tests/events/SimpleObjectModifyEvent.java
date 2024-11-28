@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.tests.events;
 
-import com.georgev22.library.maps.ObjectMap;
 import com.georgev22.voidchest.api.event.Event;
 import com.georgev22.voidchest.api.event.HandlerList;
+import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.tests.objects.SimpleObject;
 import org.jetbrains.annotations.NotNull;
 
