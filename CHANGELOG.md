@@ -1,3 +1,11 @@
+# [2.15.0-alpha.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0...v2.15.0-alpha.1) (2024-11-28)
+
+
+### Features
+
+* **tests:** Update tests ([47f3eef](https://github.com/GeorgeV220/VoidChestAPI/commit/47f3eef02e3b6d95b2a6db069754c7970afe6b76))
+* Update API (Changes so many I really can't make separate commits) ([bec1cc9](https://github.com/GeorgeV220/VoidChestAPI/commit/bec1cc923544373a1358283354ea9d2dbe215267))
+
 # [2.14.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.13.0...v2.14.0) (2024-06-19)
 
 
