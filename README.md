@@ -1,6 +1,6 @@
 # VoidChestAPI
 
-This API won't work for VoidChest versions bellow 2.0
+This API won't work for VoidChest versions bellow 5.2.0
 
 ## Adding VoidChestAPI as a dependency to your build system
 
@@ -42,6 +42,9 @@ You can include VoidChestAPI into your gradle project using the following lines:
 repositories {
     maven {
         url "https://repo.georgev22.com/releases"
+    }
+    maven {
+        url "https://repo.georgev22.com/snapshots"
     }
 }
 
