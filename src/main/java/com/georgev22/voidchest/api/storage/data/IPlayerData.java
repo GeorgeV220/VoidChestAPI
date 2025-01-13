@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.voidchest.api.economy.EconomyMode;
 import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.economy.EconomyMode;
 import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
 import com.georgev22.voidchest.api.storage.data.player.Boosters;

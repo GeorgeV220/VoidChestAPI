@@ -32,7 +32,7 @@ public class VoidChestCacheController {
      * Adds a {@link IVoidChest} to the chunk cache.
      *
      * @param voidChest The void chest to add.
-     * @param chunk       The chunk in which the storage is located.
+     * @param chunk     The chunk in which the storage is located.
      */
     public void addVoidChestToChunkCache(@NotNull IVoidChest voidChest, @NotNull Chunk chunk) {
         if (!chunk.isLoaded()) return;
@@ -48,7 +48,7 @@ public class VoidChestCacheController {
      * Removes a {@link IVoidChest} from the chunk cache.
      *
      * @param voidChest The void chest to remove.
-     * @param chunk       The chunk from which to remove the storage.
+     * @param chunk     The chunk from which to remove the storage.
      */
     public void removeVoidChestFromChunkCache(@NotNull IVoidChest voidChest, @NotNull Chunk chunk) {
         Optional.ofNullable(chunkVoidChestCache.get(chunk)).ifPresent(storages -> storages.remove(voidChest));
@@ -67,7 +67,7 @@ public class VoidChestCacheController {
      * Adds a {@link IVoidChest} to the location cache.
      *
      * @param voidChest The void chest to add.
-     * @param location    The location at which the storage is located.
+     * @param location  The location at which the storage is located.
      */
     public void addVoidChestToLocationCache(@NotNull IVoidChest voidChest, @NotNull Location location) {
         locationVoidChestCache.put(location, voidChest);
@@ -95,7 +95,7 @@ public class VoidChestCacheController {
      * Adds a {@link IVoidChest} to the block's location cache.
      *
      * @param voidChest The void chest to add.
-     * @param block       The block to associate with the void chest.
+     * @param block     The block to associate with the void chest.
      */
     public void addVoidChestToBlockCache(@NotNull IVoidChest voidChest, @NotNull Block block) {
         addVoidChestToLocationCache(voidChest, block.getLocation());
@@ -153,16 +153,13 @@ public class VoidChestCacheController {
     public CompletableFuture<List<IVoidChest>> voidChests(@NotNull IPlayerData playerData) {
         EntityManager<IVoidChest> voidEntityManager = EntityManagerRegistry.getManager(IVoidChest.class);
         if (voidEntityManager == null) return CompletableFuture.completedFuture(Collections.emptyList());
-
+        List<UUID> currentStorageIds = playerData.voidChests();
+        List<IVoidChest> cachedStorages = playerCache.getOrDefault(playerData, new ArrayList<>());
+        if (cachedStorages.size() == currentStorageIds.size() &&
+                cachedStorages.stream().allMatch(storage -> currentStorageIds.contains(storage.getId()))) {
+            return CompletableFuture.completedFuture(cachedStorages);
+        }
         return CompletableFuture.supplyAsync(() -> {
-            List<UUID> currentStorageIds = playerData.voidChests();
-            List<IVoidChest> cachedStorages = playerCache.getOrDefault(playerData, new ArrayList<>());
-
-            if (cachedStorages.size() == currentStorageIds.size() &&
-                    cachedStorages.stream().allMatch(storage -> currentStorageIds.contains(storage.getId()))) {
-                return cachedStorages;
-            }
-
             List<IVoidChest> updatedStorages = currentStorageIds.stream()
                     .map(id -> voidEntityManager.getEntity(id.toString(), true))
                     .filter(Objects::nonNull)
@@ -209,6 +206,7 @@ public class VoidChestCacheController {
             if (voidEntityManager == null) return null;
 
             voidEntityManager.getAll().stream()
+                    .filter(storage -> storage.blockLocation().toLocation() != null)
                     .filter(storage -> location.equals(storage.blockLocation().toLocation()))
                     .findFirst().ifPresent(voidChest -> locationVoidChestCache.put(location, voidChest));
 

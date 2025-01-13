@@ -1,10 +1,11 @@
 package com.georgev22.voidchest.api.event.executor.asm;
 
+import java.util.concurrent.ConcurrentMap;
+
 import com.google.common.base.Preconditions;
+
 import com.google.common.collect.MapMaker;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.ConcurrentMap;
 
 public class SafeClassDefiner implements ClassDefiner {
     /* default */ static final SafeClassDefiner INSTANCE = new SafeClassDefiner();

@@ -833,7 +833,7 @@ public final class Utils {
         resourcePath = resourcePath.replace('\\', '/');
         InputStream in = getResource(resourcePath, clazz);
         if (in == null) {
-            throw new Exception("The embedded resource '" + resourcePath + "' cannot be found in " + new File(clazz.getProtectionDomain()
+            throw new Exception("The embedded resource '" + resourcePath + "' cannot be found in " + new java.io.File(clazz.getProtectionDomain()
                     .getCodeSource()
                     .getLocation()
                     .getPath())
@@ -1223,8 +1223,8 @@ public final class Utils {
          *                                     by this method fails
          * @throws ReflectionException         if the class cannot be located by
          *                                     the specified class loader
-         * @see Class#forName(String)
-         * @see ClassLoader
+         * @see java.lang.Class#forName(String)
+         * @see java.lang.ClassLoader
          */
         public static @NotNull Class<?> getClass(String name, ClassLoader loader) throws ReflectionException {
             try {
@@ -1249,8 +1249,8 @@ public final class Utils {
          * @param loader class loader from which the class must be loaded
          * @return class object representing the desired class,
          * If a {@link ClassNotFoundException} occurs the return value is {@link Optional#empty()}
-         * @see Class#forName(String)
-         * @see ClassLoader
+         * @see java.lang.Class#forName(String)
+         * @see java.lang.ClassLoader
          */
         public static Optional<Class<?>> optionalClass(String name, ClassLoader loader) {
             try {

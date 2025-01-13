@@ -17,7 +17,7 @@ import java.io.Serializable;
  * A serializable wrapper for Bukkit Block, representing a block's location.
  *
  * <p>The {@code SerializableBlock} class allows for easy serialization and deserialization
- * of Bukkit {@link Block} objects by capturing the block's location details.
+ * of Bukkit {@link org.bukkit.block.Block} objects by capturing the block's location details.
  * </p>
  *
  * <p>It implements the {@link Serializable} interface and includes custom methods for serialization and deserialization,

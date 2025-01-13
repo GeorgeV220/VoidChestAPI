@@ -13,7 +13,7 @@ import java.io.*;
 /**
  * A serializable representation of a Bukkit Location, allowing for easy storage and retrieval of location data.
  *
- * <p>The {@code SerializableLocation} class facilitates the conversion of Bukkit {@link Location} objects
+ * <p>The {@code SerializableLocation} class facilitates the conversion of Bukkit {@link org.bukkit.Location} objects
  * into a serializable format, enabling storage and retrieval of location information. It provides methods for creating
  * a SerializableLocation from a Bukkit Location, converting it back to a Location, and serializing/deserializing to/from strings.
  * </p>

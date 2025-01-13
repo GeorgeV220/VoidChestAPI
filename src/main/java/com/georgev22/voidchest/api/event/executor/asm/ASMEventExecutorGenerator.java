@@ -1,13 +1,13 @@
 package com.georgev22.voidchest.api.event.executor.asm;
 
+import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.georgev22.voidchest.api.event.interfaces.EventExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.commons.GeneratorAdapter;
-
-import java.lang.reflect.Method;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.objectweb.asm.Opcodes.*;
 

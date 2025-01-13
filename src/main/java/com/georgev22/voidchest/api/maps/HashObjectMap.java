@@ -75,7 +75,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
 
     @Override
     public HashObjectMap<K, V> append(@NotNull Map<K, V> map) {
-        for (Entry<K, V> entry : map.entrySet()) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
         return this;
@@ -83,7 +83,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
 
     @Override
     public HashObjectMap<K, V> append(@NotNull ObjectMap<K, V> map) {
-        for (Entry<K, V> entry : map.entrySet()) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
         return this;
@@ -139,7 +139,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      */
     @Override
     public HashObjectMap<K, V> appendIfTrue(@NotNull Map<K, V> map, boolean ifTrue) {
-        for (Entry<K, V> entry : map.entrySet()) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }
         return this;
@@ -178,7 +178,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      */
     @Override
     public HashObjectMap<K, V> appendIfTrue(@NotNull ObjectMap<K, V> map, boolean ifTrue) {
-        for (Entry<K, V> entry : map.entrySet()) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }
         return this;
@@ -225,7 +225,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      */
     @Override
     public HashObjectMap<K, V> removeEntries(Map<K, V> map) {
-        for (Entry<K, V> entry : map.entrySet()) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             remove(entry.getKey());
         }
         return this;
@@ -239,7 +239,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      */
     @Override
     public HashObjectMap<K, V> removeEntries(ObjectMap<K, V> map) {
-        for (Entry<K, V> entry : map.entrySet()) {
+        for (ObjectMap.Entry<K, V> entry : map.entrySet()) {
             remove(entry.getKey());
         }
         return this;
@@ -270,7 +270,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
     @Override
     public HashObjectMap<K, V> removeEntriesIfTrue(Map<K, V> map, boolean ifTrue) {
         if (ifTrue) {
-            for (Entry<K, V> entry : map.entrySet()) {
+            for (Map.Entry<K, V> entry : map.entrySet()) {
                 remove(entry.getKey());
             }
         }
@@ -287,7 +287,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
     @Override
     public HashObjectMap<K, V> removeEntriesIfTrue(ObjectMap<K, V> map, boolean ifTrue) {
         if (ifTrue) {
-            for (Entry<K, V> entry : map.entrySet()) {
+            for (ObjectMap.Entry<K, V> entry : map.entrySet()) {
                 remove(entry.getKey());
             }
         }

@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.voidchest;
 
-import com.georgev22.voidchest.api.utilities.VoidInventoryItemStack;
+import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**

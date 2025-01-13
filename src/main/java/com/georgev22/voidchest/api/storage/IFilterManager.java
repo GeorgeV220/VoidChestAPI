@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.storage;
 
+import com.georgev22.voidchest.api.inventory.VoidInventoryItemStack;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.storage.data.voidchest.Filter;
-import com.georgev22.voidchest.api.utilities.VoidInventoryItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
