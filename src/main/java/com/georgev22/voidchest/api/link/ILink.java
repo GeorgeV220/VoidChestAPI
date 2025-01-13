@@ -1,12 +1,12 @@
 package com.georgev22.voidchest.api.link;
 
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
-import org.bukkit.block.Container;
+import com.georgev22.voidchest.api.utilities.SerializableContainer;
 
 import java.util.Optional;
 
 /**
- * ILink represents a link between a {@link IVoidChest} and a {@link Container}.
+ * ILink represents a link between a {@link IVoidChest} and a {@link SerializableContainer}.
  */
 public interface ILink {
 
@@ -18,15 +18,15 @@ public interface ILink {
     IVoidChest getVoidChest();
 
     /**
-     * Retrieves the {@link Container} that this link is associated with.
+     * Retrieves the {@link SerializableContainer} that this link is associated with.
      * The container is lazily loaded if not already cached.
      * <p>
      * This method may block if it needs to perform an I/O operation to
      * load the container.
      *
-     * @return An {@link Optional} containing the {@link Container} if available,
+     * @return An {@link Optional} containing the {@link SerializableContainer} if available,
      * otherwise an empty {@link Optional} if the container cannot be determined.
      */
-    Optional<Container> getContainer();
+    Optional<SerializableContainer> getContainer();
 
 }
