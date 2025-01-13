@@ -187,32 +187,6 @@ public interface IVoidChest extends Entity {
     void reloadVoidChest();
 
     /**
-     * Retrieves a list of {@link ILink} instances associated with this VoidChest.
-     *
-     * <p>This method returns all the links that are currently managed by this
-     * {@link IVoidChest} instance, representing connections to various {@link Container} objects.</p>
-     *
-     * <p><strong>Note:</strong> This method is marked as internal and is intended for use
-     * within the library itself. It is deprecated and should not be used directly
-     * in external code.</p>
-     *
-     * <p><strong>Deprecation Notice:</strong> This method is deprecated because a new method
-     * with improved functionality is available. Use
-     * {@link ILinkManager#getLinks(IVoidChest)} instead for
-     * retrieving links.</p>
-     *
-     * @return A list of {@link ILink} objects associated with this {@link IVoidChest}.
-     * The list may be empty if no links are present.
-     * @apiNote This method is intended for internal use only and may be removed in future versions.
-     * @see ILinkManager#getLinks(IVoidChest)
-     * @deprecated Use {@link ILinkManager#getLinks(IVoidChest)}
-     * for better management and retrieval of links.
-     */
-    @ApiStatus.Internal
-    @Deprecated
-    List<ILink> links();
-
-    /**
      * Retrieves the maximum number of links that can be added to the VoidChest.
      *
      * @return The maximum number of links that can be added to the VoidChest.
