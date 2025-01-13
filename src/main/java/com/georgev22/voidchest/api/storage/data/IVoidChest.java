@@ -1,15 +1,19 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.voidchest.api.link.ILink;
-import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.inventory.IPaginatedVoidInventory;
+import com.georgev22.voidchest.api.inventory.VoidInventory;
+import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
+import com.georgev22.voidchest.api.storage.data.voidchest.Abilities;
+import com.georgev22.voidchest.api.storage.data.voidchest.Charge;
+import com.georgev22.voidchest.api.storage.data.voidchest.Filter;
+import com.georgev22.voidchest.api.storage.data.voidchest.Stats;
+import com.georgev22.voidchest.api.storage.data.voidchest.Upgrade;
 import com.georgev22.voidchest.api.storage.IFilterManager;
-import com.georgev22.voidchest.api.storage.data.voidchest.*;
 import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
+import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
-import org.bukkit.block.Container;
-import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,11 +42,36 @@ public interface IVoidChest extends Entity {
     @NotNull SerializableBlock block();
 
     /**
-     * Retrieves the block inventory of the VoidChest or null if the block is not a container.
+     * Retrieves the inventory of the block associated with the VoidChest.
+     * This inventory is paginated when infinite storage is enabled.
+     * <p>
+     * This method should never return null, if returns null report it as a bug in the plugin.
      *
-     * @return The block inventory of the VoidChest or null if the block is not a container.
+     * @return The paginated inventory of the block associated with the VoidChest.
      */
-    @Nullable Inventory blockInventory();
+    @NotNull IPaginatedVoidInventory blockInventory();
+
+    /**
+     * Creates an inventory for the VoidChest with the specified owner, name, size, and items.
+     * <p>
+     * The inventory will be created with the specified owner, name, size, and items.
+     * If the items are null, the inventory will be created with no items.
+     * <p>
+     * To open the inventory, use the {@link VoidInventory#open(org.bukkit.entity.Player)} method
+     * otherwise issues may occur.
+     *
+     * @param owner          The owner of the inventory.
+     * @param inventoryName  The name of the inventory.
+     * @param inventorySize  The size of the inventory.
+     * @param inventoryItems The items of the inventory.
+     * @return The created inventory.
+     */
+    @NotNull VoidInventory createInventory(
+            @NotNull VoidInventoryHolder owner,
+            @NotNull String inventoryName,
+            int inventorySize,
+            @Nullable List<SerializableItemStack> inventoryItems
+    );
 
     /**
      * Retrieves the item filters of the VoidChest.
