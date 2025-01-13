@@ -6,7 +6,7 @@ import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
 import com.georgev22.voidchest.api.economy.IEconomyManager;
 import com.georgev22.voidchest.api.event.EventManager;
 import com.georgev22.voidchest.api.hologram.IHologramManager;
-import com.georgev22.voidchest.api.inventory.IVoidInventoryUtils;
+import com.georgev22.voidchest.api.inventory.VoidInventoryUtils;
 import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.scheduler.MinecraftScheduler;
@@ -15,8 +15,8 @@ import com.georgev22.voidchest.api.stacker.IStackerManager;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.IFilterManager;
 import com.georgev22.voidchest.api.storage.InvalidEntityManager;
-import com.georgev22.voidchest.api.storage.cache.IVoidItemManager;
 import com.georgev22.voidchest.api.storage.cache.VoidChestCacheController;
+import com.georgev22.voidchest.api.storage.cache.IVoidItemManager;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.tasks.SellTaskHandler;
@@ -50,7 +50,7 @@ public record VoidChestAPI(JavaPlugin plugin,
                            MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
                            VoidChestConfigurationFileCache voidChestConfigurationFileCache,
                            SellTaskHandler sellTaskHandler,
-                           IVoidInventoryUtils voidInventoryUtils) {
+                           VoidInventoryUtils voidInventoryUtils) {
 
     /**
      * The singleton instance of the VoidChestAPI class.
