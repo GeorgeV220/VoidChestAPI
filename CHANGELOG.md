@@ -1,3 +1,24 @@
+# [3.0.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0...v3.0.0) (2025-01-15)
+
+
+### Features
+
+* 5.3.0 NEW API ([8f26193](https://github.com/GeorgeV220/VoidChestAPI/commit/8f26193b5a7bbe51585f7bd266ab8e63ea0d131a))
+* add support for Minecraft version 1.21 R3 in BukkitMinecraftUtils ([cc7d303](https://github.com/GeorgeV220/VoidChestAPI/commit/cc7d3030242d89a080cab82133fb71733bec8fb7))
+* **link:** replace Container with SerializableContainer in ILink and ILinkManager ([e5f491d](https://github.com/GeorgeV220/VoidChestAPI/commit/e5f491dcdce260748470a739c9c304f7b26d8efb))
+* **tests:** Update tests ([47f3eef](https://github.com/GeorgeV220/VoidChestAPI/commit/47f3eef02e3b6d95b2a6db069754c7970afe6b76))
+* Update API (Changes so many I really can't make separate commits) ([bec1cc9](https://github.com/GeorgeV220/VoidChestAPI/commit/bec1cc923544373a1358283354ea9d2dbe215267))
+
+
+### Reverts
+
+* Removal of custom inventories ([294fd84](https://github.com/GeorgeV220/VoidChestAPI/commit/294fd84d260a5f94b10ecedb225436e45dbc6bbb))
+
+
+### BREAKING CHANGES
+
+* API FOR 5.3.0 AND UP
+
 # [2.15.0-alpha.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.15.0-alpha.1...v2.15.0-alpha.2) (2025-01-13)
 
 
