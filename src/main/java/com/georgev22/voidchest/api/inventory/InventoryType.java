@@ -10,22 +10,6 @@ public enum InventoryType {
     STORAGE,
 
     /**
-     * Represents the whitelist inventory type for managing whitelist entries in a void chest.
-     *
-     * @deprecated Use {@link #FILTERS}
-     */
-    @Deprecated(forRemoval = true)
-    WHITELIST,
-
-    /**
-     * Represents the blacklist inventory type for managing blacklist entries in a void chest.
-     *
-     * @deprecated Use {@link #FILTERS}
-     */
-    @Deprecated(forRemoval = true)
-    BLACKLIST,
-
-    /**
      * Represents the filter inventory type for managing filter entries in a void chest.
      */
     FILTERS,

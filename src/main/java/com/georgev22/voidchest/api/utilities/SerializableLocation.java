@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
-import com.georgev22.library.minecraft.BukkitMinecraftUtils.MinecraftVersion;
+import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils.MinecraftVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -69,8 +69,8 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = location.getPitch();
         this.minY = MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_17_R1) ? location.getWorld().getMinHeight() : 0;
         this.maxY = location.getWorld().getMaxHeight();
-        this.chunkX = location.getChunk().getX();
-        this.chunkZ = location.getChunk().getZ();
+        this.chunkX = (int) getX() >> 4;
+        this.chunkZ = (int) getZ() >> 4;
     }
 
     /**
@@ -217,15 +217,15 @@ public class SerializableLocation implements Serializable, Cloneable {
                 if (parts.length == 10) {
                     int chunkX = Integer.parseInt(parts[8]);
                     int chunkZ = Integer.parseInt(parts[9]);
-                    return new SerializableLocation(worldName, x, y, z, pitch, yaw, minY, maxY, chunkX, chunkZ);
+                    return new SerializableLocation(worldName, x, y, z, yaw, pitch, minY, maxY, chunkX, chunkZ);
                 }
-                return new SerializableLocation(worldName, x, y, z, pitch, yaw, minY, maxY);
+                return new SerializableLocation(worldName, x, y, z, yaw, pitch, minY, maxY);
             }
         } else {
             return new SerializableLocation(new Location(world, x, y, z, yaw, pitch));
         }
 
-        return new SerializableLocation(worldName, x, y, z, pitch, yaw);
+        return new SerializableLocation(worldName, x, y, z, yaw, pitch);
     }
 
     /**

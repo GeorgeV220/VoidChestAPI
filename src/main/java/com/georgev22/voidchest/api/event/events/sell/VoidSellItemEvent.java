@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.event.events.sell;
 
 import com.georgev22.voidchest.api.event.HandlerList;
 import com.georgev22.voidchest.api.event.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -10,10 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 
 /**
- * The VoidSellItemEvent class is an event fired when an item from a VoidStorage inventory is about to be sold.
+ * The VoidSellItemEvent class is an event fired when an item from a VoidChest inventory is about to be sold.
  * It extends the VoidEvent class.
  * <p>
- * This event provides information about the item being sold, including the VoidStorage, item, inventory, price,
+ * This event provides information about the item being sold, including the VoidChest, item, inventory, price,
  * and slot.
  */
 public class VoidSellItemEvent extends VoidEvent {
@@ -24,17 +24,17 @@ public class VoidSellItemEvent extends VoidEvent {
     private BigDecimal price;
 
     /**
-     * Constructs a new VoidSellItemEvent with the specified VoidStorage, item, inventory, price, and slot.
+     * Constructs a new VoidSellItemEvent with the specified VoidChest, item, inventory, price, and slot.
      *
-     * @param voidStorage The VoidStorage associated with the event.
+     * @param voidChest The VoidChest associated with the event.
      * @param item        The item about to be sold.
      * @param inventory   The inventory where the item is located.
      * @param price       The price of the item about to be sold.
      * @param slot        The slot index of the item in the inventory.
      */
-    public VoidSellItemEvent(@NotNull final IVoidStorage voidStorage, @NotNull final ItemStack item,
+    public VoidSellItemEvent(@NotNull final IVoidChest voidChest, @NotNull final ItemStack item,
                              @NotNull final Inventory inventory, final BigDecimal price, final int slot) {
-        super(voidStorage);
+        super(voidChest);
         this.item = item;
         this.price = price;
         this.inventory = inventory;

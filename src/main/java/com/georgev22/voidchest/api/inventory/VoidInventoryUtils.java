@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.voidchest.api.inventory.holder.IPaginatedVoidInventoryHolder;
 import com.georgev22.voidchest.api.inventory.holder.VoidInventoryHolder;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -81,11 +81,11 @@ public interface VoidInventoryUtils {
     );
 
     /**
-     * Creates a new VoidInventory for the given VoidStorage.
+     * Creates a new VoidInventory for the given VoidChest.
      * <p>
-     * VoidStorage parameter is required
+     * VoidChest parameter is required
      * to be able to create an inventory that returns {@link VoidInventory#getLocation()}
-     * and also update the items stored stat for the VoidStorage.
+     * and also update the items stored stat for the VoidChest.
      *
      * @param owner         The owner of the inventory
      * @param inventoryName The name of the inventory
@@ -93,20 +93,20 @@ public interface VoidInventoryUtils {
      * @return The created VoidInventory
      */
     @NotNull VoidInventory createInventory(
-            @NotNull IVoidStorage voidStorage,
+            @NotNull IVoidChest voidChest,
             @Nullable VoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize
     );
 
     /**
-     * Creates a new VoidInventory for the given VoidStorage.
+     * Creates a new VoidInventory for the given VoidChest.
      * <p>
-     * VoidStorage parameter is required
+     * VoidChest parameter is required
      * to be able to create an inventory that returns {@link VoidInventory#getLocation()}
-     * and also update the items stored stat for the VoidStorage.
+     * and also update the items stored stat for the VoidChest.
      *
-     * @param voidStorage    The {@link IVoidStorage} of the inventory
+     * @param voidChest    The {@link IVoidChest} of the inventory
      * @param owner          The owner of the inventory
      * @param inventoryName  The name of the inventory
      * @param inventorySize  The size of the inventory
@@ -114,7 +114,7 @@ public interface VoidInventoryUtils {
      * @return The created VoidInventory
      */
     @NotNull VoidInventory createInventory(
-            @NotNull IVoidStorage voidStorage,
+            @NotNull IVoidChest voidChest,
             @Nullable VoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
@@ -122,7 +122,7 @@ public interface VoidInventoryUtils {
     );
 
     /**
-     * Creates a new PaginatedVoidInventory for the given VoidStorage.
+     * Creates a new PaginatedVoidInventory for the given VoidChest.
      *
      * @param owner         The owner of the inventory
      * @param inventoryName The name of the inventory
@@ -131,7 +131,7 @@ public interface VoidInventoryUtils {
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
-            @NotNull IVoidStorage voidStorage,
+            @NotNull IVoidChest voidChest,
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,
@@ -139,9 +139,9 @@ public interface VoidInventoryUtils {
     );
 
     /**
-     * Creates a new PaginatedVoidInventory for the given VoidStorage.
+     * Creates a new PaginatedVoidInventory for the given VoidChest.
      *
-     * @param voidStorage    The {@link IVoidStorage} of the inventory
+     * @param voidChest    The {@link IVoidChest} of the inventory
      * @param owner          The owner of the inventory
      * @param inventoryName  The name of the inventory
      * @param inventorySize  The size of the inventory
@@ -150,7 +150,7 @@ public interface VoidInventoryUtils {
      * @return The created PaginatedVoidInventory
      */
     @NotNull IPaginatedVoidInventory createPaginatedInventory(
-            @NotNull IVoidStorage voidStorage,
+            @NotNull IVoidChest voidChest,
             @NotNull IPaginatedVoidInventoryHolder owner,
             @NotNull String inventoryName,
             int inventorySize,

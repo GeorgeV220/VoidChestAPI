@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.exceptions.InvalidInventoryTypeException;
 import com.georgev22.voidchest.api.inventory.IPaginatedVoidInventory;
 import com.georgev22.voidchest.api.inventory.InventoryType;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,11 +34,11 @@ public interface IPaginatedVoidInventoryHolder extends VoidInventoryHolder, Iter
     int inventorySize();
 
     /**
-     * Returns the void storage associated with the inventory, or null if none.
+     * Returns the void chest associated with the inventory, or null if none.
      *
-     * @return The void storage associated with the inventory, or null if none.
+     * @return The void chest associated with the inventory, or null if none.
      */
-    @Nullable IVoidStorage voidStorage();
+    @Nullable IVoidChest voidChest();
 
     /**
      * Returns the type of the inventory.

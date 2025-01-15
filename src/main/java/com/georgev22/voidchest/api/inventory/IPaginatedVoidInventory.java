@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.inventory;
 
 import com.georgev22.voidchest.api.inventory.extras.NavigationButton;
 import com.georgev22.voidchest.api.inventory.holder.IPaginatedVoidInventoryHolder;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.utilities.NullableArrayList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.Material;
@@ -11,8 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -240,12 +238,12 @@ public interface IPaginatedVoidInventory {
     IPaginatedVoidInventory addNavigationButton(NavigationButton... navigationButtons);
 
     /**
-     * Retrieves the VoidStorage associated with the inventory or null if it doesn't exist
+     * Retrieves the VoidChest associated with the inventory or null if it doesn't exist
      *
-     * @return the VoidStorage associated with the inventory
+     * @return the VoidChest associated with the inventory
      */
     @Nullable
-    IVoidStorage voidStorage();
+    IVoidChest voidChest();
 
     /**
      * Returns the maximum number of pages in the inventory

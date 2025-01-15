@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.inventory;
 
-import com.georgev22.library.maps.ObjectMap;
+import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.NullableFixedSizeList;
 import com.georgev22.voidchest.api.utilities.SerializableItemStack;
 import org.bukkit.entity.Player;

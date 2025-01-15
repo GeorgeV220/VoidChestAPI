@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.inventory.holder;
 import com.georgev22.voidchest.api.exceptions.InvalidInventoryTypeException;
 import com.georgev22.voidchest.api.inventory.InventoryType;
 import com.georgev22.voidchest.api.inventory.VoidInventory;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,11 +35,11 @@ public interface BlockVoidInventoryHolder extends VoidInventoryHolder, Serializa
     int inventorySize();
 
     /**
-     * Retrieves the VoidStorage associated with the inventory.
+     * Retrieves the VoidChest associated with the inventory.
      *
-     * @return The VoidStorage associated with the inventory.
+     * @return The VoidChest associated with the inventory.
      */
-    IVoidStorage voidStorage();
+    IVoidChest voidChest();
 
     /**
      * Retrieves the inventory type.

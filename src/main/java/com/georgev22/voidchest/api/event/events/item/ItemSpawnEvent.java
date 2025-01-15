@@ -13,14 +13,11 @@ import org.jetbrains.annotations.Nullable;
 import java.math.BigInteger;
 
 /**
- * This event is fired when a SerializableItemStack is spawned, and it operates independently of instant pickup settings.
- *
- * <p>If you have instant pickup enabled or disabled, this event will still work.
+ * This event is fired when a SerializableItemStack is spawned.
  *
  * <p>
- * Fire this event if you want to instantly collect items without being affected by instant pickup settings.
+ * Fire this event if you want to instantly collect items.
  * <p>
- * This event does not rely on VoidStorage instant pickup settings and will always function.
  *
  * <p>You can use VoidChestAPI.getInstance().eventManager().callEvent(new ItemSpawnEvent );
  * to fire this event.
@@ -28,11 +25,9 @@ import java.math.BigInteger;
 public class ItemSpawnEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-
-    private SerializableItemStack itemStack;
-
-    private @Nullable Item item;
     private final @Nullable Location location;
+    private SerializableItemStack itemStack;
+    private @Nullable Item item;
     private boolean cancelled = false;
 
     /**
@@ -136,6 +131,15 @@ public class ItemSpawnEvent extends Event implements Cancellable {
     }
 
     /**
+     * Gets the HandlerList for this event.
+     *
+     * @return The HandlerList for this event.
+     */
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    /**
      * Gets the SerializableItemStack associated with this event.
      *
      * @return The SerializableItemStack being spawned.
@@ -191,12 +195,13 @@ public class ItemSpawnEvent extends Event implements Cancellable {
     }
 
     /**
-     * Gets the HandlerList for this event.
+     * Returns whether the event has been cancelled.
      *
-     * @return The HandlerList for this event.
+     * @return {@code true} if the event has been canceled, {@code false} otherwise
      */
-    public static HandlerList getHandlerList() {
-        return handlers;
+    @Override
+    public boolean isCancelled() {
+        return cancelled;
     }
 
     /**
@@ -207,15 +212,5 @@ public class ItemSpawnEvent extends Event implements Cancellable {
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
-    }
-
-    /**
-     * Returns whether the event has been cancelled.
-     *
-     * @return {@code true} if the event has been canceled, {@code false} otherwise
-     */
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
     }
 }

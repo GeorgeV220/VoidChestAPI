@@ -1,9 +1,9 @@
 package com.georgev22.voidchest.api.storage;
 
-import com.georgev22.library.maps.ObjectMap;
-import com.georgev22.library.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
-import com.georgev22.voidchest.api.storage.data.IVoidStorage;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,12 +24,12 @@ public interface IPlayerManager {
     List<IPlayerData> playersData();
 
     /**
-     * Retrieves an ArrayList of VoidStorages associated with the specified player data.
+     * Retrieves an ArrayList of VoidChests associated with the specified player data.
      *
-     * @param data The player data to retrieve VoidStorages for.
-     * @return An ArrayList of VoidStorages.
+     * @param data The player data to retrieve VoidChests for.
+     * @return An ArrayList of VoidChests.
      */
-    List<IVoidStorage> voidStorages(IPlayerData data);
+    List<IVoidChest> voidChests(IPlayerData data);
 
     /**
      * Loads the {@link IPlayerData} with the specified ID
@@ -147,13 +147,13 @@ public interface IPlayerManager {
     void attemptStartSellTask(final IPlayerData data);
 
     /**
-     * Retrieves a map of placeholders for the specified player data and VoidStorage.
+     * Retrieves a map of placeholders for the specified player data and VoidChest.
      *
      * @param data    The player data to retrieve placeholders for.
-     * @param storage The VoidStorage to retrieve placeholders for.
+     * @param storage The VoidChest to retrieve placeholders for.
      * @return A map of placeholders.
      */
-    ObjectMap<String, String> getPlaceHolders(final @NotNull IPlayerData data, final @NotNull IVoidStorage storage);
+    ObjectMap<String, String> getPlaceHolders(final @NotNull IPlayerData data, final @NotNull IVoidChest storage);
 
     /**
      * Retrieves a map of placeholders for the specified player data.

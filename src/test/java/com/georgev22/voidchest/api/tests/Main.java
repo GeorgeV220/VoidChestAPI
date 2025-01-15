@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.tests;
 
-import com.georgev22.library.utilities.LoggerWrapper;
 import com.georgev22.voidchest.api.event.EventManager;
 import com.georgev22.voidchest.api.event.HandlerList;
 import com.georgev22.voidchest.api.tests.listeners.SimpleObjectListeners;
@@ -13,13 +12,15 @@ import java.util.UUID;
 
 public class Main {
 
+    private static final Logger log4JLogger = LogManager.getLogger(Main.class);
+    private static final java.util.logging.Logger logger = new LoggerWrapper(log4JLogger);
+    private static Main instance;
     private final EventManager eventManager;
 
-    private static final Logger log4JLogger = LogManager.getLogger(Main.class);
-
-    private static final java.util.logging.Logger logger = new LoggerWrapper(log4JLogger);
-
-    private static Main instance;
+    public Main() {
+        this.eventManager = new EventManager(logger);
+        this.eventManager.register(Main.class, new SimpleObjectListeners());
+    }
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -27,9 +28,16 @@ public class Main {
         main.start();
     }
 
-    public Main() {
-        this.eventManager = new EventManager(logger, Main.class);
-        this.eventManager.register(new SimpleObjectListeners());
+    public static Main getInstance() {
+        return instance;
+    }
+
+    public static Logger getLog4JLogger() {
+        return log4JLogger;
+    }
+
+    public static java.util.logging.Logger getLogger() {
+        return logger;
     }
 
     public void start() {
@@ -46,7 +54,7 @@ public class Main {
 
     public void createSimpleObject() {
         for (int i = 0; i < 100; i++) {
-            SimpleObject simpleObject = new SimpleObject(UUID.randomUUID().toString(), false);
+            SimpleObject simpleObject = new SimpleObject(UUID.randomUUID(), false);
             for (int j = 0; j < 100; j++) {
                 simpleObject.addCustomData("key" + j, "value" + j);
             }
@@ -55,17 +63,5 @@ public class Main {
 
     public EventManager getEventManager() {
         return eventManager;
-    }
-
-    public static Main getInstance() {
-        return instance;
-    }
-
-    public static Logger getLog4JLogger() {
-        return log4JLogger;
-    }
-
-    public static java.util.logging.Logger getLogger() {
-        return logger;
     }
 }

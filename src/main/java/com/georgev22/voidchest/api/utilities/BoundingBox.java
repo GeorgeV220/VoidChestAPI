@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.utilities;
 
-import com.georgev22.library.yaml.serialization.ConfigurationSerializable;
-import com.georgev22.library.yaml.serialization.SerializableAs;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

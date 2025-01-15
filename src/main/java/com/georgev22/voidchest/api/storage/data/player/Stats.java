@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.library.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
