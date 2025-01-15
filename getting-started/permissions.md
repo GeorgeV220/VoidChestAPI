@@ -5,7 +5,32 @@ icon: square-terminal
 # Permissions
 
 ***
+5.3.0 and up:
 
+| **Permission**                   | **Description**                                                                                                                |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `voidchest.admin.help`           | Grants access to the **/vcadmin help** command, showing help information for admin-specific VoidChest commands.                |
+| `voidchest.admin.reload`         | Allows reloading VoidChest plugin configuration files with the **/vcadmin reload** command (some changes may require a restart).|
+| `voidchest.admin.list`           | Grants permission to use the **/vcadmin list** command to view all players' VoidChests.                                        |
+| `voidchest.admin.boost`          | Allows applying a boost to a player using the **/vcadmin boost** command.                                                      |
+| `voidchest.admin.developer`      | Enables developer information and tools via the **/vcadmin mode** command.                                                     |
+| `voidchest.admin.give`           | Permits giving a VoidChest to a player with the **/vcadmin give** command.                                                     |
+| `voidchest.admin.filters`        | Grants access to edit VoidChest system filters using the **/vcadmin filters** command.                                         |
+| `voidchest.admin.shop`           | Allows modification of the VoidChest shop through the **/vcadmin shop** command.                                               |
+| `voidchest.help`                 | Enables the use of the **/vc help** command to display a help page for VoidChest features and commands.                        |
+| `voidchest.list`                 | Grants access to the **/vc list** command, which opens the player's VoidChest list GUI.                                        |
+| `voidchest.ignore`               | Permits toggling sell messages with the **/vc toggle** or **/vc ignore** commands.                                             |
+| `voidchest.locate`               | Allows the use of **/vc locate** to find VoidChests.                                                                            |
+| `voidchest.locate.others`        | Extends **/vc locate** to locate VoidChests owned by other players.                                                            |
+| `voidchest.chunk`                | Enables viewing chunk borders or VoidStorage bounding boxes with the **/vc chunk** or **/vc boundingbox** commands.            |
+| `voidchest.stats`                | Grants access to view a player's VoidChest statistics using the **/vc stats** command.                                         |
+| `voidchest.stats.other`          | Permits viewing another player's VoidChest statistics with the **/vc stats [player]** command.                                 |
+| `voidchest.whitelist`            | Allows opening and managing whitelist filters for a specific VoidChest type with the **/vc whitelist** command.                |
+| `voidchest.blacklist`            | Allows opening and managing blacklist filters for a specific VoidChest type with the **/vc blacklist** command.                |
+| `voidchest.link`                 | Enables linking a container to a VoidChest via the **/vc link** command.                                                       |
+| `voidchest.links`                | Grants access to the **/vc lists** command, which lists all links associated with the player's VoidChests.                     |
+
+Pre 5.3.0:
 | **Permission**                 | **Description**                                                                                                                    |
 | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `voidchest.developer`          | Grants access to developer-specific features for the VoidChest plugin.                                                             |
