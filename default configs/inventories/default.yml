@@ -83,34 +83,6 @@ items:
       RIGHT: 0
       LEFT: 0
       MIDDLE: 0
-  '19':
-    item: PAPER
-    title: "&a&lInstant Collect Chunk Items"
-    lores:
-      - "&7Should this voidchest instant collect items"
-      - "&7inside this chunk?"
-      - " "
-      - "&7Chunk Collector Status %status_chunk_collector%"
-      - "&7Instant Collector Status %status_instant_collector%"
-      - " "
-      - "&7Click to &a%!status_instant_collector%&7 this setting."
-    glow: false
-    show attributes: false
-    amount: 1
-    animated: true
-    animation: "wave"
-    colors:
-      - "#F3F8FA"
-      - "#A2CCE3"
-      - "#68A4C4"
-      - "#32627B"
-      - "#1E4356"
-    action: TOGGLE_INSTANT_COLLECTOR
-    commands: [ ]
-    commands cooldown:
-      RIGHT: 0
-      LEFT: 0
-      MIDDLE: 0
   '22':
     item: ARMOR_STAND
     title: "&a&lHologram"

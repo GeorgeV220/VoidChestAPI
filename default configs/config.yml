@@ -11,8 +11,6 @@
 
 # Configuration file for Options
 Options:
-  # Enable this if you want to migrate old configs voidchest configs and user data when the server starts
-  migrate: false
 
   # Debug option
   debug: false
@@ -30,7 +28,7 @@ Options:
   #
   # In case of you having issues with voidchests being deleted upon a restart, increase the number by a bit.
   #
-  # How many ticks should the plugin wait before loading data (voidchests, player related data, etc.)
+  # How many seconds should the plugin wait before loading data (voidchests, player related data, etc.)
   # This will allow worlds and other things to load before voidchest so that you can avoid issues such as voidchest
   # attempting to load voidchests in worlds that have yet to load.
   #
@@ -38,8 +36,8 @@ Options:
   # Recommended load-delay interval is any number from 1 to 10, the highest, the more time the data will delay to load.
   #
   # Any number that is < 1 will make the plugin instantly load data when the plugin enabled as well.
-  # Is NOT RECOMMENDED to set this to < 1.
-  load delay: 2
+  # Is NOT RECOMMENDED to set this to < 2.
+  load delay: 5
 
   # Experimental features option
   experimental features: false
@@ -57,6 +55,7 @@ Options:
   # VoidChest command option
   commands:
     voidchest: true
+    voidchest admin: true
 
   database:
     type: "File" #Types File, SQLite, MySQL, PostgreSQL, MongoDB
@@ -107,12 +106,8 @@ Options:
     upgrades: "Vault"
     payout: "Vault"
 
-  # From which plugin should items have their prices picked from?
-  # Currently available: VoidChest, ShopGUIPlus, Essentials, CMI, EconomyShopGUI, DynamicShop, Custom.
-  #
-  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
-  shop economy:
-    plugin: "VoidChest"
+  # Available modes: EXP and LEVELS
+  void chest economy mode: "EXP"
 
   # Should the plugin attempt to hook to one of the plugins: WildStacker, UltimateStacker, SpaceStacker, RoseStacker, zItemStacker, CloudSpawners, None
   stacker: "None"
@@ -127,9 +122,9 @@ Options:
   # Use "Custom" only if you know what you're doing, otherwise consult the developers.
   bank tnt: "None"
 
-  # Available hologram support from other plugins: HolographicDisplays, Holograms, CMI, DecentHolograms, FancyHolograms.
+  # Available hologram support from other plugins: VoidChest, HolographicDisplays, Holograms, CMI, DecentHolograms, FancyHolograms.
   hologram:
-    plugin: "None"
+    plugin: "VoidChest"
     update interval: 20
 
 

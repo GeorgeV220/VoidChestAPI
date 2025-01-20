@@ -18,11 +18,10 @@ Messages:
   void chest:
     infinite: "&c&l(!) &cYou can't open the voidchest inventory as it's an infinite storage voidchest."
     abilities:
-      auto sell: "&c&l(!) &cYou need to disable the AutoSell in order to access the void storage"
-      purge invalid items: "&c&l(!) &cYou need to disable the PurgeInvalidItems in order to access the void storage"
-      transfer non sellable: "&c&l(!) &cYou need to disable the TransferNonSellable in order to access the void storage"
-      chunk collector: "&c&l(!) &cYou need to disable the ChunkCollector in order to access the void storage"
-      instant collector: "&c&l(!) &cYou need to disable the InstantCollector in order to access the void storage"
+      auto sell: "&c&l(!) &cYou need to disable the AutoSell in order to access the void chest"
+      purge invalid items: "&c&l(!) &cYou need to disable the PurgeInvalidItems in order to access the void chest"
+      transfer non sellable: "&c&l(!) &cYou need to disable the TransferNonSellable in order to access the void chest"
+      chunk collector: "&c&l(!) &cYou need to disable the ChunkCollector in order to access the void chest"
     limit reached: "&c&l(!) &cYou have reached the maximum limit for placed %voidchest% void chests."
     not owner: "&c&l(!) &cYou can't interact with this voidchest as you're not the owner!"
     give: "&a&l(!) &aYou have given &7%player% %amount%x %voidchest% &3voidchest(s)&a."
@@ -57,7 +56,9 @@ Messages:
     block not a void chest: "&c&l(!) &cThis block is not a void chest."
     mode:
       - "&7&l(!) &7Current voidchest mode being used is: &e%voidchest_mode%"
-      - "&7&l(!) &7Current economy plugin being used is: &e%economy_mode%"
+      - "&7&l(!) &7Current economy plugin being used for charge is: &e%economy_mode_charge%"
+      - "&7&l(!) &7Current economy plugin being used for upgrades is: &e%economy_mode_upgrades%"
+      - "&7&l(!) &7Current economy plugin being used for payout is: &e%economy_mode_payout%"
       - "&7&l(!) &7Current stacking plugin being used is: &e%stack_mode%"
       - "&7&l(!) &7Current bank plugin being used is: &e%bank_mode%"
       - "&7&l(!) &7Current tnt bank plugin being used is: &e%tnt_bank_mode%"
@@ -87,6 +88,16 @@ Messages:
       disable: "&c&lDISABLE"
       bank: "&a&lBANK"
       personal: "&a&lPERSONAL"
+    link:
+      list: "&a&l%voidchest% %world% %x% %y% %z% - Links: "
+      template: "&a %link-world% %link-x% %link-y% %link-z%"
+      add: "&a&lAdded link to %voidchest% %world% %x% %y% %z%"
+      remove: "&a&lRemoved link from %voidchest% %world% %x% %y% %z%"
+      pending action:
+        - "&a&l+ &aPending link action created!"
+        - "&a&l+ &aClick on the container you want to (un)link to!"
+      container already linked: "&c&l(!) &cContainer already linked!"
+      max reached: "&c&l(!) &cMax amount of links reached (%current%/%max%)!"
   locate:
     top line: >
       &7&m             
@@ -114,7 +125,7 @@ Messages:
       &m&8]
       &7&m
     information: >
-      <hover:show_text:"&eClick to view void storages">
+      <hover:show_text:"&eClick to view Void Chests">
       <click:run_command:"/voidchest locate %player%">
       &c&l(%count%) &7%player%; &6%storages%
   charge:
@@ -157,20 +168,23 @@ Messages:
   help:
     - ""
     - "&c&l(!) &cVoidChest Commands:"
-    - " &8» &7/voidchest &ereload &7- &oReloads all plugin files."
-    - " &8» &7/voidchest &etoggle/ignore &7- &oPrevents sell messages from being sent."
-    - " &8» &7/voidchest &estats &o[player] &7- &oShows someone else statistics or yours."
-    - " &8» &7/voidchest &elist &7- &oList all available voidchest names."
-    - " &8» &7/voidchest &emode &7- &oDisplays the current voidchest mode being used."
+    - "&8» &7/voidchest &eblacklist &7- &oOpens the voidchest blacklist."
+    - "&8» &7/voidchest &eboundingbox &7- &oShows the voidchest bounding box border with an effect."
     - " &8» &7/voidchest &echunk &7- &oShows the chunk's border with an effect."
-    - " &8» &7/voidchest &egive <voidchest> &o[player] [amount] [charge-time] &7- &oGive someone voidchest(s)."
-    - " &8» &7/voidchest &egiveall <voidchest> [amount] [charge-time] &7- &oGive everyone voidchest(s)."
-    - " &8» &7/voidchest &elocate &7- &oLocates all voidchests within your world."
-    - " &8» &7/voidchest &elocate &o[player] &7- &oLocates someone else voidchests."
-    - " &8» &7/voidchest &esell [hand] &7- &oSells the held item or everything in the inventory."
-    - " &8» &7/voidchest &echarge &7- &oAdds extra charge time to the voidchest."
-    - " &8» &7/voidchest &eboost &o[player] [boost] [time] &7- &oBoosts someone's voidchest."
-    - " &8» &7/voidchest &eno-notify &7- &oDisables the sell notifications."
-    - " &8» &7/voidchest &einfo &7- &oDisplays plugin information."
-    - " &8» &7/voidchest &ehelp &7- &oDisplays the help menu."
+    - " &8» &7/voidchest &etoggle/ignore &7- &oPrevents sell messages from being sent."
+    - " &8» &7/voidchest &elink &7- &oLinks the voidchest to a container block."
+    - " &8» &7/voidchest &elinks &7- &oLists all linked containers to this voidchest."
+    - " &8» &7/voidchest &elist &7- &oOpens the GUI with all voidchests."
+    - " &8» &7/voidchest &elocate &o<player> [page] &7- &oLocate a player's voidchests."
+    - " &8» &7/voidchest &estats &o[player] &7- &oShows someone else statistics or yours."
+    - ""
+  help admin:
+    - ""
+    - "&c&l(!) &cVoidChest Commands:"
+    - " &8» &7/voidchestadmin &ereload &7- &oReloads all plugin files."
+    - " &8» &7/voidchestadmin &estats &o[player] &7- &oShows someone else statistics or yours."
+    - " &8» &7/voidchestadmin &elist &7- &oList all available voidchest names."
+    - " &8» &7/voidchestadmin &egive <voidchest> &o[player] [amount] [charge-time] &7- &oGive someone voidchest(s)."
+    - " &8» &7/voidchestadmin &eboost &o<player> <boost_amount> <time_in_seconds> &7- &oBoost a player's income!"
+    - " &8» &7/voidchestadmin &eshop &7- &oOpens the voidchest shop."
     - ""

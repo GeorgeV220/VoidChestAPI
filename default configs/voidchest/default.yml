@@ -21,6 +21,7 @@ Mechanics:
   # MENU -> Opens up the voidchest menu.
   # CHEST -> Opens up the chest inventory.
   # NONE -> Does nothing.
+  # CONTAINER -> Opens the container inventory if the block is a container
   shift click open: CHEST
 
   # What should happen when the player attempts to interact with the voidchest?
@@ -29,6 +30,7 @@ Mechanics:
   # MENU -> Opens up the voidchest menu.
   # CHEST -> Opens up the chest inventory.
   # NONE -> Does nothing.
+  # CONTAINER -> Opens the container inventory if the block is a container
   right click open: MENU
 
   # Should this voidchest operate when the owner is also offline?
@@ -38,6 +40,9 @@ Mechanics:
   # Should the inventory be paginated?
   # Stored items will not be dropped when the void chest gets destroyed.
   paginated inventory: false
+
+  # Should voidchest able to have container links ?
+  links: false
 
   prevent:
     # Should players be prevented from placing a chest next to other voidchests?
@@ -112,6 +117,17 @@ Options:
   # How often should the voidchest attempt to sell items.
   sell interval: 10
 
+  # Available calculators:  VoidChest, ShopGUIPlus, Essentials, CMI, EconomyShopGUI, DynamicShop
+  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
+  profit calculator:
+    # Plugin Name - Priority
+    - "VoidChest:1" # Default
+    # - "ShopGUIPlus:2"
+    # - "Essentials:3"
+    # - "CMI:4"
+    # - "EconomyShopGUI:5"
+    # - "DynamicShop:6"
+
   # These sounds are to be played if a voidchest is placed/broken.
   sound:
     place: 'LEVEL_UP'
@@ -119,6 +135,10 @@ Options:
     upgrade:
       success: 'ORB_PICKUP'
       failure: 'VILLAGER_NO'
+
+  # Maximum links a voidchest can have.
+  # If this is more than 0, the upgrade links count will be used instead.
+  links: 3
 
   # Forcefully disable the auto sell system even if voidchests have it enabled.
   auto sell force disable: false
@@ -130,16 +150,12 @@ Options:
   bank force disable: false
 
   chunk collector:
+    # Available modes: CHUNK (collect from a single chunk) or BOUNDINGBOX (upgrade system)
+    mode: CHUNK
     # Forcefully disable the chunk collector even if voidchests have it enabled.
     force disable: false
     # Enable or disable the transfer non sellables for a new voidchest by default.
     transfer non sellables: false
-    # Instant collector options
-    instant collector:
-      # Enable or disable the instant chunk collector for a new voidchest by default.
-      enabled: false
-      # Forcefully disable the instant chunk collector even if voidchests have it enabled.
-      force disable: false
 
     # Filter options
     filters:

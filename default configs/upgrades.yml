@@ -146,3 +146,46 @@ BoostSell:
         - "&7"
     price: 20000
     value: 1.0
+
+Links:
+  1:
+    item:
+      type: TRAPPED_CHEST
+      name: "&b&lLinks"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &a&l%nextLevel%&7"
+        - "Next Level Price: &a&l%nextLevelPrice%&7"
+        - "&7"
+        - "Links: &a&l%links%&7"
+        - "&7"
+    price: 0
+    value: 0
+  2:
+    item:
+      type: CHEST
+      name: "&b&lLinks"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &a&l%nextLevel%&7"
+        - "Next Level Price: &a&l%nextLevelPrice%&7"
+        - "&7"
+        - "Links: &a&l%links%&7"
+        - "&7"
+    price: 10000
+    value: 2
+  3:
+    item:
+      type: ENDER_CHEST
+      name: "&b&lLinks"
+      lore:
+        - "&7"
+        - "Current Level: &a&l%level%&7"
+        - "Next Level: &c&lMax"
+        - "&7"
+        - "Links: &a&l%links%&7"
+        - "&7"
+    price: 20000
+    value: 3
