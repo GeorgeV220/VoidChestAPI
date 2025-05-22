@@ -42,16 +42,7 @@ Messages:
           - '&7You currently have &e$%balance_upgrades% &7and need &e$%money_need%'
         max level: "&c&l(!) &cFailed to apply this upgrade as the max level has been reached."
     inventory already open: "&c&l(!)&c The current VoidChest inventory is already open by another player."
-    whitelist inventory already open: "&c&l(!)&c The current VoidChest whitelist inventory is already open by another player."
-    blacklist inventory already open: "&c&l(!)&c The current VoidChest blacklist inventory is already open by another player."
-    whitelist is force disabled: "&c&l(!)&c The WhiteList feature has been force disabled by the server administrator."
-    blacklist is force disabled: "&c&l(!)&c The BlackList feature has been force disabled by the server administrator."
-    whitelist is forced: "&c&l(!)&c You cannot edit the whitelist because the server administrator is forcing their own."
-    blacklist is forced: "&c&l(!)&c You cannot edit the blacklist because the server administrator is forcing their own."
-    whitelist enabled: "&a&l(!)&a Successfully enabled the WhiteList feature."
-    whitelist disabled: "&c&l(!)&a Successfully disabled the WhiteList feature."
-    blacklist enabled: "&a&l(!)&a Successfully enabled the BlackList feature."
-    blacklist disabled: "&c&l(!)&a Successfully disabled the BlackList feature."
+    filters: "&c&l(!)&c The Filters feature has been disabled by the server administrator."
     not facing a block: "&c&l(!) &cYou need to face a block."
     block not a void chest: "&c&l(!) &cThis block is not a void chest."
     mode:

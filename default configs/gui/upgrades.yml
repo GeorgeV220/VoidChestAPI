@@ -1,16 +1,15 @@
-LinksMenu:
-  title: "&a&l%voidchest%'s VoidChest Links Menu"
+UpgradesMenu:
+  title: "&a&l%voidchest% VoidChest Menu"
   rows: 6
   animation: true
-  defaultAction: voidchest:links
-  bottomInventoryAction: voidchest:nothing
+  defaultAction: voidchest:nothing
 
   items:
     info:
       item: "BOOK"
       name: "&a&lInformation"
       lore:
-        - "This menu contains %voidchest%'s links."
+        - "This menu contains all available upgrades for %voidchest% voidchest."
       glow: true
       amount: 1
       animation: "wave"

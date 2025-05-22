@@ -1,16 +1,21 @@
-LinksMenu:
-  title: "&a&l%voidchest%'s VoidChest Links Menu"
+FiltersMenu:
+  title: "&a&l%filter% Filter Menu (%type%)"
   rows: 6
   animation: true
-  defaultAction: voidchest:links
-  bottomInventoryAction: voidchest:nothing
+  defaultAction: voidchest:remove_filter
+  bottomInventoryAction: voidchest:add_filter
 
   items:
     info:
       item: "BOOK"
       name: "&a&lInformation"
       lore:
-        - "This menu contains %voidchest%'s links."
+        - "&7To add items, simply click and drag them into your inventory."
+        - "&7Swift right-click to add with 'ignore amount' and 'ignore metadata' enabled."
+        - "&7Shift left-click to add with 'ignore amount' and 'ignore metadata' disabled."
+        - "&7Right-click to add with 'ignore amount' enabled and 'ignore metadata' disabled."
+        - "&7Left-click to add with 'ignore amount' disabled and 'ignore metadata' enabled."
+        - "&7To remove an item from filters, just click on it."
       glow: true
       amount: 1
       animation: "wave"

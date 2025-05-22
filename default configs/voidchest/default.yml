@@ -37,10 +37,6 @@ Mechanics:
   # If this path is removed, the value will be taken from options.yml.
   enable when owner offline: true
 
-  # Should the inventory be paginated?
-  # Stored items will not be dropped when the void chest gets destroyed.
-  paginated inventory: false
-
   # Should voidchest able to have container links ?
   links: false
 
@@ -157,57 +153,11 @@ Options:
     # Enable or disable the transfer non sellables for a new voidchest by default.
     transfer non sellables: false
 
-    # Filter options
-    filters:
-      # If allow mode is enabled, VoidChest won't collect or sell any items that are not allowed.
-      allow mode: false
-      # Can the player set the filter to allow mode?
-      user allow mode: false
-      # Force disable the allow mode even if voidchests have it enabled.
-      force disable allow mode: false
-      # Force disable the filter system even if voidchests have it enabled.
-      force disable: false
+    # Enable or disable the filters feature for this voidchest type.
+    filters: false
 
   # Inventory options
   inventory:
-    title: "&c&l%voidchest% Inventory (%currentPage%)"
-    # Chest sizes:
-    # 9 slots
-    # 18 slots
-    # 27 slots
-    # 36 slots
-    # 45 slots
-    # 54 slots
-    # If you have paginated inventory enabled you will need to have a chest size of 18 and up.
-    size: 27
-
-    paginated inventory:
-      max pages: 5 # -1 for infinite
-      slots:
-        # Available slots 0-8 (always the last row)
-        # Available actions: PREVIOUS_PAGE, NEXT_PAGE, CLOSE
-        '0':
-          name: "&a&lBack"
-          item: "PLAYER_HEAD"
-          skull property: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTIxMjE3ZDdmZWU5ZmFmMmZiYzc0MWUwYWRiNWRlNmE4NGVhN2Q1NTM2Y2JjY2QxZGJjOGEzMjNmOTViOTkwZCJ9fX0="
-          action: "PREVIOUS_PAGE"
-          lores:
-            - "&7Go back to the previous page."
-        '4':
-          name: "&c&lClose Menu"
-          item: "PLAYER_HEAD"
-          skull property: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDQ2NjRlZGVhNzAxOTMzMjZhYTMxZjhmNTBmODBjMjkzN2I1YThmMDczNThhNWIwODQ5ZGRmNWI1YjJjOGMzNiJ9fX0="
-          action: "CLOSE"
-          lores:
-            - "&7Close the VoidChest inventory."
-        '8':
-          name: "&a&lNext"
-          item: "PLAYER_HEAD"
-          skull property: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc2YjM5NmEzNDZmYmQ1ZGM5OGRmOWMwNjA5N2JiNTkxZmVmZDc2OGVkNWIzYmI5MGJiMzJhZjg1ZWI5MTQwNiJ9fX0="
-          action: "NEXT_PAGE"
-          lores:
-            - "&7Go to the next page."
-
     shop item lore:
       - '&7Price:&r &a$%price%'
     filter item lore:
@@ -268,3 +218,29 @@ Options:
     lore:
       - '&7Automatically sell and or clear items that'
       - '&7are inside this voidchest. Gain money while being afk!'
+
+    # VoidChests inventory values
+    # Should the inventory item show the VoidChest's custom name ?
+    inventory custom name: false
+
+    # VoidChest inventory lore
+    # Supports legacy and MiniMessage format
+    inventory lore:
+      - ""
+      - "<gradient:gold:yellow><bold>Location:</bold></gradient> <white>%location_world%</white> <dark_gray>|</dark_gray> <aqua>X%location_x%</aqua> <dark_gray>|</dark_gray> <green>Y%location_y%</green> <dark_gray>|</dark_gray> <red>Z%location_z%</red>"
+      - "<gray>» <gold><bold>Left-Click</bold></gold> <gray>to open the <blue><bold>VoidChest</bold></blue> menu.</gray>"
+      - "<gray>» <gold><bold>Right-Click</bold></gold> <gray>to open the <blue><bold>Links</bold></blue> menu.</gray>"
+      - ""
+
+    # VoidChests links inventory values
+    # Should the inventory item show the Link's custom name ?
+    inventory links custom name: false
+
+    # VoidChest links inventory lore
+    # Supports legacy and MiniMessage format
+    inventory links lore:
+      - ""
+      - "<gradient:gold:yellow><bold>Location:</bold> <white>%location_world%</white>, <aqua>X%location_x%</aqua>, <green>Y%location_y%</green>, <red>Z%location_z%</red></gradient>"
+      - "<gray>» <blue><underlined>Click here</underlined></blue> <gray>to open this link.</gray>"
+      - ""
+
