@@ -1,3 +1,60 @@
+# [4.0.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v3.0.0...v4.0.0-beta.1) (2025-05-22)
+
+
+### Code Refactoring
+
+* **api:** restructure economy and storage APIs, remove custom events, and improve container handling ([eece0c2](https://github.com/GeorgeV220/VoidChestAPI/commit/eece0c2f2ad0f46ef030c58de7953349f29dbb16))
+
+
+### Features
+
+* Remove tests ([b999df7](https://github.com/GeorgeV220/VoidChestAPI/commit/b999df7bc9d0aee03ae4d326036d1cd57500018f))
+
+
+### BREAKING CHANGES
+
+* **api:** This commit involves widespread refactors, file deletions, class migrations, and internal API restructuring. Be sure to review the full diff and adapt plugin implementations accordingly before upgrading.
+
+- Economy system refactored:
+  - All player-related economy classes moved to `com.georgev22.voidchest.api.economy.player`
+    - Includes `AEconomy`, `IEconomyManager`, `EconomyMode`, and `InvalidEconomy`
+  - Profit calculation logic moved to `com.georgev22.voidchest.api.economy.profit.ProfitCalculator`
+  - All imports and references updated accordingly
+
+- Removed the entire custom event system:
+  - Deleted:
+    - Core classes: `Event`, `HandlerList`, `EventManager`, `EventPriority`
+    - Interfaces: `Cancellable`, `EventListener`, `EventExecutor`
+    - Annotations and wrappers: `EventHandler`, `ListenerWrapper`
+    - ASM-based event executor generator
+    - All inventory-related custom events: `VoidInventoryOpenEvent`, `Slot`, `VoidInventorySlotChangeEvent`, etc.
+  - All events refactored to extend `VoidChestBaseEvent`, which now inherits from Bukkit’s `Event`
+  - `PlayerEvent` updated to be Bukkit-cancellable and moved to `api.events`
+
+- Introduced `DataContainerWrapper` system:
+  - New version-compatible abstraction over Bukkit's `PersistentDataContainer`
+  - Supports modern, legacy, and NBT-based containers
+  - Includes helper factories and wrappers to safely read/write data across versions
+
+- Introduced `ContainerWrapper`:
+  - Cross-version abstraction over Bukkit container blocks and inventories
+  - Used in serialization and inventory manipulation logic
+  - Improved compatibility with older Minecraft server versions
+
+- API changes to `VoidChestAPI`:
+  - Removed fields: `SellHandler`, `SellTaskHandler`, `VoidInventoryUtils`, `EventManager`
+  - Added: `ITimedTaskManager` for task control
+  - Introduced `isFolia` detection logic (static flag and accessor methods)
+
+- Serialization and upgrades:
+  - Added `UpgradeLevel` and `UpgradeSerializer` for structured upgrade level control
+  - Used for item upgrades and enhancement tracking
+
+- Code modernization and cleanup:
+  - Removed obsolete packages and improved file organization
+  - Improved `BoundingBox#clone` implementation to eliminate `CloneNotSupportedException`
+  - Marked internal APIs with `@ApiStatus.Internal` where applicable
+
 # [3.0.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v2.14.0...v3.0.0) (2025-01-15)
 
 
