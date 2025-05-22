@@ -43,9 +43,6 @@ publishing {
             artifactId = project.getName().toLowerCase()
             groupId = ((String) project.getGroup()).toLowerCase()
 
-            artifact sourcesJar
-            artifact javadocJar
-
             pom {
                 name = project.getName().toLowerCase()
                 description = project.getDescription()
