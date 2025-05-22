@@ -1,6 +1,4 @@
-plugins {
-    id 'maven-publish'
-}
+apply plugin: 'maven-publish'
 
 static def getBranch() {
     try {

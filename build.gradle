@@ -21,14 +21,8 @@ version project.property("version")
 
 repositories {
     mavenCentral()
-    maven { url = "https://repo.georgev22.com/releases/" }
-    maven { url = "https://repo.georgev22.com/snapshots/" }
     maven { url = 'https://repo.codemc.org/repository/maven-public/' }
     maven { url = 'https://repo.papermc.io/repository/maven-public/' }
-    maven { url = "https://libraries.minecraft.net/" }
-    maven { url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
-    maven { url = "https://jcenter.bintray.com/" }
-    maven { url = "https://rayzr.dev/repo/" }
     maven { url = 'https://jitpack.io' }
     maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
 }
@@ -37,21 +31,6 @@ dependencies {
     compileOnly(libs.folia.api)
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.vault.api)
-    compileOnly(libs.asm.core)
-    compileOnly(libs.asm.commons)
     compileOnly(libs.placeholder.api)
-
     compileOnly(libs.item.nbt.api)
-
-    // Tests
-    testImplementation(libs.jetbrains.annotations)
-    testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.asm.core)
-    testImplementation(libs.asm.util)
-    testImplementation(libs.asm.commons)
-    testImplementation(libs.log4j.api)
-    testImplementation(libs.log4j.core)
-    testImplementation(libs.guava)
-    testImplementation(libs.slf4j.api)
 }
