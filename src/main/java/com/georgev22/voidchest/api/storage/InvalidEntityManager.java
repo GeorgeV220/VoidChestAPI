@@ -67,6 +67,11 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
 
     }
 
+    @Override
+    public void saveAll(Consumer<E> consumer) {
+
+    }
+
     /**
      * Returns all entities managed by this manager.
      *
@@ -123,5 +128,10 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     @Override
     public String getSimpleName() {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public void shutdown(Consumer<E> consumer) {
+
     }
 }

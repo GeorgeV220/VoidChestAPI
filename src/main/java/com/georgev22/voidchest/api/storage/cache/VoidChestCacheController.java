@@ -8,9 +8,16 @@ import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
+import com.google.common.collect.Sets;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
+import org.bukkit.inventory.DoubleChestInventory;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,9 +31,11 @@ import java.util.stream.Collectors;
  */
 public class VoidChestCacheController {
 
-    private final ConcurrentObjectMap<Location, IVoidChest> locationVoidChestCache = new ConcurrentObjectMap<>();
+    private final ConcurrentObjectMap<SerializableLocation, IVoidChest> locationVoidChestCache = new ConcurrentObjectMap<>();
     private final ConcurrentObjectMap<Chunk, List<IVoidChest>> chunkVoidChestCache = new ConcurrentObjectMap<>();
     private final ConcurrentObjectMap<IPlayerData, List<IVoidChest>> playerCache = new ConcurrentObjectMap<>();
+    private final Set<BlockFace> faces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
+            BlockFace.SOUTH);
 
     /**
      * Adds a {@link IVoidChest} to the chunk cache.
@@ -70,6 +79,16 @@ public class VoidChestCacheController {
      * @param location  The location at which the storage is located.
      */
     public void addVoidChestToLocationCache(@NotNull IVoidChest voidChest, @NotNull Location location) {
+        locationVoidChestCache.put(SerializableLocation.fromLocation(location), voidChest);
+    }
+
+    /**
+     * Adds a {@link IVoidChest} to the location cache.
+     *
+     * @param voidChest The void chest to add.
+     * @param location  The location at which the storage is located.
+     */
+    public void addVoidChestToLocationCache(@NotNull IVoidChest voidChest, @NotNull SerializableLocation location) {
         locationVoidChestCache.put(location, voidChest);
     }
 
@@ -79,7 +98,7 @@ public class VoidChestCacheController {
      * @param location The location to remove.
      */
     public void removeVoidChestFromLocationCache(@NotNull Location location) {
-        locationVoidChestCache.remove(location);
+        locationVoidChestCache.remove(SerializableLocation.fromLocation(location));
     }
 
     /**
@@ -87,7 +106,7 @@ public class VoidChestCacheController {
      *
      * @return Unmodifiable map of {@link Location} to {@link IVoidChest}.
      */
-    public UnmodifiableObjectMap<Location, IVoidChest> getLocationCache() {
+    public UnmodifiableObjectMap<SerializableLocation, IVoidChest> getLocationCache() {
         return new UnmodifiableObjectMap<>(locationVoidChestCache);
     }
 
@@ -115,10 +134,14 @@ public class VoidChestCacheController {
      *
      * @return An unmodifiable map of blocks and their associated void chests.
      */
-    public UnmodifiableObjectMap<Block, IVoidChest> getBlockCache() {
+    public UnmodifiableObjectMap<@Nullable Block, IVoidChest> getBlockCache() {
         return new UnmodifiableObjectMap<>(locationVoidChestCache.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().getBlock(),
+                        entry -> {
+                            Location location = entry.getKey().toLocation();
+                            if (location == null) return null;
+                            return location.getBlock();
+                        },
                         Map.Entry::getValue)));
     }
 
@@ -181,6 +204,33 @@ public class VoidChestCacheController {
     }
 
     /**
+     * Fetches a {@link IVoidChest} for the specified block.
+     *
+     * @param block The block to retrieve the void chest for.
+     * @return The associated void chest or {@code null} if not found.
+     */
+    @Nullable
+    public IVoidChest getVoidChestNear(final @NotNull Block block) {
+        if (block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST) {
+            final BlockState state = block.getState();
+            final Chest chest = (Chest) state;
+
+            final Inventory inventory = chest.getInventory();
+            if (!(inventory instanceof DoubleChestInventory)) {
+                return null;
+            }
+            for (final BlockFace face : faces) {
+                final Block other = block.getRelative(face);
+                final IVoidChest voidChest = this.voidChest(other);
+                if (voidChest != null) {
+                    return voidChest;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Fetches a {@link IVoidChest} for the specified serializable block.
      *
      * @param serializableBlock The serializable block.
@@ -199,19 +249,25 @@ public class VoidChestCacheController {
      * @param location The location to retrieve the void chest for.
      * @return The associated void chest or {@code null} if not found.
      */
-    public @Nullable IVoidChest voidChest(@Nullable Location location) {
+    public @Nullable IVoidChest voidChest(@NotNull Location location) {
+        //noinspection ConstantValue
         if (location == null) return null;
-        if (!locationVoidChestCache.containsKey(location)) {
-            EntityManager<IVoidChest> voidEntityManager = EntityManagerRegistry.getManager(IVoidChest.class);
-            if (voidEntityManager == null) return null;
-
-            voidEntityManager.getAll().stream()
-                    .filter(storage -> storage.blockLocation().toLocation() != null)
-                    .filter(storage -> location.equals(storage.blockLocation().toLocation()))
-                    .findFirst().ifPresent(voidChest -> locationVoidChestCache.put(location, voidChest));
-
+        IVoidChest voidChest = locationVoidChestCache.getOrDefault(SerializableLocation.fromLocation(location), null);
+        if (voidChest != null) return voidChest;
+        EntityManager<IVoidChest> voidEntityManager = EntityManagerRegistry.getManager(IVoidChest.class);
+        if (voidEntityManager == null) return null;
+        for (IVoidChest storage : voidEntityManager.getAll()) {
+            Location storageLocation = storage.blockLocation().toLocation();
+            if (storageLocation == null) continue;
+            if (storageLocation.getBlockX() == location.getBlockX() &&
+                    storageLocation.getBlockY() == location.getBlockY() &&
+                    storageLocation.getBlockZ() == location.getBlockZ()
+            ) {
+                locationVoidChestCache.put(SerializableLocation.fromLocation(location), storage);
+                return storage;
+            }
         }
-        return locationVoidChestCache.get(location);
+        return locationVoidChestCache.getOrDefault(SerializableLocation.fromLocation(location), null);
     }
 
     /**
@@ -221,7 +277,10 @@ public class VoidChestCacheController {
      * @return The associated void chest or {@code null} if not found.
      */
     public @Nullable IVoidChest voidChest(@Nullable SerializableLocation serializableLocation) {
-        return serializableLocation == null ? null : voidChest(serializableLocation.toLocation());
+        if (serializableLocation == null) return null;
+        Location location = serializableLocation.toLocation();
+        if (location == null) return null;
+        return voidChest(location);
     }
 
     public @Nullable IVoidChest voidChest(@Nullable Chunk chunk) {

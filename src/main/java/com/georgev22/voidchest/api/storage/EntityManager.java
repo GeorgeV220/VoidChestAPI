@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.storage;
 
 import com.georgev22.voidchest.api.storage.data.Entity;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,7 +74,17 @@ public interface EntityManager<E extends Entity> {
     /**
      * Saves all entities
      */
-    void saveAll();
+    default void saveAll() {
+        saveAll(entity -> {
+        });
+    }
+
+    /**
+     * Saves loadable entities and executes the provided consumer
+     *
+     * @param consumer the consumer
+     */
+    void saveAll(Consumer<E> consumer);
 
     /**
      * Returns all entities managed by this manager.
@@ -149,5 +160,13 @@ public interface EntityManager<E extends Entity> {
     String getName();
 
     String getSimpleName();
+
+    default void shutdown() {
+        shutdown(entity -> {
+        });
+    }
+
+    @ApiStatus.Internal
+    void shutdown(Consumer<E> consumer);
 
 }

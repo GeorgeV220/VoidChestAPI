@@ -3,10 +3,8 @@ package com.georgev22.voidchest.api;
 import com.georgev22.voidchest.api.bank.IBankManager;
 import com.georgev22.voidchest.api.banktnt.IBankTNTManager;
 import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
-import com.georgev22.voidchest.api.economy.IEconomyManager;
-import com.georgev22.voidchest.api.event.EventManager;
+import com.georgev22.voidchest.api.economy.player.IEconomyManager;
 import com.georgev22.voidchest.api.hologram.IHologramManager;
-import com.georgev22.voidchest.api.inventory.VoidInventoryUtils;
 import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.scheduler.MinecraftScheduler;
@@ -19,9 +17,8 @@ import com.georgev22.voidchest.api.storage.cache.VoidChestCacheController;
 import com.georgev22.voidchest.api.storage.cache.IVoidItemManager;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
-import com.georgev22.voidchest.api.tasks.SellTaskHandler;
+import com.georgev22.voidchest.api.task.ITimedTaskManager;
 import com.georgev22.voidchest.api.utilities.config.voidchests.VoidChestConfigurationFileCache;
-import com.georgev22.voidchest.api.voideconomy.SellHandler;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -35,7 +32,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public record VoidChestAPI(JavaPlugin plugin,
                            IEconomyManager economyManager,
-                           SellHandler sellHandler,
                            IShopManager shopManager,
                            IBankManager bankManager,
                            IBankTNTManager bankTNTManager,
@@ -46,11 +42,9 @@ public record VoidChestAPI(JavaPlugin plugin,
                            VoidChestCacheController voidChestCacheController,
                            IFilterManager filterManager,
                            ILinkManager linkManager,
-                           EventManager eventManager,
                            MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
                            VoidChestConfigurationFileCache voidChestConfigurationFileCache,
-                           SellTaskHandler sellTaskHandler,
-                           VoidInventoryUtils voidInventoryUtils) {
+                           ITimedTaskManager timedTaskManager) {
 
     /**
      * The singleton instance of the VoidChestAPI class.
@@ -61,6 +55,11 @@ public record VoidChestAPI(JavaPlugin plugin,
      * The debug flag.
      */
     private static boolean debug = false;
+
+    /**
+     * Is folia flag.
+     */
+    private static boolean isFolia = false;
 
     /**
      * Sets the singleton instance of the VoidChestAPI class.
@@ -99,6 +98,24 @@ public record VoidChestAPI(JavaPlugin plugin,
         VoidChestAPI.debug = debug;
     }
 
+
+    /**
+     * Checks if the server is running Folia
+     *
+     * @return if the server is running Folia
+     */
+    public static boolean isFolia() {
+        return isFolia;
+    }
+
+    /**
+     * Sets if the server is running Folia
+     *
+     * @param isFolia if the server is running Folia
+     */
+    public static void setIsFolia(boolean isFolia) {
+        VoidChestAPI.isFolia = isFolia;
+    }
 
     /**
      * Retrieves the {@link EntityManager} associated with {@link IVoidChest} entities.

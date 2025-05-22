@@ -3,7 +3,7 @@ mc-version = "1.20.4-R0.1-SNAPSHOT"
 paperlib = "1.0.8"
 jetbrains-annotations = "24.0.1"
 vault = "1.7"
-nbt-api = "2.12.2"
+nbt-api = "2.15.0"
 junit = "5.10.1"
 asm = "9.6"
 log4j = "2.22.1"
@@ -15,7 +15,7 @@ placeholder-api = "2.11.6"
 folia-api = { group = "dev.folia", name = "folia-api", version.ref = "mc-version" }
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrains-annotations" }
 vault-api = { group = "com.github.MilkBowl", name = "VaultAPI", version.ref = "vault" }
-item-nbt-api = { group = "de.tr7zw", name = "item-nbt-api", version.ref = "nbt-api" }
+item-nbt-api = { group = "de.tr7zw", name = "item-nbt-api-plugin", version.ref = "nbt-api" }
 placeholder-api = { module = "me.clip:placeholderapi", version.ref = "placeholder-api" }
 
 asm-core = { group = "org.ow2.asm", name = "asm", version.ref = "asm" }

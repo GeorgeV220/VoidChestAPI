@@ -72,17 +72,43 @@ public class SerializableBlock implements Serializable {
      */
     private int z;
 
+    private final @Nullable Material material;
+
     /**
      * Constructs a new SerializableBlock from a Block.
      *
      * @param block The Block to be serialized.
      */
     public SerializableBlock(@NotNull Block block) {
-        Location location = block.getLocation();
-        this.worldName = location.getWorld().getName();
-        this.x = location.getBlockX();
-        this.y = location.getBlockY();
-        this.z = location.getBlockZ();
+        this(block.getLocation().getWorld().getName(), block.getX(), block.getY(), block.getZ(), block.getType());
+    }
+
+    /**
+     * Constructs a new SerializableBlock from a string representation.
+     *
+     * @param worldName The name of the world containing the block.
+     * @param x The x-coordinate of the block.
+     * @param y The y-coordinate of the block.
+     * @param z The z-coordinate of the block.
+     */
+    public SerializableBlock(String worldName, int x, int y, int z) {
+        this(worldName, x, y, z, null);
+    }
+
+    /**
+     * Constructs a new SerializableBlock from a string representation.
+     *
+     * @param worldName The name of the world containing the block.
+     * @param x The x-coordinate of the block.
+     * @param y The y-coordinate of the block.
+     * @param z The z-coordinate of the block.
+     */
+    public SerializableBlock(String worldName, int x, int y, int z, @Nullable Material material) {
+        this.worldName = worldName;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.material = material;
     }
 
     /**
@@ -96,6 +122,16 @@ public class SerializableBlock implements Serializable {
         return new SerializableBlock(block);
     }
 
+    @Contract("_ -> new")
+    public static @NotNull SerializableBlock fromLocation(@NotNull SerializableLocation location) {
+        return new SerializableBlock(
+                location.getWorldName(),
+                (int) location.getX(),
+                (int) location.getY(),
+                (int) location.getZ()
+        );
+    }
+
     /**
      * Creates a SerializableBlock from a string representation.
      *
@@ -107,14 +143,25 @@ public class SerializableBlock implements Serializable {
             return null;
         }
         String[] parts = string.split(":");
-        World world = Bukkit.getServer().getWorld(parts[0]);
+        String worldName = parts[0];
+        World world = Bukkit.getServer().getWorld(worldName);
         int x = Integer.parseInt(parts[1]);
         int y = Integer.parseInt(parts[2]);
         int z = Integer.parseInt(parts[3]);
         if (world != null) {
             return new SerializableBlock(world.getBlockAt(x, y, z));
         }
-        return null;
+
+        // Check if we have a material
+        if (parts.length > 4) {
+            String materialName = parts[4];
+            if (materialName != null) {
+                return new SerializableBlock(worldName, x, y, z, Material.valueOf(materialName));
+            }
+        }
+
+        // Maybe we should throw an exception here
+        return new SerializableBlock(worldName, x, y, z);
     }
 
     /**
@@ -146,7 +193,9 @@ public class SerializableBlock implements Serializable {
                 .append(":")
                 .append(location.getBlockY())
                 .append(":")
-                .append(location.getBlockZ());
+                .append(location.getBlockZ())
+                .append(":")
+                .append(this.material);
 
         return stringBuilder.toString();
     }
@@ -170,6 +219,9 @@ public class SerializableBlock implements Serializable {
      * @return The material of the block, or {@code null} if the block is not found.
      */
     public @Nullable Material getMaterial() {
+        if (this.material != null) {
+            return this.material;
+        }
         Block block = this.toBlock();
         if (block == null) {
             return null;

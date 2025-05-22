@@ -238,6 +238,8 @@ public class SerializableLocation implements Serializable, Cloneable {
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
                 location = new Location(world, x, y, z, yaw, pitch);
+            } else {
+                return null;
             }
         }
         return location.clone();

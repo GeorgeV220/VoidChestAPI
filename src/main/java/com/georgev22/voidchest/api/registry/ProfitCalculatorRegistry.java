@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.registry;
 
 import com.georgev22.voidchest.api.maps.HashObjectMap;
 import com.georgev22.voidchest.api.maps.ObjectMap;
-import com.georgev22.voidchest.api.voideconomy.ProfitCalculator;
+import com.georgev22.voidchest.api.economy.profit.ProfitCalculator;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;

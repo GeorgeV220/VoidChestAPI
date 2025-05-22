@@ -5,7 +5,6 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
     id 'idea'
 }
@@ -42,7 +41,7 @@ dependencies {
     compileOnly(libs.asm.commons)
     compileOnly(libs.placeholder.api)
 
-    implementation(libs.item.nbt.api)
+    compileOnly(libs.item.nbt.api)
 
     // Tests
     testImplementation(libs.jetbrains.annotations)
@@ -55,15 +54,4 @@ dependencies {
     testImplementation(libs.log4j.core)
     testImplementation(libs.guava)
     testImplementation(libs.slf4j.api)
-}
-
-tasks.publishShadowPublicationToGeorgeV22Repository {
-    dependsOn jar
-}
-
-shadowJar {
-    archiveClassifier.set('shade')
-    relocate 'com.georgev22.library', 'com.georgev22.voidchest.library'
-    relocate 'de.tr7zw.changeme.nbtapi', 'com.georgev22.voidchest.nbtapi'
-    relocate 'de.tr7zw.annotations', 'com.georgev22.voidchest.nbtapi.annotations'
 }

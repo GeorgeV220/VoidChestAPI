@@ -1,8 +1,7 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.voidchest.api.VoidChestAPI;
-import com.georgev22.voidchest.api.event.events.booster.BoosterAddEvent;
-import com.georgev22.voidchest.api.event.events.booster.BoosterRemoveEvent;
+import com.georgev22.voidchest.api.events.booster.BoosterAddEvent;
+import com.georgev22.voidchest.api.events.booster.BoosterRemoveEvent;
 import com.georgev22.voidchest.api.maps.HashObjectMap;
 import com.georgev22.voidchest.api.utilities.Utils;
 import org.jetbrains.annotations.ApiStatus;
@@ -90,8 +89,7 @@ public class Boosters {
      */
     public Boosters addBooster(Booster booster) {
         if (booster == null) return this;
-        BoosterAddEvent boosterAddEvent = new BoosterAddEvent(this, booster);
-        VoidChestAPI.getInstance().eventManager().callEvent(boosterAddEvent);
+        BoosterAddEvent boosterAddEvent = new BoosterAddEvent(this, booster).call();
         if (boosterAddEvent.isCancelled()) return this;
         this.boosters.append(booster.pluginIdentifier(), booster);
         return this;
@@ -106,8 +104,7 @@ public class Boosters {
     public Boosters removeBooster(Booster booster) {
         if (booster == null) return this;
         if (!this.boosters.containsKey(booster.pluginIdentifier())) return this;
-        BoosterRemoveEvent boosterRemoveEvent = new BoosterRemoveEvent(this, booster);
-        VoidChestAPI.getInstance().eventManager().callEvent(boosterRemoveEvent);
+        BoosterRemoveEvent boosterRemoveEvent = new BoosterRemoveEvent(this, booster).call();
         if (boosterRemoveEvent.isCancelled()) return this;
         booster.booster(0d);
         booster.boostTime(0L);

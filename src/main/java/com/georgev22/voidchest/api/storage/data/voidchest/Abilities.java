@@ -92,22 +92,6 @@ public interface Abilities {
     void bank(boolean bank);
 
     /**
-     * Checks if the user has enabled the `allow mode`.
-     * If the `user allow mode` option is disabled, this will also return false.
-     *
-     * @return True if the user has enabled the `allow mode`, false otherwise.
-     */
-    boolean filtersAllowMode();
-
-    /**
-     * Sets the state of the `allow mode`.
-     * If the `user allow mode` option is disabled, this has no effect.
-     *
-     * @param allowMode True to enable the `allow mode`, false to disable it.
-     */
-    void filtersAllowMode(boolean allowMode);
-
-    /**
      * Adds custom data to the Abilities with the specified key and value.
      *
      * @param key   the key of the custom data
