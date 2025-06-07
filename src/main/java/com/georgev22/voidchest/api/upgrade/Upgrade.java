@@ -3,7 +3,6 @@ package com.georgev22.voidchest.api.upgrade;
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
 import com.georgev22.voidchest.api.economy.player.EconomyMode;
-import com.georgev22.voidchest.api.maps.Pair;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import org.bukkit.Bukkit;
@@ -144,6 +143,7 @@ public abstract class Upgrade<U> implements Cloneable {
 
     /**
      * Adds a voidchest type to this upgrade.
+     *
      * @param voidchestType the voidchest type to add
      */
     public void addVoidchestType(String voidchestType) {
@@ -152,6 +152,7 @@ public abstract class Upgrade<U> implements Cloneable {
 
     /**
      * Removes a voidchest type from this upgrade.
+     *
      * @param voidchestType the voidchest type to remove
      */
     public void removeVoidchestType(String voidchestType) {
@@ -179,12 +180,14 @@ public abstract class Upgrade<U> implements Cloneable {
 
     /**
      * Returns the JSON representation of this upgrade.
+     *
      * @return The JSON representation of this upgrade.
      */
     public abstract String toString();
 
     /**
      * Classes should override this method to clone the upgrade if they wish to do so.
+     *
      * @return a deep copy of the upgrade
      */
     @Override
@@ -222,19 +225,19 @@ public abstract class Upgrade<U> implements Cloneable {
     }
 
     private void upgradeVoidChest(@NotNull IVoidChest voidChest, UpgradeLevel<?> nextUpgradeLevel) {
-        voidChest.upgrades().stream()
-                .filter(upg -> upg.key().equals(key))
+        voidChest.upgrades().entrySet().stream()
+                .filter(upg -> upg.getKey().equals(key))
                 .findFirst()
                 .ifPresentOrElse(
                         upg -> upg.setValue(nextUpgradeLevel.level()),
-                        () -> voidChest.upgrades().add(new Pair<>(key, nextUpgradeLevel.level()))
+                        () -> voidChest.addUpgrade(key, nextUpgradeLevel.level())
                 );
     }
 
     private void logUpgrades(@NotNull IVoidChest voidChest) {
         VoidChestAPI.getInstance().plugin().getLogger().info("Upgrades for VoidChest:");
-        for (Pair<NamespacedKey, Integer> upgrade : voidChest.upgrades()) {
-            VoidChestAPI.getInstance().plugin().getLogger().info(upgrade.key() + ": " + upgrade.value());
+        for (Map.Entry<NamespacedKey, Integer> upgrade : voidChest.upgrades().entrySet()) {
+            VoidChestAPI.getInstance().plugin().getLogger().info(upgrade.getKey() + ": " + upgrade.getValue());
         }
     }
 }

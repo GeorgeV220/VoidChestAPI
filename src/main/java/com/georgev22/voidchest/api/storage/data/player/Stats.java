@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.utilities.CustomData;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -164,45 +164,11 @@ public interface Stats {
      */
     void addTotalItemsPurgedStored(BigInteger itemsPurgedStored);
 
-    /**
-     * Adds custom data to the Stats with the specified key and value.
-     *
-     * @param key   the key of the custom data
-     * @param value the value of the custom data
-     * @return the updated Stats with the added custom data
-     */
-    default Stats addCustomData(String key, Object value) {
-        this.getCustomData().append(key, value);
-        return this;
-    }
 
     /**
-     * Adds custom data to the Stats with the specified key and value if the key does not already exist.
+     * Retrieves the custom data associated with the player stats.
      *
-     * @param key   the key of the custom data
-     * @param value the value of the custom data
-     * @return the updated Stats with the added custom data (if the key did not already exist)
+     * @return The custom data associated with the player stats.
      */
-    default Stats addCustomDataIfNotExists(String key, Object value) {
-        this.getCustomData().appendIfTrue(key, value, !this.getCustomData().containsKey(key));
-        return this;
-    }
-
-    /**
-     * Retrieves the value of the custom data associated with the specified key.
-     *
-     * @param key the key of the custom data
-     * @param <T> the type of the value to retrieve
-     * @return the value associated with the specified key, or {@code null} if the key does not exist
-     */
-    default <T> T getCustomData(String key) {
-        return (T) getCustomData().get(key);
-    }
-
-    /**
-     * Retrieves the map of custom data associated with the Stats.
-     *
-     * @return the {@link ConcurrentObjectMap} containing the custom data of the player stats
-     */
-    ConcurrentObjectMap<String, Object> getCustomData();
+    CustomData customData();
 }

@@ -1,19 +1,14 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
-import com.georgev22.voidchest.api.maps.Pair;
+import com.georgev22.voidchest.api.link.ILink;
+import com.georgev22.voidchest.api.link.ILinkManager;
+import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.voidchest.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidchest.Charge;
 import com.georgev22.voidchest.api.storage.data.voidchest.Stats;
-import com.georgev22.voidchest.api.utilities.BoundingBox;
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
-import com.georgev22.voidchest.api.utilities.SerializableBlock;
-import com.georgev22.voidchest.api.utilities.SerializableLocation;
+import com.georgev22.voidchest.api.utilities.*;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
+import org.jetbrains.annotations.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,11 +26,25 @@ public interface IVoidChest extends Entity {
     boolean isContainer();
 
     /**
+     * Sets the container status of the VoidChest.
+     *
+     * @param isContainer {@code true} to set the VoidChest as a container, {@code false} otherwise.
+     */
+    void isContainer(boolean isContainer);
+
+    /**
      * Retrieves the block of the VoidChest as a SerializableBlock.
      *
      * @return The block of the VoidChest.
      */
     @NotNull SerializableBlock block();
+
+    /**
+     * Sets the block of the VoidChest.
+     *
+     * @param block The block to set.
+     */
+    void block(SerializableBlock block);
 
     /**
      * Retrieves the inventory of the block associated with the VoidChest.
@@ -50,6 +59,15 @@ public interface IVoidChest extends Entity {
     @Nullable Inventory blockInventory();
 
     /**
+     * Sets the inventory of the block associated with the VoidChest.
+     * <p><strong>Note</strong>
+     * This is only available for VoidChests that are not containers.
+     *
+     * @param inventory The inventory to set.
+     */
+    void blockInventory(Inventory inventory);
+
+    /**
      * Retrieves the location of the block associated with the VoidChest as a SerializableLocation.
      *
      * @return The location of the block associated with the VoidChest.
@@ -57,13 +75,27 @@ public interface IVoidChest extends Entity {
     @NotNull SerializableLocation blockLocation();
 
     /**
-     * Retrieves the config name of the VoidChest.
+     * Sets the location of the block associated with the VoidChest.
      *
-     * @return The config name of the VoidChest.
+     * @param blockLocation The location to set.
+     */
+    void blockLocation(SerializableLocation blockLocation);
+
+    /**
+     * Retrieves the type(config) name of the VoidChest.
+     *
+     * @return The type(config) name of the VoidChest.
      */
     @UnknownNullability
     @ApiStatus.Internal
     String type();
+
+    /**
+     * Sets the type(config) name of the VoidChest.
+     *
+     * @param type The type(config) name to set.
+     */
+    void type(String type);
 
     /**
      * Retrieves the name of the VoidChest.
@@ -72,6 +104,13 @@ public interface IVoidChest extends Entity {
      * @return The name of the VoidChest.
      */
     String name();
+
+    /**
+     * Sets the name of the VoidChest.
+     *
+     * @param name The name to set.
+     */
+    void name(String name);
 
     /**
      * Retrieves the bounding box that defines the area from which the VoidChest will collect items.
@@ -89,7 +128,22 @@ public interface IVoidChest extends Entity {
      *
      * @return The upgrades of the VoidChest.
      */
-    List<Pair<NamespacedKey, Integer>> upgrades();
+    ObjectMap<NamespacedKey, Integer> upgrades();
+
+    /**
+     * Adds an upgrade to the VoidChest.
+     *
+     * @param upgrade The upgrade to add.
+     * @param level   The level of the upgrade.
+     */
+    void addUpgrade(NamespacedKey upgrade, int level);
+
+    /**
+     * Removes an upgrade from the VoidChest.
+     *
+     * @param upgrade The upgrade to remove.
+     */
+    void removeUpgrade(NamespacedKey upgrade);
 
     /**
      * Retrieves the booster value of the VoidChest.
@@ -99,11 +153,25 @@ public interface IVoidChest extends Entity {
     Double booster();
 
     /**
+     * Sets the booster value of the VoidChest.
+     *
+     * @param booster The booster value to set.
+     */
+    void booster(Double booster);
+
+    /**
      * Retrieves the charge state of the VoidChest.
      *
      * @return The charge state of the VoidChest.
      */
     Charge charge();
+
+    /**
+     * Sets the charge state of the VoidChest.
+     *
+     * @param charge The charge state to set.
+     */
+    void charge(Charge charge);
 
     /**
      * Retrieves the abilities of the VoidChest.
@@ -113,11 +181,25 @@ public interface IVoidChest extends Entity {
     Abilities abilities();
 
     /**
+     * Sets the abilities of the VoidChest.
+     *
+     * @param abilities The abilities to set.
+     */
+    void abilities(Abilities abilities);
+
+    /**
      * Retrieves the statistics of the VoidChest.
      *
      * @return The statistics of the VoidChest.
      */
     Stats stats();
+
+    /**
+     * Sets the statistics of the VoidChest.
+     *
+     * @param stats The statistics to set.
+     */
+    void stats(Stats stats);
 
     /**
      * Retrieves the owner UUID of the VoidChest.
@@ -127,11 +209,48 @@ public interface IVoidChest extends Entity {
     UUID ownerUUID();
 
     /**
+     * Sets the owner UUID of the VoidChest.
+     *
+     * @param uuid The owner UUID to set.
+     */
+    void ownerUUID(UUID uuid);
+
+    /**
      * Retrieves the owner name of the VoidChest.
      *
      * @return The owner name of the VoidChest.
      */
     String ownerName();
+
+    /**
+     * Sets the owner name of the VoidChest.
+     *
+     * @param name The owner name to set.
+     */
+    void ownerName(String name);
+
+    /**
+     * Retrieves the unmodifiable list of links associated with the VoidChest.
+     *
+     * <p>
+     * <strong>Note</strong> This is an internal API, Please use {@link ILinkManager} instead.
+     *
+     * @return The unmodifiable list of links associated with the VoidChest.
+     */
+    @UnmodifiableView
+    @ApiStatus.Internal
+    List<ILink> links();
+
+    /**
+     * Sets the list of links associated with the VoidChest.
+     *
+     * <p>
+     * <strong>Note</strong> This is an internal API, Please use {@link ILinkManager} instead.
+     *
+     * @param links The list of links to set.
+     */
+    @ApiStatus.Internal
+    void links(List<ILink> links);
 
     /**
      * Retrieves the UUID of the void chest.
@@ -151,48 +270,5 @@ public interface IVoidChest extends Entity {
      * @return The maximum number of links that can be added to the VoidChest.
      */
     int maxLinks();
-
-    /**
-     * Adds custom data to the IVoidChest with the specified key and value.
-     *
-     * @param key   the key of the custom data
-     * @param value the value of the custom data
-     * @return the updated IVoidChest with the added custom data
-     */
-    default IVoidChest addCustomData(String key, Object value) {
-        this.getCustomData().append(key, value);
-        return this;
-    }
-
-    /**
-     * Adds custom data to the IVoidChest with the specified key and value if the key does not already exist.
-     *
-     * @param key   the key of the custom data
-     * @param value the value of the custom data
-     * @return the updated IVoidChest with the added custom data (if the key did not already exist)
-     */
-    default IVoidChest addCustomDataIfNotExists(String key, Object value) {
-        this.getCustomData().appendIfTrue(key, value, !this.getCustomData().containsKey(key));
-        return this;
-    }
-
-    /**
-     * Retrieves the value of the custom data associated with the specified key.
-     *
-     * @param key the key of the custom data
-     * @param <T> the type of the value to retrieve
-     * @return the value associated with the specified key, or {@code null} if the key does not exist
-     */
-    default <T> T getCustomData(String key) {
-        //noinspection unchecked
-        return (T) getCustomData().get(key);
-    }
-
-    /**
-     * Retrieves the map of custom data associated with the IVoidChest.
-     *
-     * @return the {@link ConcurrentObjectMap} containing the custom data of the void chest data
-     */
-    ConcurrentObjectMap<String, Object> getCustomData();
 
 }

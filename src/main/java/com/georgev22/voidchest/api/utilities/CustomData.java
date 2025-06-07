@@ -20,7 +20,7 @@ public final class CustomData {
     private final ObjectMap<String, Object> customData;
 
     public CustomData() {
-        this.customData = ObjectMap.newHashObjectMap();
+        this.customData = ObjectMap.newConcurrentObjectMap();
     }
 
     /**
@@ -112,4 +112,24 @@ public final class CustomData {
         customData.append(key, value);
     }
 
+    /**
+     * Removes a custom data entry from the internal data store.
+     *
+     * @param key the key associated with the custom data, must not be null
+     */
+    public void remove(String key) {
+        if (key == null) return;
+        if (!customData.containsKey(key)) return;
+        customData.remove(key);
+    }
+
+    /**
+     * Returns a string representation of the custom data.
+     *
+     * @return a string representation of the custom data
+     */
+    @Override
+    public String toString() {
+        return customData.toString();
+    }
 }

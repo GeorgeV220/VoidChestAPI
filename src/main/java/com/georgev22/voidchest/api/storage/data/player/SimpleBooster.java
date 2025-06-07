@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data.player;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.utilities.CustomData;
 import com.georgev22.voidchest.api.utilities.Utils;
 
 import java.time.Instant;
@@ -8,17 +8,18 @@ import java.time.Instant;
 public class SimpleBooster implements Booster {
 
     private final String pluginIdentifier;
-    private final ConcurrentObjectMap<String, Object> customData;
+    private final CustomData customData = new CustomData();
     private final String noActiveBooster;
     private final String[] timeFormatKeys;
+    private double booster;
+    private long boostTime;
 
     public SimpleBooster(String pluginName, String noActiveBooster, String... timeFormatKeys) {
         this.pluginIdentifier = pluginName;
-        this.customData = new ConcurrentObjectMap<>();
         this.noActiveBooster = noActiveBooster;
         this.timeFormatKeys = timeFormatKeys;
-        this.addCustomDataIfNotExists("booster", 1d);
-        this.addCustomDataIfNotExists("boostTime", 0L);
+        this.booster = 1d;
+        this.boostTime = 0L;
     }
 
     @Override
@@ -29,12 +30,12 @@ public class SimpleBooster implements Booster {
             this.boostTime(0L);
             this.booster(1d);
         }
-        return this.getCustomData("booster");
+        return this.booster;
     }
 
     @Override
     public void booster(double booster) {
-        this.addCustomData("booster", booster);
+        this.booster = booster;
     }
 
     @Override
@@ -48,18 +49,18 @@ public class SimpleBooster implements Booster {
 
     @Override
     public long boostTime() {
-        long boostTime = this.getCustomData("boostTime");
+        long boostTime = this.boostTime;
         long time = Instant.now().toEpochMilli();
         if (boostTime != -1 && boostTime <= time) {
             this.boostTime(0L);
             this.booster(1d);
         }
-        return this.getCustomData("boostTime");
+        return this.boostTime;
     }
 
     @Override
     public void boostTime(long boostTime) {
-        this.addCustomData("boostTime", boostTime);
+        this.boostTime = boostTime;
     }
 
     @Override
@@ -72,8 +73,7 @@ public class SimpleBooster implements Booster {
         return this.pluginIdentifier;
     }
 
-    @Override
-    public ConcurrentObjectMap<String, Object> getCustomData() {
+    public CustomData customData() {
         return this.customData;
     }
 }

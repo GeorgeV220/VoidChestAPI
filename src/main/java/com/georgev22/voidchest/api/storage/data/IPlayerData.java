@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.events.booster.BoosterEvent;
 import com.georgev22.voidchest.api.economy.player.EconomyMode;
 import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.player.Booster;
@@ -25,6 +25,13 @@ public interface IPlayerData extends Entity {
     String name();
 
     /**
+     * Sets the name of the player associated with the data.
+     *
+     * @param name The name of the player as a String.
+     */
+    void name(String name);
+
+    /**
      * Retrieves the list of UUIDs of the VoidChests associated with the player.
      *
      * @return The list of UUIDs of VoidChests as an ArrayList.
@@ -39,6 +46,13 @@ public interface IPlayerData extends Entity {
     Stats stats();
 
     /**
+     * Sets the statistics of the player.
+     *
+     * @param stats The statistics of the player as a Stats object.
+     */
+    void stats(Stats stats);
+
+    /**
      * Retrieves the booster for the player.
      *
      * @return The booster for the player as a Booster object.
@@ -51,11 +65,22 @@ public interface IPlayerData extends Entity {
 
     /**
      * Retrieves a list of boosters for the player.
+     * This method will fire a {@link BoosterEvent} to notify listeners about the boosters.
      *
-     * @return The list of boosters as a List.
+     * @return The list of boosters as a List
      * @since 2.0.0
      */
     Boosters boosters();
+
+    /**
+     * Retrieves a list of boosters for the player without triggering any events.
+     * This method silently returns the list of boosters without firing a {@link BoosterEvent}.
+     * Use this method when you need to retrieve the boosters without any side effects or event handling.
+     *
+     * @return The list of boosters as a List, retrieved without firing any events.
+     * @since 6.0.0
+     */
+    Boosters boostersSilent();
 
     /**
      * Retrieves the current balance of the player.
@@ -99,11 +124,25 @@ public interface IPlayerData extends Entity {
     void removeVoidChest(final IVoidChest voidChest);
 
     /**
+     * Removes the specified VoidChest from the player's list of associated storages.
+     *
+     * @param voidChest The VoidChest to remove.
+     */
+    void removeVoidChest(final UUID voidChest);
+
+    /**
      * Adds the specified VoidChest to the player's list of associated storages.
      *
      * @param voidChest The VoidChest to add.
      */
     void addVoidChest(final IVoidChest voidChest);
+
+    /**
+     * Adds the specified VoidChest to the player's list of associated storages.
+     *
+     * @param voidChest The VoidChest to add.
+     */
+    void addVoidChest(final UUID voidChest);
 
     /**
      * Reloads the player data.
@@ -116,49 +155,6 @@ public interface IPlayerData extends Entity {
      * @return The UUID of the player.
      */
     UUID getId();
-
-    /**
-     * Adds custom data to the IPlayerData with the specified key and value.
-     *
-     * @param key   the key of the custom data
-     * @param value the value of the custom data
-     * @return the updated IPlayerData with the added custom data
-     */
-    default IPlayerData addCustomData(String key, Object value) {
-        this.getCustomData().append(key, value);
-        return this;
-    }
-
-    /**
-     * Adds custom data to the IPlayerData with the specified key and value if the key does not already exist.
-     *
-     * @param key   the key of the custom data
-     * @param value the value of the custom data
-     * @return the updated IPlayerData with the added custom data (if the key did not already exist)
-     */
-    default IPlayerData addCustomDataIfNotExists(String key, Object value) {
-        this.getCustomData().appendIfTrue(key, value, !this.getCustomData().containsKey(key));
-        return this;
-    }
-
-    /**
-     * Retrieves the value of the custom data associated with the specified key.
-     *
-     * @param key the key of the custom data
-     * @param <T> the type of the value to retrieve
-     * @return the value associated with the specified key, or {@code null} if the key does not exist
-     */
-    default <T> T getCustomData(String key) {
-        //noinspection unchecked
-        return (T) getCustomData().get(key);
-    }
-
-    /**
-     * Retrieves the map of custom data associated with the IPlayerData.
-     *
-     * @return the {@link ConcurrentObjectMap} containing the custom data of the player data
-     */
-    ConcurrentObjectMap<String, Object> getCustomData();
 
     /**
      * Retrieves a map of placeholders for player and the specified VoidChest.

@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.storage.data;
 
+import com.georgev22.voidchest.api.utilities.CustomData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -19,6 +20,16 @@ public interface Entity extends Comparable<Entity> {
      */
     UUID getId();
 
+
+    /**
+     * Retrieves the custom data associated with this entity.
+     * <p>
+     * <strong>Note:</strong> Custom data are not saved, persisted or loaded from storage.
+     *
+     * @return The custom data associated with this entity.
+     */
+    CustomData customData();
+
     /**
      * Compares this entity with the specified entity for order.
      * <p>
@@ -26,7 +37,7 @@ public interface Entity extends Comparable<Entity> {
      *
      * @param o the entity to be compared
      * @return a negative integer, zero, or a positive integer as this entity's UUID
-     *         is less than, equal to, or greater than the specified entity's UUID
+     * is less than, equal to, or greater than the specified entity's UUID
      */
     @Override
     default int compareTo(@NotNull Entity o) {
@@ -41,7 +52,7 @@ public interface Entity extends Comparable<Entity> {
      *
      * @param o the reference object with which to compare
      * @return {@code true} if this entity is the same as the {@code o} argument;
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     @Override
     boolean equals(Object o);
@@ -53,7 +64,7 @@ public interface Entity extends Comparable<Entity> {
      *
      * @param o the object to compare with
      * @return {@code true} if all fields of this entity are equal to those of the given object;
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     boolean equalsExact(Object o);
 }
