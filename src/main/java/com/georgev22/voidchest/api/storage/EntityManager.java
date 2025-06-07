@@ -3,9 +3,9 @@ package com.georgev22.voidchest.api.storage;
 import com.georgev22.voidchest.api.storage.data.Entity;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -27,17 +27,17 @@ public interface EntityManager<E extends Entity> {
      * Finds an entity by its unique identifier.
      *
      * @param id the unique identifier
-     * @return the entity, or {@code null} if not found
+     * @return an {@link Optional} containing the entity if found, or an empty Optional if not found
      */
-    E findById(@NotNull String id);
+    Optional<E> findById(@NotNull String id);
 
     /**
      * Finds an entity by its unique identifier.
      *
      * @param uuid the unique identifier
-     * @return the entity, or {@code null} if not found
+     * @return an {@link Optional} containing the entity if found, or an empty Optional if not found
      */
-    default E findById(@NotNull UUID uuid) {
+    default Optional<E> findById(@NotNull UUID uuid) {
         return findById(uuid.toString());
     }
 
@@ -52,27 +52,27 @@ public interface EntityManager<E extends Entity> {
      * Loads an entity by its unique identifier.
      *
      * @param id the unique identifier
-     * @return the entity, or {@code null} if not found
+     * @return an {@link Optional} containing the entity if found, or an empty Optional if not found
      */
-    @Nullable E load(@NotNull String id);
+    Optional<E> load(@NotNull String id);
 
     /**
      * Loads an entity by its unique identifier.
      *
      * @param uuid the unique identifier
-     * @return the entity, or {@code null} if not found
+     * @return an {@link Optional} containing the entity if found, or an empty Optional if not found
      */
-    default @Nullable E load(@NotNull UUID uuid) {
+    default Optional<E> load(@NotNull UUID uuid) {
         return load(uuid.toString());
     }
 
     /**
-     * Loads all entities
+     * Loads all entities.
      */
     void loadAll();
 
     /**
-     * Saves all entities
+     * Saves all entities.
      */
     default void saveAll() {
         saveAll(entity -> {
@@ -80,9 +80,9 @@ public interface EntityManager<E extends Entity> {
     }
 
     /**
-     * Saves loadable entities and executes the provided consumer
+     * Saves all entities and executes the provided consumer on each one.
      *
-     * @param consumer the consumer
+     * @param consumer the consumer to apply to each saved entity
      */
     void saveAll(Consumer<E> consumer);
 
@@ -112,24 +112,24 @@ public interface EntityManager<E extends Entity> {
     }
 
     /**
-     * Retrieves an entity by its unique identifier. Optionally, creates a new entity
-     * if it does not already exist.
+     * Retrieves an entity by its unique identifier. Optionally, loads the entity
+     * if it exists.
      *
      * @param id           the unique identifier
      * @param loadIfExists whether to load the entity if it exists
-     * @return the entity, or {@code null} if not found and loadIfExists is false
+     * @return an {@link Optional} containing the entity if found, or empty if not found
      */
-    E getEntity(@NotNull String id, boolean loadIfExists);
+    Optional<E> getEntity(@NotNull String id, boolean loadIfExists);
 
     /**
-     * Retrieves an entity by its unique identifier. Optionally, creates a new entity
-     * if it does not already exist.
+     * Retrieves an entity by its unique identifier. Optionally, loads the entity
+     * if it exists.
      *
      * @param uuid         the unique identifier
      * @param loadIfExists whether to load the entity if it exists
-     * @return the entity, or {@code null} if not found and loadIfExists is false
+     * @return an {@link Optional} containing the entity if found, or empty if not found
      */
-    default E getEntity(@NotNull UUID uuid, boolean loadIfExists) {
+    default Optional<E> getEntity(@NotNull UUID uuid, boolean loadIfExists) {
         return getEntity(uuid.toString(), loadIfExists);
     }
 
@@ -140,9 +140,9 @@ public interface EntityManager<E extends Entity> {
      * @param id                           the unique identifier
      * @param loadIfExists                 whether to load the entity if it exists
      * @param createConsumerIfDoesNotExist the consumer to handle entity creation if not found
-     * @return the entity, or newly created entity if not found
+     * @return an {@link Optional} containing the existing or newly created entity
      */
-    E getEntity(@NotNull String id, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist);
+    Optional<E> getEntity(@NotNull String id, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist);
 
     /**
      * Retrieves an entity by its unique identifier. If it does not exist and the
@@ -151,21 +151,40 @@ public interface EntityManager<E extends Entity> {
      * @param uuid                         the unique identifier
      * @param loadIfExists                 whether to load the entity if it exists
      * @param createConsumerIfDoesNotExist the consumer to handle entity creation if not found
-     * @return the entity, or newly created entity if not found
+     * @return an {@link Optional} containing the existing or newly created entity
      */
-    default E getEntity(@NotNull UUID uuid, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist) {
+    default Optional<E> getEntity(@NotNull UUID uuid, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist) {
         return getEntity(uuid.toString(), loadIfExists, createConsumerIfDoesNotExist);
     }
 
+    /**
+     * Gets the name of this entity manager.
+     *
+     * @return the name
+     */
     String getName();
 
+    /**
+     * Gets the simple name of this entity manager.
+     *
+     * @return the simple name
+     */
     String getSimpleName();
 
+    /**
+     * Shuts down this manager.
+     */
+    @ApiStatus.Internal
     default void shutdown() {
         shutdown(entity -> {
         });
     }
 
+    /**
+     * Shuts down this manager and applies the given consumer to each entity.
+     *
+     * @param consumer the consumer to apply
+     */
     @ApiStatus.Internal
     void shutdown(Consumer<E> consumer);
 

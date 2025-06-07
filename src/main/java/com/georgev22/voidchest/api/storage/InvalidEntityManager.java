@@ -2,80 +2,91 @@ package com.georgev22.voidchest.api.storage;
 
 import com.georgev22.voidchest.api.storage.data.Entity;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
+/**
+ * A no-op implementation of {@link EntityManager} that always returns empty or default values.
+ * Useful for disabling entity management without null checks or feature branches.
+ *
+ * @param <E> the type of entity to manage
+ */
 public class InvalidEntityManager<E extends Entity> implements EntityManager<E> {
 
     /**
-     * Saves the specified entity.
+     * No-op save implementation.
      *
      * @param entity the entity to save
      */
     @Override
     public void save(@NotNull E entity) {
-
+        // No-op
     }
 
     /**
-     * Finds an entity by its unique identifier.
+     * Always returns {@link Optional#empty()} as no entities are stored.
      *
      * @param id the unique identifier
-     * @return the entity, or {@code null} if not found
+     * @return an empty {@link Optional}
      */
     @Override
-    public E findById(@NotNull String id) {
-        return null;
+    public Optional<E> findById(@NotNull String id) {
+        return Optional.empty();
     }
 
     /**
-     * Deletes the specified entity.
+     * No-op delete implementation.
      *
      * @param entity the entity to delete
      */
     @Override
     public void delete(@NotNull E entity) {
-
+        // No-op
     }
 
     /**
-     * Loads an entity by its unique identifier.
+     * Always returns {@link Optional#empty()} as no entities are loaded.
      *
      * @param id the unique identifier
-     * @return the entity, or {@code null} if not found
+     * @return an empty {@link Optional}
      */
     @Override
-    public @Nullable E load(@NotNull String id) {
-        return null;
+    public Optional<E> load(@NotNull String id) {
+        return Optional.empty();
     }
 
     /**
-     * Loads all entities
+     * No-op loadAll implementation.
      */
     @Override
     public void loadAll() {
-
+        // No-op
     }
 
     /**
-     * Saves all entities
+     * No-op saveAll implementation.
      */
     @Override
     public void saveAll() {
-
-    }
-
-    @Override
-    public void saveAll(Consumer<E> consumer) {
-
+        // No-op
     }
 
     /**
-     * Returns all entities managed by this manager.
+     * No-op saveAll implementation with consumer.
      *
-     * @return a list of all entities
+     * @param consumer consumer to call on each entity
+     */
+    @Override
+    public void saveAll(Consumer<E> consumer) {
+        // No-op
+    }
+
+    /**
+     * Always returns an empty list.
+     *
+     * @return an empty {@link List}
      */
     @Override
     public List<E> getAll() {
@@ -83,10 +94,10 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     }
 
     /**
-     * Checks if an entity with the specified identifier exists.
+     * Always returns {@code false} since no entities are stored.
      *
      * @param id the unique identifier
-     * @return {@code true} if the entity exists, {@code false} otherwise
+     * @return {@code false}
      */
     @Override
     public boolean exists(@NotNull String id) {
@@ -94,44 +105,57 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     }
 
     /**
-     * Retrieves an entity by its unique identifier. Optionally, creates a new entity
-     * if it does not already exist.
+     * Always returns {@link Optional#empty()}.
      *
      * @param id           the unique identifier
-     * @param loadIfExists whether to load the entity if it exists
-     * @return the entity, or {@code null} if not found and loadIfExists is false
+     * @param loadIfExists ignored
+     * @return an empty {@link Optional}
      */
     @Override
-    public E getEntity(@NotNull String id, boolean loadIfExists) {
-        return null;
+    public Optional<E> getEntity(@NotNull String id, boolean loadIfExists) {
+        return Optional.empty();
     }
 
     /**
-     * Retrieves an entity by its unique identifier. If it does not exist and the
-     * createConsumer is provided, creates a new entity.
+     * Always returns {@link Optional#empty()}, never calls the create consumer.
      *
      * @param id                           the unique identifier
-     * @param loadIfExists                 whether to load the entity if it exists
-     * @param createConsumerIfDoesNotExist the consumer to handle entity creation if not found
-     * @return the entity, or newly created entity if not found
+     * @param loadIfExists                 ignored
+     * @param createConsumerIfDoesNotExist ignored
+     * @return an empty {@link Optional}
      */
     @Override
-    public E getEntity(@NotNull String id, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist) {
-        return null;
+    public Optional<E> getEntity(@NotNull String id, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist) {
+        return Optional.empty();
     }
 
+    /**
+     * Returns the fully qualified class name.
+     *
+     * @return the full class name
+     */
     @Override
     public String getName() {
         return this.getClass().getCanonicalName();
     }
 
+    /**
+     * Returns the simple class name.
+     *
+     * @return the simple class name
+     */
     @Override
     public String getSimpleName() {
         return this.getClass().getSimpleName();
     }
 
+    /**
+     * No-op shutdown implementation.
+     *
+     * @param consumer consumer to apply to each entity
+     */
     @Override
     public void shutdown(Consumer<E> consumer) {
-
+        // No-op
     }
 }

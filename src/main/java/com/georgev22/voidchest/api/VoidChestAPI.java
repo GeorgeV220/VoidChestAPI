@@ -27,6 +27,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 /**
  * The VoidChestAPI class provides access to various managers and services for the VoidChest plugin.
  */
@@ -123,11 +125,11 @@ public record VoidChestAPI(JavaPlugin plugin,
      * @return The {@link EntityManager} associated with {@link IVoidChest} entities.
      */
     public @NotNull EntityManager<IVoidChest> voidChestManager() {
-        EntityManager<IVoidChest> voidEntityManager = EntityManagerRegistry.getManager(IVoidChest.class);
-        if (voidEntityManager == null) {
-            voidEntityManager = new InvalidEntityManager<>();
+        @NotNull Optional<EntityManager<IVoidChest>> voidEntityManager = EntityManagerRegistry.getManager(IVoidChest.class);
+        if (voidEntityManager.isEmpty()) {
+            voidEntityManager = Optional.of(new InvalidEntityManager<>());
         }
-        return voidEntityManager;
+        return voidEntityManager.get();
     }
 
     /**
@@ -136,10 +138,10 @@ public record VoidChestAPI(JavaPlugin plugin,
      * @return The {@link EntityManager} associated with {@link IPlayerData} entities.
      */
     public @NotNull EntityManager<IPlayerData> playerManager() {
-        EntityManager<IPlayerData> playerEntityManager = EntityManagerRegistry.getManager(IPlayerData.class);
-        if (playerEntityManager == null) {
-            playerEntityManager = new InvalidEntityManager<>();
+        @NotNull Optional<EntityManager<IPlayerData>> playerEntityManager = EntityManagerRegistry.getManager(IPlayerData.class);
+        if (playerEntityManager.isEmpty()) {
+            playerEntityManager = Optional.of(new InvalidEntityManager<>());
         }
-        return playerEntityManager;
+        return playerEntityManager.get();
     }
 }

@@ -6,7 +6,6 @@ import com.georgev22.voidchest.api.utilities.ContainerWrapper;
 import com.georgev22.voidchest.api.utilities.SerializableContainer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -118,7 +117,7 @@ public interface ILinkManager {
      * Retrieves the {@link IVoidChest} associated with a specified {@link ContainerWrapper}.
      *
      * @param container The {@link ContainerWrapper} for which to retrieve the {@link IVoidChest}.
-     * @return The {@link IVoidChest} associated with the specified {@link ContainerWrapper}, or {@code null} if no link exists.
+     * @return The {@link IVoidChest} associated with the specified {@link ContainerWrapper}, or {@code Optional.empty()} if no link exists.
      */
-    @Nullable IVoidChest getVoidChest(@NotNull ContainerWrapper container);
+    Optional<IVoidChest> getVoidChest(@NotNull ContainerWrapper container);
 }

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Singleton registry for managing EntityManager instances by entity class.
@@ -55,11 +56,11 @@ public class EntityManagerRegistry {
      *
      * @param entityClass the class of the entity
      * @param <E>         the type of entity
-     * @return the EntityManager instance, or {@code null} if not registered
+     * @return the EntityManager instance, or {@code Optional.empty()} if not registered
      */
     @SuppressWarnings("unchecked")
-    public static <E extends Entity> EntityManager<E> getManager(Class<E> entityClass) {
-        return (EntityManager<E>) managers.get(entityClass);
+    public static <E extends Entity> @NotNull Optional<EntityManager<E>> getManager(Class<E> entityClass) {
+        return Optional.ofNullable((EntityManager<E>) managers.get(entityClass));
     }
 
     /**
