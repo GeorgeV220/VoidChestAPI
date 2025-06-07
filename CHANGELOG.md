@@ -1,3 +1,13 @@
+# [4.0.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2025-06-07)
+
+
+### Features
+
+* add ITimedTask#isRunning and update isCancelled javadoc ([3cd3e30](https://github.com/GeorgeV220/VoidChestAPI/commit/3cd3e30c37a9d1cba74ec78671bb8adf256b4b76))
+* add silent booster methods and refactor event handling ([86444b8](https://github.com/GeorgeV220/VoidChestAPI/commit/86444b8efc60bb1315f3f22615cfe18895f83bf7))
+* Replace nullable returns with Optional in storage APIs ([35b2236](https://github.com/GeorgeV220/VoidChestAPI/commit/35b22361d802d644a2eb29ca92212e56d43a1f4b))
+* update Minecraft version ranges and add new versions ([91ceeae](https://github.com/GeorgeV220/VoidChestAPI/commit/91ceeaee0547b747e8aa43683d5a72230e988639))
+
 # [4.0.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v3.0.0...v4.0.0-beta.1) (2025-05-22)
 
 
