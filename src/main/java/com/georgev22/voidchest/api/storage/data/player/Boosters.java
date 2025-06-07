@@ -83,29 +83,64 @@ public class Boosters {
     /**
      * Adds a booster to the collection.
      * If a booster with the same plugin identifier already exists, it will be replaced.
+     * This method will first fire a {@link BoosterAddEvent}, and if the event is cancelled,
+     * the booster will not be added.
      *
      * @param booster The booster to be added or replaced.
-     * @return The Boosters object after adding or replacing the specified booster.
+     * @return The Boosters object after attempting to add or replace the specified booster.
+     * If the event was cancelled, the booster will not be added, and the original Boosters object is returned.
      */
     public Boosters addBooster(Booster booster) {
         if (booster == null) return this;
         BoosterAddEvent boosterAddEvent = new BoosterAddEvent(this, booster).call();
         if (boosterAddEvent.isCancelled()) return this;
+        return this.addBoosterSilently(booster);
+    }
+
+    /**
+     * Adds a booster to the collection without firing any events.
+     * If a booster with the same plugin identifier already exists, it will be replaced.
+     * This method silently adds or replaces the booster without triggering any events.
+     *
+     * @param booster The booster to be added or replaced.
+     * @return The Boosters object after adding or replacing the specified booster.
+     */
+    public Boosters addBoosterSilently(Booster booster) {
+        if (booster == null) return this;
         this.boosters.append(booster.pluginIdentifier(), booster);
         return this;
     }
 
     /**
      * Removes a booster from the collection.
+     * This method fires a {@link BoosterRemoveEvent}, and if the event is cancelled,
+     * the booster will not be removed.
      *
      * @param booster The booster to be removed.
-     * @return The Boosters object after removing the specified booster.
+     * @return The Boosters object after attempting to remove the specified booster.
+     * If the event was cancelled, the booster will not be removed, and the original Boosters object is returned.
      */
     public Boosters removeBooster(Booster booster) {
         if (booster == null) return this;
         if (!this.boosters.containsKey(booster.pluginIdentifier())) return this;
         BoosterRemoveEvent boosterRemoveEvent = new BoosterRemoveEvent(this, booster).call();
         if (boosterRemoveEvent.isCancelled()) return this;
+        booster.booster(0d);
+        booster.boostTime(0L);
+        this.boosters.remove(booster.pluginIdentifier());
+        return this;
+    }
+
+    /**
+     * Removes a booster from the collection without firing any events.
+     * This method silently removes the booster and resets its values without triggering any events.
+     *
+     * @param booster The booster to be removed.
+     * @return The Boosters object after removing the specified booster.
+     */
+    public Boosters removeBoosterSilently(Booster booster) {
+        if (booster == null) return this;
+        if (!this.boosters.containsKey(booster.pluginIdentifier())) return this;
         booster.booster(0d);
         booster.boostTime(0L);
         this.boosters.remove(booster.pluginIdentifier());
