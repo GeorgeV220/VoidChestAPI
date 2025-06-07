@@ -741,17 +741,17 @@ public class BukkitMinecraftUtils {
         V_1_7_R1(new SubVersionRange("1.7", 2, 4)),
         V_1_7_R2(new SubVersionRange("1.7", 5, 7)),
         V_1_7_R3(new SubVersionRange("1.7", 8, 9)),
-        V_1_7_R4(new SubVersionRange("1.7", 10, 10)),
+        V_1_7_R4(new SubVersionRange("1.7", 10)),
         V1_8_R1(new SubVersionRange("1.8", 0, 1)),
         V1_8_R2(new SubVersionRange("1.8", 3, 3)),
         V1_8_R3(new SubVersionRange("1.8", 4, 9)),
         V1_9_R1(new SubVersionRange("1.9", 0, 2)),
-        V1_9_R2(new SubVersionRange("1.9", 4, 4)),
+        V1_9_R2(new SubVersionRange("1.9", 4)),
         V1_10_R1(new SubVersionRange("1.10", 0, 2)),
         V1_11_R1(new SubVersionRange("1.11", 0, 2)),
         V1_12_R1(new SubVersionRange("1.12", 0, 2)),
         V1_13_R1(new SubVersionRange("1.13", 0, 1)),
-        V1_13_R2(new SubVersionRange("1.13", 2, 2)),
+        V1_13_R2(new SubVersionRange("1.13", 2)),
         V1_14_R1(new SubVersionRange("1.14", 0, 4)),
         V1_15_R1(new SubVersionRange("1.15", 0, 2)),
         V1_16_R1(new SubVersionRange("1.16", 0, 1)),
@@ -759,17 +759,19 @@ public class BukkitMinecraftUtils {
         V1_16_R3(new SubVersionRange("1.16", 4, 5)),
         V1_17_R1(new SubVersionRange("1.17", 0, 1)),
         V1_18_R1(new SubVersionRange("1.18", 0, 1)),
-        V1_18_R2(new SubVersionRange("1.18", 2, 2)),
+        V1_18_R2(new SubVersionRange("1.18", 2)),
         V1_19_R1(new SubVersionRange("1.19", 0, 2)),
-        V1_19_R2(new SubVersionRange("1.19", 3, 3)),
-        V1_19_R3(new SubVersionRange("1.19", 4, 4)),
+        V1_19_R2(new SubVersionRange("1.19", 3)),
+        V1_19_R3(new SubVersionRange("1.19", 4)),
         V1_20_R1(new SubVersionRange("1.20", 0, 1)),
-        V1_20_R2(new SubVersionRange("1.20", 2, 2)),
+        V1_20_R2(new SubVersionRange("1.20", 2)),
         V1_20_R3(new SubVersionRange("1.20", 3, 4)),
         V1_20_R4(new SubVersionRange("1.20", 5, 6)),
         V1_21_R1(new SubVersionRange("1.21", 0, 1)),
         V1_21_R2(new SubVersionRange("1.21", 2, 3)),
-        V1_21_R3(new SubVersionRange("1.21", 4, 4)),
+        V1_21_R3(new SubVersionRange("1.21", 4)),
+        V1_21_R4(new SubVersionRange("1.21", 5)),
+        V1_21_R5(new SubVersionRange("1.21", 6)),
         UNKNOWN(new SubVersionRange("UNKNOWN", 0, 0)),
         ;
 
@@ -909,6 +911,10 @@ public class BukkitMinecraftUtils {
             private final String version;
             private final int start;
             private final int end;
+
+            SubVersionRange(String version, int patch) {
+                this(version, patch, patch);
+            }
 
             SubVersionRange(String version, int start, int end) {
                 this.version = version;
