@@ -61,8 +61,17 @@ public interface ITimedTask {
 
     /**
      * Checks whether the task associated with this instance has been cancelled.
+     * <p>
+     * <strong>DO NOT start the task if it is cancelled</strong> but rather create a new one instead.
      *
      * @return true if the task is cancelled, false otherwise.
      */
     boolean isCancelled();
+
+    /**
+     * Checks whether the task is currently running.
+     *
+     * @return true if the task is running, false otherwise.
+     */
+    boolean isRunning();
 }
