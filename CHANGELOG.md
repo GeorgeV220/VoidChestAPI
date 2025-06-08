@@ -1,3 +1,10 @@
+# [4.0.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2025-06-08)
+
+
+### Features
+
+* Add block coordinate methods and refactor void chest lookup ([6aecac6](https://github.com/GeorgeV220/VoidChestAPI/commit/6aecac6017f442d5f4656524916b885323d78320))
+
 # [4.0.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2025-06-07)
 
 
