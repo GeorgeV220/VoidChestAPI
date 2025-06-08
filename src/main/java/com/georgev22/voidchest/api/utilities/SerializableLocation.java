@@ -340,6 +340,33 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
+     * Gets the block x-coordinate.
+     *
+     * @return The block x-coordinate.
+     */
+    public int getBlockX() {
+        return Utils.floor(x);
+    }
+
+    /**
+     * Gets the block y-coordinate.
+     *
+     * @return The block y-coordinate.
+     */
+    public int getBlockY() {
+        return Utils.floor(y);
+    }
+
+    /**
+     * Gets the block z-coordinate.
+     *
+     * @return The block z-coordinate.
+     */
+    public int getBlockZ() {
+        return Utils.floor(z);
+    }
+
+    /**
      * Gets the x-coordinate of the chunk.
      *
      * @return The x-coordinate of the chunk.

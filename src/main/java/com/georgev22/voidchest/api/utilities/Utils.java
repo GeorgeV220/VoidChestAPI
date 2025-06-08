@@ -1126,6 +1126,17 @@ public final class Utils {
         return splitValues;
     }
 
+    /**
+     * Returns the floor of the given double value.
+     *
+     * @param num The double value to get the floor of.
+     * @return The floor of the given double value.
+     */
+    public static int floor(double num) {
+        int floor = (int) num;
+        return (double) floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
+    }
+
     public static final class Assertions {
 
         /**

@@ -211,7 +211,7 @@ public class VoidChestCacheController {
      */
     public Optional<IVoidChest> getVoidChestNear(@NotNull Block block) {
         Material chestMaterial;
-        Material trappedChestMaterial = null;
+        Material trappedChestMaterial;
 
         try {
             chestMaterial = Material.CHEST;
@@ -264,7 +264,31 @@ public class VoidChestCacheController {
      * @return An {@link Optional} of the associated void chest.
      */
     public Optional<IVoidChest> voidChest(@NotNull Location location) {
-        SerializableLocation sLoc = SerializableLocation.fromLocation(location);
+        return voidChest(location.getWorld().getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
+
+    /**
+     * Fetches an {@link Optional} containing the {@link IVoidChest} for the specified serializable location.
+     *
+     * @param location The serializable location.
+     * @return An {@link Optional} of the associated void chest.
+     */
+    public Optional<IVoidChest> voidChest(@Nullable SerializableLocation location) {
+        if (location == null) return Optional.empty();
+        return voidChest(location.getWorldName(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
+
+    /**
+     * Fetches an {@link Optional} containing the {@link IVoidChest} for the specified location.
+     *
+     * @param worldName The name of the world.
+     * @param x         The X coordinate.
+     * @param y         The Y coordinate.
+     * @param z         The Z coordinate.
+     * @return An {@link Optional} of the associated void chest.
+     */
+    public Optional<IVoidChest> voidChest(@NotNull String worldName, int x, int y, int z) {
+        SerializableLocation sLoc = new SerializableLocation(worldName, x, y, z, 0, 0);
         IVoidChest cached = locationVoidChestCache.getOrDefault(sLoc, null);
         if (cached != null) return Optional.of(cached);
 
@@ -272,30 +296,19 @@ public class VoidChestCacheController {
         if (voidEntityManager.isEmpty()) return Optional.empty();
 
         for (IVoidChest storage : voidEntityManager.get().getAll()) {
-            Location storageLocation = storage.blockLocation().toLocation();
+            SerializableLocation storageLocation = storage.blockLocation();
+            //noinspection ConstantConditions
             if (storageLocation == null) continue;
-            if (storageLocation.getBlockX() == location.getBlockX() &&
-                    storageLocation.getBlockY() == location.getBlockY() &&
-                    storageLocation.getBlockZ() == location.getBlockZ()) {
+            if (storageLocation.getWorldName().equals(sLoc.getWorldName()) &&
+                    storageLocation.getBlockX() == sLoc.getBlockX() &&
+                    storageLocation.getBlockY() == sLoc.getBlockY() &&
+                    storageLocation.getBlockZ() == sLoc.getBlockZ()) {
                 locationVoidChestCache.put(sLoc, storage);
                 return Optional.of(storage);
             }
         }
 
         return Optional.ofNullable(locationVoidChestCache.getOrDefault(sLoc, null));
-    }
-
-    /**
-     * Fetches an {@link Optional} containing the {@link IVoidChest} for the specified serializable location.
-     *
-     * @param serializableLocation The serializable location.
-     * @return An {@link Optional} of the associated void chest.
-     */
-    public Optional<IVoidChest> voidChest(@Nullable SerializableLocation serializableLocation) {
-        if (serializableLocation == null) return Optional.empty();
-        Location location = serializableLocation.toLocation();
-        if (location == null) return Optional.empty();
-        return voidChest(location);
     }
 
     /**
