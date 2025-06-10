@@ -1,3 +1,15 @@
+# [4.0.0-beta.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.3...v4.0.0-beta.4) (2025-06-10)
+
+
+* feat!: remove unused getEntity methods with consumer ([9c499ab](https://github.com/GeorgeV220/VoidChestAPI/commit/9c499ab60948e7e0a51509561126715a120d028f))
+
+
+### BREAKING CHANGES
+
+* Removed getEntity methods with consumer parameter
+from EntityManager interface and InvalidEntityManager class. Any
+existing implementations must remove references to these methods.
+
 # [4.0.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2025-06-08)
 
 
