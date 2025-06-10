@@ -134,30 +134,6 @@ public interface EntityManager<E extends Entity> {
     }
 
     /**
-     * Retrieves an entity by its unique identifier. If it does not exist and the
-     * createConsumer is provided, creates a new entity.
-     *
-     * @param id                           the unique identifier
-     * @param loadIfExists                 whether to load the entity if it exists
-     * @param createConsumerIfDoesNotExist the consumer to handle entity creation if not found
-     * @return an {@link Optional} containing the existing or newly created entity
-     */
-    Optional<E> getEntity(@NotNull String id, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist);
-
-    /**
-     * Retrieves an entity by its unique identifier. If it does not exist and the
-     * createConsumer is provided, creates a new entity.
-     *
-     * @param uuid                         the unique identifier
-     * @param loadIfExists                 whether to load the entity if it exists
-     * @param createConsumerIfDoesNotExist the consumer to handle entity creation if not found
-     * @return an {@link Optional} containing the existing or newly created entity
-     */
-    default Optional<E> getEntity(@NotNull UUID uuid, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist) {
-        return getEntity(uuid.toString(), loadIfExists, createConsumerIfDoesNotExist);
-    }
-
-    /**
      * Gets the name of this entity manager.
      *
      * @return the name

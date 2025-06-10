@@ -117,19 +117,6 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     }
 
     /**
-     * Always returns {@link Optional#empty()}, never calls the create consumer.
-     *
-     * @param id                           the unique identifier
-     * @param loadIfExists                 ignored
-     * @param createConsumerIfDoesNotExist ignored
-     * @return an empty {@link Optional}
-     */
-    @Override
-    public Optional<E> getEntity(@NotNull String id, boolean loadIfExists, Consumer<E> createConsumerIfDoesNotExist) {
-        return Optional.empty();
-    }
-
-    /**
      * Returns the fully qualified class name.
      *
      * @return the full class name
