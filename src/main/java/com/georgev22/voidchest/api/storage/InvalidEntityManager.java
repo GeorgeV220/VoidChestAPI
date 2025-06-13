@@ -116,6 +116,11 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
         return Optional.empty();
     }
 
+    @Override
+    public Optional<E> create(@NotNull String id, @NotNull Consumer<E> consumer) {
+        return Optional.empty();
+    }
+
     /**
      * Returns the fully qualified class name.
      *
