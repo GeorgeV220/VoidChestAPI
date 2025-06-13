@@ -134,6 +134,26 @@ public interface EntityManager<E extends Entity> {
     }
 
     /**
+     * Creates a new entity with the specified identifier and executes the provided consumer.
+     *
+     * @param id           the unique identifier
+     * @param consumer     the consumer to apply to the new entity
+     * @return an {@link Optional} containing the new entity if created, or empty if not created
+     */
+    Optional<E> create(@NotNull String id, @NotNull Consumer<E> consumer);
+
+    /**
+     * Creates a new entity with the specified identifier and executes the provided consumer.
+     *
+     * @param uuid         the unique identifier
+     * @param consumer     the consumer to apply to the new entity
+     * @return an {@link Optional} containing the new entity if created, or empty if not created
+     */
+    default Optional<E> create(@NotNull UUID uuid, @NotNull Consumer<E> consumer) {
+        return create(uuid.toString(), consumer);
+    }
+
+    /**
      * Gets the name of this entity manager.
      *
      * @return the name
