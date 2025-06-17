@@ -1,3 +1,10 @@
+# [4.0.0-beta.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.5...v4.0.0-beta.6) (2025-06-17)
+
+
+### Bug Fixes
+
+* **api:** add UP and DOWN block faces to cached faces set ([59a2fcd](https://github.com/GeorgeV220/VoidChestAPI/commit/59a2fcdc83002c073b1661f2fa39bc7f2961be5f))
+
 # [4.0.0-beta.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.4...v4.0.0-beta.5) (2025-06-17)
 
 
