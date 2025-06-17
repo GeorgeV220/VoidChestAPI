@@ -35,7 +35,7 @@ public class VoidChestCacheController {
     private final ConcurrentObjectMap<Chunk, List<IVoidChest>> chunkVoidChestCache = new ConcurrentObjectMap<>();
     private final ConcurrentObjectMap<IPlayerData, List<IVoidChest>> playerCache = new ConcurrentObjectMap<>();
     private final Set<BlockFace> faces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
-            BlockFace.SOUTH);
+            BlockFace.SOUTH, BlockFace.UP, BlockFace.DOWN);
 
     /**
      * Adds a {@link IVoidChest} to the chunk cache.
