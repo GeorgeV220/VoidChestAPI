@@ -1,3 +1,11 @@
+# [4.0.0-beta.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.4...v4.0.0-beta.5) (2025-06-17)
+
+
+### Features
+
+* **EntityManager:** add create methods with consumer parameter ([8484896](https://github.com/GeorgeV220/VoidChestAPI/commit/8484896d222922c12b90fbc48410a0fbd11aea5a))
+* implement create method in InvalidEntityManager ([ca63fcf](https://github.com/GeorgeV220/VoidChestAPI/commit/ca63fcf27144d96288f32c037f4f7499225b8a06))
+
 # [4.0.0-beta.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.3...v4.0.0-beta.4) (2025-06-10)
 
 
