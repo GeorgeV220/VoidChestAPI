@@ -4,7 +4,6 @@ import com.georgev22.voidchest.api.events.VoidEvent;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * The VoidChestSaveEvent class is an event that is fired when a VoidChest is saved.
@@ -12,17 +11,13 @@ import org.jetbrains.annotations.Nullable;
 public class VoidChestSaveEvent extends VoidEvent {
     private static final HandlerList HANDLERS = new HandlerList();
 
-    private final @Nullable Throwable throwable;
-
     /**
-     * Constructs a new VoidChestSaveEvent with the specified VoidChest and Throwable.
+     * Constructs a new VoidChestSaveEvent with the specified VoidChest.
      *
      * @param voidChest The VoidChest associated with the VoidChest.
-     * @param throwable   The Throwable if the save failed.
      */
-    public VoidChestSaveEvent(IVoidChest voidChest, @Nullable Throwable throwable) {
+    public VoidChestSaveEvent(IVoidChest voidChest) {
         super(voidChest);
-        this.throwable = throwable;
     }
 
 
@@ -43,9 +38,5 @@ public class VoidChestSaveEvent extends VoidEvent {
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
-    }
-
-    public @Nullable Throwable getThrowable() {
-        return throwable;
     }
 }

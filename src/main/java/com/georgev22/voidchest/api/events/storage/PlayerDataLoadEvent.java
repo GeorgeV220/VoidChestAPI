@@ -4,7 +4,6 @@ import com.georgev22.voidchest.api.events.PlayerEvent;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * The PlayerDataLoadEvent class is an event that is fired when a PlayerData is loaded.
@@ -12,17 +11,13 @@ import org.jetbrains.annotations.Nullable;
 public class PlayerDataLoadEvent extends PlayerEvent {
     private static final HandlerList HANDLERS = new HandlerList();
 
-    private final @Nullable Throwable throwable;
-
     /**
-     * Constructs a new PlayerDataLoadEvent with the specified PlayerData and Throwable.
+     * Constructs a new PlayerDataLoadEvent with the specified PlayerData.
      *
      * @param playerData The playerData associated with the PlayerData.
-     * @param throwable  The Throwable if the load failed.
      */
-    public PlayerDataLoadEvent(IPlayerData playerData, @Nullable Throwable throwable) {
+    public PlayerDataLoadEvent(IPlayerData playerData) {
         super(playerData);
-        this.throwable = throwable;
     }
 
 
@@ -43,9 +38,5 @@ public class PlayerDataLoadEvent extends PlayerEvent {
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
-    }
-
-    public @Nullable Throwable getThrowable() {
-        return throwable;
     }
 }
