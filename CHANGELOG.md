@@ -1,3 +1,21 @@
+# [4.0.0-beta.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.6...v4.0.0-beta.7) (2025-06-26)
+
+
+* refactor(api)!: overhaul ProfitCalculatorRegistry and calculator selection ([f01d446](https://github.com/GeorgeV220/VoidChestAPI/commit/f01d4466101a8fce2519276e490f7bfaf27fb72d))
+
+
+### Features
+
+* **api:** add async constructor to PlayerEvent ([ab11bb8](https://github.com/GeorgeV220/VoidChestAPI/commit/ab11bb8e4f8c5e73cda369440725c5f539fc0fee))
+* **utilities:** add VoidChunk class and refactor SerializableLocation ([f2280b1](https://github.com/GeorgeV220/VoidChestAPI/commit/f2280b10a0ad0cf55c50379d86c99fb1018d4ea7))
+
+
+### BREAKING CHANGES
+
+* Existing ProfitCalculator implementations must now
+include getWeight() and getPlugin() methods. Registry API methods have
+significantly changed - plugins using the registry require updates.
+
 # [4.0.0-beta.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.5...v4.0.0-beta.6) (2025-06-17)
 
 
