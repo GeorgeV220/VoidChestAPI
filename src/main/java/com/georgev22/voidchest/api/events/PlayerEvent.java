@@ -22,6 +22,17 @@ public abstract class PlayerEvent extends VoidChestBaseEvent {
     }
 
     /**
+     * Constructs a new PlayerEvent with the specified PlayerData.
+     *
+     * @param playerData The PlayerEvent associated with the event.
+     * @param async Whether the event is asynchronous or not.
+     */
+    public PlayerEvent(@Nullable final IPlayerData playerData, boolean async) {
+        super(async);
+        this.playerData = playerData;
+    }
+
+    /**
      * Retrieves the PlayerData associated with the event.
      *
      * @return The PlayerData associated with the event.
