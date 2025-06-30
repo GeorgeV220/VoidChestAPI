@@ -54,6 +54,8 @@ public class SerializableLocation implements Serializable, Cloneable {
     private int maxY;
     private VoidChunk chunk;
 
+    private transient final int cachedHashCode;
+
     /**
      * Constructs a new SerializableLocation from the provided Bukkit Location.
      *
@@ -70,6 +72,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.minY = MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_17_R1) ? location.getWorld().getMinHeight() : 0;
         this.maxY = location.getWorld().getMaxHeight();
         this.chunk = new VoidChunk(worldName, (int) getX() >> 4, (int) getZ() >> 4);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -92,6 +95,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.minY = 0;
         this.maxY = 256;
         this.chunk = new VoidChunk(worldName, (int) getX() >> 4, (int) getZ() >> 4);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -116,6 +120,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.minY = minY;
         this.maxY = maxY;
         this.chunk = new VoidChunk(worldName, (int) getX() >> 4, (int) getZ() >> 4);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -142,6 +147,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.minY = minY;
         this.maxY = maxY;
         this.chunk = new VoidChunk(worldName, chunkX, chunkZ);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -423,12 +429,28 @@ public class SerializableLocation implements Serializable, Cloneable {
                 && Float.compare(pitch, that.pitch) == 0
                 && minY == that.minY
                 && maxY == that.maxY
-                && chunk == that.chunk
+                && Objects.equals(chunk, that.chunk)
                 && Objects.equals(worldName, that.worldName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(worldName, x, y, z, yaw, pitch, minY, maxY, chunk);
+        return cachedHashCode;
+    }
+
+    private int computeHashCode() {
+        int result = worldName != null ? worldName.hashCode() : 0;
+
+        result = 31 * result + Double.hashCode(x);
+        result = 31 * result + Double.hashCode(y);
+        result = 31 * result + Double.hashCode(z);
+
+        result = 31 * result + Float.hashCode(yaw);
+        result = 31 * result + Float.hashCode(pitch);
+        result = 31 * result + minY;
+        result = 31 * result + maxY;
+        result = 31 * result + (chunk != null ? chunk.hashCode() : 0);
+
+        return result;
     }
 }

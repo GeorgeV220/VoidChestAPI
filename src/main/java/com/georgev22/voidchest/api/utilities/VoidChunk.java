@@ -73,13 +73,17 @@ public class VoidChunk implements Serializable {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (!(o instanceof VoidChunk voidChunk)) return false;
         return x == voidChunk.x && z == voidChunk.z && Objects.equals(worldName, voidChunk.worldName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(worldName, x, z);
+        int result = worldName != null ? worldName.hashCode() : 0;
+        result = 31 * result + Integer.hashCode(x);
+        result = 31 * result + Integer.hashCode(z);
+        return result;
     }
 
     /**
