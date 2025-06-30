@@ -1,3 +1,15 @@
+# [4.0.0-beta.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.7...v4.0.0-beta.8) (2025-06-30)
+
+
+### Features
+
+* enhance cache concurrency and null safety in VoidChestCacheController ([00497aa](https://github.com/GeorgeV220/VoidChestAPI/commit/00497aa8bc2c42380ab6bb42d52c78ff5e2b4546))
+
+
+### Performance Improvements
+
+* cache hash code and optimize equals in location/chunk ([fc8b2b7](https://github.com/GeorgeV220/VoidChestAPI/commit/fc8b2b7c510fd616b0d0fcc86a3fe7a7f7e76090))
+
 # [4.0.0-beta.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.6...v4.0.0-beta.7) (2025-06-26)
 
 
