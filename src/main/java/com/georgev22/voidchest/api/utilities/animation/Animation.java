@@ -40,6 +40,12 @@ public abstract class Animation {
             case "typing" -> new TypingAnimation();
             case "sparkle" -> new SparkleAnimation();
             case "glitch" -> new GlitchAnimation();
+            case "none" -> new Animation() {
+                @Override
+                public String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors) {
+                    return string;
+                }
+            };
             default -> new Animation() {
                 @Override
                 public String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors) {
