@@ -6,7 +6,10 @@ import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.voidchest.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidchest.Charge;
 import com.georgev22.voidchest.api.storage.data.voidchest.Stats;
-import com.georgev22.voidchest.api.utilities.*;
+import com.georgev22.voidchest.api.utilities.BoundingBox;
+import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import com.georgev22.voidchest.api.utilities.SerializableBlock;
+import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.*;
 
@@ -270,5 +273,26 @@ public interface IVoidChest extends Entity {
      * @return The maximum number of links that can be added to the VoidChest.
      */
     int maxLinks();
+
+    /**
+     * Retrieves the list of disabled worlds.
+     *
+     * @return The list of disabled worlds.
+     */
+    List<String> getDisabledWorlds();
+
+    /**
+     * Adds a disabled world to the list of disabled worlds.
+     *
+     * @param world The name of the disabled world.
+     */
+    void addDisabledWorld(String world);
+
+    /**
+     * Removes a disabled world from the list of disabled worlds.
+     *
+     * @param world The name of the disabled world.
+     */
+    void removeDisabledWorld(String world);
 
 }
