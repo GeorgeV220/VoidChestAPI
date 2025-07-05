@@ -208,7 +208,6 @@ VoidChestMenu:
         - ' &a&l* &aMoney made -> $%money%'
         - ' &3&l* &3Items sold -> %items_sold%'
         - ' &4&l* &4Items purged -> %items_purged%'
-        - ' &6&l* &6Items stored -> %items_stored%'
         - '&8&l&m---------------------'
       glow: false
       amount: 1

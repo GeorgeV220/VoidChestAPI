@@ -201,7 +201,6 @@ Options:
       - '&fMoney made: &a$%money%'
       - '&fItems sold: &3%items_sold%'
       - '&fItems purged: &3%items_purged%'
-      - '&fItems stored: &3%items_stored%'
       - '&7VoidChest timeleft: &e%timeleft%'
       - '&7VoidChest charge: &e%charge_hologram%'
       - ''
