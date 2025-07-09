@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.utilities;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockState;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
@@ -9,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * A wrapper around Bukkit container BlockState objects (e.g. chests, barrels),
@@ -18,6 +21,7 @@ import java.lang.reflect.Method;
 public class ContainerWrapper {
     private static final Class<?> CONTAINER_INTERFACE;
     private static final Method GET_INVENTORY_METHOD;
+    private static final Set<InventoryType> VALID_STORAGE_TYPES = buildValidStorageTypes();
 
     static {
         CONTAINER_INTERFACE = determineContainerInterface();
@@ -30,11 +34,11 @@ public class ContainerWrapper {
      * Constructs a ContainerWrapper for a container-type BlockState.
      *
      * @param blockState the BlockState to wrap
-     * @throws IllegalArgumentException if the BlockState is not a container
+     * @throws IllegalArgumentException if the BlockState is not a valid storage container
      */
     public ContainerWrapper(@NotNull BlockState blockState) {
-        if (!isContainer(blockState)) {
-            throw new IllegalArgumentException("BlockState is not a container");
+        if (!isStorageContainer(blockState)) {
+            throw new IllegalArgumentException("BlockState is not a valid storage container");
         }
         this.blockState = blockState;
     }
@@ -81,13 +85,21 @@ public class ContainerWrapper {
     }
 
     /**
-     * Checks if a given BlockState is a container type.
+     * Checks if a given BlockState is a valid storage container type.
      *
      * @param blockState the BlockState to check
-     * @return true if it is a container, false otherwise
+     * @return true if it is a valid storage container, false otherwise
      */
-    public static boolean isContainer(@NotNull BlockState blockState) {
-        return CONTAINER_INTERFACE.isInstance(blockState);
+    public static boolean isStorageContainer(@NotNull BlockState blockState) {
+        if (!CONTAINER_INTERFACE.isInstance(blockState)) {
+            return false;
+        }
+        try {
+            Inventory inventory = (Inventory) GET_INVENTORY_METHOD.invoke(CONTAINER_INTERFACE.cast(blockState));
+            return inventory != null && VALID_STORAGE_TYPES.contains(inventory.getType());
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            return false;
+        }
     }
 
     private static @NotNull Class<?> determineContainerInterface() {
@@ -97,9 +109,7 @@ public class ContainerWrapper {
             try {
                 return Class.forName("org.bukkit.block.ContainerBlock");
             } catch (ClassNotFoundException ex) {
-                throw new IllegalStateException(
-                        "Bukkit Container/ContainerBlock not found. Check your API version.", ex
-                );
+                throw new IllegalStateException("Neither Container nor ContainerBlock exist in this Bukkit version.");
             }
         }
     }
@@ -111,6 +121,29 @@ public class ContainerWrapper {
             throw new IllegalStateException(
                     "Container interface missing getInventory method. This should never happen!", e
             );
+        }
+    }
+
+
+    private static @NotNull Set<InventoryType> buildValidStorageTypes() {
+        EnumSet<InventoryType> types = EnumSet.noneOf(InventoryType.class);
+        addIfExists(types, "CHEST");
+        addIfExists(types, "DISPENSER");
+        addIfExists(types, "DROPPER");
+        addIfExists(types, "HOPPER");
+        addIfExists(types, "FURNACE");
+        addIfExists(types, "BLAST_FURNACE");
+        addIfExists(types, "SMOKER");
+        addIfExists(types, "BARREL");
+        addIfExists(types, "SHULKER_BOX");
+        return types;
+    }
+
+    private static void addIfExists(@NotNull Set<InventoryType> types, String name) {
+        try {
+            InventoryType type = InventoryType.valueOf(name);
+            types.add(type);
+        } catch (IllegalArgumentException ignored) {
         }
     }
 }

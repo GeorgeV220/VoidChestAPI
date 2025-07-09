@@ -100,7 +100,7 @@ public class SerializableContainer implements Serializable {
      */
     public static @NotNull SerializableContainer fromLocation(@NotNull Location location) throws IllegalArgumentException {
         Block block = location.getBlock();
-        if (ContainerWrapper.isContainer(block.getState())) {
+        if (ContainerWrapper.isStorageContainer(block.getState())) {
             ContainerWrapper container = new ContainerWrapper(block.getState());
             return new SerializableContainer(container);
         }
@@ -131,7 +131,7 @@ public class SerializableContainer implements Serializable {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             Block block = world.getBlockAt(x, y, z);
-            if (ContainerWrapper.isContainer(block.getState())) {
+            if (ContainerWrapper.isStorageContainer(block.getState())) {
                 return new ContainerWrapper(block.getState());
             }
         }
@@ -151,7 +151,7 @@ public class SerializableContainer implements Serializable {
                             VoidChestAPI.getInstance().plugin(),
                             () -> {
                                 Block block = world.getBlockAt(x, y, z);
-                                if (ContainerWrapper.isContainer(block.getState())) {
+                                if (ContainerWrapper.isStorageContainer(block.getState())) {
                                     return new ContainerWrapper(block.getState());
                                 } else {
                                     throw new IllegalArgumentException("The block at this location is not a container.");
