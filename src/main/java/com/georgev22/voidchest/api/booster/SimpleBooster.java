@@ -8,13 +8,13 @@ public class SimpleBooster implements Booster {
 
     private final UUID boosterIdentifier;
     private final BigDecimal amount;
+    private final long durationMS;
     private final long startTime = Instant.now().toEpochMilli();
-    private final long timeLeftMS;
 
-    public SimpleBooster(UUID boosterIdentifier, BigDecimal amount, long timeLeftMS) {
+    public SimpleBooster(UUID boosterIdentifier, BigDecimal amount, long durationMS) {
         this.boosterIdentifier = boosterIdentifier;
         this.amount = amount;
-        this.timeLeftMS = timeLeftMS;
+        this.durationMS = durationMS;
     }
 
     @Override
@@ -29,7 +29,9 @@ public class SimpleBooster implements Booster {
 
     @Override
     public long timeLeft() {
-        return timeLeftMS - (Instant.now().toEpochMilli() - startTime) / 1000;
+        long elapsed = Instant.now().toEpochMilli() - startTime;
+        long timeLeft = durationMS - elapsed;
+        return timeLeft > 0 ? timeLeft / 1000 : 0;
     }
 
     public long startTime() {
