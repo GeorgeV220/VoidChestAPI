@@ -10,6 +10,7 @@ import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.*;
 
@@ -295,5 +296,12 @@ public interface IVoidChest extends Entity {
      * @param world The name of the disabled world.
      */
     void removeDisabledWorld(String world);
+
+    /**
+     * Retrieves the void chest type configuration.
+     *
+     * @return The void chest type configuration.
+     */
+    FileConfiguration voidChestTypeConfig();
 
 }

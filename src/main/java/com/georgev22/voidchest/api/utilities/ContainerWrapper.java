@@ -7,6 +7,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,6 +23,8 @@ public class ContainerWrapper {
     private static final Class<?> CONTAINER_INTERFACE;
     private static final Method GET_INVENTORY_METHOD;
     private static final Set<InventoryType> VALID_STORAGE_TYPES = buildValidStorageTypes();
+    private static final Class<?> NAMEABLE_INTERFACE = determineNameableInterface();
+    private static final Method SET_CUSTOM_NAME_METHOD = getSetCustomNameMethod();
 
     static {
         CONTAINER_INTERFACE = determineContainerInterface();
@@ -85,6 +88,29 @@ public class ContainerWrapper {
     }
 
     /**
+     * Sets a custom name for this container if supported.
+     *
+     * @param name The name to set, or null to clear the custom name.
+     * @throws UnsupportedOperationException if Nameable is not supported in this Bukkit version.
+     */
+    public static void setCustomName(BlockState blockState, @Nullable String name) {
+        if (NAMEABLE_INTERFACE == null || SET_CUSTOM_NAME_METHOD == null) {
+            throw new UnsupportedOperationException("Custom names are not supported in this Bukkit version.");
+        }
+
+        if (!NAMEABLE_INTERFACE.isInstance(blockState)) {
+            throw new IllegalStateException("BlockState does not implement Nameable.");
+        }
+
+        try {
+            SET_CUSTOM_NAME_METHOD.invoke(NAMEABLE_INTERFACE.cast(blockState), name);
+            blockState.update();
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException("Failed to set custom name on container", e);
+        }
+    }
+
+    /**
      * Checks if a given BlockState is a valid storage container type.
      *
      * @param blockState the BlockState to check
@@ -144,6 +170,25 @@ public class ContainerWrapper {
             InventoryType type = InventoryType.valueOf(name);
             types.add(type);
         } catch (IllegalArgumentException ignored) {
+        }
+    }
+
+    private static @Nullable Class<?> determineNameableInterface() {
+        try {
+            return Class.forName("org.bukkit.Nameable");
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    private static @Nullable Method getSetCustomNameMethod() {
+        if (NAMEABLE_INTERFACE == null) {
+            return null;
+        }
+        try {
+            return NAMEABLE_INTERFACE.getMethod("setCustomName", String.class);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalStateException("Nameable interface exists but setCustomName method is missing.", e);
         }
     }
 }
