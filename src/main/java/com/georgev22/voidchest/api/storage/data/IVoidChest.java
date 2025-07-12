@@ -13,6 +13,7 @@ import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -153,7 +154,7 @@ public interface IVoidChest extends Entity {
      *
      * @return The booster value of the VoidChest.
      */
-    Double booster();
+    BigDecimal booster();
 
     /**
      * Sets the booster value of the VoidChest.

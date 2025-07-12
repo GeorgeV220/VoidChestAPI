@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api;
 
 import com.georgev22.voidchest.api.bank.IBankManager;
 import com.georgev22.voidchest.api.banktnt.IBankTNTManager;
+import com.georgev22.voidchest.api.booster.BoosterManager;
 import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
 import com.georgev22.voidchest.api.economy.player.IEconomyManager;
 import com.georgev22.voidchest.api.hologram.IHologramManager;
@@ -13,8 +14,8 @@ import com.georgev22.voidchest.api.stacker.IStackerManager;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.IFilterManager;
 import com.georgev22.voidchest.api.storage.InvalidEntityManager;
-import com.georgev22.voidchest.api.storage.cache.VoidChestCacheController;
 import com.georgev22.voidchest.api.storage.cache.IVoidItemManager;
+import com.georgev22.voidchest.api.storage.cache.VoidChestCacheController;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.task.ITimedTaskManager;
@@ -46,7 +47,8 @@ public record VoidChestAPI(JavaPlugin plugin,
                            ILinkManager linkManager,
                            MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
                            VoidChestConfigurationFileCache voidChestConfigurationFileCache,
-                           ITimedTaskManager timedTaskManager) {
+                           ITimedTaskManager timedTaskManager,
+                           BoosterManager boosterManager) {
 
     /**
      * The singleton instance of the VoidChestAPI class.

@@ -1,12 +1,8 @@
 package com.georgev22.voidchest.api.storage.data;
 
-import com.georgev22.voidchest.api.events.booster.BoosterEvent;
 import com.georgev22.voidchest.api.economy.player.EconomyMode;
 import com.georgev22.voidchest.api.maps.ObjectMap;
-import com.georgev22.voidchest.api.storage.data.player.Booster;
-import com.georgev22.voidchest.api.storage.data.player.Boosters;
 import com.georgev22.voidchest.api.storage.data.player.Stats;
-import org.jetbrains.annotations.ApiStatus;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -51,36 +47,6 @@ public interface IPlayerData extends Entity {
      * @param stats The statistics of the player as a Stats object.
      */
     void stats(Stats stats);
-
-    /**
-     * Retrieves the booster for the player.
-     *
-     * @return The booster for the player as a Booster object.
-     * @deprecated This will return the VoidChest booster.
-     * Use {@link #boosters()} instead.
-     */
-    @Deprecated(since = "2.0.0")
-    @ApiStatus.Obsolete(since = "2.0.0")
-    Booster booster();
-
-    /**
-     * Retrieves a list of boosters for the player.
-     * This method will fire a {@link BoosterEvent} to notify listeners about the boosters.
-     *
-     * @return The list of boosters as a List
-     * @since 2.0.0
-     */
-    Boosters boosters();
-
-    /**
-     * Retrieves a list of boosters for the player without triggering any events.
-     * This method silently returns the list of boosters without firing a {@link BoosterEvent}.
-     * Use this method when you need to retrieve the boosters without any side effects or event handling.
-     *
-     * @return The list of boosters as a List, retrieved without firing any events.
-     * @since 6.0.0
-     */
-    Boosters boostersSilent();
 
     /**
      * Retrieves the current balance of the player.
