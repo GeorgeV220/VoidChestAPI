@@ -17,6 +17,10 @@ public class ObservableObjectMap<K, V> extends ConcurrentObjectMap<K, V> {
 
     private final List<MapChangeListener<K, V>> listeners = new ArrayList<>();
 
+    public ObservableObjectMap(Map<K, V> map) {
+        super(map);
+    }
+
     /**
      * Adds a {@link MapChangeListener} to this map.
      *

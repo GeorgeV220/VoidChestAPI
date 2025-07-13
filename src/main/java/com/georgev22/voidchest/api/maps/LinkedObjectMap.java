@@ -23,7 +23,7 @@ public class LinkedObjectMap<K, V> extends LinkedHashMap<K, V> implements Object
      * @param map initial map
      */
     public LinkedObjectMap(final ObjectMap<K, V> map) {
-        putAll(map);
+        super(map);
     }
 
     /**
@@ -32,7 +32,7 @@ public class LinkedObjectMap<K, V> extends LinkedHashMap<K, V> implements Object
      * @param map initial map
      */
     public LinkedObjectMap(final Map<K, V> map) {
-        putAll(map);
+        super(map);
     }
 
     /**

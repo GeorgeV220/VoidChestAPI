@@ -3,6 +3,8 @@ package com.georgev22.voidchest.api.maps;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -463,4 +465,89 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @throws ClassCastException if the value of the given key is not of type T
      */
     <T> T get(final Object key, final T defaultValue);
+
+
+    /**
+     * Returns a new {@link HashObjectMap} containing the same mappings as this map.
+     *
+     * @return a new {@link HashObjectMap} with the same entries
+     */
+    default HashObjectMap<K, V> toHashObjectMap() {
+        return new HashObjectMap<>(this);
+    }
+
+    /**
+     * Returns a new {@link ConcurrentObjectMap} containing the same mappings as this map.
+     *
+     * @return a new {@link ConcurrentObjectMap} with the same entries
+     */
+    default ConcurrentObjectMap<K, V> toConcurrentObjectMap() {
+        return new ConcurrentObjectMap<>(this);
+    }
+
+    /**
+     * Returns a new {@link LinkedObjectMap} containing the same mappings as this map.
+     *
+     * @return a new {@link LinkedObjectMap} with the same entries
+     */
+    default LinkedObjectMap<K, V> toLinkedObjectMap() {
+        return new LinkedObjectMap<>(this);
+    }
+
+    /**
+     * Returns a new {@link ObservableObjectMap} containing the same mappings as this map.
+     *
+     * @return a new {@link ObservableObjectMap} with the same entries
+     */
+    default ObservableObjectMap<K, V> toObservableObjectMap() {
+        return new ObservableObjectMap<>(this);
+    }
+
+    /**
+     * Returns a new {@link TreeObjectMap} containing the same mappings as this map.
+     *
+     * @return a new {@link TreeObjectMap} with the same entries
+     */
+    default TreeObjectMap<K, V> toTreeObjectMap() {
+        return new TreeObjectMap<>(this);
+    }
+
+    /**
+     * Returns a new {@link UnmodifiableObjectMap} containing the same mappings as this map.
+     *
+     * @return a new {@link UnmodifiableObjectMap} with the same entries
+     */
+    default UnmodifiableObjectMap<K, V> toUnmodifiableObjectMap() {
+        return new UnmodifiableObjectMap<>(this);
+    }
+
+    /**
+     * Creates a new {@link ObjectMap} instance of the specified class with the same mappings as this map.
+     * <p>
+     * The target class must have a constructor accepting a {@link Map}.
+     *
+     * @param clazz class of the new map to create
+     * @return a new {@link ObjectMap} with the same mappings as this map
+     * @throws RuntimeException if the constructor is missing or cannot be invoked
+     */
+    @NotNull
+    default ObjectMap<K, V> toObjectMap(@NotNull Class<? extends ObjectMap<K, V>> clazz) {
+        Constructor<?> constructor;
+        try {
+            try {
+                constructor = clazz.getConstructor(Map.class);
+            } catch (NoSuchMethodException e) {
+                constructor = clazz.getConstructor(ObjectMap.class);
+            }
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("No suitable constructor found for " + clazz.getName(), e);
+        }
+
+        try {
+            //noinspection unchecked
+            return (ObjectMap<K, V>) constructor.newInstance(this);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
