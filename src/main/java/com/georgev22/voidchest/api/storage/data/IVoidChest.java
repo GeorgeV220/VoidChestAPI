@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.voidchest.api.link.ILink;
 import com.georgev22.voidchest.api.link.ILinkManager;
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.voidchest.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidchest.Charge;
 import com.georgev22.voidchest.api.storage.data.voidchest.Stats;
@@ -133,7 +133,7 @@ public interface IVoidChest extends Entity {
      *
      * @return The upgrades of the VoidChest.
      */
-    ObjectMap<NamespacedKey, Integer> upgrades();
+    UnmodifiableObjectMap<NamespacedKey, Integer> upgrades();
 
     /**
      * Adds an upgrade to the VoidChest.
