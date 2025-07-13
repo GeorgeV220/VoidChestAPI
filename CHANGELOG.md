@@ -1,3 +1,10 @@
+# [4.0.0-beta.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.9...v4.0.0-beta.10) (2025-07-13)
+
+
+### Features
+
+* **api:** add constructor overloads to ObservableObjectMap ([dd2bc73](https://github.com/GeorgeV220/VoidChestAPI/commit/dd2bc731ef36a2d64c10c37d8ca3df4564fb09ac))
+
 # [4.0.0-beta.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.8...v4.0.0-beta.9) (2025-07-13)
 
 
