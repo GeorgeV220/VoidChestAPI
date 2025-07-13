@@ -34,3 +34,17 @@ dependencies {
     compileOnly(libs.placeholder.api)
     compileOnly(libs.item.nbt.api)
 }
+
+configurations.configureEach {
+    resolutionStrategy {
+        force(libs.paper.api)
+        dependencySubstitution {
+            substitute(module("org.spigotmc:spigot-api"))
+                    .using(module(libs.paper.api.get().toString()))
+            substitute(module("org.bukkit:bukkit"))
+                    .using(module(libs.paper.api.get().toString()))
+            substitute(module("io.papermc.paper:paper-api"))
+                    .using(module(libs.paper.api.get().toString()))
+        }
+    }
+}
