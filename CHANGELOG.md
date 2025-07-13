@@ -1,3 +1,23 @@
+# [4.0.0-beta.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.8...v4.0.0-beta.9) (2025-07-13)
+
+
+### Bug Fixes
+
+* Change upgrades return type to UnmodifiableObjectMap ([95c996e](https://github.com/GeorgeV220/VoidChestAPI/commit/95c996e8f227066e14ea66f8c4d9c4ece6c8193f))
+* correct booster total initialization and time calculation ([046aa74](https://github.com/GeorgeV220/VoidChestAPI/commit/046aa743dfcd8a073f532d6cb2be4828e6157746))
+* update container validation to use storage-specific checks ([c44f453](https://github.com/GeorgeV220/VoidChestAPI/commit/c44f4537eeffb86f114f43a96355dd50c0695bf9))
+* **upgrade:** Fix upgrades not working due to UnmodifiableObjectMap call ([e3e67dd](https://github.com/GeorgeV220/VoidChestAPI/commit/e3e67dd264d2859ade11cad8b9c92f6db255d4d6))
+
+
+### Features
+
+* Add "none" as animation type ([df52158](https://github.com/GeorgeV220/VoidChestAPI/commit/df521585116429967ce19a928c2505d37cb7b3f2))
+* **api:** add custom name support and void chest type config ([0c560b2](https://github.com/GeorgeV220/VoidChestAPI/commit/0c560b22e8e3b34f02a34e27d4073ca6491157d5))
+* **api:** Add disabled worlds management to IVoidChest ([f33b527](https://github.com/GeorgeV220/VoidChestAPI/commit/f33b527b3672c8b8521187619609bcd1c4242a39))
+* **booster:** replace old booster system with new provider-based system ([c28a87f](https://github.com/GeorgeV220/VoidChestAPI/commit/c28a87f1b3a70e655e97ab95620311d778398e91))
+* **maps:** refactor constructors and add conversion methods ([4150b76](https://github.com/GeorgeV220/VoidChestAPI/commit/4150b769251cb4be481484ad7ff373c914f9e504))
+* update to Minecraft 1.21.7 and switch to Paper API ([849b255](https://github.com/GeorgeV220/VoidChestAPI/commit/849b255c6525a38d7124d5a3b41f7b9466c16df6))
+
 # [4.0.0-beta.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.7...v4.0.0-beta.8) (2025-06-30)
 
 
