@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.folia.api)
+    compileOnly(libs.paper.api)
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.vault.api)
     compileOnly(libs.placeholder.api)

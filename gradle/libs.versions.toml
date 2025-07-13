@@ -1,5 +1,5 @@
 [versions]
-mc-version = "1.20.4-R0.1-SNAPSHOT"
+mc-version = "1.21.7-R0.1-SNAPSHOT"
 paperlib = "1.0.8"
 jetbrains-annotations = "24.0.1"
 vault = "1.7"
@@ -12,7 +12,7 @@ slf4j = "2.0.10"
 placeholder-api = "2.11.6"
 
 [libraries]
-folia-api = { group = "dev.folia", name = "folia-api", version.ref = "mc-version" }
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "mc-version" }
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrains-annotations" }
 vault-api = { group = "com.github.MilkBowl", name = "VaultAPI", version.ref = "vault" }
 item-nbt-api = { group = "de.tr7zw", name = "item-nbt-api-plugin", version.ref = "nbt-api" }
