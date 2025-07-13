@@ -217,21 +217,11 @@ public abstract class Upgrade<U> implements Cloneable {
                 return -3;
             }
 
-            upgradeVoidChest(voidChest, nextUpgradeLevel);
+            voidChest.addUpgrade(key, nextUpgradeLevel.level());
             if (VoidChestAPI.debug()) logUpgrades(voidChest);
 
             return nextUpgradeLevel.level();
         }).orElse(-1);
-    }
-
-    private void upgradeVoidChest(@NotNull IVoidChest voidChest, UpgradeLevel<?> nextUpgradeLevel) {
-        voidChest.upgrades().entrySet().stream()
-                .filter(upg -> upg.getKey().equals(key))
-                .findFirst()
-                .ifPresentOrElse(
-                        upg -> upg.setValue(nextUpgradeLevel.level()),
-                        () -> voidChest.addUpgrade(key, nextUpgradeLevel.level())
-                );
     }
 
     private void logUpgrades(@NotNull IVoidChest voidChest) {
