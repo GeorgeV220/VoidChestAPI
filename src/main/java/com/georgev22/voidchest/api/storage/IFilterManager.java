@@ -127,6 +127,14 @@ public interface IFilterManager {
      * {@code ALLOW} mode permits only the listed items, while {@code BLOCK} mode prevents them from being stored.
      */
     enum FilterMode {
-        ALLOW, BLOCK
+        ALLOW, BLOCK;
+
+        public static FilterMode fromString(String mode) {
+            if (mode == null) throw new IllegalArgumentException("Mode cannot be null.");
+            if (mode.equalsIgnoreCase("allow") || mode.equalsIgnoreCase("whitelist")) return ALLOW;
+            if (mode.equalsIgnoreCase("block") || mode.equalsIgnoreCase("deny") || mode.equalsIgnoreCase("blacklist"))
+                return BLOCK;
+            throw new IllegalArgumentException("Invalid mode: " + mode);
+        }
     }
 }
