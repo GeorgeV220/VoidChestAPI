@@ -1,3 +1,10 @@
+# [4.0.0-beta.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.10...v4.0.0-beta.11) (2025-07-22)
+
+
+### Features
+
+* **api:** add FilterMode.fromString method with synonym support ([eb967e6](https://github.com/GeorgeV220/VoidChestAPI/commit/eb967e62677f8ff852068c3c0dbf5b9d0d505e9f))
+
 # [4.0.0-beta.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.9...v4.0.0-beta.10) (2025-07-13)
 
 
