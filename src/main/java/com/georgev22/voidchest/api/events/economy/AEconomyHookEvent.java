@@ -8,6 +8,13 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * This event is fired when a custom AEconomy is set for a VoidChest,
+ * allowing plugins to integrate their own economic calculations.
+ *
+ * @deprecated Use {@link com.georgev22.voidchest.api.economy.player.IEconomyManager#hook(AEconomy)}
+ */
+@Deprecated
 public class AEconomyHookEvent extends VoidChestBaseEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();
