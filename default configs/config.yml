@@ -15,9 +15,6 @@ Options:
   # Debug option
   debug: false
 
-  # Proxy option
-  proxy: false
-
   # Secret option
   secret: "SECRET HERE"
 
@@ -38,6 +35,23 @@ Options:
   # Any number that is < 1 will make the plugin instantly load data when the plugin enabled as well.
   # Is NOT RECOMMENDED to set this to < 2.
   load delay: 5
+
+  # WARNING: Only use this feature if you fully understand the implications.
+  # In VoidChest 6.0 and later, this setting controls the interval at which changes are batched and saved.
+  # The value represents the time (in SECONDS) between automatic saves of player and voidchest data.
+  # The primary benefit of batching saves is to reduce performance overhead by saving changes less frequently,
+  # rather than saving each change individually.
+  #
+  # However, please note: If the server crashes before changes are saved, you may lose unsaved data.
+  #
+  # The reason for introducing this feature is that, in previous versions, concurrent saves to the disk could occur
+  # if one save operation was in progress while another change was made.
+  # This could lead to file corruption, as two threads would be attempting to write to the same file simultaneously.
+  #
+  # Recommended Usage:
+  # - Set a reasonable save interval to balance between performance and data safety.
+  # - If you're running a highly active server with frequent changes, consider a lower save interval to reduce data loss risk.
+  save interval: 20  # Time in SECONDS between saves. Adjust based on server load and performance needs.
 
   # Experimental features option
   experimental features: false
@@ -122,22 +136,21 @@ Options:
   # Use "Custom" only if you know what you're doing, otherwise consult the developers.
   bank tnt: "None"
 
-  # Available hologram support from other plugins: VoidChest, HolographicDisplays, Holograms, CMI, DecentHolograms, FancyHolograms.
+  # Available hologram support from other plugins: None, HolographicDisplays, Holograms, CMI, DecentHolograms, FancyHolograms.
   hologram:
-    plugin: "VoidChest"
-    update interval: 20
+    plugin: "None"
+    # This value is in seconds.
+    update interval: 1
 
 
   # Ignore item meta option
   ignore item meta: true
 
-  # Should all voidchests have a single sell interval?
-  # Set to false if you want voidchests to have different sell intervals.
-  single task: false
-
-  # The interval is being run in seconds. This will only be selected if the path can't be found in the voidchest's file itself
-  # or when you have single task enabled.
-  sell interval: 10
+  # Set filter mode
+  # Available modes: ALLOW and DENY
+  # ALLOW: Only the items that match the filter are allowed to be sold/collected
+  # BLOCK: Items that match the filter are blocked
+  filter mode: "ALLOW"
 
   # Chunk see options
   chunk see:
@@ -148,10 +161,13 @@ Options:
       type: "VILLAGER_HAPPY"
       interval: 20
 
+  # Display sell message in the chat
   sell message:
     enabled: false
+    # This value is in seconds.
     interval: 60
 
+    # Should a sell message be sent when a player joins the server?
     offline:
       enabled: false
       message delay: 50

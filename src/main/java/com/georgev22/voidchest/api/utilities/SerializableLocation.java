@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * A serializable representation of a Bukkit Location, allowing for easy storage and retrieval of location data.
@@ -51,8 +52,9 @@ public class SerializableLocation implements Serializable, Cloneable {
     private float pitch;
     private int minY;
     private int maxY;
-    private int chunkX;
-    private int chunkZ;
+    private VoidChunk chunk;
+
+    private transient final int cachedHashCode;
 
     /**
      * Constructs a new SerializableLocation from the provided Bukkit Location.
@@ -69,8 +71,8 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = location.getPitch();
         this.minY = MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_17_R1) ? location.getWorld().getMinHeight() : 0;
         this.maxY = location.getWorld().getMaxHeight();
-        this.chunkX = (int) getX() >> 4;
-        this.chunkZ = (int) getZ() >> 4;
+        this.chunk = new VoidChunk(worldName, (int) getX() >> 4, (int) getZ() >> 4);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -92,8 +94,8 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = pitch;
         this.minY = 0;
         this.maxY = 256;
-        this.chunkX = (int) getX() >> 4;
-        this.chunkZ = (int) getZ() >> 4;
+        this.chunk = new VoidChunk(worldName, (int) getX() >> 4, (int) getZ() >> 4);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -117,8 +119,8 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = pitch;
         this.minY = minY;
         this.maxY = maxY;
-        this.chunkX = (int) getX() >> 4;
-        this.chunkZ = (int) getZ() >> 4;
+        this.chunk = new VoidChunk(worldName, (int) getX() >> 4, (int) getZ() >> 4);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -144,8 +146,8 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.pitch = pitch;
         this.minY = minY;
         this.maxY = maxY;
-        this.chunkX = chunkX;
-        this.chunkZ = chunkZ;
+        this.chunk = new VoidChunk(worldName, chunkX, chunkZ);
+        this.cachedHashCode = this.computeHashCode();
     }
 
     /**
@@ -185,9 +187,9 @@ public class SerializableLocation implements Serializable, Cloneable {
                 .append(":")
                 .append(this.maxY)
                 .append(":")
-                .append(this.chunkX)
+                .append(this.chunk.getX())
                 .append(":")
-                .append(this.chunkZ);
+                .append(this.chunk.getZ());
 
         return stringBuilder.toString();
     }
@@ -238,6 +240,8 @@ public class SerializableLocation implements Serializable, Cloneable {
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
                 location = new Location(world, x, y, z, yaw, pitch);
+            } else {
+                return null;
             }
         }
         return location.clone();
@@ -294,16 +298,16 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @return The bounding box of the location.
      */
     public BoundingBox getBoundingBox() {
-        int minChunkX = this.chunkX * 16;
-        int minChunkZ = this.chunkZ * 16;
+        int minChunkX = this.chunk.getX() * 16;
+        int minChunkZ = this.chunk.getZ() * 16;
         int maxChunkX = minChunkX + 15;
         int maxChunkZ = minChunkZ + 15;
 
-        if (this.chunkX < 0) {
+        if (this.chunk.getX() < 0) {
             minChunkX++;
             maxChunkX++;
         }
-        if (this.chunkZ < 0) {
+        if (this.chunk.getZ() < 0) {
             minChunkZ++;
             maxChunkZ++;
         }
@@ -338,21 +342,39 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
-     * Gets the x-coordinate of the chunk.
+     * Gets the block x-coordinate.
      *
-     * @return The x-coordinate of the chunk.
+     * @return The block x-coordinate.
      */
-    public int getChunkX() {
-        return chunkX;
+    public int getBlockX() {
+        return Utils.floor(x);
     }
 
     /**
-     * Gets the z-coordinate of the chunk.
+     * Gets the block y-coordinate.
      *
-     * @return The z-coordinate of the chunk.
+     * @return The block y-coordinate.
      */
-    public int getChunkZ() {
-        return chunkZ;
+    public int getBlockY() {
+        return Utils.floor(y);
+    }
+
+    /**
+     * Gets the block z-coordinate.
+     *
+     * @return The block z-coordinate.
+     */
+    public int getBlockZ() {
+        return Utils.floor(z);
+    }
+
+    /**
+     * Gets the chunk.
+     *
+     * @return The chunk.
+     */
+    public VoidChunk getChunk() {
+        return chunk;
     }
 
     @Override
@@ -394,7 +416,41 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.yaw = location.yaw;
         this.minY = location.minY;
         this.maxY = location.maxY;
-        this.chunkX = location.chunkX;
-        this.chunkZ = location.chunkZ;
+        this.chunk = location.chunk;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof SerializableLocation that)) return false;
+        return Double.compare(x, that.x) == 0
+                && Double.compare(y, that.y) == 0
+                && Double.compare(z, that.z) == 0
+                && Float.compare(yaw, that.yaw) == 0
+                && Float.compare(pitch, that.pitch) == 0
+                && minY == that.minY
+                && maxY == that.maxY
+                && Objects.equals(chunk, that.chunk)
+                && Objects.equals(worldName, that.worldName);
+    }
+
+    @Override
+    public int hashCode() {
+        return cachedHashCode;
+    }
+
+    private int computeHashCode() {
+        int result = worldName != null ? worldName.hashCode() : 0;
+
+        result = 31 * result + Double.hashCode(x);
+        result = 31 * result + Double.hashCode(y);
+        result = 31 * result + Double.hashCode(z);
+
+        result = 31 * result + Float.hashCode(yaw);
+        result = 31 * result + Float.hashCode(pitch);
+        result = 31 * result + minY;
+        result = 31 * result + maxY;
+        result = 31 * result + (chunk != null ? chunk.hashCode() : 0);
+
+        return result;
     }
 }

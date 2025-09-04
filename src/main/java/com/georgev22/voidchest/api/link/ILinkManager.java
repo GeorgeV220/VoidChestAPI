@@ -2,11 +2,10 @@ package com.georgev22.voidchest.api.link;
 
 import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.utilities.ContainerWrapper;
 import com.georgev22.voidchest.api.utilities.SerializableContainer;
-import org.bukkit.block.Container;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -107,18 +106,18 @@ public interface ILinkManager {
     List<ILink> getLinks(@NotNull IVoidChest voidChest);
 
     /**
-     * Checks if a specified {@link SerializableContainer} has any links to any {@link IVoidChest}.
+     * Checks if a specified {@link ContainerWrapper} has any links to any {@link IVoidChest}.
      *
-     * @param container The {@link SerializableContainer} to check.
-     * @return {@code true} if the {@link SerializableContainer} has any links, {@code false} otherwise.
+     * @param container The {@link ContainerWrapper} to check.
+     * @return {@code true} if the {@link ContainerWrapper} has any links, {@code false} otherwise.
      */
-    boolean isLinked(@NotNull Container container);
+    boolean isLinked(@NotNull ContainerWrapper container);
 
     /**
-     * Retrieves the {@link IVoidChest} associated with a specified {@link SerializableContainer}.
+     * Retrieves the {@link IVoidChest} associated with a specified {@link ContainerWrapper}.
      *
-     * @param container The {@link SerializableContainer} for which to retrieve the {@link IVoidChest}.
-     * @return The {@link IVoidChest} associated with the specified {@link SerializableContainer}, or {@code null} if no link exists.
+     * @param container The {@link ContainerWrapper} for which to retrieve the {@link IVoidChest}.
+     * @return The {@link IVoidChest} associated with the specified {@link ContainerWrapper}, or {@code Optional.empty()} if no link exists.
      */
-    @Nullable IVoidChest getVoidChest(@NotNull Container container);
+    Optional<IVoidChest> getVoidChest(@NotNull ContainerWrapper container);
 }

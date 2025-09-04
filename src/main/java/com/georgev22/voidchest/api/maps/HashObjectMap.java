@@ -23,7 +23,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @param map initial map
      */
     public HashObjectMap(final ObjectMap<K, V> map) {
-        putAll(map);
+        super(map);
     }
 
     /**
@@ -32,7 +32,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @param map initial map
      */
     public HashObjectMap(final Map<K, V> map) {
-        putAll(map);
+        super(map);
     }
 
     /**

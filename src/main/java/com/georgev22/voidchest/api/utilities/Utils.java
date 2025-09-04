@@ -43,8 +43,59 @@ import java.util.zip.GZIPOutputStream;
 
 public final class Utils {
 
-    public static String convertSeconds(long input, String secondInput, String secondsInput, String minuteInput,
-                                        String minutesInput, String hourInput, String hoursInput, String dayInput, String daysInput,
+    /**
+     * Converts a given number of seconds into a formatted time string using provided labels.
+     * If the provided array does not contain exactly 9 elements, default values are used.
+     *
+     * @param input  The number of seconds to convert.
+     * @param inputs An array containing labels for singular/plural time units and an invalid input message.
+     * @return A formatted time string.
+     */
+    public static String convertSeconds(long input, String @NotNull ... inputs) {
+        String[] defaultInputs = {"second", "seconds", "minute", "minutes", "hour", "hours", "day", "days", "invalid"};
+        String[] processedInputs = new String[9];
+
+        System.arraycopy(inputs, 0, processedInputs, 0, inputs.length);
+
+        System.arraycopy(defaultInputs, inputs.length, processedInputs, inputs.length, 9 - inputs.length);
+
+        return convertSeconds(
+                input,
+                processedInputs[0],
+                processedInputs[1],
+                processedInputs[2],
+                processedInputs[3],
+                processedInputs[4],
+                processedInputs[5],
+                processedInputs[6],
+                processedInputs[7],
+                processedInputs[8]
+        );
+    }
+
+    /**
+     * Converts a given number of seconds into a formatted time string using provided labels.
+     *
+     * @param input        The number of seconds to convert.
+     * @param secondInput  Singular form of "second".
+     * @param secondsInput Plural form of "seconds".
+     * @param minuteInput  Singular form of "minute".
+     * @param minutesInput Plural form of "minutes".
+     * @param hourInput    Singular form of "hour".
+     * @param hoursInput   Plural form of "hours".
+     * @param dayInput     Singular form of "day".
+     * @param daysInput    Plural form of "days".
+     * @param invalidInput Message to return if the input is invalid.
+     * @return A formatted time string.
+     */
+    public static String convertSeconds(long input, String secondInput,
+                                        String secondsInput,
+                                        String minuteInput,
+                                        String minutesInput,
+                                        String hourInput,
+                                        String hoursInput,
+                                        String dayInput,
+                                        String daysInput,
                                         String invalidInput) {
         if (input < 0) {
             System.out.println(
@@ -99,6 +150,12 @@ public final class Utils {
         return result.isEmpty() ? invalidInput : result;
     }
 
+    /**
+     * Converts a given number of seconds into a formatted time string using default labels.
+     *
+     * @param input The number of seconds to convert.
+     * @return A formatted time string.
+     */
     public static String convertSeconds(long input) {
         return convertSeconds(input, "second", "seconds", "minute", "minutes",
                 "hour", "hours", "day", "days",
@@ -223,6 +280,9 @@ public final class Utils {
             return str;
         }
         for (final Entry<String, String> entry : map.entrySet()) {
+            if (entry.getKey() == null || entry.getValue() == null) {
+                continue;
+            }
             str = ignoreCase ? replaceIgnoreCase(str, entry.getKey(), entry.getValue())
                     : str.replace(entry.getKey(), entry.getValue());
         }
@@ -1067,6 +1127,17 @@ public final class Utils {
         }
 
         return splitValues;
+    }
+
+    /**
+     * Returns the floor of the given double value.
+     *
+     * @param num The double value to get the floor of.
+     * @return The floor of the given double value.
+     */
+    public static int floor(double num) {
+        int floor = (int) num;
+        return (double) floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
     }
 
     public static final class Assertions {

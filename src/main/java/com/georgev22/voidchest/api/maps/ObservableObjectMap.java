@@ -18,6 +18,50 @@ public class ObservableObjectMap<K, V> extends ConcurrentObjectMap<K, V> {
     private final List<MapChangeListener<K, V>> listeners = new ArrayList<>();
 
     /**
+     * Creates an ObservableObjectMap instance.
+     */
+    public ObservableObjectMap() {
+    }
+
+    /**
+     * Creates a ObservableObjectMap instance initialized with the given map.
+     *
+     * @param map initial map
+     */
+    public ObservableObjectMap(final ObjectMap<K, V> map) {
+        super(map);
+    }
+
+    /**
+     * Creates a ObservableObjectMap instance initialized with the given map.
+     *
+     * @param map initial map
+     */
+    public ObservableObjectMap(final Map<K, V> map) {
+        super(map);
+    }
+
+    /**
+     * Constructs a new ObservableObjectMap with the specified initial capacity.
+     *
+     * @param initialCapacity The initial capacity of the ObservableObjectMap.
+     */
+    public ObservableObjectMap(final int initialCapacity) {
+        super(initialCapacity);
+    }
+
+    /**
+     * Constructs a new ObservableObjectMap with the specified initial capacity and load factor.
+     *
+     * @param initialCapacity The initial capacity of the ObservableObjectMap.
+     * @param loadFactor      The load factor of the ObservableObjectMap.
+     */
+    public ObservableObjectMap(final int initialCapacity, final float loadFactor) {
+        super(initialCapacity, loadFactor);
+    }
+
+
+    /**
      * Adds a {@link MapChangeListener} to this map.
      *
      * @param listener the listener to be added

@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.Container;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,8 +45,8 @@ public class SerializableContainer implements Serializable {
      *
      * @param container The Container to be serialized.
      */
-    public SerializableContainer(@NotNull Container container) {
-        Location location = container.getLocation();
+    public SerializableContainer(@NotNull ContainerWrapper container) {
+        Location location = container.getBlockState().getLocation();
         this.worldName = location.getWorld().getName();
         this.x = location.getBlockX();
         this.y = location.getBlockY();
@@ -68,7 +67,7 @@ public class SerializableContainer implements Serializable {
      * @return A new SerializableContainer instance.
      */
     @Contract("_ -> new")
-    public static @NotNull SerializableContainer fromBlock(@NotNull Container container) {
+    public static @NotNull SerializableContainer fromBlock(@NotNull ContainerWrapper container) {
         return new SerializableContainer(container);
     }
 
@@ -101,7 +100,8 @@ public class SerializableContainer implements Serializable {
      */
     public static @NotNull SerializableContainer fromLocation(@NotNull Location location) throws IllegalArgumentException {
         Block block = location.getBlock();
-        if (block.getState() instanceof Container container) {
+        if (ContainerWrapper.isStorageContainer(block.getState())) {
+            ContainerWrapper container = new ContainerWrapper(block.getState());
             return new SerializableContainer(container);
         }
         throw new IllegalArgumentException("The block at this location is not a container.");
@@ -127,12 +127,12 @@ public class SerializableContainer implements Serializable {
      *
      * @return The Container represented by this SerializableContainer, or {@code null} if the world is not found.
      */
-    public @Nullable Container toContainer() {
+    public @Nullable ContainerWrapper toContainer() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             Block block = world.getBlockAt(x, y, z);
-            if (block.getState() instanceof Container container) { // TODO CHECK INVENTORY UPDATES
-                return container;
+            if (ContainerWrapper.isStorageContainer(block.getState())) {
+                return new ContainerWrapper(block.getState());
             }
         }
         return null;
@@ -143,24 +143,23 @@ public class SerializableContainer implements Serializable {
      *
      * @return A CompletableFuture that completes with the Container represented by this SerializableContainer, or completes exceptionally if the world is not found.
      */
-    public @NotNull CompletableFuture<Container> toContainerAsync() {
+    public @NotNull CompletableFuture<ContainerWrapper> toContainerAsync() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
-            CompletableFuture<Container> future = new CompletableFuture<>();
-            VoidChestAPI.getInstance().minecraftScheduler()
+            return VoidChestAPI.getInstance().minecraftScheduler()
                     .createTaskForLocation(
                             VoidChestAPI.getInstance().plugin(),
                             () -> {
                                 Block block = world.getBlockAt(x, y, z);
-                                if (block.getState() instanceof Container container) { // TODO CHECK INVENTORY UPDATES
-                                    future.complete(container);
+                                if (ContainerWrapper.isStorageContainer(block.getState())) {
+                                    return new ContainerWrapper(block.getState());
                                 } else {
-                                    future.completeExceptionally(new IllegalArgumentException("The block at this location is not a container."));
+                                    throw new IllegalArgumentException("The block at this location is not a container.");
                                 }
                             },
                             new Location(world, x, y, z)
                     );
-            return future;
+            //return future;
         } else {
             return CompletableFuture.failedFuture(new IllegalArgumentException("The world is not found."));
         }
@@ -172,11 +171,11 @@ public class SerializableContainer implements Serializable {
      * @return The material of the container, or {@code null} if the container is not found.
      */
     public @Nullable Material getMaterial() {
-        Container container = this.toContainer();
+        ContainerWrapper container = this.toContainer();
         if (container == null) {
             return null;
         }
-        return container.getType();
+        return container.getBlockState().getType();
     }
 
     /**
@@ -190,7 +189,7 @@ public class SerializableContainer implements Serializable {
                     if (container == null) {
                         throw new IllegalArgumentException("The container is not found.");
                     }
-                    return container.getType();
+                    return container.getBlockState().getType();
                 });
     }
 

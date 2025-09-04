@@ -2,8 +2,8 @@ package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.exceptions.SerializerException;
-import de.tr7zw.changeme.nbtapi.NBT;
-import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
+import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;

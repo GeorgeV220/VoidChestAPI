@@ -23,7 +23,7 @@ public class ConcurrentObjectMap<K, V> extends ConcurrentHashMap<K, V> implement
      * @param map initial map
      */
     public ConcurrentObjectMap(final ObjectMap<K, V> map) {
-        putAll(map);
+        super(map);
     }
 
     /**
@@ -32,7 +32,7 @@ public class ConcurrentObjectMap<K, V> extends ConcurrentHashMap<K, V> implement
      * @param map initial map
      */
     public ConcurrentObjectMap(final Map<K, V> map) {
-        putAll(map);
+        super(map);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ConcurrentObjectMap<K, V> extends ConcurrentHashMap<K, V> implement
      * Constructs a new ConcurrentObjectMap with the specified initial capacity and load factor.
      *
      * @param initialCapacity The initial capacity of the ConcurrentObjectMap.
-     * @param loadFactor     The load factor of the ConcurrentObjectMap.
+     * @param loadFactor      The load factor of the ConcurrentObjectMap.
      */
     public ConcurrentObjectMap(final int initialCapacity, final float loadFactor) {
         super(initialCapacity, loadFactor);

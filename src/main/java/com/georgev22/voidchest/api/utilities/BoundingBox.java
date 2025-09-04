@@ -316,13 +316,10 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
                 "maxZ=" + maxZ + ']';
     }
 
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     public BoundingBox clone() {
-        try {
-            return (BoundingBox) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new Error(e);
-        }
+        return new BoundingBox(this);
     }
 
     /**

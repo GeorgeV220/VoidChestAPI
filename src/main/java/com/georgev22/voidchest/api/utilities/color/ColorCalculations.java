@@ -20,4 +20,14 @@ public class ColorCalculations {
 
         return list;
     }
+
+    public static @NotNull Color interpolateColor(@NotNull Color color1, @NotNull Color color2, float ratio) {
+        ratio = Math.max(0f, Math.min(1f, ratio)); // Clamp between 0 and 1
+
+        int red = Math.round(color1.getRed() + ratio * (color2.getRed() - color1.getRed()));
+        int green = Math.round(color1.getGreen() + ratio * (color2.getGreen() - color1.getGreen()));
+        int blue = Math.round(color1.getBlue() + ratio * (color2.getBlue() - color1.getBlue()));
+
+        return Color.from(red, green, blue);
+    }
 }

@@ -1,15 +1,23 @@
 apply plugin: 'maven-publish'
 
 static def getBranch() {
-    def process = 'git branch --show-current'.execute()
-    process.waitFor()
-    return process.text.trim()
+    try {
+        def process = 'git branch --show-current'.execute()
+        process.waitFor()
+        return process.text.trim()
+    } catch (Exception e) {
+        return "unknown"
+    }
 }
 
 static def getHash() {
-    def process = 'git rev-parse HEAD'.execute()
-    process.waitFor()
-    return process.text.trim()
+    try {
+        def process = 'git rev-parse --short HEAD'.execute()
+        process.waitFor()
+        return process.text.trim()
+    } catch (Exception e) {
+        return "unknown"
+    }
 }
 
 java {
@@ -30,50 +38,11 @@ jar {
 
 publishing {
     publications {
-        shadow(MavenPublication) { publication ->
-            project.shadow.component(publication)
-            artifactId = project.getName().toLowerCase() + "-shade"
-            groupId = ((String) project.getGroup()).toLowerCase() + "-shade"
-            artifact sourcesJar
-            artifact javadocJar
-            pom {
-                name = project.getName().toLowerCase() + "-shade"
-                artifactId = project.getName().toLowerCase() + "-shade"
-                groupId = ((String) project.getGroup()).toLowerCase() + "-shade"
-                description = project.getDescription()
-                url = "https://github.com/GeorgeV220/VoidChestAPI"
-                licenses {
-                    license {
-                        name = "GNU General Public License v3.0"
-                        url = "https://github.com/GeorgeV220/VoidChestAPI/blob/main/LICENSE"
-                        distribution = "repo"
-                    }
-                }
-                developers {
-                    developer {
-                        id = "GeorgeV22"
-                        name = "GeorgeV22"
-                        email = "github@georgev22.com"
-                        organization = "GeorgeV22"
-                        organizationUrl = "https://github.com/GeorgeV22"
-                        roles = ["developer", "maintainer"]
-                    }
-                }
-                scm {
-                    connection = "scm:git:https://github.com/GeorgeV220/VoidChestAPI.git"
-                    developerConnection = "scm:git:https://github.com/GeorgeV220/VoidChestAPI.git"
-                    url = "https://github.com/GeorgeV220/VoidChestAPI"
-                }
-                issueManagement {
-                    system = "GitHub"
-                    url = "https://github.com/GeorgeV220/VoidChestAPI/issues"
-                }
-            }
-        }
-        regularJar(MavenPublication) { publication ->
+        mavenJava(MavenPublication) {
             from components.java
             artifactId = project.getName().toLowerCase()
             groupId = ((String) project.getGroup()).toLowerCase()
+
             pom {
                 name = project.getName().toLowerCase()
                 description = project.getDescription()
@@ -108,52 +77,29 @@ publishing {
         }
     }
     repositories {
-        def isGitHub = System.getenv("GITHUB_REPOSITORY") ? true : false
-        if (isGitHub) {
-            maven {
-                name = "GeorgeV22"
-
-                if (getBranch().containsIgnoreCase("alpha") | getBranch().containsIgnoreCase("beta")) {
+        def isGitHub = System.getenv("GITHUB_REPOSITORY") != null
+        maven {
+            name = "GeorgeV22"
+            if (isGitHub) {
+                if (getBranch().toLowerCase().contains("alpha") || getBranch().toLowerCase().contains("beta")) {
                     url = uri("https://repo.georgev22.com/snapshots")
                 } else {
                     url = uri("https://repo.georgev22.com/releases")
                 }
-
-                def mavenUsername = System.getenv("MAVEN_USERNAME") ? System.getenv("MAVEN_USERNAME") :
-                        System.getProperty("MAVEN_USERNAME") ? System.getProperty("MAVEN_USERNAME") : null
-                def mavenPassword = System.getenv("MAVEN_PASSWORD") ? System.getenv("MAVEN_PASSWORD") :
-                        System.getProperty("MAVEN_PASSWORD") ? System.getProperty("MAVEN_PASSWORD") : null
-
-                if (mavenUsername != null && mavenPassword != null) {
-                    credentials {
-                        username = mavenUsername
-                        password = mavenPassword
-                    }
-                    authentication {
-                        basic(BasicAuthentication)
-                    }
-                }
-            }
-        }
-        if (!isGitHub) {
-            maven {
-                name = "GeorgeV22"
-
+            } else {
                 url = uri("https://repo.georgev22.com/snapshots")
+            }
 
-                def mavenUsername = System.getenv("MAVEN_USERNAME") ? System.getenv("MAVEN_USERNAME") :
-                        System.getProperty("MAVEN_USERNAME") ? System.getProperty("MAVEN_USERNAME") : null
-                def mavenPassword = System.getenv("MAVEN_PASSWORD") ? System.getenv("MAVEN_PASSWORD") :
-                        System.getProperty("MAVEN_PASSWORD") ? System.getProperty("MAVEN_PASSWORD") : null
+            def mavenUsername = System.getenv("MAVEN_USERNAME") ?: System.getProperty("MAVEN_USERNAME")
+            def mavenPassword = System.getenv("MAVEN_PASSWORD") ?: System.getProperty("MAVEN_PASSWORD")
 
-                if (mavenUsername != null && mavenPassword != null) {
-                    credentials {
-                        username = mavenUsername
-                        password = mavenPassword
-                    }
-                    authentication {
-                        basic(BasicAuthentication)
-                    }
+            if (mavenUsername && mavenPassword) {
+                credentials {
+                    username = mavenUsername
+                    password = mavenPassword
+                }
+                authentication {
+                    basic(BasicAuthentication)
                 }
             }
         }
