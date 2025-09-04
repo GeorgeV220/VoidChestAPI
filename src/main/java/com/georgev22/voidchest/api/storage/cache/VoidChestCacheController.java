@@ -182,6 +182,22 @@ public class VoidChestCacheController {
         return Optional.empty();
     }
 
+    /**
+     * Searches all directly adjacent blocks of the given block for an associated {@link IVoidChest}.
+     *
+     * @param block The block whose neighbors to search.
+     * @return An {@link Optional} containing the first found {@link IVoidChest}, otherwise empty.
+     */
+    public Optional<IVoidChest> findNearbyVoidChest(@NotNull Block block) {
+        for (BlockFace face : faces) {
+            Block neighbor = block.getRelative(face);
+            Optional<IVoidChest> voidChest = this.get(neighbor);
+            if (voidChest.isPresent()) {
+                return voidChest;
+            }
+        }
+        return Optional.empty();
+    }
 
     /**
      * Fetches an {@link Optional} containing the {@link IVoidChest} for the specified serializable block.
