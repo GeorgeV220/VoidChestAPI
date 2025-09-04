@@ -1,3 +1,10 @@
+# [4.0.0-beta.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.11...v4.0.0-beta.12) (2025-09-04)
+
+
+### Features
+
+* **api:** add null checks in Utils.placeHolder method to prevent NPEs ([0b2fa68](https://github.com/GeorgeV220/VoidChestAPI/commit/0b2fa68946e526b26d341d4a4a3330eaf0ba74f1))
+
 # [4.0.0-beta.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.10...v4.0.0-beta.11) (2025-07-22)
 
 
