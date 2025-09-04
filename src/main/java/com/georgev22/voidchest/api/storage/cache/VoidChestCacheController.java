@@ -36,8 +36,10 @@ public class VoidChestCacheController {
     private final ConcurrentObjectMap<SerializableLocation, IVoidChest> voidChestCache = new ConcurrentObjectMap<>();
     private final ConcurrentObjectMap<VoidChunk, Set<IVoidChest>> chunkCache = new ConcurrentObjectMap<>();
     private final ConcurrentObjectMap<IPlayerData, Set<IVoidChest>> playerCache = new ConcurrentObjectMap<>();
-    private final Set<BlockFace> faces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
+    private final Set<BlockFace> nearBlockFaces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
             BlockFace.SOUTH, BlockFace.UP, BlockFace.DOWN);
+    private final Set<BlockFace> doubleChestFaces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
+            BlockFace.SOUTH);
 
     /**
      * Adds a {@link IVoidChest} to the location cache.
@@ -171,7 +173,7 @@ public class VoidChestCacheController {
                 return Optional.empty();
             }
 
-            for (BlockFace face : faces) {
+            for (BlockFace face : doubleChestFaces) {
                 Block other = block.getRelative(face);
                 Optional<IVoidChest> voidChest = this.get(other);
                 if (voidChest.isPresent()) {
@@ -189,7 +191,7 @@ public class VoidChestCacheController {
      * @return An {@link Optional} containing the first found {@link IVoidChest}, otherwise empty.
      */
     public Optional<IVoidChest> findNearbyVoidChest(@NotNull Block block) {
-        for (BlockFace face : faces) {
+        for (BlockFace face : nearBlockFaces) {
             Block neighbor = block.getRelative(face);
             Optional<IVoidChest> voidChest = this.get(neighbor);
             if (voidChest.isPresent()) {
