@@ -1,3 +1,104 @@
+# [4.0.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v3.0.0...v4.0.0) (2025-09-04)
+
+
+* feat!: remove unused getEntity methods with consumer ([9c499ab](https://github.com/GeorgeV220/VoidChestAPI/commit/9c499ab60948e7e0a51509561126715a120d028f))
+* refactor(api)!: overhaul ProfitCalculatorRegistry and calculator selection ([f01d446](https://github.com/GeorgeV220/VoidChestAPI/commit/f01d4466101a8fce2519276e490f7bfaf27fb72d))
+
+
+### Bug Fixes
+
+* **api:** add UP and DOWN block faces to cached faces set ([59a2fcd](https://github.com/GeorgeV220/VoidChestAPI/commit/59a2fcdc83002c073b1661f2fa39bc7f2961be5f))
+* Change upgrades return type to UnmodifiableObjectMap ([95c996e](https://github.com/GeorgeV220/VoidChestAPI/commit/95c996e8f227066e14ea66f8c4d9c4ece6c8193f))
+* correct booster total initialization and time calculation ([046aa74](https://github.com/GeorgeV220/VoidChestAPI/commit/046aa743dfcd8a073f532d6cb2be4828e6157746))
+* update container validation to use storage-specific checks ([c44f453](https://github.com/GeorgeV220/VoidChestAPI/commit/c44f4537eeffb86f114f43a96355dd50c0695bf9))
+* **upgrade:** Fix upgrades not working due to UnmodifiableObjectMap call ([e3e67dd](https://github.com/GeorgeV220/VoidChestAPI/commit/e3e67dd264d2859ade11cad8b9c92f6db255d4d6))
+
+
+### Code Refactoring
+
+* **api:** restructure economy and storage APIs, remove custom events, and improve container handling ([eece0c2](https://github.com/GeorgeV220/VoidChestAPI/commit/eece0c2f2ad0f46ef030c58de7953349f29dbb16))
+
+
+### Features
+
+* 4.0.0 API for VoidChest 6.0.0 ([e46541a](https://github.com/GeorgeV220/VoidChestAPI/commit/e46541a1de8ac343129cad3d37db74ed188d76a0))
+* Add "none" as animation type ([df52158](https://github.com/GeorgeV220/VoidChestAPI/commit/df521585116429967ce19a928c2505d37cb7b3f2))
+* Add block coordinate methods and refactor void chest lookup ([6aecac6](https://github.com/GeorgeV220/VoidChestAPI/commit/6aecac6017f442d5f4656524916b885323d78320))
+* add ITimedTask#isRunning and update isCancelled javadoc ([3cd3e30](https://github.com/GeorgeV220/VoidChestAPI/commit/3cd3e30c37a9d1cba74ec78671bb8adf256b4b76))
+* add silent booster methods and refactor event handling ([86444b8](https://github.com/GeorgeV220/VoidChestAPI/commit/86444b8efc60bb1315f3f22615cfe18895f83bf7))
+* **api:** add async constructor to PlayerEvent ([ab11bb8](https://github.com/GeorgeV220/VoidChestAPI/commit/ab11bb8e4f8c5e73cda369440725c5f539fc0fee))
+* **api:** add constructor overloads to ObservableObjectMap ([dd2bc73](https://github.com/GeorgeV220/VoidChestAPI/commit/dd2bc731ef36a2d64c10c37d8ca3df4564fb09ac))
+* **api:** add custom name support and void chest type config ([0c560b2](https://github.com/GeorgeV220/VoidChestAPI/commit/0c560b22e8e3b34f02a34e27d4073ca6491157d5))
+* **api:** Add disabled worlds management to IVoidChest ([f33b527](https://github.com/GeorgeV220/VoidChestAPI/commit/f33b527b3672c8b8521187619609bcd1c4242a39))
+* **api:** add FilterMode.fromString method with synonym support ([eb967e6](https://github.com/GeorgeV220/VoidChestAPI/commit/eb967e62677f8ff852068c3c0dbf5b9d0d505e9f))
+* **api:** add null checks in Utils.placeHolder method to prevent NPEs ([0b2fa68](https://github.com/GeorgeV220/VoidChestAPI/commit/0b2fa68946e526b26d341d4a4a3330eaf0ba74f1))
+* **booster:** replace old booster system with new provider-based system ([c28a87f](https://github.com/GeorgeV220/VoidChestAPI/commit/c28a87f1b3a70e655e97ab95620311d778398e91))
+* enhance cache concurrency and null safety in VoidChestCacheController ([00497aa](https://github.com/GeorgeV220/VoidChestAPI/commit/00497aa8bc2c42380ab6bb42d52c78ff5e2b4546))
+* **EntityManager:** add create methods with consumer parameter ([8484896](https://github.com/GeorgeV220/VoidChestAPI/commit/8484896d222922c12b90fbc48410a0fbd11aea5a))
+* implement create method in InvalidEntityManager ([ca63fcf](https://github.com/GeorgeV220/VoidChestAPI/commit/ca63fcf27144d96288f32c037f4f7499225b8a06))
+* **maps:** refactor constructors and add conversion methods ([4150b76](https://github.com/GeorgeV220/VoidChestAPI/commit/4150b769251cb4be481484ad7ff373c914f9e504))
+* Remove tests ([b999df7](https://github.com/GeorgeV220/VoidChestAPI/commit/b999df7bc9d0aee03ae4d326036d1cd57500018f))
+* Replace nullable returns with Optional in storage APIs ([35b2236](https://github.com/GeorgeV220/VoidChestAPI/commit/35b22361d802d644a2eb29ca92212e56d43a1f4b))
+* update Minecraft version ranges and add new versions ([91ceeae](https://github.com/GeorgeV220/VoidChestAPI/commit/91ceeaee0547b747e8aa43683d5a72230e988639))
+* update to Minecraft 1.21.7 and switch to Paper API ([849b255](https://github.com/GeorgeV220/VoidChestAPI/commit/849b255c6525a38d7124d5a3b41f7b9466c16df6))
+* **utilities:** add VoidChunk class and refactor SerializableLocation ([f2280b1](https://github.com/GeorgeV220/VoidChestAPI/commit/f2280b10a0ad0cf55c50379d86c99fb1018d4ea7))
+
+
+### Performance Improvements
+
+* cache hash code and optimize equals in location/chunk ([fc8b2b7](https://github.com/GeorgeV220/VoidChestAPI/commit/fc8b2b7c510fd616b0d0fcc86a3fe7a7f7e76090))
+
+
+### BREAKING CHANGES
+
+* Existing ProfitCalculator implementations must now
+include getWeight() and getPlugin() methods. Registry API methods have
+significantly changed - plugins using the registry require updates.
+* Removed getEntity methods with consumer parameter
+from EntityManager interface and InvalidEntityManager class. Any
+existing implementations must remove references to these methods.
+* **api:** This commit involves widespread refactors, file deletions, class migrations, and internal API restructuring. Be sure to review the full diff and adapt plugin implementations accordingly before upgrading.
+
+- Economy system refactored:
+  - All player-related economy classes moved to `com.georgev22.voidchest.api.economy.player`
+    - Includes `AEconomy`, `IEconomyManager`, `EconomyMode`, and `InvalidEconomy`
+  - Profit calculation logic moved to `com.georgev22.voidchest.api.economy.profit.ProfitCalculator`
+  - All imports and references updated accordingly
+
+- Removed the entire custom event system:
+  - Deleted:
+    - Core classes: `Event`, `HandlerList`, `EventManager`, `EventPriority`
+    - Interfaces: `Cancellable`, `EventListener`, `EventExecutor`
+    - Annotations and wrappers: `EventHandler`, `ListenerWrapper`
+    - ASM-based event executor generator
+    - All inventory-related custom events: `VoidInventoryOpenEvent`, `Slot`, `VoidInventorySlotChangeEvent`, etc.
+  - All events refactored to extend `VoidChestBaseEvent`, which now inherits from Bukkit’s `Event`
+  - `PlayerEvent` updated to be Bukkit-cancellable and moved to `api.events`
+
+- Introduced `DataContainerWrapper` system:
+  - New version-compatible abstraction over Bukkit's `PersistentDataContainer`
+  - Supports modern, legacy, and NBT-based containers
+  - Includes helper factories and wrappers to safely read/write data across versions
+
+- Introduced `ContainerWrapper`:
+  - Cross-version abstraction over Bukkit container blocks and inventories
+  - Used in serialization and inventory manipulation logic
+  - Improved compatibility with older Minecraft server versions
+
+- API changes to `VoidChestAPI`:
+  - Removed fields: `SellHandler`, `SellTaskHandler`, `VoidInventoryUtils`, `EventManager`
+  - Added: `ITimedTaskManager` for task control
+  - Introduced `isFolia` detection logic (static flag and accessor methods)
+
+- Serialization and upgrades:
+  - Added `UpgradeLevel` and `UpgradeSerializer` for structured upgrade level control
+  - Used for item upgrades and enhancement tracking
+
+- Code modernization and cleanup:
+  - Removed obsolete packages and improved file organization
+  - Improved `BoundingBox#clone` implementation to eliminate `CloneNotSupportedException`
+  - Marked internal APIs with `@ApiStatus.Internal` where applicable
+
 # [4.0.0-beta.12](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0-beta.11...v4.0.0-beta.12) (2025-09-04)
 
 
