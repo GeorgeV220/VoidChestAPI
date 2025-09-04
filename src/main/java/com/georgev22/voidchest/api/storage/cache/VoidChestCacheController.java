@@ -141,12 +141,14 @@ public class VoidChestCacheController {
     }
 
     /**
-     * Attempts to find a nearby {@link IVoidChest} around a double chest block.
+     * Attempts to resolve the {@link IVoidChest} associated with the given block
+     * if it is part of a double chest.
      *
-     * @param block The block to search near.
-     * @return An {@link Optional} of the associated void chest, if found.
+     * @param block The chest block to check.
+     * @return An {@link Optional} containing the associated void chest if the block
+     * is part of a double chest and one side is registered, otherwise empty.
      */
-    public Optional<IVoidChest> getVoidChestNear(@NotNull Block block) {
+    public Optional<IVoidChest> getAssociatedVoidChest(@NotNull Block block) {
         Material chestMaterial;
         Material trappedChestMaterial;
 
@@ -158,8 +160,7 @@ public class VoidChestCacheController {
             trappedChestMaterial = null;
         }
 
-        if (block.getType() == chestMaterial ||
-                (trappedChestMaterial != null && block.getType() == trappedChestMaterial)) {
+        if (block.getType() == chestMaterial || block.getType() == trappedChestMaterial) {
             BlockState state = block.getState();
             if (!(state instanceof Chest chest)) {
                 return Optional.empty();
@@ -180,6 +181,7 @@ public class VoidChestCacheController {
         }
         return Optional.empty();
     }
+
 
     /**
      * Fetches an {@link Optional} containing the {@link IVoidChest} for the specified serializable block.
