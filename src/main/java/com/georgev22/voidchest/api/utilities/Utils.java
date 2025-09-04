@@ -280,6 +280,9 @@ public final class Utils {
             return str;
         }
         for (final Entry<String, String> entry : map.entrySet()) {
+            if (entry.getKey() == null || entry.getValue() == null) {
+                continue;
+            }
             str = ignoreCase ? replaceIgnoreCase(str, entry.getKey(), entry.getValue())
                     : str.replace(entry.getKey(), entry.getValue());
         }
