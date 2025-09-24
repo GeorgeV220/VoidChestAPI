@@ -1,3 +1,12 @@
+# [4.2.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.1.0...v4.2.0) (2025-09-24)
+
+
+### Features
+
+* add Copyable interface with shallow/deep copy support ([382091c](https://github.com/GeorgeV220/VoidChestAPI/commit/382091c65aadb5163da6f4d1d03fa51e157309e8))
+* add DeepCloner utility for object cloning ([ca6cf83](https://github.com/GeorgeV220/VoidChestAPI/commit/ca6cf83b68ac7f6057dcc73778f58805b34b1c43))
+* **api:** enhance CustomData class with dynamic values and cloning ([420b7b3](https://github.com/GeorgeV220/VoidChestAPI/commit/420b7b3932c2951b5407c88b1df82be416b4d296))
+
 # [4.1.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0...v4.1.0) (2025-09-24)
 
 
