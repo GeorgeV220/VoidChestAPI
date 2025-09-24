@@ -1,3 +1,12 @@
+# [4.1.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.0.0...v4.1.0) (2025-09-24)
+
+
+### Features
+
+* **api:** add method to find nearby VoidChest from block ([9a5ec0a](https://github.com/GeorgeV220/VoidChestAPI/commit/9a5ec0af26ede3a8a6c90838e7fa635a06061215))
+* **api:** improve double chest handling and method naming ([f520630](https://github.com/GeorgeV220/VoidChestAPI/commit/f520630b2128a62262ffee39d81fb1af3637c45d))
+* refactor cache controller to separate block face sets ([395d768](https://github.com/GeorgeV220/VoidChestAPI/commit/395d768023576c9d8dbcc890d4288d0b03b5d82a))
+
 # [4.0.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v3.0.0...v4.0.0) (2025-09-04)
 
 
