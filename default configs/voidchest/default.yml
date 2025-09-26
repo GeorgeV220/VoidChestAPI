@@ -113,10 +113,11 @@ Options:
   # How often should the voidchest attempt to sell items.
   sell interval: 10
 
-  # Available calculators:  VoidChest, ShopGUIPlus, Essentials, CMI, EconomyShopGUI, DynamicShop
-  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
+  # Available calculators: VoidChest, ShopGUIPlus, Essentials, CMI, EconomyShopGUI, DynamicShop.
+  # Lower weight is prioritized. If multiple calculators share the lowest weight,
+  # the one that returns the highest profit will be used.
   profit calculator:
-    # Plugin Name - Priority
+    # Plugin Name - Weight
     - "VoidChest:1" # Default
     # - "ShopGUIPlus:2"
     # - "Essentials:3"
@@ -222,6 +223,12 @@ Options:
     # Should the inventory item show the VoidChest's custom name ?
     inventory custom name: false
 
+    # Default inventory name if player custom name is disabled.
+    # This is the name for the VoidChest's items inventory.
+    # This will not be updated for Container blocks after they are placed.
+    # Supports Unicode, color codes, MiniMessage etc.
+    inventory default name: "⚡ <gradient:gold:yellow><bold>%voidchest%</bold></gradient> ⚡"
+
     # VoidChest inventory lore
     # Supports legacy and MiniMessage format
     inventory lore:
@@ -243,3 +250,6 @@ Options:
       - "<gray>» <blue><underlined>Click here</underlined></blue> <gray>to open this link.</gray>"
       - ""
 
+  # A list with worlds that voidchest won't collect or sell items.
+  # You need to have the exact bukkit world name for this to work (e.g. world, world_nether, world_the_end)
+  disabled worlds: [ ]

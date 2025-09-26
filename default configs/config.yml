@@ -72,7 +72,7 @@ Options:
     voidchest admin: true
 
   database:
-    type: "File" #Types File, SQLite, MySQL, PostgreSQL, MongoDB
+    type: "File" #Types File, SQLite, MySQL, MongoDB
 
     # SQL database options
     SQL:
@@ -147,7 +147,7 @@ Options:
   ignore item meta: true
 
   # Set filter mode
-  # Available modes: ALLOW and DENY
+  # Available modes: ALLOW and BLOCK
   # ALLOW: Only the items that match the filter are allowed to be sold/collected
   # BLOCK: Items that match the filter are blocked
   filter mode: "ALLOW"

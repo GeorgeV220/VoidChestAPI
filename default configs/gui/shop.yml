@@ -3,9 +3,24 @@ ShopMenu:
   rows: 6
   animation: true
   defaultAction: voidchest:nothing
+  structure:
+    - "# # # # # # # # #"
+    - "# X X X X X X X #"
+    - "# X X X X X X X #"
+    - "# X X X X X X X #"
+    - "# X X X X X X X #"
+    - "I # < # E # > # #"
 
   items:
-    info:
+    "#":
+      item: BLACK_STAINED_GLASS_PANE
+      name: " "
+      lore: [ ]
+      glow: false
+      amount: 1
+      action: voidchest:nothing
+
+    "I":
       item: "BOOK"
       name: "&a&lInformation"
       lore:
@@ -20,9 +35,8 @@ ShopMenu:
         - "#32627B"
         - "#1E4356"
       action: voidchest:nothing
-      slot:
-        - 45
-    previous_page:
+
+    "<":
       item: "PLAYER_HEAD"
       name: "&8&l» &e&lPrevious Page &8&l«"
       lore:
@@ -44,9 +58,8 @@ ShopMenu:
         - "#32627B"
         - "#1E4356"
       action: voidchest:previous_page
-      slot:
-        - 46
-    exit:
+
+    "E":
       item: PLAYER_HEAD
       amount: 1
       name: "&8&l» &e&lExit &8&l«"
@@ -61,13 +74,12 @@ ShopMenu:
       glow: true
       animation: "wave"
       action: voidchest:close
-      slot:
-        - 49
       colors:
         - "#00ff00"
         - "#ff0000"
         - "#ffff00"
-    next_page:
+
+    ">":
       item: PLAYER_HEAD
       amount: 1
       name: "&8&l» &e&lNext Page &8&l«"
@@ -82,8 +94,6 @@ ShopMenu:
       glow: true
       animation: "wave"
       action: voidchest:next_page
-      slot:
-        - 53
       colors:
         - "#00ff00"
         - "#ff0000"

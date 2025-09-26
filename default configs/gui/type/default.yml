@@ -1,231 +1,234 @@
 VoidChestMenu:
-  title: "&a&l%voidchest% VoidChest Menu"
+  title: "%voidchest% &7| &fVoidChest Menu"
+  # rows is ignored if you have a structure
+  # IF YOU DON'T HAVE A STRUCTURE YOU NEED TO SPECIFY ITEM SLOTS
   rows: 6
   animation: true
+  # Default action is executed when you click an item without a specific action.
   defaultAction: voidchest:nothing
+  # The bottom inventory action is set to nothing by default
+  # You can change it to voidchest:open_container to open the container OR voidchest:open_upgrades to open the upgrades menu
+  #bottomInventoryAction: voidchest:nothing
+  structure:
+    - "# # # # # # # # #"
+    - "# A # C # P # U #"
+    - "# # # # # # # # #"
+    - "# H # L # T # B #"
+    - "# # # # # # # # #"
+    - "S # # # E # # # O"
 
   items:
-    auto_sell:
-      item: GOLD_INGOT
-      name: "&a&lAuto Sell"
-      lore:
-        - "&7Should this voidchest sell contents?"
-        - " "
-        - "&7Status %status_auto_sell%"
-        - " "
-        - "&7Click to &a%!status_auto_sell%&7 this setting."
+    # Without Structure example:
+    #"#":
+    #  item: BLACK_STAINED_GLASS_PANE
+    #  name: " "
+    #  lore: [ ]
+    #  glow: false
+    #  amount: 1
+    #  action: voidchest:nothing
+    #  slots: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ... 53 ]
+    "#":
+      item: BLACK_STAINED_GLASS_PANE
+      name: " "
+      lore: [ ]
       glow: false
+      amount: 1
+      action: voidchest:nothing
+
+    "A":
+      item: DIAMOND
+      name: "&6&lAuto Sell"
+      lore:
+        - "&7Enable automatic selling of contents."
+        - "&7Status: &e%status_auto_sell%"
+        - ""
+        - "&eClick to toggle."
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#FFE066"
+        - "#FFB347"
+        - "#FFA500"
+        - "#FF8C00"
+        - "#FF4500"
       action: voidchest:toggle_auto_sell
-      slot:
-        - 11
 
-    chunk_collector:
-      item: MAGMA_CREAM
-      name: "&a&lCollect Chunk Items"
+    "C":
+      item: HOPPER
+      name: "&6&lChunk Collector"
       lore:
-        - "&7Should this voidchest collect items"
-        - "&7inside this chunk and sell them if possible?"
-        - " "
-        - "&7Status %status_chunk_collector%"
-        - " "
-        - "&7Click to &a%!status_chunk_collector%&7 this setting."
-      glow: false
+        - "&7Collect items in the chunk automatically."
+        - "&7Status: &e%status_chunk_collector%"
+        - ""
+        - "&eClick to toggle."
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#FFA07A"
+        - "#FF7F50"
+        - "#FF6347"
+        - "#FF4500"
+        - "#FF0000"
       action: voidchest:toggle_chunk_collector
-      slot:
-        - 13
 
-    purge:
-      item: ENDER_EYE
-      name: "&a&lDelete Non-Sellable Items"
+    "P":
+      item: TNT
+      name: "&c&lPurge Non-Sellable"
       lore:
-        - "&7Should this voidchest delete items"
-        - "&7that are not sellable?"
-        - " "
-        - "&7Status %status_purge%"
-        - " "
-        - "&7Click to &a%!status_purge%&7 this setting."
-      glow: false
+        - "&7Delete non-sellable items automatically."
+        - "&7Status: &e%status_purge%"
+        - ""
+        - "&eClick to toggle."
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#FFB6C1"
+        - "#FF69B4"
+        - "#FF1493"
+        - "#DB7093"
+        - "#C71585"
       action: voidchest:toggle_purge
-      slot:
-        - 15
 
-    upgrades:
+    "U":
       item: FEATHER
-      name: "&a&lUpgrades"
+      name: "&b&lUpgrades"
       lore:
-        - "&7Open the upgrades menu."
-      glow: false
+        - "&7Open the upgrades menu to enhance your VoidChest."
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#87CEFA"
+        - "#00BFFF"
+        - "#1E90FF"
+        - "#4682B4"
+        - "#5F9EA0"
       action: voidchest:open_upgrades
-      slot:
-        - 18
 
-    hologram:
+    "H":
       item: ARMOR_STAND
-      name: "&a&lHologram"
+      name: "&b&lHologram Display"
       lore:
-        - "&7Click to toggle this VoidChest's hologram"
+        - "&7Toggle the hologram for this VoidChest."
+        - "&7Status: &e%status_hologram%"
         - ""
-        - "&7Status: %status_hologram%"
-        - ""
-        - "&7Click to %!status_hologram%&7 the hologram."
-      glow: false
+        - "&eClick to toggle."
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#D8BFD8"
+        - "#DA70D6"
+        - "#BA55D3"
+        - "#9932CC"
+        - "#8A2BE2"
       action: voidchest:toggle_hologram
-      slot:
-        - 22
 
-    charge:
+    "L":
       item: LAVA_BUCKET
       name: "&d&lVoidChest Charge"
       lore:
-        - '&7Click to add one hour charge to your VoidChest.'
-        - ''
-        - '&7Current Charge Time: &e%charge%'
-        - '&7Price per renewal: &e$%price%'
-        - '&7Renewal time per purchase: &e%renewal%'
-      glow: false
+        - "&7Add one hour of charge time to your VoidChest."
+        - ""
+        - "&7Current Charge: &e%charge%"
+        - "&7Price per Renewal: &e$%price%"
+        - "&7Renewal Time: &e%renewal%"
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#FF69B4"
+        - "#FF1493"
+        - "#DB7093"
+        - "#C71585"
+        - "#800080"
       action: voidchest:add_charge
-      slot:
-        - 25
 
-    transfer_non_sellable:
+    "T":
       item: SLIME_BALL
-      name: "&d&lTransfer non sellable"
+      name: "&a&lTransfer Non-Sellable"
       lore:
-        - "&7Click to toggle this VoidChest's transfer non sellable"
+        - "&7Transfer non-sellable items to a linked chest."
+        - "&7Status: &e%status_transfer_non_sellable%"
         - ""
-        - "&7Status: %status_transfer_non_sellable%"
-        - ""
-        - "&7Click to %!status_transfer_non_sellable%&7 the transfer non sellable."
-      glow: false
+        - "&eClick to toggle."
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#98FB98"
+        - "#7CFC00"
+        - "#32CD32"
+        - "#228B22"
+        - "#006400"
       action: voidchest:toggle_transfer_non_sellable
-      slot:
-        - 29
 
-    open_chest:
+    "B":
+      item: GOLD_INGOT
+      name: "&9&lBank Transfer"
+      lore:
+        - "&7Choose whether income goes to your bank."
+        - "&7Current Destination: &e%status_bank%"
+        - ""
+        - "&eClick to toggle."
+      glow: true
+      amount: 1
+      animation: "wave"
+      colors:
+        - "#87CEEB"
+        - "#4682B4"
+        - "#4169E1"
+        - "#1E90FF"
+        - "#0000CD"
+      action: voidchest:toggle_bank
+
+    "O":
       item: CHEST
       name: "&6&lChest Inventory"
       lore:
-        - '&7&o{( Click me to open the chest inventory )}'
-      glow: false
+        - "&7Access the inventory of your VoidChest."
+        - ""
+        - "&eClick to open."
+      glow: true
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#F0E68C"
+        - "#FFD700"
+        - "#FFA500"
+        - "#FF8C00"
+        - "#FF4500"
       action: voidchest:open_container
-      slot:
-        - 31
 
-    bank:
-      item: POTION
-      name: "&a&lBank"
-      lore:
-        - "&7Click to toggle your income's direction."
-        - ""
-        - "&7Money goes to: %status_bank%"
-        - ""
-        - "&7Click to make your income go to your %!status_bank%&7 account."
-      glow: false
-      amount: 1
-      animation: "wave"
-      colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
-      action: voidchest:toggle_bank
-      slot:
-        - 33
-
-    statistics:
+    "S":
       item: BOOK
       name: "&b&lStatistics"
       lore:
-        - '&8&l&m---------------------'
-        - ' &c&l* Owner -> &c%owner%'
-        - ' &6&l* &6VoidChest -> %voidchest%'
-        - ' &b&l* &bBooster -> %booster%x'
-        - ' &a&l* &aMoney made -> $%money%'
-        - ' &3&l* &3Items sold -> %items_sold%'
-        - ' &4&l* &4Items purged -> %items_purged%'
-        - '&8&l&m---------------------'
+        - "&8&m---------------------"
+        - " &6&lOwner: &e%owner%"
+        - " &a&lVoidChest: &e%voidchest%"
+        - " &b&lBooster: &e%booster%x"
+        - " &a&lMoney Made: &e$%money%"
+        - " &3&lItems Sold: &e%items_sold%"
+        - " &4&lItems Purged: &e%items_purged%"
+        - "&8&m---------------------"
       glow: false
       amount: 1
       animation: "wave"
       colors:
-        - "#F3F8FA"
-        - "#A2CCE3"
-        - "#68A4C4"
-        - "#32627B"
-        - "#1E4356"
+        - "#B0E0E6"
+        - "#ADD8E6"
+        - "#87CEFA"
+        - "#87CEEB"
+        - "#4682B4"
       action: voidchest:nothing
-      slot:
-        - 45
 
-    exit:
+    "E":
       item: PLAYER_HEAD
-      amount: 1
-      name: "&8&l» &e&lExit &8&l«"
+      name: "&c&l» &e&lExit &c&l«"
       lore: [ ]
       skullProperty: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDQ2NjRlZGVhNzAxOTMzMjZhYTMxZjhmNTBmODBjMjkzN2I1YThmMDczNThhNWIwODQ5ZGRmNWI1YjJjOGMzNiJ9fX0="
       frames:
@@ -236,10 +239,10 @@ VoidChestMenu:
           glow: true
       glow: true
       animation: "wave"
-      action: voidchest:close
-      slot:
-        - 49
       colors:
-        - "#00ff00"
-        - "#ff0000"
-        - "#ffff00"
+        - "#FF0000"
+        - "#DC143C"
+        - "#B22222"
+        - "#8B0000"
+        - "#800000"
+      action: voidchest:close

@@ -3,6 +3,7 @@ Messages:
   item on cooldown: "&c&l(!)&c Please wait %seconds%s in order to use this item(%item%) again."
   no permission: "&c&l(!) &cYou do not have the correct permissions to do this!"
   plugin reload: "&a&l(!) &aAll data have been reloaded successfully. (%ms% ms)"
+  plugin loading data: "&a&l(!) &aLoading user and void data and registering tasks."
   sell:
     inventory sell: "&a&l+ %money% &7(sold %items_sold%, purged %items_purged%) &7[VOID CHEST]"
     offline: "&a&l(!) &aYou have made &a&l%money% &7(sold %items_sold%, purged %items_purged%) &awhile you were &coffline&a."
@@ -27,6 +28,7 @@ Messages:
     give: "&a&l(!) &aYou have given &7%player% %amount%x %voidchest% &3voidchest(s)&a."
     give invalid: "&c&l(!) &cNo voidchest by the name &e%voidchest% &cexists."
     give invalid charge time: "&c&l(!) &cThe charge time provided must be a valid (long) number, in seconds."
+    give invalid amount: "&c&l(!) &cYou must provide a valid (integer) number of voidchests to give."
     receive: "&a&l(!) &aYou have received &7%amount%x %voidchest% &3voidchest(s)&a."
     list: "&7&l(!) &7Currently &e%amount% &7voidchests loaded: &e%voidchests%"
     money logging: "The player %player% has made %amount% from a voidchest located in %location_world%, %location_x%, %location_y%, %location_z%"
