@@ -1,10 +1,11 @@
 package com.georgev22.voidchest.api.events.economy;
 
+import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.events.VoidChestBaseEvent;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
 import com.georgev22.voidchest.api.economy.player.EconomyMode;
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @deprecated Use {@link com.georgev22.voidchest.api.economy.player.IEconomyManager#hook(AEconomy)}
  */
-@Deprecated
+@Deprecated(forRemoval = true, since = "4.3.0") //Remove in 5.0.0 of the API
 public class AEconomyHookEvent extends VoidChestBaseEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();
@@ -68,7 +69,18 @@ public class AEconomyHookEvent extends VoidChestBaseEvent {
      * @param economy The economy plugin being hooked into VoidChest.
      */
     public void setEconomy(@NotNull AEconomy economy) {
-        Bukkit.getLogger().info("[VoidChest]: A plugin has registered their own economy: " + economy.getName() + " for mode: " + economyMode);
+        VoidChestAPI.getInstance().plugin().getLogger().info("A plugin has registered their own economy: " + economy.getName() + " for mode: " + economyMode);
+        this.economy = economy;
+    }
+
+    /**
+     * Sets the economy plugin that is being hooked into VoidChest.
+     *
+     * @param plugin  The plugin registering the economy.
+     * @param economy The economy plugin being hooked into VoidChest.
+     */
+    public void setEconomy(@NotNull Plugin plugin, @NotNull AEconomy economy) {
+        VoidChestAPI.getInstance().plugin().getLogger().info(plugin.getName() + " has registered their own economy: " + economy.getName() + " for mode:" + economyMode);
         this.economy = economy;
     }
 

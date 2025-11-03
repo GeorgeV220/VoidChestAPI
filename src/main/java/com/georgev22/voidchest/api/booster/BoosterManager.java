@@ -39,7 +39,7 @@ public class BoosterManager {
      * Calculates total booster by summing all boosters from all providers.
      */
     public BigDecimal getTotalBooster(OfflinePlayer player) {
-        BigDecimal total = BigDecimal.ZERO;
+        BigDecimal total = BigDecimal.ONE;
         for (BoosterProvider provider : providers) {
             List<Booster> boosters = provider.getBoosters(player);
             if (boosters != null) {
