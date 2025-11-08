@@ -1,3 +1,11 @@
+# [4.3.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.2.0...v4.3.0) (2025-11-08)
+
+
+### Features
+
+* remove paperlib dependency and add paper detection ([a488f9c](https://github.com/GeorgeV220/VoidChestAPI/commit/a488f9c9027cab801fbe0ea1bf3c9726b42947f4))
+* update Minecraft version support and economy events ([9a0c564](https://github.com/GeorgeV220/VoidChestAPI/commit/9a0c5640fadc804b94cc05c70646760e7a9eadef))
+
 # [4.2.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.1.0...v4.2.0) (2025-09-24)
 
 
