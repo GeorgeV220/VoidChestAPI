@@ -1,6 +1,5 @@
 [versions]
 mc-version = "1.21.7-R0.1-SNAPSHOT"
-paperlib = "1.0.8"
 jetbrains-annotations = "24.0.1"
 vault = "1.7"
 nbt-api = "2.15.0"

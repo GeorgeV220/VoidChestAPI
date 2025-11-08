@@ -27,6 +27,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -724,9 +726,9 @@ public class BukkitMinecraftUtils {
     }
 
     /**
-     * Checks if the current environment is "Folia" by attempting to load the "io.papermc.paper.threadedregions.RegionizedServer" class.
+     * Checks if the current environment is {@code Paper} by attempting to load the {@code io.papermc.paper.threadedregions.RegionizedServer} class.
      *
-     * @return `true` if the environment is "Folia," otherwise `false`.
+     * @return {@code true} if the environment is {@code Folia} otherwise {@code false}
      */
     public static boolean isFolia() {
         try {
@@ -734,6 +736,51 @@ public class BukkitMinecraftUtils {
             return true;
         } catch (ClassNotFoundException e) {
             return false;
+        }
+    }
+
+    /**
+     * Checks if the current environment is {@code Paper} by attempting to load the
+     * {@code com.destroystokyo.paper.PaperConfig"} and {@code io.papermc.paper.configuration.Configuration} classes
+     *
+     * @return {@code true} if the environment is {@code Paper} otherwise {@code false}
+     */
+    public static boolean isPaper() {
+        try {
+            Class.forName("com.destroystokyo.paper.PaperConfig");
+            return true;
+        } catch (ClassNotFoundException ignored) {
+        }
+        try {
+            Class.forName("io.papermc.paper.configuration.Configuration");
+            return true;
+        } catch (ClassNotFoundException ignored) {
+        }
+
+        return false;
+    }
+
+    public static void suggestPaper(@NotNull Plugin plugin, @NotNull Level logLevel) {
+        if (!isPaper()) {
+            String pluginName = plugin.getDescription().getName();
+            Logger logger = plugin.getLogger();
+            logger.log(logLevel, "====================================================");
+            logger.log(logLevel, " " + pluginName + " works better if you use Paper ");
+            logger.log(logLevel, " as your server software. ");
+            logger.log(logLevel, "  ");
+            logger.log(logLevel, " Paper offers significant performance improvements,");
+            logger.log(logLevel, " bug fixes, security enhancements and optional");
+            logger.log(logLevel, " features for server owners to enhance their server.");
+            logger.log(logLevel, "  ");
+            logger.log(logLevel, " Paper includes Timings v2, which is significantly");
+            logger.log(logLevel, " better at diagnosing lag problems over v1.");
+            logger.log(logLevel, "  ");
+            logger.log(logLevel, " All of your plugins should still work, and the");
+            logger.log(logLevel, " Paper community will gladly help you fix any issues.");
+            logger.log(logLevel, "  ");
+            logger.log(logLevel, " Join the Paper Community @ https://papermc.io");
+
+            logger.log(logLevel, "====================================================");
         }
     }
 
