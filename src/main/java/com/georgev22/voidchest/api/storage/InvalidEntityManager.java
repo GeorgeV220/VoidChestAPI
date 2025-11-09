@@ -15,6 +15,17 @@ import java.util.function.Consumer;
  */
 public class InvalidEntityManager<E extends Entity> implements EntityManager<E> {
 
+    private final Class<E> entityClass;
+
+    public InvalidEntityManager(@NotNull Class<E> entityClass) {
+        this.entityClass = entityClass;
+    }
+
+    @Override
+    public Class<E> getEntityClass() {
+        return entityClass;
+    }
+
     /**
      * No-op save implementation.
      *

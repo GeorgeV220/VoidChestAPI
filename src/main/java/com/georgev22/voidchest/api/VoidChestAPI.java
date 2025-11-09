@@ -127,9 +127,10 @@ public record VoidChestAPI(JavaPlugin plugin,
      * @return The {@link EntityManager} associated with {@link IVoidChest} entities.
      */
     public @NotNull EntityManager<IVoidChest> voidChestManager() {
-        @NotNull Optional<EntityManager<IVoidChest>> voidEntityManager = EntityManagerRegistry.getManager(IVoidChest.class);
+        EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
+        @NotNull Optional<EntityManager<IVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(IVoidChest.class);
         if (voidEntityManager.isEmpty()) {
-            voidEntityManager = Optional.of(new InvalidEntityManager<>());
+            voidEntityManager = Optional.of(new InvalidEntityManager<>(IVoidChest.class));
         }
         return voidEntityManager.get();
     }
@@ -140,9 +141,10 @@ public record VoidChestAPI(JavaPlugin plugin,
      * @return The {@link EntityManager} associated with {@link IPlayerData} entities.
      */
     public @NotNull EntityManager<IPlayerData> playerManager() {
-        @NotNull Optional<EntityManager<IPlayerData>> playerEntityManager = EntityManagerRegistry.getManager(IPlayerData.class);
+        EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
+        @NotNull Optional<EntityManager<IPlayerData>> playerEntityManager = entityManagerRegistry.getTyped(IPlayerData.class);
         if (playerEntityManager.isEmpty()) {
-            playerEntityManager = Optional.of(new InvalidEntityManager<>());
+            playerEntityManager = Optional.of(new InvalidEntityManager<>(IPlayerData.class));
         }
         return playerEntityManager.get();
     }

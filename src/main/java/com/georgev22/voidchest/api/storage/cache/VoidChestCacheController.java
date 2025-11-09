@@ -112,7 +112,8 @@ public class VoidChestCacheController {
      * @return A {@link CompletableFuture} containing a list of void chests.
      */
     public CompletableFuture<List<IVoidChest>> voidChests(@NotNull IPlayerData playerData) {
-        @NotNull Optional<EntityManager<IVoidChest>> voidEntityManager = EntityManagerRegistry.getManager(IVoidChest.class);
+        EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
+        @NotNull Optional<EntityManager<IVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(IVoidChest.class);
         if (voidEntityManager.isEmpty()) return CompletableFuture.completedFuture(new ArrayList<>());
         List<UUID> currentStorageIds = playerData.voidChests();
         Set<IVoidChest> cachedStorages = playerCache.getOrDefault(playerData, ConcurrentHashMap.newKeySet());

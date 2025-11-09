@@ -214,7 +214,7 @@ public class UpgradeBuilder<U> {
             plugin.getLogger().log(Level.SEVERE, "[VoidChest/Upgrades]: Failed to build upgrade.");
             return;
         }
-        UpgradeRegistry.registerUpgrade(upgrade);
+        UpgradeRegistry.getInstance().register(upgrade);
         plugin.getLogger().info("[VoidChest/Upgrades]: Registered upgrade: " + upgrade.getKey());
     }
 }

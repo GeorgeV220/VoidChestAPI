@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * <p>
  * Calculators are sorted by their weight, with lower weight having higher priority.
  */
+@Deprecated
 public class ProfitCalculatorRegistry {
 
     private static final ObjectMap<String, List<ProfitCalculator>> calculatorMap = new HashObjectMap<>();
@@ -180,8 +181,8 @@ public class ProfitCalculatorRegistry {
      * Lower weight is prioritized. If multiple calculators share the lowest weight,
      * the one that returns the highest profit will be used.
      *
-     * @param voidChest     The VoidChest to calculate profit for.
-     * @param input         The input item to calculate profit for.
+     * @param voidChest The VoidChest to calculate profit for.
+     * @param input     The input item to calculate profit for.
      * @return The selected calculator, or {@code Optional.empty()} if none apply.
      */
     public static Optional<ProfitCalculator> selectBestCalculator(@NotNull IVoidChest voidChest, ItemStack input, BigInteger itemAmount) {
@@ -215,9 +216,9 @@ public class ProfitCalculatorRegistry {
      * Lower weight is prioritized. If multiple calculators share the lowest weight,
      * the one that returns the highest profit will be used.
      *
-     * @param voidChest   The VoidChest to calculate profit for.
-     * @param input       The input item to calculate profit for.
-     * @param itemAmount  The number of items being evaluated.
+     * @param voidChest  The VoidChest to calculate profit for.
+     * @param input      The input item to calculate profit for.
+     * @param itemAmount The number of items being evaluated.
      * @return The best profit, or {@code Optional.empty()} if no calculator applies or yields profit.
      */
     public static Optional<BigDecimal> selectBestProfit(@NotNull IVoidChest voidChest, ItemStack input, BigInteger itemAmount) {
