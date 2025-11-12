@@ -201,7 +201,31 @@ public abstract class Upgrade<U> implements Cloneable {
         }
     }
 
-    public int upgrade(IVoidChest voidChest, int currentLevel, UUID playerUUID) {
+    /**
+     * Attempts to upgrade a specific upgrade key for the given VoidChest, deducting the cost
+     * from the player's upgrade economy balance if successful.
+     *
+     * <p>Return codes:</p>
+     * <ul>
+     *   <li>{@code >0} — The new upgrade level applied to the VoidChest</li>
+     *   <li>{@code -1} — No upgrade level found</li>
+     *   <li>{@code -2} — Not enough balance</li>
+     *   <li>{@code -3} — Withdrawal failed</li>
+     *   <li>{@code -4} — Upgrade not applicable</li>
+     * </ul>
+     *
+     * @param voidChest    the VoidChest to upgrade
+     * @param currentLevel the current level of the upgrade
+     * @param playerUUID   the UUID of the player performing the upgrade
+     * @return the new upgrade level if successful, or a negative error code
+     * @deprecated Use {@link #upgrade(IVoidChest, UUID)} instead.
+     */
+    @Deprecated(forRemoval = true)
+    public int upgrade(@NotNull IVoidChest voidChest, int currentLevel, UUID playerUUID) {
+        boolean isApplicable = this.isApplicableTo(voidChest.type());
+        if (!isApplicable) {
+            return -4;
+        }
         if (currentLevel >= maxLevel) return 0; // Max level reached
 
         return getNextUpgradeLevel(currentLevel).map(nextUpgradeLevel -> {
@@ -222,6 +246,43 @@ public abstract class Upgrade<U> implements Cloneable {
 
             return nextUpgradeLevel.level();
         }).orElse(-1);
+    }
+
+
+    /**
+     * Gets the current level of this upgrade for the given VoidChest.
+     *
+     * @param voidChest the VoidChest to get the current level for
+     * @return the current level of this upgrade for the given VoidChest
+     */
+    public int getCurrentLevel(@NotNull IVoidChest voidChest) {
+        return voidChest.upgrades().entrySet().stream()
+                .filter(upg -> upg.getKey().equals(key))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(1);
+    }
+
+    /**
+     * Attempts to upgrade a specific upgrade key for the given VoidChest, deducting the cost
+     * from the player's upgrade economy balance if successful.
+     *
+     * <p>Return codes:</p>
+     * <ul>
+     *   <li>{@code >0} — The new upgrade level applied to the VoidChest</li>
+     *   <li>{@code 0} — Max level already reached; no upgrade performed</li>
+     *   <li>{@code -1} — Next upgrade level not found (data/config error)</li>
+     *   <li>{@code -2} — Player does not have enough money to purchase the upgrade</li>
+     *   <li>{@code -3} — Withdrawal failed (economy plugin error or insufficient funds after check)</li>
+     *   <li>{@code -4} — Upgrade not applicable to this VoidChest type</li>
+     * </ul>
+     *
+     * @param voidChest  the VoidChest being upgraded
+     * @param playerUUID the UUID of the player purchasing the upgrade
+     * @return the new upgrade level if successful, or a negative error code
+     */
+    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID) {
+        return this.upgrade(voidChest, this.getCurrentLevel(voidChest), playerUUID);
     }
 
     private void logUpgrades(@NotNull IVoidChest voidChest) {
