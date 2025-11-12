@@ -1,7 +1,9 @@
 package com.georgev22.voidchest.api.item;
 
-import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Functional action executed when a {@link VoidSpecialItem} is applied to a VoidChest.
@@ -22,9 +24,10 @@ public interface VoidSpecialItemAction {
     /**
      * Executes the special item action for the given player and VoidChest.
      *
-     * @param playerData data representing the player using the item
-     * @param voidChest  the VoidChest that the action should influence
+     * @param player    the player that is using the item
+     * @param voidChest the VoidChest that the action should influence
+     * @param itemStack the item stack that is being used
      */
-    void execute(IPlayerData playerData, IVoidChest voidChest);
+    void execute(@NotNull Player player, @NotNull IVoidChest voidChest, @NotNull ItemStack itemStack);
 
 }
