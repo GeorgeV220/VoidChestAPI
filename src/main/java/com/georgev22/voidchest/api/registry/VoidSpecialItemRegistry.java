@@ -21,6 +21,15 @@ import org.jetbrains.annotations.NotNull;
 public class VoidSpecialItemRegistry
         extends AbstractRegistry<NamespacedKey, VoidSpecialItem> {
 
+    private static final VoidSpecialItemRegistry instance = new VoidSpecialItemRegistry();
+
+    public static VoidSpecialItemRegistry getInstance() {
+        return instance;
+    }
+
+    private VoidSpecialItemRegistry() {
+    }
+
     /**
      * Registers a new {@link VoidSpecialItem} in this registry.
      * <p>
