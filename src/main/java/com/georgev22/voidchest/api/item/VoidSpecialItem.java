@@ -17,6 +17,8 @@ import java.util.Optional;
  * internal mechanics related to a {@code IVoidChest}. Each item is uniquely
  * identified by a {@link NamespacedKey}, allowing custom registration and
  * retrieval from item registries.
+ * <p>
+ * Developers can extend this class to create custom special items using the {@link com.georgev22.voidchest.api.registry.VoidSpecialItemRegistry}
  */
 public abstract class VoidSpecialItem {
 
@@ -54,11 +56,14 @@ public abstract class VoidSpecialItem {
         //noinspection ConstantValue
         if (data == null) return Optional.empty();
         if (data.length == 0) return Optional.empty();
-        ReadWriteNBT nbt = NBT.itemStackToNBT(itemStack);
-        nbt.setString("voidSpecialItemKey", this.getKey().toString());
-        return Optional.ofNullable(applyTo0(nbt, data));
+        itemStack = itemStack.clone();
+        NBT.modify(itemStack, nbt -> {
+            nbt.setString("voidSpecialItemKey", this.getKey().toString());
+            applyTo0(nbt, data);
+        });
+        return Optional.of(itemStack);
     }
 
-    protected abstract ItemStack applyTo0(@NotNull ReadWriteNBT nbt, String @NotNull ... data);
+    protected abstract void applyTo0(@NotNull ReadWriteNBT nbt, String @NotNull ... data);
 
 }

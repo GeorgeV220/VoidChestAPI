@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * Example uses include:
  * <ul>
  *     <li>Adding fuel to the VoidChest</li>
- *     <li>Applying upgrades (speed, capacity, rarity filters, etc.)</li>
+ *     <li>Applying upgrades (Booster, BoundingBox size, Links, etc.)</li>
  *     <li>Triggering custom plugin-defined interactions</li>
  * </ul>
  */
@@ -27,7 +27,16 @@ public interface VoidSpecialItemAction {
      * @param player    the player that is using the item
      * @param voidChest the VoidChest that the action should influence
      * @param itemStack the item stack that is being used
+     * @return SUCCESS if the action was successful, FAILED otherwise
      */
-    void execute(@NotNull Player player, @NotNull IVoidChest voidChest, @NotNull ItemStack itemStack);
+    Result execute(@NotNull Player player, @NotNull IVoidChest voidChest, @NotNull ItemStack itemStack);
+
+    /**
+     * The result of a {@link VoidSpecialItemAction}.
+     */
+    enum Result {
+        SUCCESS,
+        FAILED
+    }
 
 }
