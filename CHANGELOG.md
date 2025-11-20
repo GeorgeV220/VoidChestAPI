@@ -1,3 +1,16 @@
+# [4.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.3.0...v4.4.0) (2025-11-20)
+
+
+### Features
+
+* add singleton pattern to VoidSpecialItemRegistry ([abd933d](https://github.com/GeorgeV220/VoidChestAPI/commit/abd933dad29c8f5cab1c4ac88b8a6873bd4e54a3))
+* add VoidSpecialItem API for chest interactions ([606e1f4](https://github.com/GeorgeV220/VoidChestAPI/commit/606e1f4bb2b8b488c86a7ee945ee5df6ce4970a5))
+* **api:** convert VoidSpecialItem to abstract class and add applyTo method ([1005535](https://github.com/GeorgeV220/VoidChestAPI/commit/1005535faccb5760de854b0713abe68b1abd1cd5))
+* **api:** enhance upgrade system with new method and improvements ([4d80bc5](https://github.com/GeorgeV220/VoidChestAPI/commit/4d80bc5a476400a0e7aab2a2ac9766062b2bbf22))
+* **api:** improve VoidSpecialItem API and add action results ([745ec89](https://github.com/GeorgeV220/VoidChestAPI/commit/745ec898639b2c712410105664c1a205dd1eb9a1)), closes [VoidSpecialItem#applyTo](https://github.com/VoidSpecialItem/issues/applyTo)
+* **api:** update VoidSpecialItemAction parameters and imports ([e7fa9f8](https://github.com/GeorgeV220/VoidChestAPI/commit/e7fa9f8f8413b608d60e784614c1f11bc3f47596))
+* refactor registries and entity managers ([0eedf3c](https://github.com/GeorgeV220/VoidChestAPI/commit/0eedf3c90897b950539a4a7c607aaf3172b7aef5))
+
 # [4.3.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.2.0...v4.3.0) (2025-11-08)
 
 
