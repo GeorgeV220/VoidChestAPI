@@ -202,26 +202,61 @@ public abstract class Upgrade<U> implements Cloneable {
     }
 
     /**
-     * Attempts to upgrade a specific upgrade key for the given VoidChest, deducting the cost
-     * from the player's upgrade economy balance if successful.
+     * Attempts to upgrade this upgrade key on the given {@link IVoidChest}, charging the
+     * player using the upgrade economy if enabled.
      *
-     * <p>Return codes:</p>
+     * <p><strong>Return codes:</strong></p>
      * <ul>
-     *   <li>{@code >0} — The new upgrade level applied to the VoidChest</li>
-     *   <li>{@code -1} — No upgrade level found</li>
-     *   <li>{@code -2} — Not enough balance</li>
-     *   <li>{@code -3} — Withdrawal failed</li>
-     *   <li>{@code -4} — Upgrade not applicable</li>
+     *   <li>{@code >0} — The new upgrade level was successfully applied.</li>
+     *   <li>{@code -1} — The next upgrade level could not be found (misconfiguration).</li>
+     *   <li>{@code -2} — The player does not have enough balance.</li>
+     *   <li>{@code -3} — Withdrawal from the economy plugin failed.</li>
+     *   <li>{@code -4} — This upgrade is not applicable to the VoidChest's type.</li>
      * </ul>
      *
      * @param voidChest    the VoidChest to upgrade
-     * @param currentLevel the current level of the upgrade
+     * @param currentLevel the current level (ignored internally)
      * @param playerUUID   the UUID of the player performing the upgrade
-     * @return the new upgrade level if successful, or a negative error code
+     * @return the new level, or a negative error code
      * @deprecated Use {@link #upgrade(IVoidChest, UUID)} instead.
      */
     @Deprecated(forRemoval = true)
     public int upgrade(@NotNull IVoidChest voidChest, int currentLevel, UUID playerUUID) {
+        return this.upgrade(voidChest, playerUUID, true);
+    }
+
+    /**
+     * Attempts to upgrade this upgrade key on the given {@link IVoidChest}, optionally
+     * deducting the cost from the player's upgrade economy balance.
+     *
+     * <p><strong>Return codes:</strong></p>
+     * <ul>
+     *   <li>{@code >0} — The new upgrade level was successfully applied.</li>
+     *   <li>{@code 0}  — The maximum level has already been reached; no upgrade was performed.</li>
+     *   <li>{@code -1} — The next upgrade level could not be found (configuration error).</li>
+     *   <li>{@code -2} — The player does not have sufficient funds.</li>
+     *   <li>{@code -3} — Withdrawal from the economy failed.</li>
+     *   <li>{@code -4} — This upgrade is not applicable to the given VoidChest type.</li>
+     * </ul>
+     *
+     * @param voidChest  the VoidChest being upgraded
+     * @param playerUUID the UUID of the player purchasing the upgrade
+     * @return the applied level, or an error code
+     */
+    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID) {
+        return this.upgrade(voidChest, playerUUID, true);
+    }
+
+    /**
+     * Internal upgrade handler with optional economy enforcement.
+     *
+     * @param voidChest    the VoidChest being upgraded
+     * @param playerUUID   the UUID of the player performing the upgrade
+     * @param economyCheck whether to check and charge the player's balance
+     * @return the new level if successful, or an error code
+     */
+    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID, boolean economyCheck) {
+        int currentLevel = this.getCurrentLevel(voidChest);
         boolean isApplicable = this.isApplicableTo(voidChest.type());
         if (!isApplicable) {
             return -4;
@@ -233,12 +268,14 @@ public abstract class Upgrade<U> implements Cloneable {
             OfflinePlayer player = Bukkit.getOfflinePlayer(playerUUID);
             AEconomy econ = VoidChestAPI.getInstance().economyManager().economy(EconomyMode.UPGRADES);
 
-            if (econ.getBalance(player).compareTo(upgradeCost) < 0) {
-                return -2;
-            }
+            if (economyCheck) {
+                if (econ.getBalance(player).compareTo(upgradeCost) < 0) {
+                    return -2;
+                }
 
-            if (!econ.withdraw(player, upgradeCost)) {
-                return -3;
+                if (!econ.withdraw(player, upgradeCost)) {
+                    return -3;
+                }
             }
 
             voidChest.addUpgrade(key, nextUpgradeLevel.level());
@@ -247,7 +284,6 @@ public abstract class Upgrade<U> implements Cloneable {
             return nextUpgradeLevel.level();
         }).orElse(-1);
     }
-
 
     /**
      * Gets the current level of this upgrade for the given VoidChest.
@@ -261,28 +297,6 @@ public abstract class Upgrade<U> implements Cloneable {
                 .map(Map.Entry::getValue)
                 .findFirst()
                 .orElse(1);
-    }
-
-    /**
-     * Attempts to upgrade a specific upgrade key for the given VoidChest, deducting the cost
-     * from the player's upgrade economy balance if successful.
-     *
-     * <p>Return codes:</p>
-     * <ul>
-     *   <li>{@code >0} — The new upgrade level applied to the VoidChest</li>
-     *   <li>{@code 0} — Max level already reached; no upgrade performed</li>
-     *   <li>{@code -1} — Next upgrade level not found (data/config error)</li>
-     *   <li>{@code -2} — Player does not have enough money to purchase the upgrade</li>
-     *   <li>{@code -3} — Withdrawal failed (economy plugin error or insufficient funds after check)</li>
-     *   <li>{@code -4} — Upgrade not applicable to this VoidChest type</li>
-     * </ul>
-     *
-     * @param voidChest  the VoidChest being upgraded
-     * @param playerUUID the UUID of the player purchasing the upgrade
-     * @return the new upgrade level if successful, or a negative error code
-     */
-    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID) {
-        return this.upgrade(voidChest, this.getCurrentLevel(voidChest), playerUUID);
     }
 
     private void logUpgrades(@NotNull IVoidChest voidChest) {
