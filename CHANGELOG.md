@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.4.0...v4.5.0) (2025-11-20)
+
+
+### Features
+
+* refactor upgrade method and improve documentation ([75f2d15](https://github.com/GeorgeV220/VoidChestAPI/commit/75f2d151194b892a909a68e755fd621b08c410d0))
+
 # [4.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.3.0...v4.4.0) (2025-11-20)
 
 
