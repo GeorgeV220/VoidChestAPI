@@ -1,3 +1,22 @@
+# [5.0.0-dev.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v5.0.0-dev.1) (2025-12-06)
+
+
+* feat!: API changes only ([aa6da3a](https://github.com/GeorgeV220/VoidChestAPI/commit/aa6da3a46b5a08f2f0458394c522ede02f6c23d3))
+
+
+### Features
+
+* **api:** add clear method to Registry interface and implementation ([538a422](https://github.com/GeorgeV220/VoidChestAPI/commit/538a422dfc8ab0eb5375075f910077083215f813))
+* **api:** add constructor from Set to UnmodifiableArrayList ([6c619eb](https://github.com/GeorgeV220/VoidChestAPI/commit/6c619eb84d8ef3f26c4ec14c1cde4ee4cfbe581b))
+* **api:** add static factory method for NamespacedKey ([72f4e57](https://github.com/GeorgeV220/VoidChestAPI/commit/72f4e577e4a2816f03aa8c526ceb428bc9fa5c0d))
+* **profit-calculator:** overhaul profit calculator system ([bd6925e](https://github.com/GeorgeV220/VoidChestAPI/commit/bd6925edc8d177f665235025b0fc53b5d7a92877))
+* replace IEconomyManager with EconomyRegistry ([1a83db6](https://github.com/GeorgeV220/VoidChestAPI/commit/1a83db66e323546666f14102c2b31ee865140fb5))
+
+
+### BREAKING CHANGES
+
+* The public API has been updated and may break existing implementations.
+
 # [4.6.0-dev.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v4.6.0-dev.1) (2025-12-06)
 
 
