@@ -23,6 +23,10 @@ public class UnmodifiableArrayList<E> implements List<E> {
         this.underlyingList = new ArrayList<>(originalList);
     }
 
+    public UnmodifiableArrayList(Set<E> originalSet) {
+        this.underlyingList = new ArrayList<>(originalSet);
+    }
+
     @Override
     public int size() {
         return underlyingList.size();
