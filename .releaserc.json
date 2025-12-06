@@ -12,6 +12,11 @@
     {
       "name": "alpha",
       "prerelease": true
+    },
+    {
+      "name": "release-4.x",
+      "range": "4.x",
+      "prerelease": false
     }
   ],
   "plugins": [
