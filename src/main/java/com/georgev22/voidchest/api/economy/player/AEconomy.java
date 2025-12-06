@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.economy.player;
 
+import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +19,7 @@ public abstract class AEconomy {
 
     private final List<EconomyMode> economyModes;
 
-    public AEconomy() {
+    protected AEconomy() {
         this(EconomyMode.PAYOUT, EconomyMode.CHARGE, EconomyMode.UPGRADES);
     }
 
@@ -108,4 +109,11 @@ public abstract class AEconomy {
     public List<EconomyMode> getEconomyModes() {
         return economyModes;
     }
+
+    /**
+     * Retrieves the key of the economy system.
+     *
+     * @return The key of the economy system as a NamespacedKey.
+     */
+    public abstract NamespacedKey getKey();
 }

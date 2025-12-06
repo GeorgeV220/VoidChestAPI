@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.economy.player.modules;
 
 import com.georgev22.voidchest.api.economy.player.AEconomy;
+import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -79,5 +80,10 @@ public class InvalidEconomy extends AEconomy {
     @Override
     public boolean setupEconomy() {
         return false;
+    }
+
+    @Override
+    public NamespacedKey getKey() {
+        return NamespacedKey.of("voidchest", "invalid");
     }
 }

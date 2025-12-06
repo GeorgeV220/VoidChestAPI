@@ -4,7 +4,6 @@ import com.georgev22.voidchest.api.bank.IBankManager;
 import com.georgev22.voidchest.api.banktnt.IBankTNTManager;
 import com.georgev22.voidchest.api.booster.BoosterManager;
 import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
-import com.georgev22.voidchest.api.economy.player.IEconomyManager;
 import com.georgev22.voidchest.api.hologram.IHologramManager;
 import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
@@ -33,7 +32,7 @@ import java.util.Optional;
 /**
  * The primary public API access point for VoidChest plugin functionality.
  * <p>
- * This class exposes all major subsystems such as economy, shops, entity data managers,
+ * This class exposes all major subsystems such as shops, entity data managers,
  * schedulers, boosters, and configuration caching systems.
  * <p>
  * To access the API:
@@ -62,7 +61,6 @@ public final class VoidChestAPI {
     private static boolean isFolia = false;
 
     private final JavaPlugin plugin;
-    private final IEconomyManager economyManager;
     private final IShopManager shopManager;
     private final IBankManager bankManager;
     private final IBankTNTManager bankTNTManager;
@@ -82,7 +80,6 @@ public final class VoidChestAPI {
      * Constructs the API and provides all service dependencies from the plugin core.
      *
      * @param plugin             Bukkit plugin instance
-     * @param economyManager     economy service
      * @param shopManager        shop manager
      * @param bankManager        bank manager for items/money
      * @param bankTNTManager     TNT bank manager
@@ -98,7 +95,6 @@ public final class VoidChestAPI {
      */
     public VoidChestAPI(
             JavaPlugin plugin,
-            IEconomyManager economyManager,
             IShopManager shopManager,
             IBankManager bankManager,
             IBankTNTManager bankTNTManager,
@@ -112,7 +108,6 @@ public final class VoidChestAPI {
             ITimedTaskManager timedTaskManager,
             BoosterManager boosterManager) {
         this.plugin = plugin;
-        this.economyManager = economyManager;
         this.shopManager = shopManager;
         this.bankManager = bankManager;
         this.bankTNTManager = bankTNTManager;
@@ -205,13 +200,6 @@ public final class VoidChestAPI {
      */
     public JavaPlugin plugin() {
         return plugin;
-    }
-
-    /**
-     * @return the economy service
-     */
-    public IEconomyManager economyManager() {
-        return economyManager;
     }
 
     /**

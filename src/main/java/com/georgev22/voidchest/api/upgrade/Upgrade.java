@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.upgrade;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
-import com.georgev22.voidchest.api.economy.player.EconomyMode;
+import com.georgev22.voidchest.api.registry.EconomyRegistry;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import org.bukkit.Bukkit;
@@ -212,6 +212,7 @@ public abstract class Upgrade<U> implements Cloneable {
      *   <li>{@code -2} — The player does not have enough balance.</li>
      *   <li>{@code -3} — Withdrawal from the economy plugin failed.</li>
      *   <li>{@code -4} — This upgrade is not applicable to the VoidChest's type.</li>
+     *   <li>{@code -5} — The economy plugin is not enabled or not registered.</li>
      * </ul>
      *
      * @param voidChest    the VoidChest to upgrade
@@ -237,6 +238,7 @@ public abstract class Upgrade<U> implements Cloneable {
      *   <li>{@code -2} — The player does not have sufficient funds.</li>
      *   <li>{@code -3} — Withdrawal from the economy failed.</li>
      *   <li>{@code -4} — This upgrade is not applicable to the given VoidChest type.</li>
+     *   <li>{@code -5} — The economy plugin is not enabled or not registered</li>
      * </ul>
      *
      * @param voidChest  the VoidChest being upgraded
@@ -249,6 +251,16 @@ public abstract class Upgrade<U> implements Cloneable {
 
     /**
      * Internal upgrade handler with optional economy enforcement.
+     * <p><strong>Return codes:</strong></p>
+     * <ul>
+     *   <li>{@code >0} — The new upgrade level was successfully applied.</li>
+     *   <li>{@code 0}  — The maximum level has already been reached; no upgrade was performed.</li>
+     *   <li>{@code -1} — The next upgrade level could not be found (configuration error).</li>
+     *   <li>{@code -2} — The player does not have sufficient funds.</li>
+     *   <li>{@code -3} — Withdrawal from the economy failed.</li>
+     *   <li>{@code -4} — This upgrade is not applicable to the given VoidChest type.</li>
+     *   <li>{@code -5} — The economy plugin is not enabled or not registered</li>
+     * </ul>
      *
      * @param voidChest    the VoidChest being upgraded
      * @param playerUUID   the UUID of the player performing the upgrade
@@ -266,7 +278,11 @@ public abstract class Upgrade<U> implements Cloneable {
         return getNextUpgradeLevel(currentLevel).map(nextUpgradeLevel -> {
             BigDecimal upgradeCost = nextUpgradeLevel.price();
             OfflinePlayer player = Bukkit.getOfflinePlayer(playerUUID);
-            AEconomy econ = VoidChestAPI.getInstance().economyManager().economy(EconomyMode.UPGRADES);
+            Optional<AEconomy> optionalEcon = EconomyRegistry.getInstance().getUpgradesEconomy();
+            if (optionalEcon.isEmpty()) {
+                return -5;
+            }
+            AEconomy econ = optionalEcon.get();
 
             if (economyCheck) {
                 if (econ.getBalance(player).compareTo(upgradeCost) < 0) {
