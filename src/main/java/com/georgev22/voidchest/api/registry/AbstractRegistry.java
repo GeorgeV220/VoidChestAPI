@@ -67,4 +67,12 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
     public @NotNull ObjectMap<K, V> entries() {
         return new UnmodifiableObjectMap<>(registry);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void clear() {
+        registry.clear();
+    }
 }

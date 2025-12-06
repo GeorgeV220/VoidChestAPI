@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.registry;
 
 import com.georgev22.voidchest.api.maps.ObjectMap;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -81,4 +82,14 @@ public interface Registry<K, V> {
      * @return an {@link ObjectMap} containing all key–value pairs currently registered
      */
     @NotNull ObjectMap<K, V> entries();
+
+    /**
+     * Clears all entries from the registry.
+     * <p>
+     * If you don't know what this does, you probably don't need it.<br>
+     * Intended for internal use only but kept public for API purposes.
+     * </p>
+     */
+    @ApiStatus.Internal
+    void clear();
 }
