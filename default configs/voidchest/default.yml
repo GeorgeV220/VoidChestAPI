@@ -113,17 +113,18 @@ Options:
   # How often should the voidchest attempt to sell items.
   sell interval: 10
 
-  # Available calculators: VoidChest, ShopGUIPlus, Essentials, CMI, EconomyShopGUI, DynamicShop.
+  # Available calculators: voidchest:voidchest, voidchest:shopguiplus, voidchest:essentials, voidchest:cmi, voidchest:economyshopgui, voidchest:dynamicshop.
   # Lower weight is prioritized. If multiple calculators share the lowest weight,
   # the one that returns the highest profit will be used.
+  # Custom calculators: namespace:key[:weight] (weight is optional but recommended)
   profit calculator:
     # Plugin Name - Weight
-    - "VoidChest:1" # Default
-    # - "ShopGUIPlus:2"
-    # - "Essentials:3"
-    # - "CMI:4"
-    # - "EconomyShopGUI:5"
-    # - "DynamicShop:6"
+    - "voidchest:voidchest:1" # Default
+    # - "voidchest:shopguiplus:2"
+    # - "voidchest:essentials:3"
+    # - "voidchest:cmi:4"
+    # - "voidchest:economyshopgui:5"
+    # - "voidchest:dynamicshop:6"
 
   # These sounds are to be played if a voidchest is placed/broken.
   sound:

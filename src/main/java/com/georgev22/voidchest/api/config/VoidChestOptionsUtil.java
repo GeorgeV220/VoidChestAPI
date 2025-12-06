@@ -204,7 +204,7 @@ public enum VoidChestOptionsUtil {
 
     OPTIONS_BANK_FORCE_DISABLE("Options.bank force disable", false, Optional.empty()),
 
-    OPTIONS_PROFIT_CALCULATOR("Options.profit calculator", List.of("VoidChest:1"), Optional.empty()),
+    OPTIONS_PROFIT_CALCULATOR("Options.profit calculator", List.of("voidchest:voidchest:1"), Optional.empty()),
 
     OPTIONS_DISABLED_WORLDS("Options.disabled worlds", List.of(), Optional.empty()),
 
