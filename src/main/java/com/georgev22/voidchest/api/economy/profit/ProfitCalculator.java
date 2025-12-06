@@ -1,9 +1,11 @@
 package com.georgev22.voidchest.api.economy.profit;
 
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -11,7 +13,7 @@ import java.math.BigInteger;
 /**
  * The ProfitCalculator class is responsible for calculating profits from various shop plugins.
  */
-public interface ProfitCalculator extends Comparable<ProfitCalculator> {
+public interface ProfitCalculator {
 
     /**
      * Retrieves the profit for a specific item.
@@ -19,7 +21,7 @@ public interface ProfitCalculator extends Comparable<ProfitCalculator> {
      * @param item The item to calculate the profit for.
      * @return The calculated profit as a BigDecimal.
      */
-    BigDecimal getProfit(final ItemStack item);
+    @NotNull BigDecimal getProfit(@NotNull final ItemStack item);
 
     /**
      * Retrieves the profit for a specific item and amount.
@@ -28,7 +30,7 @@ public interface ProfitCalculator extends Comparable<ProfitCalculator> {
      * @param amount The amount of the item.
      * @return The calculated profit as a BigDecimal.
      */
-    BigDecimal getProfit(final ItemStack item, final BigInteger amount);
+    @NotNull BigDecimal getProfit(@NotNull final ItemStack item, @NotNull final BigInteger amount);
 
     /**
      * Retrieves the profit for a specific item, amount, and VoidChest.
@@ -38,23 +40,7 @@ public interface ProfitCalculator extends Comparable<ProfitCalculator> {
      * @param amount    The amount of the item.
      * @return The calculated profit as a BigDecimal.
      */
-    BigDecimal getProfit(final IVoidChest voidChest, final ItemStack item, final BigInteger amount);
-
-    /**
-     * Returns the weight (priority) of this calculator.
-     * <p>
-     * Calculators with <strong>lower weight values</strong> have higher priority and will be evaluated first.
-     * If multiple calculators share the same weight, the one with the highest calculated profit will be selected.
-     * <p>
-     * Example:
-     * <ul>
-     *     <li>{@code weight = 0} → highest priority</li>
-     *     <li>{@code weight = 10} → lower priority</li>
-     * </ul>
-     *
-     * @return The weight of this calculator. Defaults to 0 if not overridden.
-     */
-    int getWeight();
+    @NotNull BigDecimal getProfit(@Nullable final IVoidChest voidChest, @NotNull final ItemStack item, @NotNull final BigInteger amount);
 
     /**
      * Returns whether the profit calculation requires the player to be online.
@@ -68,29 +54,20 @@ public interface ProfitCalculator extends Comparable<ProfitCalculator> {
      *
      * @return The name of the VoidEconomy as a String.
      */
-    String getName();
-
-    /**
-     * Retrieves the simple name of the VoidEconomy e.g. EcoShop
-     *
-     * @return The simple name of the VoidEconomy as a String.
-     */
-    String getSimpleName();
+    @NotNull String getName();
 
     /**
      * Retrieves the plugin that registered this calculator.
      *
      * @return The plugin instance.
      */
-    Plugin getPlugin();
+    @NotNull Plugin getPlugin();
 
-    @Override
-    default int compareTo(@NotNull ProfitCalculator other) {
-        int weightCompare = Integer.compare(this.getWeight(), other.getWeight());
-        if (weightCompare != 0) {
-            return weightCompare;
-        }
-        return this.getName().compareToIgnoreCase(other.getName());
-    }
+    /**
+     * Retrieves the key of the profit calculator.
+     *
+     * @return The key of the profit calculator.
+     */
+    @NotNull NamespacedKey getKey();
 
 }
