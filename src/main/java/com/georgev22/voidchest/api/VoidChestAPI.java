@@ -19,7 +19,7 @@ import com.georgev22.voidchest.api.storage.cache.VoidChestCacheController;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.task.ITimedTaskManager;
-import com.georgev22.voidchest.api.utilities.config.voidchests.VoidChestConfigurationFileCache;
+import com.georgev22.voidchest.api.config.voidchests.VoidChestConfigurationFileCache;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -31,121 +31,284 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 /**
- * The VoidChestAPI class provides access to various managers and services for the VoidChest plugin.
+ * The primary public API access point for VoidChest plugin functionality.
+ * <p>
+ * This class exposes all major subsystems such as economy, shops, entity data managers,
+ * schedulers, boosters, and configuration caching systems.
+ * <p>
+ * To access the API:
+ * <pre>{@code
+ * VoidChestAPI api = VoidChestAPI.getInstance();
+ * api.<method>
+ * }</pre>
+ *
  */
-public record VoidChestAPI(JavaPlugin plugin,
-                           IEconomyManager economyManager,
-                           IShopManager shopManager,
-                           IBankManager bankManager,
-                           IBankTNTManager bankTNTManager,
-                           IStackerManager stackerManager,
-                           IHologramManager hologramManager,
-                           IChunkSeeManager chunkSeeManager,
-                           IVoidItemManager voidItemManager,
-                           VoidChestCacheController voidChestCacheController,
-                           IFilterManager filterManager,
-                           ILinkManager linkManager,
-                           MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
-                           VoidChestConfigurationFileCache voidChestConfigurationFileCache,
-                           ITimedTaskManager timedTaskManager,
-                           BoosterManager boosterManager) {
+public final class VoidChestAPI {
 
     /**
-     * The singleton instance of the VoidChestAPI class.
+     * The globally available API instance once initialized.
      */
     private static VoidChestAPI instance;
 
     /**
-     * The debug flag.
+     * Debug logging flag. When enabled, additional internal logs may appear.
      */
     private static boolean debug = false;
 
     /**
-     * Is folia flag.
+     * Whether the server environment is Folia-based.
+     * Used to switch scheduling strategies where applicable.
      */
     private static boolean isFolia = false;
 
+    private final JavaPlugin plugin;
+    private final IEconomyManager economyManager;
+    private final IShopManager shopManager;
+    private final IBankManager bankManager;
+    private final IBankTNTManager bankTNTManager;
+    private final IStackerManager stackerManager;
+    private final IHologramManager hologramManager;
+    private final IChunkSeeManager chunkSeeManager;
+    private final IVoidItemManager voidItemManager;
+    private final VoidChestCacheController voidChestCacheController;
+    private final IFilterManager filterManager;
+    private final ILinkManager linkManager;
+    private final MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler;
+    private final VoidChestConfigurationFileCache voidChestConfigurationFileCache;
+    private final ITimedTaskManager timedTaskManager;
+    private final BoosterManager boosterManager;
+
     /**
-     * Sets the singleton instance of the VoidChestAPI class.
+     * Constructs the API and provides all service dependencies from the plugin core.
      *
-     * @param voidChestAPI The instance to set.
-     * @return The instance that was set.
+     * @param plugin             Bukkit plugin instance
+     * @param economyManager     economy service
+     * @param shopManager        shop manager
+     * @param bankManager        bank manager for items/money
+     * @param bankTNTManager     TNT bank manager
+     * @param stackerManager     stacker service for entity/item merging
+     * @param hologramManager    hologram rendering service
+     * @param chunkSeeManager    chunk preview/visualization manager
+     * @param voidItemManager    void item storage/cache manager
+     * @param filterManager      filter configuration manager
+     * @param linkManager        chest linking manager
+     * @param minecraftScheduler multi-platform safe task scheduler
+     * @param timedTaskManager   timed task control system
+     * @param boosterManager     booster effects manager
+     */
+    public VoidChestAPI(
+            JavaPlugin plugin,
+            IEconomyManager economyManager,
+            IShopManager shopManager,
+            IBankManager bankManager,
+            IBankTNTManager bankTNTManager,
+            IStackerManager stackerManager,
+            IHologramManager hologramManager,
+            IChunkSeeManager chunkSeeManager,
+            IVoidItemManager voidItemManager,
+            IFilterManager filterManager,
+            ILinkManager linkManager,
+            MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler,
+            ITimedTaskManager timedTaskManager,
+            BoosterManager boosterManager) {
+        this.plugin = plugin;
+        this.economyManager = economyManager;
+        this.shopManager = shopManager;
+        this.bankManager = bankManager;
+        this.bankTNTManager = bankTNTManager;
+        this.stackerManager = stackerManager;
+        this.hologramManager = hologramManager;
+        this.chunkSeeManager = chunkSeeManager;
+        this.voidItemManager = voidItemManager;
+        this.voidChestCacheController = new VoidChestCacheController();
+        this.filterManager = filterManager;
+        this.linkManager = linkManager;
+        this.minecraftScheduler = minecraftScheduler;
+        this.voidChestConfigurationFileCache = new VoidChestConfigurationFileCache();
+        this.timedTaskManager = timedTaskManager;
+        this.boosterManager = boosterManager;
+    }
+
+    /**
+     * Sets the global API instance.
+     *
+     * @param voidChestAPI the implementation instance
+     * @return the assigned instance
      */
     public static VoidChestAPI setInstance(VoidChestAPI voidChestAPI) {
         return instance = voidChestAPI;
     }
 
     /**
-     * Retrieves the singleton instance of the VoidChestAPI class.
-     *
-     * @return The singleton instance.
+     * @return the active VoidChest API instance
      */
     public static VoidChestAPI getInstance() {
         return instance;
     }
 
     /**
-     * Returns true if debug mode is enabled.
-     *
-     * @return true if debug mode is enabled
+     * @return {@code true} if debug mode is enabled
      */
     public static boolean debug() {
         return debug;
     }
 
     /**
-     * Enables or disables debug mode.
+     * Enables or disables debug logging.
      *
-     * @param debug true to enable debug mode, false to disable
+     * @param debug whether debugging is active
      */
     public static void setDebug(boolean debug) {
         VoidChestAPI.debug = debug;
     }
 
-
     /**
-     * Checks if the server is running Folia
-     *
-     * @return if the server is running Folia
+     * @return {@code true} if running under Folia scheduling rules
      */
     public static boolean isFolia() {
         return isFolia;
     }
 
     /**
-     * Sets if the server is running Folia
+     * Sets whether the server environment is Folia.
      *
-     * @param isFolia if the server is running Folia
+     * @param isFolia {@code true} if using Folia
      */
     public static void setIsFolia(boolean isFolia) {
         VoidChestAPI.isFolia = isFolia;
     }
 
     /**
-     * Retrieves the {@link EntityManager} associated with {@link IVoidChest} entities.
+     * Retrieves the entity manager for void chest storage.
      *
-     * @return The {@link EntityManager} associated with {@link IVoidChest} entities.
+     * @return a non-null {@link EntityManager} for {@link IVoidChest}
      */
     public @NotNull EntityManager<IVoidChest> voidChestManager() {
-        EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
-        @NotNull Optional<EntityManager<IVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(IVoidChest.class);
-        if (voidEntityManager.isEmpty()) {
-            voidEntityManager = Optional.of(new InvalidEntityManager<>(IVoidChest.class));
-        }
-        return voidEntityManager.get();
+        Optional<EntityManager<IVoidChest>> manager =
+                EntityManagerRegistry.getInstance().getTyped(IVoidChest.class);
+        return manager.orElseGet(() -> new InvalidEntityManager<>(IVoidChest.class));
     }
 
     /**
-     * Retrieves the {@link EntityManager} associated with {@link IPlayerData} entities.
+     * Retrieves the entity manager for player persistent storage.
      *
-     * @return The {@link EntityManager} associated with {@link IPlayerData} entities.
+     * @return a non-null {@link EntityManager} for {@link IPlayerData}
      */
     public @NotNull EntityManager<IPlayerData> playerManager() {
-        EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
-        @NotNull Optional<EntityManager<IPlayerData>> playerEntityManager = entityManagerRegistry.getTyped(IPlayerData.class);
-        if (playerEntityManager.isEmpty()) {
-            playerEntityManager = Optional.of(new InvalidEntityManager<>(IPlayerData.class));
-        }
-        return playerEntityManager.get();
+        Optional<EntityManager<IPlayerData>> manager =
+                EntityManagerRegistry.getInstance().getTyped(IPlayerData.class);
+        return manager.orElseGet(() -> new InvalidEntityManager<>(IPlayerData.class));
+    }
+
+    /**
+     * @return the plugin providing this API
+     */
+    public JavaPlugin plugin() {
+        return plugin;
+    }
+
+    /**
+     * @return the economy service
+     */
+    public IEconomyManager economyManager() {
+        return economyManager;
+    }
+
+    /**
+     * @return the shop manager
+     */
+    public IShopManager shopManager() {
+        return shopManager;
+    }
+
+    /**
+     * @return the money bank manager
+     */
+    public IBankManager bankManager() {
+        return bankManager;
+    }
+
+    /**
+     * @return the TNT bank manager
+     */
+    public IBankTNTManager bankTNTManager() {
+        return bankTNTManager;
+    }
+
+    /**
+     * @return entity stacker manager
+     */
+    public IStackerManager stackerManager() {
+        return stackerManager;
+    }
+
+    /**
+     * @return hologram manager
+     */
+    public IHologramManager hologramManager() {
+        return hologramManager;
+    }
+
+    /**
+     * @return chunk visualization manager
+     */
+    public IChunkSeeManager chunkSeeManager() {
+        return chunkSeeManager;
+    }
+
+    /**
+     * @return voidchest item caching manager
+     */
+    public IVoidItemManager voidItemManager() {
+        return voidItemManager;
+    }
+
+    /**
+     * @return chest caching subsystem
+     */
+    public VoidChestCacheController voidChestCacheController() {
+        return voidChestCacheController;
+    }
+
+    /**
+     * @return filter configuration manager
+     */
+    public IFilterManager filterManager() {
+        return filterManager;
+    }
+
+    /**
+     * @return chest linking manager
+     */
+    public ILinkManager linkManager() {
+        return linkManager;
+    }
+
+    /**
+     * @return minecraft scheduler abstraction (Bukkit + Folia safe)
+     */
+    public MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler() {
+        return minecraftScheduler;
+    }
+
+    /**
+     * @return void chest configuration cache management
+     */
+    public VoidChestConfigurationFileCache voidChestConfigurationFileCache() {
+        return voidChestConfigurationFileCache;
+    }
+
+    /**
+     * @return timed task controller
+     */
+    public ITimedTaskManager timedTaskManager() {
+        return timedTaskManager;
+    }
+
+    /**
+     * @return booster controller
+     */
+    public BoosterManager boosterManager() {
+        return boosterManager;
     }
 }
