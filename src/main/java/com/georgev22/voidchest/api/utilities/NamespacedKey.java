@@ -123,6 +123,10 @@ public class NamespacedKey implements Comparable<NamespacedKey> {
         }
     }
 
+    public static @NotNull NamespacedKey of(@NotNull String namespace, @NotNull String key) {
+        return new NamespacedKey(namespace, key);
+    }
+
     @Contract("_ -> new")
     public static @NotNull NamespacedKey fromString(@NotNull String string) {
         String[] parts = string.split(":");
