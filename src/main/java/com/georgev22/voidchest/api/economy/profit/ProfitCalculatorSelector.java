@@ -1,95 +1,135 @@
 package com.georgev22.voidchest.api.economy.profit;
 
+import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Selects the most appropriate {@link ProfitCalculator} based on a given strategy.
- * Supports selection based on either:
+ * Represents a selector that determines the most appropriate {@link ProfitCalculator}
+ * for a given item and amount based on a defined selection strategy.
+ * <p>
+ * Two strategies are currently supported:
  * <ul>
- *     <li>{@link SelectorType#PRICE}: Select highest profit</li>
- *     <li>{@link SelectorType#WEIGHT}: Lowest weight first. Returns first profit > 0.
- *         If all profits are zero or negative, returns 0.</li>
+ *   <li><b>PRICE</b> — Selects the highest profit value.</li>
+ *   <li><b>WEIGHT</b> — Sorts by lowest weight first and returns the first calculator
+ *       that provides a profit greater than zero. If none provide a positive value,
+ *       returns {@link BigDecimal#ZERO}.</li>
  * </ul>
+ * <p>
+ * A selector contains a set of available {@link ProfitCalculator}s with associated
+ * weight values which determine selection priority.
  */
 public class ProfitCalculatorSelector {
 
-    private final Map<ProfitCalculator, Integer> calculators;
+    /**
+     * Map of calculators and their associated weight priority values.
+     */
+    private final UnmodifiableObjectMap<ProfitCalculator, Integer> calculators;
 
     /**
      * Creates a selector instance.
      *
-     * @param calculators Map of calculators and their configured weight values
+     * @param calculators Map linking {@link ProfitCalculator}s to their weight priority values.
+     *                    Lower weight = higher priority for selection.
      */
-    public ProfitCalculatorSelector(Map<ProfitCalculator, Integer> calculators) {
-        this.calculators = Map.copyOf(calculators);
+    public ProfitCalculatorSelector(@NotNull Map<ProfitCalculator, Integer> calculators) {
+        this.calculators = new UnmodifiableObjectMap<>(calculators);
     }
 
     /**
      * Selects the best profit value based on the provided selection type.
      *
-     * @param type      The selector strategy to use
-     * @param voidChest VoidChest context
-     * @param item      Target item
-     * @param amount    Amount of the item
-     * @return An {@link Optional} containing the best {@link BigDecimal} profit result,
-     * or empty if no valid calculation could be performed.
+     * @param type      The selection strategy to apply
+     * @param voidChest The VoidChest performing the calculation context
+     * @param item      The item being evaluated
+     * @param amount    The amount of the item being evaluated
+     * @return An {@link Optional} wrapping the resulting profit value. Always present in the WEIGHT case.
      */
-    public Optional<BigDecimal> selectBest(@NotNull SelectorType type,
+    public BigDecimal selectBest(@NotNull SelectorType type,
                                            @NotNull IVoidChest voidChest,
                                            @NotNull ItemStack item,
                                            @NotNull BigInteger amount) {
+        return selectBest(type, voidChest, item, amount, calculators);
+    }
+
+    /**
+     * Static selector method used for temporary selector evaluations without
+     * instantiating a new {@link ProfitCalculatorSelector} object.
+     *
+     * @param type        The selection strategy
+     * @param voidChest   The VoidChest performing the calculation context
+     * @param item        The item being evaluated
+     * @param amount      The quantity of the item
+     * @param calculators The calculators to evaluate
+     * @return An {@link Optional} profit value determined by the strategy
+     */
+    public static BigDecimal selectBest(@NotNull SelectorType type,
+                                                  @NotNull IVoidChest voidChest,
+                                                  @NotNull ItemStack item,
+                                                  @NotNull BigInteger amount,
+                                                  @NotNull Map<ProfitCalculator, Integer> calculators) {
 
         return switch (type) {
             case PRICE -> calculators.keySet().stream()
                     .map(calculator -> normalize(calculator.getProfit(voidChest, item, amount)))
-                    .max(BigDecimal::compareTo);
+                    .max(BigDecimal::compareTo).orElse(BigDecimal.ZERO);
+
             case WEIGHT -> {
                 for (Map.Entry<ProfitCalculator, Integer> entry :
                         calculators.entrySet().stream()
-                                .sorted(Map.Entry.comparingByValue())
+                                .sorted(Map.Entry.comparingByValue()) // lowest weight first
                                 .toList()) {
 
                     BigDecimal profit = normalize(entry.getKey().getProfit(voidChest, item, amount));
                     if (profit.compareTo(BigDecimal.ZERO) > 0) {
-                        yield Optional.of(profit);
+                        yield profit;
                     }
                 }
-                yield Optional.of(BigDecimal.ZERO);
+                yield BigDecimal.ZERO;
             }
         };
     }
 
     /**
-     * Returns immutable access to the registered calculators.
+     * Retrieves the calculators and their weight mappings used by this selector.
      *
-     * @return Unmodifiable view of the calculator map
+     * @return An unmodifiable view of internal calculator mappings
      */
-    public Map<ProfitCalculator, Integer> getEntries() {
+    public @NotNull UnmodifiableObjectMap<ProfitCalculator, Integer> getEntries() {
         return calculators;
     }
 
     /**
-     * Available selection strategies.
+     * Strategies for selecting profit calculation logic.
      */
     public enum SelectorType {
+        /**
+         * Selects the highest profit among all calculators.
+         */
         PRICE,
+
+        /**
+         * Selects the first calculator with a positive profit after sorting by lowest weight first.
+         * If no positive profit values exist, returns zero.
+         */
         WEIGHT
     }
 
     /**
-     * Normalizes null profit values as zero.
+     * Ensures that all profit results are non-null.
      *
-     * @param value Profit value
-     * @return non-null BigDecimal value
+     * @param value The raw profit value returned by a calculator
+     * @return A non-null {@link BigDecimal} (zero fallback)
      */
-    private BigDecimal normalize(BigDecimal value) {
+    private static @NotNull BigDecimal normalize(BigDecimal value) {
         return value != null ? value : BigDecimal.ZERO;
     }
 }
