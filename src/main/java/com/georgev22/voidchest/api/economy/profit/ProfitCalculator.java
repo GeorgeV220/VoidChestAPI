@@ -21,6 +21,7 @@ public interface ProfitCalculator {
      * @param item The item to calculate the profit for.
      * @return The calculated profit as a BigDecimal.
      */
+    @Deprecated
     @NotNull BigDecimal getProfit(@NotNull final ItemStack item);
 
     /**
@@ -30,6 +31,7 @@ public interface ProfitCalculator {
      * @param amount The amount of the item.
      * @return The calculated profit as a BigDecimal.
      */
+    @Deprecated
     @NotNull BigDecimal getProfit(@NotNull final ItemStack item, @NotNull final BigInteger amount);
 
     /**
