@@ -119,7 +119,7 @@ public final class VoidChestAPI {
         this.filterManager = filterManager;
         this.linkManager = linkManager;
         this.minecraftScheduler = minecraftScheduler;
-        this.voidChestConfigurationFileCache = new VoidChestConfigurationFileCache();
+        this.voidChestConfigurationFileCache = new VoidChestConfigurationFileCache(plugin);
         this.timedTaskManager = timedTaskManager;
         this.boosterManager = boosterManager;
     }

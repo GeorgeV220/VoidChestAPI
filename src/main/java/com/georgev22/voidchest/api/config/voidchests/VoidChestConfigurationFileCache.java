@@ -22,7 +22,11 @@ import java.util.logging.Level;
 public class VoidChestConfigurationFileCache {
     private final ObjectMap<String, VoidChestConfigurationFile> voidChestConfigurationFiles = new HashObjectMap<>();
 
-    private final JavaPlugin mainPlugin = VoidChestAPI.getInstance().plugin();
+    private final JavaPlugin mainPlugin;
+
+    public VoidChestConfigurationFileCache(JavaPlugin javaPlugin) {
+        this.mainPlugin = javaPlugin;
+    }
 
     public @NotNull ObjectMap<String, VoidChestConfigurationFile> getCachedCFGs() {
         return voidChestConfigurationFiles;

@@ -46,6 +46,9 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      */
     @Override
     public @NotNull Optional<V> get(K key) {
+        if (key == null) {
+            return Optional.empty();
+        }
         if (!registry.containsKey(key)) {
             return Optional.empty();
         }
