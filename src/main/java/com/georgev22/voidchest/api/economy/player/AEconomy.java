@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.economy.player;
 
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 

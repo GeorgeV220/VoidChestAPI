@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.registry;
 
 import com.georgev22.voidchest.api.economy.profit.ProfitCalculator;
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 
 public final class ProfitCalculatorRegistry

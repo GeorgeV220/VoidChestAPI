@@ -1,10 +1,9 @@
 package com.georgev22.voidchest.api.utilities.persistence;
 
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockState;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class ModernDataContainerWrapper implements DataContainerWrapper {
@@ -17,7 +16,7 @@ public class ModernDataContainerWrapper implements DataContainerWrapper {
 
     @Override
     public boolean has(NamespacedKey key, DataType type) {
-        return container.has(fromKey(key), toBukkitType(type));
+        return container.has(key, toBukkitType(type));
     }
 
     @Override
@@ -26,22 +25,17 @@ public class ModernDataContainerWrapper implements DataContainerWrapper {
         if (converted == null) {
             throw new IllegalArgumentException("Failed to convert value for type " + type + ": " + value);
         }
-        container.set(fromKey(key), toBukkitType(type), converted);
+        container.set(key, toBukkitType(type), converted);
     }
 
     @Override
     public <T> T get(NamespacedKey key, DataType type) {
-        return container.get(fromKey(key), toBukkitType(type));
+        return container.get(key, toBukkitType(type));
     }
 
     @Override
     public void remove(NamespacedKey key) {
-        container.remove(fromKey(key));
-    }
-
-    @Contract("_ -> new")
-    private org.bukkit.@NotNull NamespacedKey fromKey(@NotNull NamespacedKey key) {
-        return new org.bukkit.NamespacedKey(key.getNamespace(), key.getKey());
+        container.remove(key);
     }
 
     @SuppressWarnings("unchecked")

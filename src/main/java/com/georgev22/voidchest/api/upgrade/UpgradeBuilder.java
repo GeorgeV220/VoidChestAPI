@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.upgrade;
 
 import com.georgev22.voidchest.api.registry.UpgradeRegistry;
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Contract;

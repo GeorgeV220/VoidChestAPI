@@ -1,9 +1,9 @@
 package com.georgev22.voidchest.api.item;
 
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
 import com.georgev22.voidchest.api.economy.player.EconomyMode;
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 

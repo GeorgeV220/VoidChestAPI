@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.VoidChestOptionsUtil;
 import com.georgev22.voidchest.api.economy.profit.ProfitCalculator;
 import com.georgev22.voidchest.api.economy.profit.ProfitCalculatorSelector;
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,7 +75,7 @@ public final class ProfitCalculatorSelectorRegistry
 
                         NamespacedKey key;
                         try {
-                            key = NamespacedKey.of(namespace, keyName);
+                            key = NamespacedKey.fromString(namespace + ":" + keyName);
                         } catch (ArrayIndexOutOfBoundsException e) {
                             this.logger.warning("Invalid calculator entry (expected 'namespace:key[:weight]'): " + entry);
                             continue;
