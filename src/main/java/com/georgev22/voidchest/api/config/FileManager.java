@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.config;
 
-import com.georgev22.voidchest.api.VoidChestAPI;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
@@ -8,7 +7,7 @@ import org.jetbrains.annotations.ApiStatus;
 @ApiStatus.Internal
 public final class FileManager {
     private static FileManager instance;
-    private final JavaPlugin voidChestPlugin = VoidChestAPI.getInstance().plugin();
+    private final JavaPlugin voidChestPlugin;
     private CFG config;
     private CFG filters;
     private CFG upgrades;
@@ -16,14 +15,19 @@ public final class FileManager {
     private CFG voidChestsGUI;
     private CFG shopGUI;
 
-    private FileManager() {
+    public FileManager(JavaPlugin voidChestPlugin) {
+        instance = this;
+        this.voidChestPlugin = voidChestPlugin;
     }
 
     public static FileManager getInstance() {
-        return instance == null ? (instance = new FileManager()) : instance;
+        if (instance == null) {
+            throw new IllegalStateException("FileManager has not been initialized");
+        }
+        return instance;
     }
 
-    public void loadFiles() throws Exception {
+    public void loadFiles() {
         this.config = new CFG("config",
                 this.voidChestPlugin.getDataFolder(),
                 true,
