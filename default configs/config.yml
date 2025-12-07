@@ -111,14 +111,13 @@ Options:
 
   money format: "##.####"
 
-  # Available plugins: Vault, TheNewEconomy, VoidChest, Custom
+  # Available plugins: voidchest:vault, voidchest:the_new_economy, voidchest:voidchest, namespace:key (custom implementations)
   #
   # VoidChest built in economy only supports EXP levels for charge upgrades and payouts.
-  # Use "Custom" only if you know what you're doing, otherwise consult the developers.
   economy:
-    charge: "Vault"
-    upgrades: "Vault"
-    payout: "Vault"
+    charge: "voidchest:vault"
+    upgrades: "voidchest:vault"
+    payout: "voidchest:vault"
 
   # Available modes: EXP and LEVELS
   void chest economy mode: "EXP"
