@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.economy.profit;
 
-import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.inventory.ItemStack;
@@ -8,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -54,9 +52,9 @@ public class ProfitCalculatorSelector {
      * @return An {@link Optional} wrapping the resulting profit value. Always present in the WEIGHT case.
      */
     public BigDecimal selectBest(@NotNull SelectorType type,
-                                           @NotNull IVoidChest voidChest,
-                                           @NotNull ItemStack item,
-                                           @NotNull BigInteger amount) {
+                                 @NotNull IVoidChest voidChest,
+                                 @NotNull ItemStack item,
+                                 @NotNull BigInteger amount) {
         return selectBest(type, voidChest, item, amount, calculators);
     }
 
@@ -72,10 +70,10 @@ public class ProfitCalculatorSelector {
      * @return An {@link Optional} profit value determined by the strategy
      */
     public static BigDecimal selectBest(@NotNull SelectorType type,
-                                                  @NotNull IVoidChest voidChest,
-                                                  @NotNull ItemStack item,
-                                                  @NotNull BigInteger amount,
-                                                  @NotNull Map<ProfitCalculator, Integer> calculators) {
+                                        @NotNull IVoidChest voidChest,
+                                        @NotNull ItemStack item,
+                                        @NotNull BigInteger amount,
+                                        @NotNull Map<ProfitCalculator, Integer> calculators) {
 
         return switch (type) {
             case PRICE -> calculators.keySet().stream()
@@ -120,7 +118,21 @@ public class ProfitCalculatorSelector {
          * Selects the first calculator with a positive profit after sorting by lowest weight first.
          * If no positive profit values exist, returns zero.
          */
-        WEIGHT
+        WEIGHT;
+
+        /**
+         * Retrieves the selector type from a string.
+         *
+         * @param name The name of the selector type
+         * @return The selector type, or WEIGHT if the name is invalid
+         */
+        public static SelectorType fromString(@NotNull String name) {
+            try {
+                return valueOf(name.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return WEIGHT;
+            }
+        }
     }
 
     /**

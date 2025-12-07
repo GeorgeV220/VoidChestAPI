@@ -206,6 +206,8 @@ public enum VoidChestOptionsUtil {
 
     OPTIONS_PROFIT_CALCULATOR("Options.profit calculator", List.of("voidchest:voidchest:1"), Optional.empty()),
 
+    OPTIONS_PROFIT_CALCULATOR_SELECTOR("Options.profit calculator selector", "price", Optional.empty()),
+
     OPTIONS_DISABLED_WORLDS("Options.disabled worlds", List.of(), Optional.empty()),
 
     ;
