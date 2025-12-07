@@ -6,8 +6,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.AbstractMap;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,7 +14,8 @@ import java.util.Optional;
  * Supports selection based on either:
  * <ul>
  *     <li>{@link SelectorType#PRICE}: Select highest profit</li>
- *     <li>{@link SelectorType#WEIGHT}: Select lowest weight</li>
+ *     <li>{@link SelectorType#WEIGHT}: Lowest weight first. Returns first profit > 0.
+ *         If all profits are zero or negative, returns 0.</li>
  * </ul>
  */
 public class ProfitCalculatorSelector {
@@ -49,18 +48,21 @@ public class ProfitCalculatorSelector {
 
         return switch (type) {
             case PRICE -> calculators.keySet().stream()
-                    .map(calculator -> new AbstractMap.SimpleEntry<>(
-                            calculator,
-                            normalize(calculator.getProfit(voidChest, item, amount))
-                    ))
-                    .max(Map.Entry.comparingByValue())
-                    .map(Map.Entry::getValue);
+                    .map(calculator -> normalize(calculator.getProfit(voidChest, item, amount)))
+                    .max(BigDecimal::compareTo);
+            case WEIGHT -> {
+                for (Map.Entry<ProfitCalculator, Integer> entry :
+                        calculators.entrySet().stream()
+                                .sorted(Map.Entry.comparingByValue())
+                                .toList()) {
 
-            case WEIGHT -> calculators.entrySet().stream()
-                    .min(Comparator.comparingInt(Map.Entry::getValue))
-                    .map(Map.Entry::getKey)
-                    .map(c -> normalize(c.getProfit(voidChest, item, amount)));
-
+                    BigDecimal profit = normalize(entry.getKey().getProfit(voidChest, item, amount));
+                    if (profit.compareTo(BigDecimal.ZERO) > 0) {
+                        yield Optional.of(profit);
+                    }
+                }
+                yield Optional.of(BigDecimal.ZERO);
+            }
         };
     }
 
