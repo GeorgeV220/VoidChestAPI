@@ -1,3 +1,33 @@
+# [5.0.0-dev.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.1...v5.0.0-dev.2) (2025-12-09)
+
+
+* refactor!: remove deprecated API classes and simplify registry system ([53469a1](https://github.com/GeorgeV220/VoidChestAPI/commit/53469a188a39f27c3e9d21db36bc5dcd6471ee31))
+* refactor!: remove legacy persistence and NBT support, use PDC only ([76ddfb9](https://github.com/GeorgeV220/VoidChestAPI/commit/76ddfb9ddf293f2bb5359d488c5d63da280a59ed))
+
+
+### Features
+
+* **api:** add null check in registry get method and pass plugin to config cache ([a972429](https://github.com/GeorgeV220/VoidChestAPI/commit/a972429a99265df648dde4db37b332f73b0157a0))
+* **api:** add profit calculator selector option and utility method ([5a9750f](https://github.com/GeorgeV220/VoidChestAPI/commit/5a9750ffb05b14727804455054908f73262c06e1))
+* **api:** enhance profit calculator registry and selector logic ([173a5b6](https://github.com/GeorgeV220/VoidChestAPI/commit/173a5b6656afe4d5ff7433d0c903feea775ae069))
+* **api:** improve ProfitCalculatorSelector logic for WEIGHT type ([63d98e3](https://github.com/GeorgeV220/VoidChestAPI/commit/63d98e32d365483741eee7a4555e5fe2eeb306a0))
+* **api:** refactor ProfitCalculatorSelector for clarity and flexibility ([a691f11](https://github.com/GeorgeV220/VoidChestAPI/commit/a691f11846c2b293e3ba5fc3de0a9cefe7d22dd1))
+
+
+### BREAKING CHANGES
+
+* Removed deprecated API classes including AEconomyHookEvent,
+EconomyRegistry, ProfitCalculatorRegistry, UpgradeRegistry, VoidSpecialItemRegistry,
+and related bank/bank TNT manager interfaces. Migrated to unified `Registry` system
+with `KeyedRegistry` implementations. All integrations now use `Keyed` interface
+with `NamespacedKey` identifiers. Removed separate faction modules; functionality
+now integrated into core registry system. Updated profit calculator selector
+registry to use new registry pattern.
+* Drops support for legacy Minecraft versions (<1.20.5) and
+removes NBT-API based persistence. Plugins must now rely on Bukkit's
+PersistentDataContainer API. Custom NamespacedKey class is removed in
+favor of org.bukkit.NamespacedKey.
+
 # [5.0.0-dev.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v5.0.0-dev.1) (2025-12-06)
 
 
