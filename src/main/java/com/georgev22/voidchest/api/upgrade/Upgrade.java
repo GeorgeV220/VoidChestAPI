@@ -23,6 +23,7 @@ import java.util.*;
  */
 public abstract class Upgrade<U> implements Cloneable, Keyed {
 
+    private final String name;
     private final NamespacedKey key;
     private final int maxLevel;
     private final List<String> voidchestTypes = Collections.synchronizedList(new ArrayList<>());
@@ -34,7 +35,8 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param key      the unique key identifying this upgrade.
      * @param maxLevel the maximum level this upgrade can reach.
      */
-    public Upgrade(NamespacedKey key, int maxLevel) {
+    public Upgrade(String name, NamespacedKey key, int maxLevel) {
+        this.name = name;
         if (maxLevel < 1) {
             throw new IllegalArgumentException("Max level must be at least 1.");
         }
@@ -42,13 +44,13 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
         this.maxLevel = maxLevel;
     }
 
-    public Upgrade(NamespacedKey key, int maxLevel, List<String> voidchestTypes) {
-        this(key, maxLevel);
+    public Upgrade(String name, NamespacedKey key, int maxLevel, List<String> voidchestTypes) {
+        this(name, key, maxLevel);
         this.voidchestTypes.addAll(voidchestTypes);
     }
 
-    public Upgrade(NamespacedKey key, int maxLevel, List<String> voidchestTypes, List<UpgradeLevel<U>> levels) {
-        this(key, maxLevel, voidchestTypes);
+    public Upgrade(String name, NamespacedKey key, int maxLevel, List<String> voidchestTypes, List<UpgradeLevel<U>> levels) {
+        this(name, key, maxLevel, voidchestTypes);
         this.levels.addAll(levels);
     }
 
@@ -57,7 +59,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      *
      * @return the NamespacedKey.
      */
-    public NamespacedKey getKey() {
+    public @NotNull NamespacedKey getKey() {
         return key;
     }
 
@@ -186,6 +188,15 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @return The JSON representation of this upgrade.
      */
     public abstract String toString();
+
+    /**
+     * Retrieves the name of the Upgrade
+     *
+     * @return The name of the Upgrade as a String.
+     */
+    public String getName() {
+        return name;
+    }
 
     /**
      * Classes should override this method to clone the upgrade if they wish to do so.

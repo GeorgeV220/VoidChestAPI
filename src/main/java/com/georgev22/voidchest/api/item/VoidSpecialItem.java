@@ -24,15 +24,6 @@ import java.util.Optional;
 public abstract class VoidSpecialItem implements Keyed {
 
     /**
-     * Gets the unique {@link NamespacedKey} that identifies this special item.
-     * <p>
-     * This key is used for registration, lookup, and item recognition within the VoidChest system.
-     *
-     * @return the unique identifier for this special item
-     */
-    public abstract NamespacedKey getKey();
-
-    /**
      * Gets the action that will be executed when this item is applied to a VoidChest.
      * <p>
      * The action defines the behavior, such as granting upgrades, adding fuel,
@@ -66,5 +57,12 @@ public abstract class VoidSpecialItem implements Keyed {
     }
 
     protected abstract void applyTo0(@NotNull ReadWriteNBT nbt, String @NotNull ... data);
+
+    /**
+     * Retrieves the name of the Special Item
+     *
+     * @return The name of the Special Item as a String.
+     */
+    public abstract String getName();
 
 }

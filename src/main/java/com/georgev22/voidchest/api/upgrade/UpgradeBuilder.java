@@ -22,6 +22,7 @@ import java.util.logging.Level;
  */
 public class UpgradeBuilder<U> {
 
+    private String name;
     private NamespacedKey key;
     private int maxLevel = 1;
     private List<String> voidchestTypes = new ArrayList<>();
@@ -52,7 +53,7 @@ public class UpgradeBuilder<U> {
      * Implementations should have checks to ensure that the String is valid for the deserializer.
      *
      * @param deserializer The {@link UpgradeDeserializer} instance.
-     * @param serialized The String representation of the upgrade.
+     * @param serialized   The String representation of the upgrade.
      * @return A new {@link Upgrade} instance.
      */
     public static <U> Upgrade<U> deserialize(@NotNull UpgradeDeserializer<U> deserializer, String serialized) {
@@ -64,6 +65,7 @@ public class UpgradeBuilder<U> {
      * <p>
      * <strong>Note:</strong> Be aware that the provided String can be a JSON, YAML or any other String format depending on the deserializer.
      * Implementations should have checks to ensure that the String is valid for the deserializer.
+     *
      * @param upgrade The {@link Upgrade} instance.
      * @return A String representation of the {@link Upgrade} instance.
      */
@@ -76,12 +78,23 @@ public class UpgradeBuilder<U> {
      * <p>
      * Can be a JSON string, a YAML string or any String format depending on the serializer.
      *
-     * @param upgrade The {@link Upgrade} instance.
+     * @param upgrade    The {@link Upgrade} instance.
      * @param serializer The {@link UpgradeSerializer} instance.
      * @return A String representation of the {@link Upgrade} instance.
      */
     public static <U> String serialize(Upgrade<U> upgrade, @NotNull UpgradeSerializer<U> serializer) {
         return serializer.serialize(upgrade);
+    }
+
+    /**
+     * Sets the name of the upgrade.
+     *
+     * @param name The name of the upgrade.
+     * @return The current {@code UpgradeBuilder} instance.
+     */
+    public @NotNull UpgradeBuilder<U> withName(@NotNull String name) {
+        this.name = name;
+        return this;
     }
 
     /**
@@ -153,11 +166,11 @@ public class UpgradeBuilder<U> {
     /**
      * Creates and adds an upgrade level with the given parameters.
      *
-     * @param level The level number.
-     * @param price The price of the upgrade.
+     * @param level         The level number.
+     * @param price         The price of the upgrade.
      * @param upgradeObject The upgrade data object.
-     * @param displayItem The item displayed for this upgrade.
-     * @param placeholders A map of placeholder values.
+     * @param displayItem   The item displayed for this upgrade.
+     * @param placeholders  A map of placeholder values.
      * @return The current {@code UpgradeBuilder} instance.
      */
     public @NotNull UpgradeBuilder<U> withLevel(
@@ -178,6 +191,10 @@ public class UpgradeBuilder<U> {
      * @return A new {@link Upgrade} instance.
      */
     public @Nullable Upgrade<U> build(@NotNull Plugin plugin) {
+        if (name == null) {
+            plugin.getLogger().log(Level.SEVERE, "[VoidChest/Upgrades]: Upgrade name must be set.");
+            return null;
+        }
         if (key == null) {
             plugin.getLogger().log(Level.SEVERE, "[VoidChest/Upgrades]: Upgrade key must be set.");
             return null;
@@ -195,7 +212,7 @@ public class UpgradeBuilder<U> {
             return null;
         }
         maxLevel = levels.stream().mapToInt(UpgradeLevel::level).max().orElse(maxLevel);
-        return new Upgrade<>(key, maxLevel, Collections.unmodifiableList(voidchestTypes), Collections.unmodifiableList(levels)) {
+        return new Upgrade<>(name, key, maxLevel, Collections.unmodifiableList(voidchestTypes), Collections.unmodifiableList(levels)) {
             @Override
             public String toString() {
                 return serializer.serialize(this);
@@ -204,7 +221,7 @@ public class UpgradeBuilder<U> {
     }
 
     /**
-     * Builds the {@link Upgrade} instance and registers it with the {@link UpgradeRegistry}.
+     * Builds the {@link Upgrade} instance and registers it with the {@link Registry}.
      *
      * @param plugin The plugin to use for logging.
      */
