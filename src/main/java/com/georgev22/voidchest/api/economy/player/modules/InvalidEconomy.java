@@ -59,21 +59,7 @@ public class InvalidEconomy extends AEconomy {
      */
     @Override
     public String getName() {
-        return this.getClass().getSimpleName() +
-                "{name=VoidChestInvalid, " +
-                "version="
-                + Bukkit.getServer().getPluginManager().getPlugin("VoidChest").getDescription().getVersion() +
-                "}";
-    }
-
-    /**
-     * Retrieves the simple name of the economy system. E.g. Vault
-     *
-     * @return The simple name of the economy system as a String.
-     */
-    @Override
-    public String getSimpleName() {
-        return "VoidChestInvalid";
+        return "InvalidEconomy";
     }
 
     /**
