@@ -1,9 +1,8 @@
 package com.georgev22.voidchest.api.economy.profit;
 
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
-import org.bukkit.NamespacedKey;
+import org.bukkit.Keyed;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +12,7 @@ import java.math.BigInteger;
 /**
  * The ProfitCalculator class is responsible for calculating profits from various shop plugins.
  */
-public interface ProfitCalculator {
+public interface ProfitCalculator extends Keyed {
 
     /**
      * Retrieves the profit for a specific item.
@@ -52,24 +51,10 @@ public interface ProfitCalculator {
     boolean requiresThePlayerToBeOnline();
 
     /**
-     * Retrieves the name of the VoidEconomy.
+     * Retrieves the name of the Profit Calculator.
      *
-     * @return The name of the VoidEconomy as a String.
+     * @return The name of the Profit Calculator as a String.
      */
     @NotNull String getName();
-
-    /**
-     * Retrieves the plugin that registered this calculator.
-     *
-     * @return The plugin instance.
-     */
-    @NotNull Plugin getPlugin();
-
-    /**
-     * Retrieves the key of the profit calculator.
-     *
-     * @return The key of the profit calculator.
-     */
-    @NotNull NamespacedKey getKey();
 
 }

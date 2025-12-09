@@ -1,6 +1,7 @@
-package com.georgev22.voidchest.api.bank;
+package com.georgev22.voidchest.api.economy.bank;
 
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
+import org.bukkit.Keyed;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 /**
  * The IVoidChestBank interface provides methods for managing a VoidChest bank.
  */
-public interface IVoidChestBank {
+public interface IVoidChestBank extends Keyed {
 
     /**
      * Deposits the specified amount to the VoidChest bank associated with the given player data.
@@ -21,17 +22,9 @@ public interface IVoidChestBank {
     boolean depositToBank(@NotNull final BigDecimal amount, @NotNull final IPlayerData data);
 
     /**
-     * Retrieves the name of the VoidChest bank.
-     *
-     * @return The name of the VoidChest bank as a String.
-     */
-    String getName();
-
-    /**
      * Retrieves the simple name of the VoidChest bank. E.g. SuperiorSkyblock2
      *
      * @return The simple name of the VoidChest bank as a String.
      */
-    String getSimpleName();
-
+    String getName();
 }

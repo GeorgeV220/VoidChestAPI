@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.upgrade;
 
-import com.georgev22.voidchest.api.registry.UpgradeRegistry;
+import com.georgev22.voidchest.api.registry.Registry;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -214,7 +214,7 @@ public class UpgradeBuilder<U> {
             plugin.getLogger().log(Level.SEVERE, "[VoidChest/Upgrades]: Failed to build upgrade.");
             return;
         }
-        UpgradeRegistry.getInstance().register(upgrade);
+        Registry.UPGRADE.register(upgrade);
         plugin.getLogger().info("[VoidChest/Upgrades]: Registered upgrade: " + upgrade.getKey());
     }
 }

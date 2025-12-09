@@ -78,4 +78,17 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
     public void clear() {
         registry.clear();
     }
+
+    /**
+     * Default implementation returns an empty optional.
+     * <p>
+     * This method is intended to be overridden by subclasses to provide a default implementation.
+     * </p>
+     *
+     * @return an empty optional
+     */
+    @Override
+    public @NotNull Optional<V> getSelected() {
+        return Optional.empty();
+    }
 }

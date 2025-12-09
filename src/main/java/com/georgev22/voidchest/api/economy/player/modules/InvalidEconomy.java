@@ -13,6 +13,10 @@ import java.math.BigDecimal;
  */
 public class InvalidEconomy extends AEconomy {
 
+    public InvalidEconomy() {
+        super(NamespacedKey.fromString("voidchest:invalid"));
+    }
+
     /**
      * Withdraws the specified amount from the player's account.
      *
@@ -80,10 +84,5 @@ public class InvalidEconomy extends AEconomy {
     @Override
     public boolean setupEconomy() {
         return false;
-    }
-
-    @Override
-    public NamespacedKey getKey() {
-        return new NamespacedKey("voidchest", "invalid");
     }
 }

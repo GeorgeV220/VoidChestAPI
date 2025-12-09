@@ -1,12 +1,11 @@
 package com.georgev22.voidchest.api;
 
-import com.georgev22.voidchest.api.bank.IBankManager;
-import com.georgev22.voidchest.api.banktnt.IBankTNTManager;
 import com.georgev22.voidchest.api.booster.BoosterManager;
 import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
 import com.georgev22.voidchest.api.hologram.IHologramManager;
 import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
+import com.georgev22.voidchest.api.registry.IRegistryManager;
 import com.georgev22.voidchest.api.scheduler.MinecraftScheduler;
 import com.georgev22.voidchest.api.shop.IShopManager;
 import com.georgev22.voidchest.api.stacker.IStackerManager;
@@ -61,10 +60,8 @@ public final class VoidChestAPI {
     private static boolean isFolia = false;
 
     private final JavaPlugin plugin;
+    private final IRegistryManager registryManager;
     private final IShopManager shopManager;
-    private final IBankManager bankManager;
-    private final IBankTNTManager bankTNTManager;
-    private final IStackerManager stackerManager;
     private final IHologramManager hologramManager;
     private final IChunkSeeManager chunkSeeManager;
     private final IVoidItemManager voidItemManager;
@@ -81,9 +78,6 @@ public final class VoidChestAPI {
      *
      * @param plugin             Bukkit plugin instance
      * @param shopManager        shop manager
-     * @param bankManager        bank manager for items/money
-     * @param bankTNTManager     TNT bank manager
-     * @param stackerManager     stacker service for entity/item merging
      * @param hologramManager    hologram rendering service
      * @param chunkSeeManager    chunk preview/visualization manager
      * @param voidItemManager    void item storage/cache manager
@@ -95,10 +89,8 @@ public final class VoidChestAPI {
      */
     public VoidChestAPI(
             JavaPlugin plugin,
+            IRegistryManager registryManager,
             IShopManager shopManager,
-            IBankManager bankManager,
-            IBankTNTManager bankTNTManager,
-            IStackerManager stackerManager,
             IHologramManager hologramManager,
             IChunkSeeManager chunkSeeManager,
             IVoidItemManager voidItemManager,
@@ -108,10 +100,8 @@ public final class VoidChestAPI {
             ITimedTaskManager timedTaskManager,
             BoosterManager boosterManager) {
         this.plugin = plugin;
+        this.registryManager = registryManager;
         this.shopManager = shopManager;
-        this.bankManager = bankManager;
-        this.bankTNTManager = bankTNTManager;
-        this.stackerManager = stackerManager;
         this.hologramManager = hologramManager;
         this.chunkSeeManager = chunkSeeManager;
         this.voidItemManager = voidItemManager;
@@ -203,31 +193,17 @@ public final class VoidChestAPI {
     }
 
     /**
+     * @return the registry manager
+     */
+    public IRegistryManager getRegistryManager() {
+        return registryManager;
+    }
+
+    /**
      * @return the shop manager
      */
     public IShopManager shopManager() {
         return shopManager;
-    }
-
-    /**
-     * @return the money bank manager
-     */
-    public IBankManager bankManager() {
-        return bankManager;
-    }
-
-    /**
-     * @return the TNT bank manager
-     */
-    public IBankTNTManager bankTNTManager() {
-        return bankTNTManager;
-    }
-
-    /**
-     * @return entity stacker manager
-     */
-    public IStackerManager stackerManager() {
-        return stackerManager;
     }
 
     /**

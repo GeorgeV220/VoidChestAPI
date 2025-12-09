@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.economy.player;
 
+import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -15,16 +16,18 @@ import java.util.List;
  * <p>
  * Only one economy of each mode can be hooked.
  */
-public abstract class AEconomy {
+public abstract class AEconomy implements Keyed {
 
     private final List<EconomyMode> economyModes;
+    private final NamespacedKey key;
 
-    protected AEconomy() {
-        this(EconomyMode.PAYOUT, EconomyMode.CHARGE, EconomyMode.UPGRADES);
+    protected AEconomy(NamespacedKey key) {
+        this(key, EconomyMode.PAYOUT, EconomyMode.CHARGE, EconomyMode.UPGRADES);
     }
 
-    public AEconomy(EconomyMode... modes) {
+    public AEconomy(NamespacedKey key, EconomyMode... modes) {
         this.economyModes = List.of(modes);
+        this.key = key;
     }
 
     /**
@@ -110,10 +113,8 @@ public abstract class AEconomy {
         return economyModes;
     }
 
-    /**
-     * Retrieves the key of the economy system.
-     *
-     * @return The key of the economy system as a NamespacedKey.
-     */
-    public abstract NamespacedKey getKey();
+    @Override
+    public @NotNull NamespacedKey getKey() {
+        return this.key;
+    }
 }

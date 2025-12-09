@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.item;
 
 import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.iface.ReadWriteNBT;
+import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -18,9 +19,9 @@ import java.util.Optional;
  * identified by a {@link NamespacedKey}, allowing custom registration and
  * retrieval from item registries.
  * <p>
- * Developers can extend this class to create custom special items using the {@link com.georgev22.voidchest.api.registry.VoidSpecialItemRegistry}
+ * Developers can extend this class to create custom special items using the {@link com.georgev22.voidchest.api.registry.Registry#SPECIAL_ITEM}
  */
-public abstract class VoidSpecialItem {
+public abstract class VoidSpecialItem implements Keyed {
 
     /**
      * Gets the unique {@link NamespacedKey} that identifies this special item.

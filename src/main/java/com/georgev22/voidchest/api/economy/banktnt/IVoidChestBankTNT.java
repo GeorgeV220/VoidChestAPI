@@ -1,5 +1,6 @@
-package com.georgev22.voidchest.api.banktnt;
+package com.georgev22.voidchest.api.economy.banktnt;
 
+import org.bukkit.Keyed;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -7,7 +8,7 @@ import java.util.UUID;
 /**
  * The IVoidChestBankTNT interface provides methods for managing VoidChest bank TNT.
  */
-public interface IVoidChestBankTNT {
+public interface IVoidChestBankTNT extends Keyed {
 
     /**
      * Deposits the specified amount of TNT to the bank associated with the given UUID.
@@ -19,17 +20,9 @@ public interface IVoidChestBankTNT {
     boolean depositToBank(final int amount, final @NotNull UUID id);
 
     /**
-     * Retrieves the name of the VoidChest bank TNT.
-     *
-     * @return The name of the VoidChest bank TNT as a String.
-     */
-    String getName();
-
-    /**
      * Retrieves the simple name of the VoidChest bank TNT. E.g. FactionsUUID
      *
      * @return The simple name of the VoidChest bank TNT as a String.
      */
-    String getSimpleName();
-
+    String getName();
 }

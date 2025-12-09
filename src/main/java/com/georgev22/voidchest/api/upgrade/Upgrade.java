@@ -1,10 +1,12 @@
 package com.georgev22.voidchest.api.upgrade;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
+import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
-import com.georgev22.voidchest.api.registry.EconomyRegistry;
+import com.georgev22.voidchest.api.registry.Registry;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.Bukkit;
+import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +21,7 @@ import java.util.*;
  *
  * @param <U> the type of the upgrade object associated with each level.
  */
-public abstract class Upgrade<U> implements Cloneable {
+public abstract class Upgrade<U> implements Cloneable, Keyed {
 
     private final NamespacedKey key;
     private final int maxLevel;
@@ -278,7 +280,7 @@ public abstract class Upgrade<U> implements Cloneable {
         return getNextUpgradeLevel(currentLevel).map(nextUpgradeLevel -> {
             BigDecimal upgradeCost = nextUpgradeLevel.price();
             OfflinePlayer player = Bukkit.getOfflinePlayer(playerUUID);
-            Optional<AEconomy> optionalEcon = EconomyRegistry.getInstance().getUpgradesEconomy();
+            Optional<AEconomy> optionalEcon = Registry.ECONOMY.get(NamespacedKey.fromString(OptionsUtil.ECONOMY_UPGRADES.getStringValue()));
             if (optionalEcon.isEmpty()) {
                 return -5;
             }

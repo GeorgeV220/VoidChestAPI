@@ -1,9 +1,11 @@
-package com.georgev22.voidchest.api.registry;
+package com.georgev22.voidchest.api.registry.economy;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.VoidChestOptionsUtil;
 import com.georgev22.voidchest.api.economy.profit.ProfitCalculator;
 import com.georgev22.voidchest.api.economy.profit.ProfitCalculatorSelector;
+import com.georgev22.voidchest.api.registry.AbstractRegistry;
+import com.georgev22.voidchest.api.registry.Registry;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
  * {@link ProfitCalculatorSelector} objects because selectors are dynamically constructed from
  * registered {@link ProfitCalculator}s and configuration weight rules.
  * <p>
- * To register new calculators, use {@link ProfitCalculatorRegistry#register(NamespacedKey, ProfitCalculator)}.
+ * To register new calculators, use {@link Registry#PROFIT_CALCULATOR#register(NamespacedKey, ProfitCalculator)}.
  * After that, call {@link #reloadSelectors()} to rebuild selector instances per chest type.
  */
 public final class ProfitCalculatorSelectorRegistry
@@ -100,7 +102,7 @@ public final class ProfitCalculatorSelectorRegistry
      * </ul>
      * <p>
      * Results are stored using chest-type identifiers as keys via
-     * {@link ProfitCalculatorRegistry#replaceOrRegister(NamespacedKey, ProfitCalculator)}.
+     * {@link Registry#PROFIT_CALCULATOR#replaceOrRegister(Object, Object)}.
      *
      * <p>Example configuration entries:</p>
      * <pre>
@@ -112,7 +114,6 @@ public final class ProfitCalculatorSelectorRegistry
      * After loading, selectors can be retrieved using {@link #get(String)}.
      */
     public void reloadSelectors() {
-        ProfitCalculatorRegistry calcRegistry = ProfitCalculatorRegistry.getInstance();
 
         this.clear();
 
@@ -161,13 +162,13 @@ public final class ProfitCalculatorSelectorRegistry
                         }
 
                         int finalWeight = weight;
-                        calcRegistry.get(key).ifPresentOrElse(
+                        Registry.PROFIT_CALCULATOR.get(key).ifPresentOrElse(
                                 calc -> result.put(calc, finalWeight),
                                 () -> {
                                     this.logger.warning("Profit calculator not registered: " + key);
                                     this.logger.info("If this is a custom calculator from another plugin, "
-                                            + "ensure that plugin registers it using ProfitCalculatorRegistry "
-                                            + "and then reload VoidChest selectors (/voidchestadmin reload).");
+                                            + "ensure that plugin registers it using Registry.PROFIT_CALCULATOR "
+                                            + "and then reload VoidChest selectors (/voidchestadmin reload) or ProfitCalculatorSelectorRegistry.reloadSelectors().");
                                 }
                         );
                     }
