@@ -130,7 +130,7 @@ Options:
   # - voidchest:rosestacker
   # - voidchest:zitemstacker
   # - voidchest:cloudspawners
-  # Developers can register their own using the API (Registry.STACKER) and then adding their namespaced key here
+  # Developers can register their own using the API (Registries.STACKER) and then adding their namespaced key here
   stacker: "voidchest:none"
 
   # Should the plugin attempt to hook to one of the Bank plugins:
@@ -140,13 +140,13 @@ Options:
   # - voidchest:superior_skyblock2
   # - voidchest:fabled_skyblock
   # - voidchest:mysql_economy_bank
-  # Developers can register their own using the API (Registry.BANK) and then adding their namespaced key here
+  # Developers can register their own using the API (Registries.BANK) and then adding their namespaced key here
   bank: "voidchest:none"
 
   # Should the plugin attempt to hook to one of the Bank TNT plugins:
   # - voidchest:none
   # - voidchest:factions (all major faction plugins thanks to FactionsBridge)
-  # Developers can register their own using the API (Registry.BANK_TNT) and then adding their namespaced key here
+  # Developers can register their own using the API (Registries.BANK_TNT) and then adding their namespaced key here
   bank tnt: "voidchest:none"
 
   # Available hologram support from other plugins: None, HolographicDisplays, Holograms, CMI, DecentHolograms, FancyHolograms.

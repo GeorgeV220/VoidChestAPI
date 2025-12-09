@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.upgrade;
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
-import com.georgev22.voidchest.api.registry.Registry;
+import com.georgev22.voidchest.api.registry.Registries;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
@@ -291,7 +291,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
         return getNextUpgradeLevel(currentLevel).map(nextUpgradeLevel -> {
             BigDecimal upgradeCost = nextUpgradeLevel.price();
             OfflinePlayer player = Bukkit.getOfflinePlayer(playerUUID);
-            Optional<AEconomy> optionalEcon = Registry.ECONOMY.get(NamespacedKey.fromString(OptionsUtil.ECONOMY_UPGRADES.getStringValue()));
+            Optional<AEconomy> optionalEcon = Registries.ECONOMY.get(NamespacedKey.fromString(OptionsUtil.ECONOMY_UPGRADES.getStringValue()));
             if (optionalEcon.isEmpty()) {
                 return -5;
             }

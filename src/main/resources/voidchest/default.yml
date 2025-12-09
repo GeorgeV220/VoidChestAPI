@@ -117,7 +117,7 @@ Options:
   # Lower weight is prioritized. If multiple calculators share the lowest weight,
   # the one that returns the highest profit will be used.
   # Custom calculators: namespace:key[:weight] (weight is optional but recommended)
-  # Developers can register their own using the API (Registry.PROFIT_CALCULATOR) and then adding their namespaced key here
+  # Developers can register their own using the API (Registries.PROFIT_CALCULATOR) and then adding their namespaced key here
   profit calculator:
     # Plugin Name - Weight
     - "voidchest:voidchest:1" # Default

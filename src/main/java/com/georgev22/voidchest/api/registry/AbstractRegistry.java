@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.registry;
 
-
 import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
@@ -8,9 +7,33 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+/**
+ * A base implementation of {@link Registry} that stores key–value
+ * pairs inside a thread-safe {@link ConcurrentObjectMap}.
+ * <p>
+ * Subclasses may extend this to customize selection logic
+ * (see {@link #getSelected()}) or key extraction behavior
+ * for the {@code register(V)} and {@code replaceOrRegister(V)} methods.
+ * </p>
+ *
+ * @param <K> the key type used for lookup
+ * @param <V> the stored value type
+ * @see Registry
+ */
 public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
 
-    protected final ObjectMap<K, V> registry = new ConcurrentObjectMap<>();
+    protected final ObjectMap<K, V> registry;
+
+    /**
+     * Creates a new abstract registry backed by a {@link ConcurrentObjectMap}.
+     * <p>
+     * The default constructor ensures a thread-safe underlying storage,
+     * while allowing subclasses to build additional behavior.
+     * </p>
+     */
+    protected AbstractRegistry() {
+        this.registry = new ConcurrentObjectMap<>();
+    }
 
     /**
      * {@inheritDoc}
@@ -49,9 +72,6 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
         if (key == null) {
             return Optional.empty();
         }
-        if (!registry.containsKey(key)) {
-            return Optional.empty();
-        }
         return Optional.ofNullable(registry.get(key));
     }
 
@@ -80,6 +100,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
     }
 
     /**
+     * {@inheritDoc}
      * Default implementation returns an empty optional.
      * <p>
      * This method is intended to be overridden by subclasses to provide a default implementation.

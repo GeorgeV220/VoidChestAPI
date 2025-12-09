@@ -19,7 +19,7 @@ import java.util.Optional;
  * identified by a {@link NamespacedKey}, allowing custom registration and
  * retrieval from item registries.
  * <p>
- * Developers can extend this class to create custom special items using the {@link com.georgev22.voidchest.api.registry.Registry#SPECIAL_ITEM}
+ * Developers can extend this class to create custom special items using the {@link com.georgev22.voidchest.api.registry.Registries#SPECIAL_ITEM}
  */
 public abstract class VoidSpecialItem implements Keyed {
 
