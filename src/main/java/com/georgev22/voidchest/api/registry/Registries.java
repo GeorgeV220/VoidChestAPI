@@ -84,4 +84,21 @@ public class Registries {
      */
     public static KeyedRegistry<AEconomy> ECONOMY = new KeyedRegistry<>();
 
+    /**
+     * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.
+     *
+     * <p>This registry stores handlers responsible for loading, saving,
+     * and managing persistent {@link com.georgev22.voidchest.api.storage.data.Entity}
+     * data types such as player data and VoidChest records.</p>
+     *
+     * <h3>⚠️ Modification Warning</h3>
+     * <ul>
+     *     <li>This registry is managed internally by VoidChest.</li>
+     *     <li>Plugins <strong>must not</strong> unregister or replace built-in managers.</li>
+     *     <li>Plugins <strong>must not</strong> register new managers.</li>
+     *     <li>Doing so may break data persistence and corrupt stored entities.</li>
+     * </ul>
+     */
+    public static EntityManagerRegistry ENTITY_MANAGER = EntityManagerRegistry.getInstance();
+
 }
