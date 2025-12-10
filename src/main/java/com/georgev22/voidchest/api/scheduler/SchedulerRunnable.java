@@ -2,13 +2,13 @@ package com.georgev22.voidchest.api.scheduler;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class SchedulerRunnable<Plugin, Location, World, Chunk, Entity> implements Runnable {
+public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implements Runnable {
 
     private SchedulerTask task;
 
-    private final MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler;
+    private final MinecraftScheduler<Location, World, Chunk, Entity> minecraftScheduler;
 
-    public SchedulerRunnable(MinecraftScheduler<Plugin, Location, World, Chunk, Entity> minecraftScheduler) {
+    public SchedulerRunnable(MinecraftScheduler<Location, World, Chunk, Entity> minecraftScheduler) {
         this.minecraftScheduler = minecraftScheduler;
     }
 
@@ -35,15 +35,14 @@ public abstract class SchedulerRunnable<Plugin, Location, World, Chunk, Entity> 
     /**
      * Schedules this in the Bukkit scheduler to run on next tick.
      *
-     * @param plugin The Plugin associated with this task.
      * @return a Task that contains the id number
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
     @NotNull
-    public synchronized SchedulerTask runTask(Plugin plugin) throws IllegalArgumentException, IllegalStateException {
+    public synchronized SchedulerTask runTask() throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
-        return setupTask(this.minecraftScheduler.runTask(plugin, this));
+        return setupTask(this.minecraftScheduler.runTask(this));
     }
 
     /**
@@ -52,30 +51,28 @@ public abstract class SchedulerRunnable<Plugin, Location, World, Chunk, Entity> 
      * <p>
      * Schedules this in the Bukkit scheduler to run asynchronously.
      *
-     * @param plugin The Plugin associated with this task.
      * @return a Task that contains the id number
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
     @NotNull
-    public synchronized SchedulerTask runTaskAsynchronously(@NotNull Plugin plugin) throws IllegalArgumentException, IllegalStateException {
+    public synchronized SchedulerTask runTaskAsynchronously() throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
-        return setupTask(this.minecraftScheduler.runAsyncTask(plugin, this));
+        return setupTask(this.minecraftScheduler.runAsyncTask(this));
     }
 
     /**
      * Schedules this to run after the specified number of server ticks.
      *
-     * @param plugin The Plugin associated with this task.
-     * @param delay  the ticks to wait before running the task
+     * @param delay the ticks to wait before running the task
      * @return a Task that contains the id number
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
     @NotNull
-    public synchronized SchedulerTask runTaskLater(@NotNull Plugin plugin, long delay) throws IllegalArgumentException, IllegalStateException {
+    public synchronized SchedulerTask runTaskLater(long delay) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
-        return setupTask(this.minecraftScheduler.createDelayedTask(plugin, this, delay));
+        return setupTask(this.minecraftScheduler.createDelayedTask(this, delay));
     }
 
     /**
@@ -85,23 +82,21 @@ public abstract class SchedulerRunnable<Plugin, Location, World, Chunk, Entity> 
      * Schedules this to run asynchronously after the specified number of
      * server ticks.
      *
-     * @param plugin The Plugin associated with this task.
-     * @param delay  the ticks to wait before running the task
+     * @param delay the ticks to wait before running the task
      * @return a Task that contains the id number
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
     @NotNull
-    public synchronized SchedulerTask runTaskLaterAsynchronously(@NotNull Plugin plugin, long delay) throws IllegalArgumentException, IllegalStateException {
+    public synchronized SchedulerTask runTaskLaterAsynchronously(long delay) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
-        return setupTask(this.minecraftScheduler.createAsyncDelayedTask(plugin, this, delay));
+        return setupTask(this.minecraftScheduler.createAsyncDelayedTask(this, delay));
     }
 
     /**
      * Schedules this to repeatedly run until cancelled, starting after the
      * specified number of server ticks.
      *
-     * @param plugin The Plugin associated with this task.
      * @param delay  the ticks to wait before running the task
      * @param period the ticks to wait between runs
      * @return a Task that contains the id number
@@ -109,9 +104,9 @@ public abstract class SchedulerRunnable<Plugin, Location, World, Chunk, Entity> 
      * @throws IllegalStateException    if this was already scheduled
      */
     @NotNull
-    public synchronized SchedulerTask runTaskTimer(@NotNull Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
+    public synchronized SchedulerTask runTaskTimer(long delay, long period) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
-        return setupTask(this.minecraftScheduler.createRepeatingTask(plugin, this, delay, period));
+        return setupTask(this.minecraftScheduler.createRepeatingTask(this, delay, period));
     }
 
     /**
@@ -121,7 +116,6 @@ public abstract class SchedulerRunnable<Plugin, Location, World, Chunk, Entity> 
      * Schedules this to repeatedly run asynchronously until cancelled,
      * starting after the specified number of server ticks.
      *
-     * @param plugin The Plugin associated with this task.
      * @param delay  the ticks to wait before running the task for the first
      *               time
      * @param period the ticks to wait between runs
@@ -130,9 +124,9 @@ public abstract class SchedulerRunnable<Plugin, Location, World, Chunk, Entity> 
      * @throws IllegalStateException    if this was already scheduled
      */
     @NotNull
-    public synchronized SchedulerTask runTaskTimerAsynchronously(@NotNull Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
+    public synchronized SchedulerTask runTaskTimerAsynchronously(long delay, long period) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
-        return setupTask(this.minecraftScheduler.createAsyncRepeatingTask(plugin, this, delay, period));
+        return setupTask(this.minecraftScheduler.createAsyncRepeatingTask(this, delay, period));
     }
 
     /**

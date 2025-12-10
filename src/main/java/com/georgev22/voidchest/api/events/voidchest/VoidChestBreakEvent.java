@@ -115,7 +115,6 @@ public class VoidChestBreakEvent extends VoidEvent implements Cancellable {
         if (isFolia && location != null) {
             //noinspection unchecked
             return (T) voidChestAPI.minecraftScheduler().createTaskForLocation(
-                    voidChestAPI.plugin(),
                     () -> super.callSynchronousEvent(),
                     location
             ).join();

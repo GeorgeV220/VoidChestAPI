@@ -148,7 +148,6 @@ public class SerializableContainer implements Serializable {
         if (world != null) {
             return VoidChestAPI.getInstance().minecraftScheduler()
                     .createTaskForLocation(
-                            VoidChestAPI.getInstance().plugin(),
                             () -> {
                                 Block block = world.getBlockAt(x, y, z);
                                 if (ContainerWrapper.isStorageContainer(block.getState())) {

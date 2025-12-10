@@ -66,10 +66,11 @@ public abstract class VoidChestBaseEvent extends Event {
     protected <T extends Event> T callSynchronousEvent() {
         // Synchronous event must run on the main thread
         //noinspection unchecked
-        return (T) voidChestAPI.minecraftScheduler().runTask(voidChestAPI.plugin(), () -> {
-            Bukkit.getPluginManager().callEvent(this);
-            return this;
-        }).handle((event, throwable) -> {
+        return (T) voidChestAPI.minecraftScheduler().runTask(
+                () -> {
+                    Bukkit.getPluginManager().callEvent(this);
+                    return this;
+                }).handle((event, throwable) -> {
             if (throwable != null) {
                 voidChestAPI.plugin()
                         .getLogger().log(Level.SEVERE, "Failed to fire synchronous event: " + this.getEventName(), throwable);
@@ -88,10 +89,11 @@ public abstract class VoidChestBaseEvent extends Event {
     protected <T extends Event> T callAsynchronousEvent() {
         // Asynchronous event should not run on the main thread
         //noinspection unchecked
-        return (T) voidChestAPI.minecraftScheduler().runAsyncTask(voidChestAPI.plugin(), () -> {
-            Bukkit.getPluginManager().callEvent(this);
-            return this;
-        }).handle((event, throwable) -> {
+        return (T) voidChestAPI.minecraftScheduler().runAsyncTask(
+                () -> {
+                    Bukkit.getPluginManager().callEvent(this);
+                    return this;
+                }).handle((event, throwable) -> {
             if (throwable != null) {
                 voidChestAPI.plugin()
                         .getLogger().log(Level.SEVERE, "Failed to fire async event: " + this.getEventName(), throwable);
