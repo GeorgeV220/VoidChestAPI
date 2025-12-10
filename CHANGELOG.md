@@ -1,3 +1,19 @@
+# [5.0.0-dev.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.2...v5.0.0-dev.3) (2025-12-10)
+
+
+* refactor!: move plugin registries to Registries and consolidate static registries ([5f0c2de](https://github.com/GeorgeV220/VoidChestAPI/commit/5f0c2de9f9a7cd9e0b2eb40ee67d13c7cb64f59d))
+
+
+### Features
+
+* **api:** add name field to Upgrade and VoidSpecialItem ([abe64b3](https://github.com/GeorgeV220/VoidChestAPI/commit/abe64b35d409f4a84180925a46171ba2cd6e5d05))
+* **api:** Integrate EntityManagerRegistry into Registries ([75f3185](https://github.com/GeorgeV220/VoidChestAPI/commit/75f318502ade6b197c589818ff4789b89db27acd))
+
+
+### BREAKING CHANGES
+
+* The global registry access point has been renamed from `Registry` to `Registries`. All API integrations must update their imports and references accordingly. Built-in upgrades are now loaded through the registry manager instead of a separate loader class.
+
 # [5.0.0-dev.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.1...v5.0.0-dev.2) (2025-12-09)
 
 

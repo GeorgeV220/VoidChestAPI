@@ -26,7 +26,7 @@ You can have your project depend on VoidChestAPI as a dependency through the fol
         <dependency>
             <groupId>com.georgev22.voidchest-shade</groupId>
             <artifactId>voidchestapi-shade</artifactId>
-            <version>5.0.0-dev.2</version>
+            <version>5.0.0-dev.3</version>
             <classifier>shade</classifier>
             <scope>provided</scope>
         </dependency>
@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "com.georgev22.voidchest-shade:voidchestapi-shade:5.0.0-dev.2"
+    compileOnly "com.georgev22.voidchest-shade:voidchestapi-shade:5.0.0-dev.3"
 }
 ```
 
