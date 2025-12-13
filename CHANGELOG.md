@@ -1,3 +1,10 @@
+# [5.0.0-dev.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.3...v5.0.0-dev.4) (2025-12-13)
+
+
+### Bug Fixes
+
+* cache configuration values in OptionsUtil ([b40dfb5](https://github.com/GeorgeV220/VoidChestAPI/commit/b40dfb50a94a1947133c3f6dc4ad22e7e4dbc747))
+
 # [5.0.0-dev.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.2...v5.0.0-dev.3) (2025-12-10)
 
 
