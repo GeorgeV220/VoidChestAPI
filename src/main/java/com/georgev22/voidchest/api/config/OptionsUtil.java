@@ -8,6 +8,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Central configuration access enum for VoidChest.
+ *
+ * <p>
+ * This enum provides:
+ * <ul>
+ *     <li>Cached path resolution (including legacy paths)</li>
+ *     <li>Cached values loaded from {@link org.bukkit.configuration.file.YamlConfiguration}</li>
+ *     <li>Zero YAML access during runtime after {@link #reloadAll()}</li>
+ * </ul>
+ *
+ * <p>
+ * All configuration values must be reloaded via {@link #reloadAll()} after
+ * the configuration file is reloaded.
+ */
 public enum OptionsUtil {
 
     DEBUG("debug", false, Optional.empty()),
@@ -124,112 +139,183 @@ public enum OptionsUtil {
     ;
     private static final FileManager fileManager = FileManager.getInstance();
     private final String pathName;
-    private final Object value;
+    private final Object defaultValue;
     private final Optional<String>[] oldPaths;
+    private String resolvedPath;
+    private Object cachedValue;
 
     @SafeVarargs
-    OptionsUtil(final String pathName, final Object value, Optional<String>... oldPaths) {
+    OptionsUtil(final String pathName, final Object defaultValue, Optional<String>... oldPaths) {
         this.pathName = pathName;
-        this.value = value;
+        this.defaultValue = defaultValue;
         this.oldPaths = oldPaths;
     }
 
-    public boolean getBooleanValue() {
-        return fileManager.getConfig().getBoolean(getPath(), Boolean.parseBoolean(String.valueOf(getDefaultValue())));
-    }
-
-    public Object getObjectValue() {
-        return fileManager.getConfig().get(getPath(), getDefaultValue());
-    }
-
-    public String getStringValue() {
-        return fileManager.getConfig().getString(getPath(), String.valueOf(getDefaultValue()));
-    }
-
-    public @NotNull Long getLongValue() {
-        return fileManager.getConfig().getLong(getPath(), Long.parseLong(String.valueOf(getDefaultValue())));
-    }
-
-    public @NotNull Integer getIntValue() {
-        return fileManager.getConfig().getInt(getPath(), Integer.parseInt(String.valueOf(getDefaultValue())));
-    }
-
-    public @NotNull Double getDoubleValue() {
-        return fileManager.getConfig().getDouble(getPath(), Double.parseDouble(String.valueOf(getDefaultValue())));
-    }
-
-    public @NotNull List<String> getStringList() {
-        return fileManager.getConfig().getStringList(getPath());
+    /**
+     * Reloads and caches all configuration options.
+     *
+     * <p>
+     * This method must be called:
+     * <ul>
+     *     <li>On plugin startup</li>
+     *     <li>After a configuration reload</li>
+     * </ul>
+     *
+     * <p>
+     * After this method is called, all getters operate in O(1) time
+     * without accessing the YAML configuration.
+     */
+    public static void reloadAll() {
+        for (OptionsUtil option : values()) {
+            option.reload();
+        }
     }
 
     /**
-     * Converts and return a String List of color codes to a List of Color classes that represent the colors.
+     * Reloads and caches the value of this option.
      *
-     * @return a List of Color classes that represent the colors.
+     * <p>
+     * The configuration path is resolved once and stored.
+     * The value is then read from the configuration and cached.
+     */
+    public void reload() {
+        resolvedPath = null;
+        String path = getPath();
+        Object val = fileManager.getConfig().get(path);
+        cachedValue = (val != null) ? val : defaultValue;
+    }
+
+    /**
+     * Returns the cached boolean value of this option.
+     *
+     * @return the boolean value
+     */
+    public boolean getBooleanValue() {
+        if (cachedValue instanceof Boolean b) {
+            return b;
+        }
+        return Boolean.parseBoolean(String.valueOf(cachedValue));
+    }
+
+    /**
+     * Returns the cached integer value of this option.
+     *
+     * @return the integer value
+     */
+    public @NotNull Integer getIntValue() {
+        if (cachedValue instanceof Number n) {
+            return n.intValue();
+        }
+        return Integer.parseInt(String.valueOf(cachedValue));
+    }
+
+    /**
+     * Returns the cached long value of this option.
+     *
+     * @return the long value
+     */
+    public @NotNull Long getLongValue() {
+        if (cachedValue instanceof Number n) {
+            return n.longValue();
+        }
+        return Long.parseLong(String.valueOf(cachedValue));
+    }
+
+    /**
+     * Returns the cached double value of this option.
+     *
+     * @return the double value
+     */
+    public @NotNull Double getDoubleValue() {
+        if (cachedValue instanceof Number n) {
+            return n.doubleValue();
+        }
+        return Double.parseDouble(String.valueOf(cachedValue));
+    }
+
+    /**
+     * Returns the cached string value of this option.
+     *
+     * @return the string value
+     */
+    public String getStringValue() {
+        return String.valueOf(cachedValue);
+    }
+
+    /**
+     * Returns the cached string list value of this option.
+     *
+     * @return a list of strings, or an empty list if the value is not a list
+     */
+    @SuppressWarnings("unchecked")
+    public @NotNull List<String> getStringList() {
+        return cachedValue instanceof List
+                ? (List<String>) cachedValue
+                : List.of();
+    }
+
+    /**
+     * Converts the cached string list into a list of {@link Color} objects.
+     *
+     * @return a list of parsed colors
      */
     public @NotNull List<Color> getColors() {
-        return getStringList().stream().map(Color::from).collect(Collectors.toList());
-    }
-
-    public boolean getBooleanValue(String arg) {
-        return fileManager.getConfig().getBoolean(String.format(getPath(), arg), Boolean.parseBoolean(String.valueOf(getDefaultValue())));
-    }
-
-    public Object getObjectValue(String arg) {
-        return fileManager.getConfig().get(String.format(getPath(), arg), getDefaultValue());
-    }
-
-    public String getStringValue(String arg) {
-        return fileManager.getConfig().getString(String.format(getPath(), arg), String.valueOf(getDefaultValue()));
-    }
-
-    public @NotNull Long getLongValue(String arg) {
-        return fileManager.getConfig().getLong(String.format(getPath(), arg), Long.parseLong(String.valueOf(getDefaultValue())));
-    }
-
-    public @NotNull Integer getIntValue(String arg) {
-        return fileManager.getConfig().getInt(String.format(getPath(), arg), Integer.parseInt(String.valueOf(getDefaultValue())));
-    }
-
-    public @NotNull Double getDoubleValue(String arg) {
-        return fileManager.getConfig().getDouble(String.format(getPath(), arg), Double.parseDouble(String.valueOf(getDefaultValue())));
-    }
-
-    public @NotNull List<String> getStringList(String arg) {
-        return fileManager.getConfig().getStringList(String.format(getPath(), arg));
+        return getStringList().stream()
+                .map(Color::from)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Converts and return a String List of color codes to a List of Color classes that represent the colors.
+     * Returns the cached string value wrapped in an {@link Optional}.
      *
-     * @return a List of Color classes that represent the colors.
+     * @return an optional containing the string value
      */
-    public @NotNull List<Color> getColors(String arg) {
-        return getStringList(arg).stream().map(Color::from).collect(Collectors.toList());
+    public @NotNull Optional<String> getOptionalStringValue() {
+        return Optional.ofNullable(getStringValue());
     }
 
     /**
-     * Returns the path.
+     * Resolves and returns the configuration path for this option.
      *
-     * @return the path.
+     * <p>
+     * The resolution order is:
+     * <ol>
+     *     <li>Cached path</li>
+     *     <li>Current path</li>
+     *     <li>Legacy paths</li>
+     * </ol>
+     *
+     * <p>
+     * The resolved path is cached after the first lookup.
+     *
+     * @return the resolved configuration path
      */
     public @NotNull String getPath() {
-        if (fileManager.getConfig().get("Options." + getDefaultPath()) == null) {
-            for (Optional<String> path : getOldPaths()) {
-                if (path.isPresent()) {
-                    if (fileManager.getConfig().get("Options." + path.get()) != null) {
-                        return "Options." + path.get();
-                    }
+        if (resolvedPath != null) {
+            return resolvedPath;
+        }
+
+        String base = "Options." + pathName;
+        if (fileManager.getConfig().get(base) != null) {
+            return resolvedPath = base;
+        }
+
+        for (Optional<String> old : oldPaths) {
+            if (old.isPresent()) {
+                String oldPath = "Options." + old.get();
+                if (fileManager.getConfig().get(oldPath) != null) {
+                    return resolvedPath = oldPath;
                 }
             }
         }
-        return "Options." + getDefaultPath();
+
+        return resolvedPath = base;
     }
 
     /**
-     * Returns the default path.
+     * Returns the default (current) path name without the "Options." prefix.
      *
-     * @return the default path.
+     * @return the default path name
      */
     @Contract(pure = true)
     public @NotNull String getDefaultPath() {
@@ -237,24 +323,20 @@ public enum OptionsUtil {
     }
 
     /**
-     * Returns the old path if it exists.
+     * Returns the legacy paths associated with this option.
      *
-     * @return the old path if it exists.
+     * @return an array of legacy paths
      */
     public Optional<String>[] getOldPaths() {
         return oldPaths;
     }
 
     /**
-     * Returns the default value if the path have no value.
+     * Returns the default value of this option.
      *
-     * @return the default value if the path have no value.
+     * @return the default value
      */
     public Object getDefaultValue() {
-        return value;
-    }
-
-    public Optional<String> getOptionalStringValue() {
-        return Optional.ofNullable(getStringValue());
+        return defaultValue;
     }
 }
