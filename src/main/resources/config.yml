@@ -171,7 +171,7 @@ Options:
     Y up: 0
     Y down: 0
     effect:
-      type: "VILLAGER_HAPPY"
+      type: "HAPPY_VILLAGER"
       interval: 20
 
   # Display sell message in the chat
