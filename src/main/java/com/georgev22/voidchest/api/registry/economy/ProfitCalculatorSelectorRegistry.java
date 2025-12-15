@@ -163,7 +163,10 @@ public final class ProfitCalculatorSelectorRegistry
 
                         int finalWeight = weight;
                         Registries.PROFIT_CALCULATOR.get(key).ifPresentOrElse(
-                                calc -> result.put(calc, finalWeight),
+                                calc -> {
+                                    calc.invalidateCache(); // just in case
+                                    result.put(calc, finalWeight);
+                                },
                                 () -> {
                                     this.logger.warning("Profit calculator not registered: " + key);
                                     this.logger.info("If this is a custom calculator from another plugin, "

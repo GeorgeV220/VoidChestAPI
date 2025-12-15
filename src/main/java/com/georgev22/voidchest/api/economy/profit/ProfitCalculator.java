@@ -3,6 +3,7 @@ package com.georgev22.voidchest.api.economy.profit;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.Keyed;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,5 +57,14 @@ public interface ProfitCalculator extends Keyed {
      * @return The name of the Profit Calculator as a String.
      */
     @NotNull String getName();
+
+    /**
+     * Invalidates the cache for the Profit Calculator.
+     * <p>
+     * This method is intended for internal use only and should not be called by plugins.
+     * </p>
+     */
+    @ApiStatus.Internal
+    void invalidateCache();
 
 }
