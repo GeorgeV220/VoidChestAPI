@@ -1,3 +1,10 @@
+# [5.0.0-dev.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.4...v5.0.0-dev.5) (2025-12-15)
+
+
+### Features
+
+* add cache invalidation to ProfitCalculator API ([a769306](https://github.com/GeorgeV220/VoidChestAPI/commit/a769306b64171a99e434d0a44f2378169d0e77fc))
+
 # [5.0.0-dev.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.3...v5.0.0-dev.4) (2025-12-13)
 
 
