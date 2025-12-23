@@ -119,17 +119,12 @@ public final class ProfitCalculatorSelectorRegistry
 
         this.voidChestAPI.voidChestConfigurationFileCache()
                 .getCachedCFGs()
-                .forEach((chestType, voidChestConfigurationFile) -> {
+                .keySet()
+                .forEach(chestType -> {
 
                     Map<ProfitCalculator, Integer> result = new HashMap<>();
 
-                    if (voidChestConfigurationFile == null) {
-                        this.logger.warning("Missing config for chest type: " + chestType);
-                        return;
-                    }
-
-                    FileConfiguration cfg = voidChestConfigurationFile.getFileConfiguration();
-                    List<String> entries = VoidChestOptionsUtil.OPTIONS_PROFIT_CALCULATOR.getStringList(cfg);
+                    List<String> entries = VoidChestOptionsUtil.OPTIONS_PROFIT_CALCULATOR.get(chestType);
 
                     for (String entry : entries) {
                         if (entry == null || entry.isBlank()) continue;

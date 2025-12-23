@@ -1,87 +1,123 @@
 package com.georgev22.voidchest.api.config;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
-import com.georgev22.voidchest.api.utilities.color.Color;
-import org.bukkit.configuration.ConfigurationSection;
+import com.georgev22.voidchest.api.config.voidchests.VoidChestConfigurationFile;
+import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
-public enum VoidChestOptionsUtil {
+/**
+ * Represents a typed, cached configuration option for a VoidChest.
+ *
+ * <p>Each option defines:</p>
+ * <ul>
+ *     <li>A primary configuration path</li>
+ *     <li>A default value</li>
+ *     <li>Optional legacy paths for backward compatibility</li>
+ * </ul>
+ *
+ * <p>Values are resolved from {@link FileConfiguration} only once per VoidChest
+ * and then cached in memory for ultra-fast access.</p>
+ *
+ * @param <T> the value type of this option
+ */
+public final class VoidChestOptionsUtil<T> {
 
-    MECHANICS_LINKS("Mechanics.links", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_LINKS
+            = new VoidChestOptionsUtil<>("Mechanics.links", false);
 
-    MECHANICS_AUTO_SELL("Mechanics.auto sell", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_AUTO_SELL
+            = new VoidChestOptionsUtil<>("Mechanics.auto sell", false);
 
-    MECHANICS_PURGE_INVALID_ITEMS("Mechanics.purge items", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PURGE_INVALID_ITEMS
+            = new VoidChestOptionsUtil<>("Mechanics.purge items", false);
 
-    MECHANICS_CHUNK_COLLECTOR("Mechanics.chunk collector", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_CHUNK_COLLECTOR
+            = new VoidChestOptionsUtil<>("Mechanics.chunk collector", true);
 
-    MECHANICS_ENABLE_WHEN_OWNER_OFFLINE("Mechanics.enable when owner offline", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_ENABLE_WHEN_OWNER_OFFLINE
+            = new VoidChestOptionsUtil<>("Mechanics.enable when owner offline", false);
 
-    MECHANICS_INVENTORY_TITLE_WHITELIST("Mechanics.chest.title whitelist", "%voidchest% whitelist Inventory", Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_CHARGE
+            = new VoidChestOptionsUtil<>("Mechanics.charge", true);
 
-    MECHANICS_INVENTORY_TITLE_BLACKLIST("Mechanics.chest.title blacklist", "%voidchest% blacklist Inventory", Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_HOLOGRAM
+            = new VoidChestOptionsUtil<>("Mechanics.hologram", true);
 
-    MECHANICS_CHARGE("Mechanics.charge", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BANK
+            = new VoidChestOptionsUtil<>("Mechanics.bank", false);
 
-    MECHANICS_HOLOGRAM("Mechanics.hologram", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PREVENT_CHESTS_NEAR_VOIDCHESTS
+            = new VoidChestOptionsUtil<>("Mechanics.prevent.chest near voidchests", false);
 
-    MECHANICS_BANK("Mechanics.bank", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PREVENT_PLACING_OTHER_VOIDCHESTS_NEAR
+            = new VoidChestOptionsUtil<>("Mechanics.prevent.placing other voidchests near", false);
 
-    MECHANICS_PREVENT_CHESTS_NEAR_VOIDCHESTS("Mechanics.prevent.chest near voidchests", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PREVENT_VOIDCHESTS_NEAR_CHESTS
+            = new VoidChestOptionsUtil<>("Mechanics.prevent.voidchests near chests", false);
 
-    MECHANICS_PREVENT_PLACING_OTHER_VOIDCHESTS_NEAR("Mechanics.prevent.placing other voidchests near", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PREVENT_VOIDCHESTS_IN_SAME_CHUNK
+            = new VoidChestOptionsUtil<>("Mechanics.prevent.placing voidchests in same chunk", true);
 
-    MECHANICS_PREVENT_VOIDCHESTS_NEAR_CHESTS("Mechanics.prevent.voidchests near chests", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PREVENT_CREATIVE_MODE_INTERACTION
+            = new VoidChestOptionsUtil<>("Mechanics.prevent.creative mode interaction", true);
 
-    MECHANICS_PREVENT_VOIDCHESTS_IN_SAME_CHUNK("Mechanics.prevent.placing voidchests in same chunk", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PREVENT_VOIDCHEST_FROM_EXPLODING
+            = new VoidChestOptionsUtil<>("Mechanics.prevent.voidchest from exploding", false);
 
-    MECHANICS_PREVENT_CREATIVE_MODE_INTERACTION("Mechanics.prevent.creative mode interaction", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_FAILED_OTHER
+            = new VoidChestOptionsUtil<>("Mechanics.break.failed other", true);
 
-    MECHANICS_PREVENT_VOIDCHEST_FROM_EXPLODING("Mechanics.prevent.voidchest from exploding", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_PERMISSION_DENY
+            = new VoidChestOptionsUtil<>("Mechanics.break.permission deny", true);
 
-    MECHANICS_BREAK_FAILED_OTHER("Mechanics.break.failed other", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_SUCCESSFUL
+            = new VoidChestOptionsUtil<>("Mechanics.break.successful", true);
 
-    MECHANICS_BREAK_PERMISSION_DENY("Mechanics.break.permission deny", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_STORE_STATS
+            = new VoidChestOptionsUtil<>("Mechanics.break.store stats", false);
 
-    MECHANICS_BREAK_SUCCESSFUL("Mechanics.break.successful", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_DROP_VOIDCHEST_ON_EXPLOSION
+            = new VoidChestOptionsUtil<>("Mechanics.break.drop voidchest on explosion", false);
 
-    MECHANICS_BREAK_STORE_STATS("Mechanics.break.store stats", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PLACE_PERMISSION_DENY
+            = new VoidChestOptionsUtil<>("Mechanics.place.permission deny", true);
 
-    MECHANICS_BREAK_DROP_VOIDCHEST_ON_EXPLOSION("Mechanics.break.drop voidchest on explosion", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PLACE_SUCCESSFUL
+            = new VoidChestOptionsUtil<>("Mechanics.place.successful", true);
 
-    MECHANICS_PLACE_PERMISSION_DENY("Mechanics.place.permission deny", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_PLACE_DELAY_CHECK
+            = new VoidChestOptionsUtil<>("Mechanics.place.delay check", false);
 
-    MECHANICS_PLACE_SUCCESSFUL("Mechanics.place.successful", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Integer> MECHANICS_PLACE_LIMIT
+            = new VoidChestOptionsUtil<>("Mechanics.place.limit", 5);
 
-    MECHANICS_PLACE_DELAY_CHECK("Mechanics.place.delay check", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<String> MECHANICS_BLOCK
+            = new VoidChestOptionsUtil<>("Mechanics.block", "CHEST");
 
-    MECHANICS_PLACE_LIMIT("Mechanics.place.limit", 5, Optional.empty()),
+    public static final VoidChestOptionsUtil<Double> MECHANICS_BOOSTER
+            = new VoidChestOptionsUtil<>("Mechanics.booster", 1.0D);
 
-    MECHANICS_BLOCK("Mechanics.block", "CHEST", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> MECHANICS_SHIFT_CLICK_OPEN
+            = new VoidChestOptionsUtil<>("Mechanics.shift click open", "CHEST");
 
-    MECHANICS_BOOSTER("Mechanics.booster", 1.0D, Optional.empty()),
+    public static final VoidChestOptionsUtil<String> MECHANICS_RIGHT_CLICK_OPEN
+            = new VoidChestOptionsUtil<>("Mechanics.right click open", "MENU");
 
-    MECHANICS_SHIFT_CLICK_OPEN("Mechanics.shift click open", "CHEST", Optional.empty()),
+    public static final VoidChestOptionsUtil<Integer> OPTIONS_LINKS_COUNT
+            = new VoidChestOptionsUtil<>("Options.links", 3);
 
-    MECHANICS_RIGHT_CLICK_OPEN("Mechanics.right click open", "MENU", Optional.empty()),
+    public static final VoidChestOptionsUtil<Integer> OPTIONS_SELL_INTERVAL
+            = new VoidChestOptionsUtil<>("Options.sell interval", 10);
 
-    OPTIONS_LINKS_COUNT("Options.links", 3, Optional.empty()),
-
-    OPTIONS_SELL_INTERVAL("Options.sell interval", 10L, Optional.empty()),
-
-    OPTIONS_FILTER_ITEM_LORE(
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_FILTER_ITEM_LORE
+            = new VoidChestOptionsUtil<>(
             "Options.inventory.filter item lore",
             List.of(
                     "&7Amount:&r &a%amount%",
@@ -89,29 +125,33 @@ public enum VoidChestOptionsUtil {
                     "&7Ignore Item Metadata:&r &a%ignoreMetadata%",
                     "&7Ignore Item Amount:&r &a%ignoreAmount%",
                     "&8Right Click to Remove"
-            ),
-            Optional.empty()
-    ),
+            ));
 
-    OPTIONS_SHOP_ITEM_LORE("Options.inventory.shop item lore", List.of("&7Price:&r &a%price%"), Optional.empty()),
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_SHOP_ITEM_LORE
+            = new VoidChestOptionsUtil<>("Options.inventory.shop item lore", List.of("&7Price:&r &a%price%"));
 
-    OPTIONS_ITEM_DROP_STRAIGHT_TO_INVENTORY("Options.item.drop straight to inventory", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_ITEM_DROP_STRAIGHT_TO_INVENTORY
+            = new VoidChestOptionsUtil<>("Options.item.drop straight to inventory", false);
 
-    OPTIONS_ITEM_NAME("Options.item.name", "&c&l%voidchest% VoidChest", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_ITEM_NAME
+            = new VoidChestOptionsUtil<>("Options.item.name", "&c&l%voidchest% VoidChest");
 
-    OPTIONS_ITEM_LORE(
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_ITEM_LORE
+            = new VoidChestOptionsUtil<>(
             "Options.item.lore",
             Arrays.asList(
                     "&7Automatically sell and or clear items that",
                     "&7are inside this voidchest. Gain money while being afk!"
-            ),
-            Optional.empty()),
+            ));
 
-    OPTIONS_ITEM_CUSTOM_INVENTORY_NAME("Options.item.inventory custom name", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_ITEM_CUSTOM_INVENTORY_NAME
+            = new VoidChestOptionsUtil<>("Options.item.inventory custom name", false);
 
-    OPTIONS_ITEM_INVENTORY_DEFAULT_NAME("Options.item.inventory default name", "⚡ <gradient:gold:yellow><bold>%voidchest%</bold></gradient> ⚡", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_ITEM_INVENTORY_DEFAULT_NAME
+            = new VoidChestOptionsUtil<>("Options.item.inventory default name", "⚡ <gradient:gold:yellow><bold>%voidchest%</bold></gradient> ⚡");
 
-    OPTIONS_ITEM_INVENTORY_LORE(
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_ITEM_INVENTORY_LORE
+            = new VoidChestOptionsUtil<>(
             "Options.item.inventory lore",
             Arrays.asList(
                     "",
@@ -122,13 +162,14 @@ public enum VoidChestOptionsUtil {
                     "<gray>» <gold><bold>Left-Click</bold></gold> <gray>to open the <blue><bold>VoidChest</bold></blue> menu.</gray>",
                     "<gray>» <gold><bold>Right-Click</bold></gold> <gray>to open the <blue><bold>Links</bold></blue> menu.</gray>",
                     ""
-            ),
-            Optional.empty()
-    ),
+            )
+    );
 
-    OPTIONS_ITEM_LINKS_CUSTOM_INVENTORY_NAME("Options.item.inventory links custom name", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_ITEM_LINKS_CUSTOM_INVENTORY_NAME
+            = new VoidChestOptionsUtil<>("Options.item.inventory links custom name", false);
 
-    OPTIONS_ITEM_LINKS_INVENTORY_LORE(
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_ITEM_LINKS_INVENTORY_LORE
+            = new VoidChestOptionsUtil<>(
             "Options.item.inventory links lore",
             Arrays.asList(
                     "",
@@ -138,54 +179,69 @@ public enum VoidChestOptionsUtil {
                             " <green>Y%location_y%</green>, <red>Z%location_z%</red></gradient>",
                     "<gray>» <blue><underlined>Click here</underlined></blue> <gray>to open this link.</gray>",
                     ""
-            ),
-            Optional.empty()
-    ),
+            )
+    );
 
 
-    OPTIONS_SOUND_BREAK("Options.sound.break", "ANVIL_BREAK", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_SOUND_BREAK
+            = new VoidChestOptionsUtil<>("Options.sound.break", "ANVIL_BREAK");
 
-    OPTIONS_SOUND_PLACE("Options.sound.place", "LEVEL_UP", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_SOUND_PLACE
+            = new VoidChestOptionsUtil<>("Options.sound.place", "LEVEL_UP");
 
-    OPTIONS_SOUND_UPGRADE_SUCCESS("Options.sound.upgrade success", "ORB_PICKUP", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_SOUND_UPGRADE_SUCCESS
+            = new VoidChestOptionsUtil<>("Options.sound.upgrade success", "ORB_PICKUP");
 
-    OPTIONS_SOUND_UPGRADE_FAILURE("Options.sound.upgrade failure", "VILLAGER_NO", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_SOUND_UPGRADE_FAILURE
+            = new VoidChestOptionsUtil<>("Options.sound.upgrade failure", "VILLAGER_NO");
 
-    OPTIONS_AUTO_SELL_FORCE_DISABLE("Options.auto sell force disable", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_AUTO_SELL_FORCE_DISABLE
+            = new VoidChestOptionsUtil<>("Options.auto sell force disable", false);
 
-    OPTIONS_PURGE_INVALID_ITEMS_FORCE_DISABLE("Options.purge items force disable", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_PURGE_INVALID_ITEMS_FORCE_DISABLE
+            = new VoidChestOptionsUtil<>("Options.purge items force disable", false);
 
-    OPTIONS_CHUNK_COLLECTOR_MODE("Options.chunk collector.mode", "CHUNK", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_CHUNK_COLLECTOR_MODE
+            = new VoidChestOptionsUtil<>("Options.chunk collector.mode", "CHUNK");
 
-    OPTIONS_CHUNK_COLLECTOR_FORCE_DISABLE("Options.chunk collector.force disable", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHUNK_COLLECTOR_FORCE_DISABLE
+            = new VoidChestOptionsUtil<>("Options.chunk collector.force disable", false);
 
-    OPTIONS_CHUNK_COLLECTOR_SELL_ITEMS("Options.chunk collector.sell items", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHUNK_COLLECTOR_TRANSFER_NON_SELLABLE
+            = new VoidChestOptionsUtil<>("Options.chunk collector.transfer non sellables", false);
 
-    OPTIONS_CHUNK_COLLECTOR_TRANSFER_NON_SELLABLES("Options.chunk collector.transfer non sellables", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHUNK_COLLECTOR_FILTERS_ENABLED
+            = new VoidChestOptionsUtil<>("Options.chunk collector.filters", false);
 
-    OPTIONS_CHUNK_COLLECTOR_FILTERS_ENABLED("Options.chunk collector.filters", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHARGE_FORCE_DISABLE
+            = new VoidChestOptionsUtil<>("Options.charge.force disable", false);
 
-    OPTIONS_CHARGE_FORCE_DISABLE("Options.charge.force disable", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHARGE_BREAK_PERSISTENT_ENABLED
+            = new VoidChestOptionsUtil<>("Options.charge.break persistent.enabled", true);
 
-    OPTIONS_CHARGE_BREAK_PERSISTENT_ENABLED("Options.charge.break persistent.enabled", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHARGE_BREAK_PERSISTENT_SAVE_TIME
+            = new VoidChestOptionsUtil<>("Options.charge.break persistent.save time", true);
 
-    OPTIONS_CHARGE_BREAK_PERSISTENT_SAVE_TIME("Options.charge.break persistent.save time", true, Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_CHARGE_HOLOGRAM_NO_FUEL
+            = new VoidChestOptionsUtil<>("Options.charge.hologram.no fuel", "No Fuel");
 
-    OPTIONS_CHARGE_HOLOGRAM_NO_FUEL("Options.charge.hologram.no fuel", "No Fuel", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_CHARGE_PLACEHOLDER_NO_FUEL
+            = new VoidChestOptionsUtil<>("Options.charge.placeholder.no fuel", "No Fuel");
 
-    OPTIONS_CHARGE_PLACEHOLDER_NO_FUEL("Options.charge.placeholder.no fuel", "No Fuel", Optional.empty()),
+    public static final VoidChestOptionsUtil<Integer> OPTIONS_CHARGE_MAX_TIME
+            = new VoidChestOptionsUtil<>("Options.charge.max time", 172800);
 
-    OPTIONS_CHARGE_MAX_TIME("Options.charge.max time", 172800, Optional.empty()),
+    public static final VoidChestOptionsUtil<Integer> OPTIONS_CHARGE_RENEWAL_TIME
+            = new VoidChestOptionsUtil<>("Options.charge.renewal time", 3600);
 
-    OPTIONS_CHARGE_RENEWAL_TIME("Options.charge.renewal time", 3600, Optional.empty()),
+    public static final VoidChestOptionsUtil<Integer> OPTIONS_CHARGE_PRICE
+            = new VoidChestOptionsUtil<>("Options.charge.price", 20000);
 
-    OPTIONS_CHARGE_PRICE("Options.charge.price", 20000, Optional.empty()),
+    public static final VoidChestOptionsUtil<Double> OPTIONS_HOLOGRAM_HEIGHT
+            = new VoidChestOptionsUtil<>("Options.hologram.height", 3.9);
 
-    OPTIONS_HOLOGRAM_FORCE_DISABLE("Options.hologram.force disable", false, Optional.empty()),
-
-    OPTIONS_HOLOGRAM_HEIGHT("Options.hologram.height", 3.9, Optional.empty()),
-
-    OPTIONS_HOLOGRAM_TEXT(
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_HOLOGRAM_TEXT
+            = new VoidChestOptionsUtil<>(
             "Options.hologram.text",
             Arrays.asList(
                     "&c&l%voidchest% VoidChest",
@@ -199,248 +255,161 @@ public enum VoidChestOptionsUtil {
                     "&7VoidChest charge: &e%charge%",
                     "",
                     "&7&oRight-Click to Open VoidChest"
-            ), Optional.empty()
-    ),
+            )
+    );
 
-    OPTIONS_BANK_FORCE_DISABLE("Options.bank force disable", false, Optional.empty()),
+    public static final VoidChestOptionsUtil<Boolean> OPTIONS_BANK_FORCE_DISABLE
+            = new VoidChestOptionsUtil<>("Options.bank force disable", false);
 
-    OPTIONS_PROFIT_CALCULATOR("Options.profit calculator", List.of("voidchest:voidchest:1"), Optional.empty()),
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_PROFIT_CALCULATOR
+            = new VoidChestOptionsUtil<>("Options.profit calculator", List.of("voidchest:voidchest:1"));
 
-    OPTIONS_PROFIT_CALCULATOR_SELECTOR("Options.profit calculator selector", "price", Optional.empty()),
+    public static final VoidChestOptionsUtil<String> OPTIONS_PROFIT_CALCULATOR_SELECTOR
+            = new VoidChestOptionsUtil<>("Options.profit calculator selector", "price");
 
-    OPTIONS_DISABLED_WORLDS("Options.disabled worlds", List.of(), Optional.empty()),
+    public static final VoidChestOptionsUtil<List<String>> OPTIONS_DISABLED_WORLDS
+            = new VoidChestOptionsUtil<>("Options.disabled worlds", List.of());
 
-    ;
-    private final String pathName;
-    private final Object value;
-    private final Optional<String>[] oldPaths;
+
+    private final String path;
+    private final T defaultValue;
+    private final String[] legacyPaths;
 
     /**
-     * Constructor for the configuration option.
+     * Creates a new VoidChest configuration option.
      *
-     * @param pathName the main configuration path.
-     * @param value    the default value to fall back on if not set.
-     * @param oldPaths optional old paths for backward compatibility.
+     * @param path         the main configuration path
+     * @param defaultValue the value to use when the configuration does not define one
+     * @param legacyPaths  optional legacy paths for automatic migration support
      */
-    @SafeVarargs
-    VoidChestOptionsUtil(final String pathName, final Object value, Optional<String>... oldPaths) {
-        this.pathName = pathName;
-        this.value = value;
-        this.oldPaths = oldPaths;
+    private VoidChestOptionsUtil(String path, T defaultValue, String... legacyPaths) {
+        this.path = path;
+        this.defaultValue = defaultValue;
+        this.legacyPaths = legacyPaths;
     }
 
     /**
-     * Retrieves the boolean value from the configuration.
+     * Returns the cached value of this option for the given VoidChest instance.
      *
-     * @param fileConfiguration the configuration file.
-     * @return the boolean value, or the default if not set.
+     * <p>If the value has not been cached yet, it will be resolved from the configuration
+     * file and stored in memory.</p>
+     *
+     * @param chest the VoidChest instance
+     * @return the resolved option value
      */
-    public boolean getBooleanValue(@NotNull FileConfiguration fileConfiguration) {
-        return fileConfiguration.getBoolean(getPath(fileConfiguration), Boolean.parseBoolean(String.valueOf(getDefaultValue())));
+    public T get(@NonNull IVoidChest chest) {
+        return VoidChestOptionCache.get(chest, this);
     }
 
     /**
-     * Retrieves the raw object value from the configuration.
+     * Returns the cached value of this option for the given VoidChest type.
      *
-     * @param fileConfiguration the configuration file.
-     * @return the object value, or the default if not set.
+     * @param type the VoidChest type identifier
+     * @return the resolved option value
      */
-    public Object getObjectValue(@NotNull FileConfiguration fileConfiguration) {
-        return fileConfiguration.get(getPath(fileConfiguration), getDefaultValue());
+    public T get(@NonNull String type) {
+        return VoidChestOptionCache.get(type, this);
     }
 
     /**
-     * Retrieves the string value from the configuration.
+     * Resolves this option from the configuration file for a specific VoidChest type.
+     * This method is used internally by the cache when the value is first requested.
      *
-     * @param fileConfiguration the configuration file.
-     * @return the string value, or the default if not set.
+     * @param type the VoidChest type identifier
+     * @return the resolved value or the default value if not defined
      */
-    public String getStringValue(@NotNull FileConfiguration fileConfiguration) {
-        return fileConfiguration.getString(getPath(fileConfiguration), String.valueOf(getDefaultValue()));
-    }
+    T loadFromConfig(@NonNull String type) {
 
-    /**
-     * Retrieves the long value from the configuration.
-     *
-     * @param fileConfiguration the configuration file.
-     * @return the long value, or the default if not set.
-     */
-    public @NotNull Long getLongValue(@NotNull FileConfiguration fileConfiguration) {
-        return fileConfiguration.getLong(getPath(fileConfiguration), Long.parseLong(String.valueOf(getDefaultValue())));
-    }
+        FileConfiguration cfg = VoidChestAPI.getInstance()
+                .voidChestConfigurationFileCache()
+                .getCachedStorageFileCFG(type);
 
-    /**
-     * Retrieves the integer value from the configuration.
-     *
-     * @param fileConfiguration the configuration file.
-     * @return the integer value, or the default if not set.
-     */
-    public @NotNull Integer getIntValue(@NotNull FileConfiguration fileConfiguration) {
-        return fileConfiguration.getInt(getPath(fileConfiguration), Integer.parseInt(String.valueOf(getDefaultValue())));
-    }
-
-    /**
-     * Retrieves the double value from the configuration.
-     *
-     * @param fileConfiguration the configuration file.
-     * @return the double value, or the default if not set.
-     */
-    public @NotNull Double getDoubleValue(@NotNull FileConfiguration fileConfiguration) {
-        return fileConfiguration.getDouble(getPath(fileConfiguration), Double.parseDouble(String.valueOf(getDefaultValue())));
-    }
-
-    /**
-     * Retrieves a generic list from the configuration.
-     *
-     * @param fileConfiguration the configuration file.
-     * @return the list, or an empty list if not set.
-     */
-    public @NotNull List<?> getList(@NotNull FileConfiguration fileConfiguration) {
-        if (!fileConfiguration.isSet(getPath(fileConfiguration))) {
-            Object defaultValue = getDefaultValue();
-            return (defaultValue instanceof List<?>) ? (List<?>) defaultValue : new ArrayList<>();
+        if (cfg == null) {
+            return defaultValue;
         }
-        return fileConfiguration.getList(getPath(fileConfiguration), new ArrayList<>());
+
+        String realPath = resolvePath(cfg);
+        Object raw = cfg.get(realPath, defaultValue);
+        //noinspection unchecked
+        return (T) raw;
     }
 
     /**
-     * Retrieves a list as an {@link ArrayList}.
+     * Resolves this option from the configuration file for a VoidChest instance.
      *
-     * @param fileConfiguration the configuration file.
-     * @return an {@link ArrayList} representation of the list.
+     * @param chest the VoidChest instance
+     * @return the resolved value
      */
-    public @NotNull ArrayList<?> getArrayList(@NotNull FileConfiguration fileConfiguration) {
-        return new ArrayList<>(getList(fileConfiguration));
+    T loadFromConfig(@NonNull IVoidChest chest) {
+        return loadFromConfig(chest.type());
     }
 
     /**
-     * Retrieves a list of strings from the configuration.
+     * Determines which configuration path should be used to retrieve this option.
      *
-     * @param fileConfiguration the configuration file.
-     * @return a list of strings, or an empty list if not set.
+     * <p>The main path is preferred, but if it is not present, legacy paths are checked
+     * in order to maintain backward compatibility with older configuration formats.</p>
+     *
+     * @param cfg the configuration file
+     * @return the resolved configuration path
      */
-    public @NotNull List<String> getStringList(@NotNull FileConfiguration fileConfiguration) {
-        if (!fileConfiguration.isSet(getPath(fileConfiguration))) {
-            Object defaultValue = getDefaultValue();
-            if (defaultValue instanceof List<?> list) {
-                List<String> stringList = new ArrayList<>();
-                for (Object item : list) {
-                    if (item instanceof String str) {
-                        stringList.add(str);
-                    }
-                }
-                return stringList;
-            }
-            return new ArrayList<>();
+    private String resolvePath(@NonNull FileConfiguration cfg) {
+        if (cfg.isSet(path)) return path;
+        for (String legacy : legacyPaths) {
+            if (cfg.isSet(legacy)) return legacy;
         }
-        return fileConfiguration.getStringList(getPath(fileConfiguration));
+        return path;
     }
 
     /**
-     * Retrieves a list of strings as an {@link ArrayList}.
+     * Sets and immediately saves a new value for this option for a VoidChest instance.
      *
-     * @param fileConfiguration the configuration file.
-     * @return an {@link ArrayList} of strings.
+     * <p>The value is written to disk and should be followed by a cache invalidation
+     * if the updated value needs to be reflected immediately in memory.</p>
+     *
+     * @param voidChest the VoidChest instance
+     * @param option    the option to modify
+     * @param value     the new value
+     * @param <T>       the value type
      */
-    public @NotNull ArrayList<String> getStringArrayList(@NotNull FileConfiguration fileConfiguration) {
-        return new ArrayList<>(getStringList(fileConfiguration));
+    public static <T> void setValue(@NonNull IVoidChest voidChest,
+                                    @NonNull VoidChestOptionsUtil<T> option,
+                                    T value) {
+        setValue(voidChest.type(), option, value);
     }
 
     /**
-     * Retrieves a {@link ConfigurationSection} from the configuration.
+     * Sets and immediately saves a new value for this option for a VoidChest type.
      *
-     * @param fileConfiguration the configuration file.
-     * @return the configuration section, or a new empty one if not found.
+     * @param type   the VoidChest type identifier
+     * @param option the option to modify
+     * @param value  the new value
+     * @param <T>    the value type
      */
-    public @NotNull ConfigurationSection getConfigurationSection(@NotNull FileConfiguration fileConfiguration) {
-        ConfigurationSection section = fileConfiguration.getConfigurationSection(getPath(fileConfiguration));
-        return section != null ? section : new YamlConfiguration();
-    }
+    public static <T> void setValue(@NonNull String type,
+                                    @NonNull VoidChestOptionsUtil<T> option,
+                                    T value) {
 
-    /**
-     * Converts a list of color codes in string form to a list of {@link Color} objects.
-     *
-     * @param fileConfiguration the configuration file.
-     * @return a list of {@link Color} objects.
-     */
-    public @NotNull List<Color> getColors(@NotNull FileConfiguration fileConfiguration) {
-        return getStringList(fileConfiguration).stream()
-                .map(Color::from)
-                .collect(Collectors.toList());
-    }
+        VoidChestConfigurationFile cfg = VoidChestAPI.getInstance()
+                .voidChestConfigurationFileCache()
+                .getCachedStorageCFG(type);
 
-    /**
-     * Resolves the current active configuration path, preferring the current path,
-     * and falling back to any valid old paths if the value is not found.
-     *
-     * @param fileConfiguration the configuration file.
-     * @return the resolved path.
-     */
-    public @NotNull String getPath(@NotNull FileConfiguration fileConfiguration) {
-        if (fileConfiguration.get(getDefaultPath()) == null) {
-            for (Optional<String> path : getOldPaths()) {
-                if (path.isPresent() && fileConfiguration.get(path.get()) != null) {
-                    return path.get();
-                }
-            }
-        }
-        return getDefaultPath();
-    }
+        if (cfg == null) return;
 
-    /**
-     * Returns the primary/default path for this configuration option.
-     *
-     * @return the default path.
-     */
-    @Contract(pure = true)
-    public @NotNull String getDefaultPath() {
-        return this.pathName;
-    }
+        File file = cfg.getFile();
+        FileConfiguration fileConfiguration = cfg.getFileConfiguration();
 
-    /**
-     * Returns the old (legacy) paths that can be used to resolve a configuration value.
-     *
-     * @return an array of optional old paths.
-     */
-    public Optional<String>[] getOldPaths() {
-        return oldPaths;
-    }
+        String realPath = option.resolvePath(fileConfiguration);
+        fileConfiguration.set(realPath, value);
 
-    /**
-     * Returns the default value used when the configuration does not define one.
-     *
-     * @return the default value.
-     */
-    public Object getDefaultValue() {
-        return value;
-    }
-
-    /**
-     * Returns an optional string value from the configuration.
-     *
-     * @param fileConfiguration the configuration file.
-     * @return an {@link Optional} containing the string value if present.
-     */
-    public Optional<String> getOptionalStringValue(FileConfiguration fileConfiguration) {
-        return Optional.ofNullable(getStringValue(fileConfiguration));
-    }
-
-    public static <T> void setValue(@NotNull FileConfiguration fileConfiguration, @NotNull VoidChestOptionsUtil option, @NotNull T value) {
-        String path = option.getPath(fileConfiguration);
-        fileConfiguration.set(path, value);
-    }
-
-    /**
-     * Saves the configuration file to disk.
-     *
-     * @param fileConfiguration the configuration file.
-     * @param file              the file to save.
-     */
-    public static void saveConfig(@NotNull FileConfiguration fileConfiguration, @NotNull File file) {
         try {
             fileConfiguration.save(file);
-        } catch (IOException e) {
-            VoidChestAPI.getInstance().plugin().getLogger().log(Level.SEVERE, "Failed to save config file", e);
+        } catch (IOException exception) {
+            VoidChestAPI.getInstance().plugin().getLogger().log(
+                    Level.SEVERE,
+                    "Failed to save configuration file for type: " + type,
+                    exception
+            );
         }
     }
 }

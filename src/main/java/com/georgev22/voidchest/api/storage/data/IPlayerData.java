@@ -125,8 +125,8 @@ public interface IPlayerData extends Entity {
     /**
      * Retrieves a map of placeholders for player and the specified VoidChest.
      *
-     * @param storage The VoidChest to retrieve placeholders for.
+     * @param voidChest The VoidChest to retrieve placeholders for.
      * @return A map of placeholders.
      */
-    ObjectMap<String, String> getPlaceHolders(IVoidChest storage);
+    ObjectMap<String, String> getPlaceHolders(IVoidChest voidChest);
 }
