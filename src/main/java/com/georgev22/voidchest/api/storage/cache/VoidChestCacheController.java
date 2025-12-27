@@ -13,14 +13,12 @@ import com.google.common.collect.Sets;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Chest;
-import org.bukkit.inventory.DoubleChestInventory;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.block.*;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Chest;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -72,6 +70,17 @@ public class VoidChestCacheController {
         remove(sLocation);
     }
 
+    /**
+     * Removes the specified {@link IVoidChest} from all caches.
+     *
+     * <p>This method removes the chest from:
+     * <ul>
+     *   <li>The location-based cache</li>
+     *   <li>The chunk-based cache</li>
+     * </ul>
+     *
+     * @param voidChest The void chest to remove from the cache.
+     */
     public void remove(@NotNull IVoidChest voidChest) {
         voidChestCache.remove(voidChest.blockLocation());
         chunkCache.getOrDefault(voidChest.blockLocation().getChunk(), ConcurrentHashMap.newKeySet()).remove(voidChest);
@@ -152,35 +161,22 @@ public class VoidChestCacheController {
      * is part of a double chest and one side is registered, otherwise empty.
      */
     public Optional<IVoidChest> getAssociatedVoidChest(@NotNull Block block) {
-        Material chestMaterial;
-        Material trappedChestMaterial;
-
-        try {
-            chestMaterial = Material.CHEST;
-            trappedChestMaterial = Material.TRAPPED_CHEST;
-        } catch (NoSuchFieldError | IllegalArgumentException e) {
-            chestMaterial = Material.valueOf("LOCKED_CHEST");
-            trappedChestMaterial = null;
-        }
-
-        if (block.getType() == chestMaterial || block.getType() == trappedChestMaterial) {
-            BlockState state = block.getState();
-            if (!(state instanceof Chest chest)) {
+        if (isChestMaterial(block.getType())) {
+            BlockData data = block.getBlockData();
+            if (!(data instanceof Chest chest)) {
                 return Optional.empty();
             }
 
-            Inventory inventory = chest.getInventory();
-            if (!(inventory instanceof DoubleChestInventory)) {
-                return Optional.empty();
+            if (chest.getType() == Chest.Type.SINGLE) {
+                return get(block);
             }
 
-            for (BlockFace face : doubleChestFaces) {
-                Block other = block.getRelative(face);
-                Optional<IVoidChest> voidChest = this.get(other);
-                if (voidChest.isPresent()) {
-                    return voidChest;
-                }
-            }
+            BlockFace face = chest.getType() == Chest.Type.LEFT
+                    ? rotateRight(chest.getFacing())
+                    : rotateLeft(chest.getFacing());
+
+            Block other = block.getRelative(face);
+            return this.get(other);
         }
         return Optional.empty();
     }
@@ -241,10 +237,28 @@ public class VoidChestCacheController {
         return Optional.empty();
     }
 
+    /**
+     * Retrieves a void chest that is stored within the given {@link Chunk}.
+     *
+     * <p>If multiple void chests exist in the chunk, the first matching
+     * instance found is returned.
+     *
+     * @param chunk The chunk to search in.
+     * @return An {@link Optional} containing the first found void chest in the chunk, otherwise empty.
+     */
     public Optional<IVoidChest> get(@NotNull Chunk chunk) {
         return get(new VoidChunk(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()));
     }
 
+    /**
+     * Retrieves a void chest that is stored within the given {@link VoidChunk}.
+     *
+     * <p>If multiple void chests exist in the chunk, the first matching
+     * instance found is returned.
+     *
+     * @param chunk The virtual chunk to search in.
+     * @return An {@link Optional} containing the first found void chest in the chunk, otherwise empty.
+     */
     public Optional<IVoidChest> get(@NotNull VoidChunk chunk) {
         for (IVoidChest voidChest : getAll(chunk)) {
             if (voidChest.blockLocation().getChunk().equals(chunk)) return Optional.of(voidChest);
@@ -252,11 +266,92 @@ public class VoidChestCacheController {
         return Optional.empty();
     }
 
+    /**
+     * Retrieves all void chests that are stored within the given {@link Chunk}.
+     *
+     * @param chunk The chunk to search in.
+     * @return A list of all void chests present in the chunk.
+     */
     public List<IVoidChest> getAll(@NotNull Chunk chunk) {
         return getAll(new VoidChunk(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()));
     }
 
+    /**
+     * Retrieves all void chests that are stored within the given {@link VoidChunk}.
+     *
+     * @param chunk The virtual chunk to search in.
+     * @return A list of all void chests present in the chunk.
+     */
     public List<IVoidChest> getAll(@NotNull VoidChunk chunk) {
         return new ArrayList<>(chunkCache.getOrDefault(chunk, ConcurrentHashMap.newKeySet()));
+    }
+
+    /**
+     * Checks whether there is any container block adjacent to the given block.
+     *
+     * <p>This is primarily used to detect whether a block could be part
+     * of a double chest structure.
+     *
+     * @param block The block to check around.
+     * @return {@code true} if an adjacent container block exists, otherwise {@code false}.
+     */
+    public boolean isChestNear(Block block) {
+        return doubleChestFaces.stream().anyMatch(face -> {
+            BlockState state = block.getRelative(face).getState();
+            return state instanceof Container;
+        });
+    }
+
+    /**
+     * Checks whether the given block is a chest block.
+     *
+     * @param block The block to check.
+     * @return {@code true} if the block represents a chest, otherwise {@code false}.
+     */
+    public boolean isChest(@NonNull Block block) {
+        return block.getBlockData() instanceof Chest;
+    }
+
+    /**
+     * Checks whether the given material represents a chest-type block.
+     *
+     * @param material The material to check.
+     * @return {@code true} if the material can represent a chest block, otherwise {@code false}.
+     */
+    public boolean isChestMaterial(@NonNull Material material) {
+        return material.isBlock() &&
+                material.createBlockData() instanceof Chest;
+    }
+
+    /**
+     * Rotates the given horizontal block face 90 degrees counter-clockwise.
+     *
+     * @param face The face to rotate.
+     * @return The rotated face, or {@link BlockFace#SELF} if the face cannot be rotated.
+     */
+    public BlockFace rotateLeft(@NonNull BlockFace face) {
+        return switch (face) {
+            case NORTH -> BlockFace.WEST;
+            case SOUTH -> BlockFace.EAST;
+            case EAST -> BlockFace.NORTH;
+            case WEST -> BlockFace.SOUTH;
+            default -> BlockFace.SELF;
+        };
+    }
+
+    /**
+     * Rotates the given horizontal block face 90 degrees clockwise.
+     *
+     * @param face The face to rotate.
+     * @return The rotated face, or {@link BlockFace#SELF} if the face cannot be rotated.
+     */
+    public BlockFace rotateRight(@NonNull BlockFace face) {
+        return switch (face) {
+            case NORTH -> BlockFace.EAST;
+            case SOUTH -> BlockFace.WEST;
+            case EAST -> BlockFace.SOUTH;
+            case WEST -> BlockFace.NORTH;
+            default -> BlockFace.SELF;
+        };
     }
 }
