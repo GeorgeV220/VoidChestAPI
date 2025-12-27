@@ -2,13 +2,11 @@ package com.georgev22.voidchest.api;
 
 import com.georgev22.voidchest.api.booster.BoosterManager;
 import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
-import com.georgev22.voidchest.api.hologram.IHologramManager;
 import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.registry.IRegistryManager;
 import com.georgev22.voidchest.api.scheduler.MinecraftScheduler;
 import com.georgev22.voidchest.api.shop.IShopManager;
-import com.georgev22.voidchest.api.stacker.IStackerManager;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.IFilterManager;
 import com.georgev22.voidchest.api.storage.InvalidEntityManager;
@@ -22,7 +20,6 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,7 +59,6 @@ public final class VoidChestAPI {
     private final JavaPlugin plugin;
     private final IRegistryManager registryManager;
     private final IShopManager shopManager;
-    private final IHologramManager hologramManager;
     private final IChunkSeeManager chunkSeeManager;
     private final IVoidItemManager voidItemManager;
     private final VoidChestCacheController voidChestCacheController;
@@ -78,7 +74,6 @@ public final class VoidChestAPI {
      *
      * @param plugin             Bukkit plugin instance
      * @param shopManager        shop manager
-     * @param hologramManager    hologram rendering service
      * @param chunkSeeManager    chunk preview/visualization manager
      * @param voidItemManager    void item storage/cache manager
      * @param filterManager      filter configuration manager
@@ -91,7 +86,6 @@ public final class VoidChestAPI {
             JavaPlugin plugin,
             IRegistryManager registryManager,
             IShopManager shopManager,
-            IHologramManager hologramManager,
             IChunkSeeManager chunkSeeManager,
             IVoidItemManager voidItemManager,
             IFilterManager filterManager,
@@ -102,7 +96,6 @@ public final class VoidChestAPI {
         this.plugin = plugin;
         this.registryManager = registryManager;
         this.shopManager = shopManager;
-        this.hologramManager = hologramManager;
         this.chunkSeeManager = chunkSeeManager;
         this.voidItemManager = voidItemManager;
         this.voidChestCacheController = new VoidChestCacheController();
@@ -204,13 +197,6 @@ public final class VoidChestAPI {
      */
     public IShopManager shopManager() {
         return shopManager;
-    }
-
-    /**
-     * @return hologram manager
-     */
-    public IHologramManager hologramManager() {
-        return hologramManager;
     }
 
     /**

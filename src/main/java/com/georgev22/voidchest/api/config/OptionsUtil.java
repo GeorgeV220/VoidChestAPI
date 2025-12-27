@@ -73,23 +73,23 @@ public enum OptionsUtil {
 
     UPDATER("updater.enabled", true, Optional.empty()),
 
-    ECONOMY_CHARGE("economy.charge", "Vault", Optional.of("economy")),
+    ECONOMY_CHARGE("economy.charge", "voidchest:vault", Optional.empty()),
 
-    ECONOMY_UPGRADES("economy.upgrades", "Vault", Optional.of("economy")),
+    ECONOMY_UPGRADES("economy.upgrades", "voidchest:vault", Optional.empty()),
 
-    ECONOMY_PAYOUT("economy.payout", "Vault", Optional.of("economy")),
+    ECONOMY_PAYOUT("economy.payout", "voidchest:vault", Optional.empty()),
 
     VOID_CHEST_ECONOMY_MODE("void chest economy mode", "EXP", Optional.empty()),
 
-    STACKER("stacker", "None", Optional.empty()),
+    STACKER("stacker", "voidchest:none", Optional.empty()),
 
     LOCALE("locale", "en_US", Optional.empty()),
 
     IGNORE_ITEM_META("ignore item meta", true, Optional.empty()),
 
-    BANK("bank", "None", Optional.empty()),
+    BANK("bank", "voidchest:none", Optional.empty()),
 
-    BANK_TNT("bank tnt", "None", Optional.empty()),
+    BANK_TNT("bank tnt", "voidchest:none", Optional.empty()),
 
     TIME_FORMAT_SECOND("time format.second", "second", Optional.empty()),
 
@@ -111,7 +111,7 @@ public enum OptionsUtil {
 
     MONEY_FORMAT("money format", "##.####", Optional.empty()),
 
-    HOLOGRAM("hologram.plugin", "None", Optional.empty()),
+    HOLOGRAM("hologram.plugin", "voidchest:none", Optional.empty()),
 
     HOLOGRAM_UPDATE_INTERVAL("hologram.update interval", 1, Optional.empty()),
 

@@ -1,14 +1,20 @@
 package com.georgev22.voidchest.api.registry;
 
+import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.economy.bank.IVoidChestBank;
 import com.georgev22.voidchest.api.economy.banktnt.IVoidChestBankTNT;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
 import com.georgev22.voidchest.api.economy.profit.ProfitCalculator;
+import com.georgev22.voidchest.api.hologram.VoidHologram;
 import com.georgev22.voidchest.api.item.VoidSpecialItem;
 import com.georgev22.voidchest.api.registry.economy.ProfitCalculatorSelectorRegistry;
 import com.georgev22.voidchest.api.stacker.Stacker;
 import com.georgev22.voidchest.api.upgrade.Upgrade;
+import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 public class Registries {
 
@@ -19,7 +25,12 @@ public class Registries {
      * standard item economy storage in VoidChests.
      * </p>
      */
-    public static KeyedRegistry<IVoidChestBank> BANK = new KeyedRegistry<>();
+    public static KeyedRegistry<IVoidChestBank> BANK = new KeyedRegistry<>() {
+        @Override
+        public @NotNull Optional<IVoidChestBank> getSelected() {
+            return get(NamespacedKey.fromString(OptionsUtil.BANK.getStringValue()));
+        }
+    };
 
     /**
      * Global registry for TNT-based VoidChest banks.
@@ -28,7 +39,12 @@ public class Registries {
      * conversion and storage behavior.
      * </p>
      */
-    public static KeyedRegistry<IVoidChestBankTNT> BANK_TNT = new KeyedRegistry<>();
+    public static KeyedRegistry<IVoidChestBankTNT> BANK_TNT = new KeyedRegistry<>() {
+        @Override
+        public @NotNull Optional<IVoidChestBankTNT> getSelected() {
+            return get(NamespacedKey.fromString(OptionsUtil.BANK_TNT.getStringValue()));
+        }
+    };
 
     /**
      * Global registry for VoidChest upgrades.
@@ -73,7 +89,12 @@ public class Registries {
      * Stacker implementations determine how stacked items are handled.
      * </p>
      */
-    public static KeyedRegistry<Stacker> STACKER = new KeyedRegistry<>();
+    public static KeyedRegistry<Stacker> STACKER = new KeyedRegistry<>() {
+        @Override
+        public @NotNull Optional<Stacker> getSelected() {
+            return get(NamespacedKey.fromString(OptionsUtil.STACKER.getStringValue()));
+        }
+    };
 
     /**
      * Global registry for player-related economy implementations.
@@ -83,6 +104,19 @@ public class Registries {
      * </p>
      */
     public static KeyedRegistry<AEconomy> ECONOMY = new KeyedRegistry<>();
+
+    /**
+     * Global registry for VoidChest hologram implementations.
+     * <p>
+     * Holograms are used to display information about VoidChests.
+     * </p>
+     */
+    public static KeyedRegistry<VoidHologram> HOLOGRAM = new KeyedRegistry<>() {
+        @Override
+        public @NotNull Optional<VoidHologram> getSelected() {
+            return get(NamespacedKey.fromString(OptionsUtil.HOLOGRAM.getStringValue()));
+        }
+    };
 
     /**
      * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.

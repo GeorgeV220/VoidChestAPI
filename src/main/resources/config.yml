@@ -149,9 +149,9 @@ Options:
   # Developers can register their own using the API (Registries.BANK_TNT) and then adding their namespaced key here
   bank tnt: "voidchest:none"
 
-  # Available hologram support from other plugins: None, HolographicDisplays, Holograms, CMI, DecentHolograms, FancyHolograms.
+  # Available hologram support from other plugins: voidchest:none, voidchest:cmi, voidchest:decentholograms, voidchest:fancyholograms.
   hologram:
-    plugin: "None"
+    plugin: "voidchest:none"
     # This value is in seconds.
     update interval: 1
 
