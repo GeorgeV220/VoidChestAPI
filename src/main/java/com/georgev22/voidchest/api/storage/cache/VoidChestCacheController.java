@@ -289,14 +289,11 @@ public class VoidChestCacheController {
     /**
      * Checks whether there is any container block adjacent to the given block.
      *
-     * <p>This is primarily used to detect whether a block could be part
-     * of a double chest structure.
-     *
      * @param block The block to check around.
      * @return {@code true} if an adjacent container block exists, otherwise {@code false}.
      */
     public boolean isChestNear(Block block) {
-        return doubleChestFaces.stream().anyMatch(face -> {
+        return nearBlockFaces.stream().anyMatch(face -> {
             BlockState state = block.getRelative(face).getState();
             return state instanceof Container;
         });
