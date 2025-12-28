@@ -15,6 +15,7 @@ import com.google.common.collect.Sets;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Chest;
@@ -357,6 +358,23 @@ public class VoidChestCacheController {
      */
     public List<IVoidChest> getAll(@NonNull VoidChunk chunk) {
         return new ArrayList<>(chunkCache.getOrDefault(chunk, ConcurrentHashMap.newKeySet()));
+    }
+
+    /**
+     * Retrieves all void chests that are stored within the given {@link World}.
+     *
+     * @param world The world to search in.
+     * @return A list of all void chests present in the world.
+     */
+    public List<IVoidChest> getAll(@NonNull World world) {
+        List<IVoidChest> voidChests = new ArrayList<>();
+
+        for (VoidChunk chunk : chunkCache.keySet()) {
+            if (!chunk.getWorldName().equals(world.getName())) continue;
+            voidChests.addAll(getAll(chunk));
+        }
+
+        return voidChests;
     }
 
     /**
