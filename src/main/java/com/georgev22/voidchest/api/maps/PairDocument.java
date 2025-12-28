@@ -251,8 +251,8 @@ public final class PairDocument<K, V> implements Serializable {
      */
     public <T> @Nullable T get(final Object key) {
         for (Pair<K, V> pair : objectPairs) {
-            if (pair.key().equals(key)) {
-                return (T) pair.value();
+            if (pair.first().equals(key)) {
+                return (T) pair.second();
             }
         }
         return null;

@@ -2,112 +2,132 @@ package com.georgev22.voidchest.api.maps;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
- * A simple generic class representing a pair of elements.
+ * A lightweight immutable pair of two related values.
  *
- * @param <K> the type of the first element (key)
- * @param <V> the type of the second element (value)
+ * <p>This class represents an ordered container holding two elements:
+ * a mandatory {@code first} value and an optional {@code second} value.
+ * It is designed for simple structured return values and small data groupings.</p>
+ *
+ * <p>Equality, hashing and string representation are defined based on both contained values.</p>
+ *
+ * @param <F> the type of the first element (non-null)
+ * @param <S> the type of the second element (nullable)
  */
-public final class Pair<K, V> implements Serializable {
+public final class Pair<F, S> implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 0L;
-    private final K key;
-    private V value;
+
+    private final F first;
+    private S second;
 
     /**
-     * Constructs a new pair with the specified key and value.
+     * Constructs a new {@code Pair} with the specified values.
      *
-     * @param key   the first element (key) of the pair
-     * @param value the second element (value) of the pair
+     * @param first  the first (mandatory) element
+     * @param second the second (optional) element, may be {@code null}
      */
-    public Pair(K key, V value) {
-        this.key = key;
-        this.value = value;
+    public Pair(@NonNull F first, @Nullable S second) {
+        this.first = first;
+        this.second = second;
     }
 
     /**
-     * Indicates whether some other object is "equal to" this pair.
+     * Indicates whether some other object is equal to this pair.
      *
-     * @param o the reference object with which to compare
-     * @return {@code true} if this pair is the same as the o argument; {@code false} otherwise
+     * <p>Two pairs are considered equal if both their {@code first} and {@code second}
+     * elements are equal.</p>
+     *
+     * @param o the object to compare with
+     * @return {@code true} if both pairs contain equal values, otherwise {@code false}
      */
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Pair<?, ?>)) {
-            return false;
-        }
-
-        Pair<K, V> p = (Pair<K, V>) o;
-
-        return Objects.equals(p.key, key) && Objects.equals(p.value, value);
+        if (this == o) return true;
+        if (!(o instanceof Pair<?, ?> p)) return false;
+        return Objects.equals(first, p.first) && Objects.equals(second, p.second);
     }
 
     /**
      * Returns the hash code value for this pair.
      *
-     * @return the hash code value for this pair
+     * <p>The hash is derived from both elements.</p>
+     *
+     * @return the hash code of this pair
      */
     @Override
     public int hashCode() {
-        return (key == null ? 0 : key.hashCode()) ^ (value == null ? 0 : value.hashCode());
+        return Objects.hash(first, second);
     }
 
     /**
-     * Returns a string representation of this pair.
+     * Returns a human-readable string representation of this pair.
      *
      * @return a string representation of this pair
      */
     @Contract(pure = true)
     @Override
     public @NotNull String toString() {
-        return "Pair{" +
-                "key=" + key + ", " +
-                "value=" + value + "}";
+        return "Pair[first=" + first + ", second=" + second + "]";
     }
 
     /**
-     * Creates a new pair with the specified key and value.
+     * Creates a new {@code Pair} instance.
      *
-     * @param key   the first element (key) of the pair
-     * @param value the second element (value) of the pair
-     * @param <K>   the type of the first element (key)
-     * @param <V>   the type of the second element (value)
-     * @return a new pair with the specified key and value
+     * @param first  the first (mandatory) value
+     * @param second the second (optional) value
+     * @param <F>    the first element type
+     * @param <S>    the second element type
+     * @return a new pair containing the supplied values
      */
     @Contract(value = "_, _ -> new", pure = true)
-    public static <K, V> @NotNull Pair<K, V> create(K key, V value) {
-        return new Pair<>(key, value);
+    public static <F, S> @NotNull Pair<F, S> create(@NonNull F first, @Nullable S second) {
+        return new Pair<>(first, second);
     }
 
     /**
-     * Returns the key of this pair.
+     * Returns the first element of this pair.
      *
-     * @return the key of this pair
+     * @return the first element (never {@code null})
      */
-    public K key() {
-        return key;
+    public @NonNull F first() {
+        return first;
     }
 
     /**
-     * Returns the value of this pair.
+     * Returns the second element of this pair.
      *
-     * @return the value of this pair
+     * @return the second element, or {@code null} if not present
      */
-    public V value() {
-        return value;
+    public @Nullable S second() {
+        return second;
     }
 
     /**
-     * Sets the value of this pair.
+     * Returns the second element wrapped in an {@link Optional}.
      *
-     * @param value the new value to set
+     * @return an {@code Optional} describing the second element, or empty if absent
      */
-    public void setValue(V value) {
-        this.value = value;
+    @Contract(pure = true)
+    public @NonNull Optional<S> secondOptional() {
+        return Optional.ofNullable(second);
+    }
+
+    /**
+     * Replaces the second element of this pair.
+     *
+     * @param second the new second value (maybe {@code null})
+     */
+    public void setSecond(@Nullable S second) {
+        this.second = second;
     }
 }
