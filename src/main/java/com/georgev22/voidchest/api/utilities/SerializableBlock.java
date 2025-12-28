@@ -202,4 +202,52 @@ public class SerializableBlock extends SerializableLocation implements Serializa
         }
         return block.getType();
     }
+
+    /**
+     * Converts the SerializableBlock to a BlockPos.
+     *
+     * @return The BlockPos represented by this SerializableBlock.
+     */
+    public BlockPos toBlockPos() {
+        return new BlockPos(worldName, (int) x, (int) y, (int) z);
+    }
+
+    /**
+     * Lightweight immutable block position record.
+     *
+     * <p>Used for caching and diffing visible VoidChest blocks without holding references to live Block objects.</p>
+     */
+    public record BlockPos(String worldName, int x, int y, int z) {
+
+        @Contract("_ -> new")
+        public static @NonNull BlockPos of(@NonNull Block block) {
+            return new BlockPos(block.getWorld().getName(), block.getX(), block.getY(), block.getZ());
+        }
+
+        public static @NonNull BlockPos of(@NonNull SerializableBlock block) {
+            return new BlockPos(block.getWorldName(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
+        }
+
+        /**
+         * Resolves this position to a live block in the given world (prefers the provided world).
+         */
+        public @NonNull Block getBlock(@NonNull World preferredWorld) {
+            if (preferredWorld.getName().equals(worldName)) {
+                return preferredWorld.getBlockAt(x, y, z);
+            }
+            World world = Bukkit.getWorld(worldName);
+            if (world == null) world = preferredWorld;
+            return world.getBlockAt(x, y, z);
+        }
+
+        public @Contract(value = "_ -> new", pure = true)
+        @NonNull Location toLocation(@NonNull World world) {
+            return new Location(world, x, y, z);
+        }
+
+        @Override
+        public @NonNull String toString() {
+            return worldName + ":" + x + ":" + y + ":" + z;
+        }
+    }
 }
