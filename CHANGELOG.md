@@ -1,3 +1,10 @@
+# [5.0.0-dev.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.7...v5.0.0-dev.8) (2025-12-28)
+
+
+### Features
+
+* Simplify double chest handling and add resolution methods ([f137023](https://github.com/GeorgeV220/VoidChestAPI/commit/f137023eafebada715c2a417c2c67e99ce9ed217))
+
 # [5.0.0-dev.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.6...v5.0.0-dev.7) (2025-12-28)
 
 
