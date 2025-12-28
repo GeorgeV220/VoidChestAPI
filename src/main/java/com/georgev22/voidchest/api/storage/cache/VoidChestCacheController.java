@@ -37,8 +37,6 @@ public class VoidChestCacheController {
     private final ConcurrentObjectMap<IPlayerData, Set<IVoidChest>> playerCache = new ConcurrentObjectMap<>();
     private final Set<BlockFace> nearBlockFaces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
             BlockFace.SOUTH, BlockFace.UP, BlockFace.DOWN);
-    private final Set<BlockFace> doubleChestFaces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
-            BlockFace.SOUTH);
 
     /**
      * Adds a {@link IVoidChest} to the location cache.
@@ -123,7 +121,7 @@ public class VoidChestCacheController {
      */
     public CompletableFuture<List<IVoidChest>> voidChests(@NonNull IPlayerData playerData) {
         EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
-        @NonNull Optional<EntityManager<IVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(IVoidChest.class);
+        Optional<EntityManager<IVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(IVoidChest.class);
         if (voidEntityManager.isEmpty()) return CompletableFuture.completedFuture(new ArrayList<>());
         List<UUID> currentStorageIds = playerData.voidChests();
         Set<IVoidChest> cachedStorages = playerCache.getOrDefault(playerData, ConcurrentHashMap.newKeySet());
@@ -154,12 +152,21 @@ public class VoidChestCacheController {
     }
 
     /**
-     * Attempts to resolve the {@link IVoidChest} associated with the given block
-     * if it is part of a double chest.
+     * Attempts to resolve a {@link IVoidChest} associated with the given block
+     * when the block is part of a double chest.
      *
-     * @param block The chest block to check.
-     * @return An {@link Optional} containing the associated void chest if the block
-     * is part of a double chest and one side is registered, otherwise empty.
+     * <p>If the block is a chest and is connected to another chest block,
+     * this method will resolve the neighboring chest block that forms the
+     * double chest structure and return its registered {@link IVoidChest}, if any.</p>
+     *
+     * <p>If the block is a single chest, this method behaves the same as {@link #get(Block)}.</p>
+     *
+     * <p>If neither the block nor its double-chest counterpart is registered as a void chest,
+     * this method returns {@link Optional#empty()}.</p>
+     *
+     * @param block The chest block to resolve.
+     * @return An {@link Optional} containing the associated {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
      */
     public Optional<IVoidChest> getAssociatedVoidChest(@NonNull Block block) {
         if (isChestMaterial(block.getType())) {
@@ -183,10 +190,17 @@ public class VoidChestCacheController {
     }
 
     /**
-     * Searches all directly adjacent blocks of the given block for an associated {@link IVoidChest}.
+     * Searches all directly adjacent blocks of the given block for a registered {@link IVoidChest}.
      *
-     * @param block The block whose neighbors to search.
-     * @return An {@link Optional} containing the first found {@link IVoidChest}, otherwise empty.
+     * <p>This method checks all cardinally adjacent block faces defined in {@link #nearBlockFaces}
+     * and returns the first neighboring block that is registered as a void chest.</p>
+     *
+     * <p>This is useful for resolving void chests when interacting with non-chest blocks
+     * that are part of a void chest structure or multi-block setup.</p>
+     *
+     * @param block The block whose adjacent blocks will be searched.
+     * @return An {@link Optional} containing the first neighboring {@link IVoidChest} found,
+     * otherwise {@link Optional#empty()}.
      */
     public Optional<IVoidChest> findNearbyVoidChest(@NonNull Block block) {
         for (BlockFace face : nearBlockFaces) {
@@ -197,6 +211,64 @@ public class VoidChestCacheController {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given block.
+     *
+     * <p>This method first attempts a direct lookup using {@link #get(Block)}.
+     * If no void chest is registered at the given block position, it will attempt
+     * to resolve an associated void chest via {@link #getAssociatedVoidChest(Block)},
+     * allowing double-chest counterparts to be resolved transparently.</p>
+     *
+     * @param block The block to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull Block block) {
+        return get(block).or(() -> getAssociatedVoidChest(block));
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given {@link Location}.
+     *
+     * <p>This method behaves the same as {@link #getOrAssociated(Block)} but accepts a location
+     * instead of a block.</p>
+     *
+     * @param location The location to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull Location location) {
+        return get(location).or(() -> getAssociatedVoidChest(location.getBlock()));
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given {@link SerializableLocation}.
+     *
+     * <p>This method behaves the same as {@link #getOrAssociated(Block)} but accepts a serializable
+     * location wrapper.</p>
+     *
+     * @param serializableLocation The serializable location to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull SerializableLocation serializableLocation) {
+        return get(serializableLocation).or(() -> getAssociatedVoidChest(serializableLocation.toLocation().getBlock()));
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given {@link SerializableBlock}.
+     *
+     * <p>This method behaves the same as {@link #getOrAssociated(Block)} but accepts a serializable
+     * block wrapper.</p>
+     *
+     * @param serializableBlock The serializable block wrapper to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull SerializableBlock serializableBlock) {
+        return get(serializableBlock).or(() -> getAssociatedVoidChest(serializableBlock.toLocation().getBlock()));
     }
 
     /**
