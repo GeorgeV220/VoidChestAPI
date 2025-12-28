@@ -1,3 +1,11 @@
+# [5.0.0-dev.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.6...v5.0.0-dev.7) (2025-12-28)
+
+
+### Features
+
+* add BlockPos record and conversion to SerializableBlock ([9cce5d8](https://github.com/GeorgeV220/VoidChestAPI/commit/9cce5d89ef38677f8afce970bda8f5f40c876edc))
+* add double chest expansion utility and migrate to JSpecify annotations ([962e4ba](https://github.com/GeorgeV220/VoidChestAPI/commit/962e4baac3ea6abad71804ce58f4cdc003106ce6))
+
 # [5.0.0-dev.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.5...v5.0.0-dev.6) (2025-12-28)
 
 
