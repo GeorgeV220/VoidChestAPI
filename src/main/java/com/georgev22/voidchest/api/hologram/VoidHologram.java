@@ -45,6 +45,15 @@ public interface VoidHologram extends Keyed {
     void remove(@NonNull IVoidChest voidChest);
 
     /**
+     * Removes (despawns) all holograms.
+     * <p>
+     * Implementations should ensure this operation is safe to call multiple times
+     * and does not throw errors if the hologram is already removed.
+     * </p>
+     */
+    void removeAll();
+
+    /**
      * Updates the hologram associated with the given {@link IVoidChest}.
      * <p>
      * This may include updating displayed text, lines, visibility,

@@ -13,6 +13,7 @@ import com.georgev22.voidchest.api.upgrade.Upgrade;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -115,6 +116,14 @@ public class Registries {
         @Override
         public @NotNull Optional<VoidHologram> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.HOLOGRAM.getStringValue()));
+        }
+
+        @Override
+        public boolean unregister(@NonNull NamespacedKey key) {
+            Optional<VoidHologram> hologramOptional = get(key);
+            if (hologramOptional.isEmpty()) return false;
+            hologramOptional.get().removeAll();
+            return super.unregister(key);
         }
     };
 
