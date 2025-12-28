@@ -1,3 +1,10 @@
+# [5.0.0-dev.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.5...v5.0.0-dev.6) (2025-12-28)
+
+
+### Features
+
+* add removeAll method to VoidHologram API ([a276b3d](https://github.com/GeorgeV220/VoidChestAPI/commit/a276b3d19d6f990799e73ff35252691b11083c20))
+
 # [5.0.0-dev.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.4...v5.0.0-dev.5) (2025-12-15)
 
 
