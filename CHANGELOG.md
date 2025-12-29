@@ -1,3 +1,11 @@
+# [5.0.0-dev.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.8...v5.0.0-dev.9) (2025-12-29)
+
+
+### Features
+
+* add method to retrieve all void chests from a specific world ([48c3347](https://github.com/GeorgeV220/VoidChestAPI/commit/48c33474b6bf2d7d680265ae657653a69c322e48))
+* add VoidChestPostPlaceEvent for post-placement hook ([7a6994f](https://github.com/GeorgeV220/VoidChestAPI/commit/7a6994fd7292bed272740d2911b331a146902669))
+
 # [5.0.0-dev.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.7...v5.0.0-dev.8) (2025-12-28)
 
 
