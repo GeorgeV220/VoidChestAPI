@@ -1,3 +1,10 @@
+# [5.0.0-dev.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.10...v5.0.0-dev.11) (2025-12-30)
+
+
+### Features
+
+* add hologram visibility control to VoidHologram API ([c795493](https://github.com/GeorgeV220/VoidChestAPI/commit/c795493eb53285aa2ff575d99c05b31a13e485e9))
+
 # [5.0.0-dev.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.9...v5.0.0-dev.10) (2025-12-30)
 
 
