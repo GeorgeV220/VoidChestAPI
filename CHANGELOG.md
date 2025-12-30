@@ -1,3 +1,11 @@
+# [5.0.0-dev.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.9...v5.0.0-dev.10) (2025-12-30)
+
+
+### Features
+
+* add async methods to SerializableBlock and extend SerializableContainer ([79dadfc](https://github.com/GeorgeV220/VoidChestAPI/commit/79dadfcec3261333e0efb9e5399a94ca3261f7d4))
+* add Component support for container custom names ([5b36c48](https://github.com/GeorgeV220/VoidChestAPI/commit/5b36c48311c2a34e1e3913c8e1dbbbd63a60f83c))
+
 # [5.0.0-dev.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.8...v5.0.0-dev.9) (2025-12-29)
 
 
