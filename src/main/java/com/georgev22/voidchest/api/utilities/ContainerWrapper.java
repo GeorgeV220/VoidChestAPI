@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Nameable;
 import org.bukkit.block.BlockState;
@@ -79,6 +80,15 @@ public class ContainerWrapper {
 
         //noinspection deprecation
         nameable.setCustomName(name);
+        blockState.update();
+    }
+
+    public static void setCustomName(@NotNull BlockState blockState, @Nullable Component component) {
+        if (!(blockState instanceof Nameable nameable)) {
+            throw new UnsupportedOperationException("BlockState does not support custom names");
+        }
+
+        nameable.customName(component);
         blockState.update();
     }
 
