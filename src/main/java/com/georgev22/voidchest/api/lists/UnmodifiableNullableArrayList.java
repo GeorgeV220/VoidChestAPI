@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.utilities;
+package com.georgev22.voidchest.api.lists;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
