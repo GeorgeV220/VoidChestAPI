@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage;
 
 import com.georgev22.voidchest.api.storage.data.Entity;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +17,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
 
     private final Class<E> entityClass;
 
-    public InvalidEntityManager(@NotNull Class<E> entityClass) {
+    public InvalidEntityManager(@NonNull Class<E> entityClass) {
         this.entityClass = entityClass;
     }
 
@@ -32,7 +32,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      * @param entity the entity to save
      */
     @Override
-    public void save(@NotNull E entity) {
+    public void save(@NonNull E entity) {
         // No-op
     }
 
@@ -43,7 +43,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      * @return an empty {@link Optional}
      */
     @Override
-    public Optional<E> findById(@NotNull String id) {
+    public Optional<E> findById(@NonNull String id) {
         return Optional.empty();
     }
 
@@ -53,7 +53,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      * @param entity the entity to delete
      */
     @Override
-    public void delete(@NotNull E entity) {
+    public void delete(@NonNull E entity) {
         // No-op
     }
 
@@ -64,7 +64,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      * @return an empty {@link Optional}
      */
     @Override
-    public Optional<E> load(@NotNull String id) {
+    public Optional<E> load(@NonNull String id) {
         return Optional.empty();
     }
 
@@ -111,7 +111,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      * @return {@code false}
      */
     @Override
-    public boolean exists(@NotNull String id) {
+    public boolean exists(@NonNull String id) {
         return false;
     }
 
@@ -123,12 +123,12 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      * @return an empty {@link Optional}
      */
     @Override
-    public Optional<E> getEntity(@NotNull String id, boolean loadIfExists) {
+    public Optional<E> getEntity(@NonNull String id, boolean loadIfExists) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<E> create(@NotNull String id, @NotNull Consumer<E> consumer) {
+    public Optional<E> create(@NonNull String id, @NonNull Consumer<E> consumer) {
         return Optional.empty();
     }
 

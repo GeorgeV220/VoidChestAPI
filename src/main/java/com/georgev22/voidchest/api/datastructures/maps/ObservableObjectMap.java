@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.datastructures.maps;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -98,7 +98,7 @@ public class ObservableObjectMap<K, V> extends ConcurrentObjectMap<K, V> {
      * @return the previous value associated with the specified key, or {@code null} if there was no mapping for the key
      */
     @Override
-    public V put(@NotNull K key, @NotNull V value) {
+    public V put(@NonNull K key, @NonNull V value) {
         V oldValue = super.put(key, value);
         fireEntryAddedEvent(key, value);
         return oldValue;
@@ -128,7 +128,7 @@ public class ObservableObjectMap<K, V> extends ConcurrentObjectMap<K, V> {
      * @param m the map whose mappings are to be added to this map
      */
     @Override
-    public void putAll(@NotNull Map<? extends K, ? extends V> m) {
+    public void putAll(@NonNull Map<? extends K, ? extends V> m) {
         m.forEach(this::fireEntryAddedEvent);
         super.putAll(m);
     }
@@ -141,7 +141,7 @@ public class ObservableObjectMap<K, V> extends ConcurrentObjectMap<K, V> {
      * @return the previous value associated with the key, or {@code null} if there was no mapping for the key
      */
     @Override
-    public V remove(@NotNull Object key) {
+    public V remove(@NonNull Object key) {
         fireEntryRemovedEvent(key, null);
         return super.remove(key);
     }

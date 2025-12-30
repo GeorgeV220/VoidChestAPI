@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.datastructures.maps;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Date;
 import java.util.List;
@@ -74,7 +74,7 @@ public class ConcurrentObjectMap<K, V> extends ConcurrentHashMap<K, V> implement
     }
 
     @Override
-    public ConcurrentObjectMap<K, V> append(@NotNull Map<K, V> map) {
+    public ConcurrentObjectMap<K, V> append(@NonNull Map<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
@@ -82,7 +82,7 @@ public class ConcurrentObjectMap<K, V> extends ConcurrentHashMap<K, V> implement
     }
 
     @Override
-    public ConcurrentObjectMap<K, V> append(@NotNull ObjectMap<K, V> map) {
+    public ConcurrentObjectMap<K, V> append(@NonNull ObjectMap<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
@@ -138,7 +138,7 @@ public class ConcurrentObjectMap<K, V> extends ConcurrentHashMap<K, V> implement
      * @return this
      */
     @Override
-    public ConcurrentObjectMap<K, V> appendIfTrue(@NotNull Map<K, V> map, boolean ifTrue) {
+    public ConcurrentObjectMap<K, V> appendIfTrue(@NonNull Map<K, V> map, boolean ifTrue) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }
@@ -177,7 +177,7 @@ public class ConcurrentObjectMap<K, V> extends ConcurrentHashMap<K, V> implement
      * @return this
      */
     @Override
-    public ConcurrentObjectMap<K, V> appendIfTrue(@NotNull ObjectMap<K, V> map, boolean ifTrue) {
+    public ConcurrentObjectMap<K, V> appendIfTrue(@NonNull ObjectMap<K, V> map, boolean ifTrue) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }

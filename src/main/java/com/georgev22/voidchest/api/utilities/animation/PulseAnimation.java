@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.utilities.animation;
 import com.georgev22.voidchest.api.utilities.color.Color;
 import com.georgev22.voidchest.api.utilities.color.ColorCalculations;
 import com.georgev22.voidchest.api.utilities.color.MinecraftColor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class PulseAnimation extends Animation {
 
     @Override
-    public String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors) {
+    public String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors) {
         if (colors.isEmpty()) {
             throw new IllegalArgumentException("Pulse animation needs at least one color");
         }
@@ -42,7 +42,7 @@ public class PulseAnimation extends Animation {
     }
 
     @Override
-    protected int computeEnd(@NotNull String string) {
+    protected int computeEnd(@NonNull String string) {
         return Math.max(8, string.length() / 2);
     }
 

@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.datastructures;
 
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -76,7 +76,7 @@ public final class Pair<F, S> implements Serializable {
      */
     @Contract(pure = true)
     @Override
-    public @NotNull String toString() {
+    public @NonNull String toString() {
         return "Pair[first=" + first + ", second=" + second + "]";
     }
 
@@ -90,7 +90,7 @@ public final class Pair<F, S> implements Serializable {
      * @return a new pair containing the supplied values
      */
     @Contract(value = "_, _ -> new", pure = true)
-    public static <F, S> @NotNull Pair<F, S> create(@NonNull F first, @Nullable S second) {
+    public static <F, S> @NonNull Pair<F, S> create(@NonNull F first, @Nullable S second) {
         return new Pair<>(first, second);
     }
 

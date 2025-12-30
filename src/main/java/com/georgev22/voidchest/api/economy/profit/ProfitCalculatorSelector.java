@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.economy.profit;
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -38,7 +38,7 @@ public class ProfitCalculatorSelector {
      * @param calculators Map linking {@link ProfitCalculator}s to their weight priority values.
      *                    Lower weight = higher priority for selection.
      */
-    public ProfitCalculatorSelector(@NotNull Map<ProfitCalculator, Integer> calculators) {
+    public ProfitCalculatorSelector(@NonNull Map<ProfitCalculator, Integer> calculators) {
         this.calculators = new UnmodifiableObjectMap<>(calculators);
     }
 
@@ -51,10 +51,10 @@ public class ProfitCalculatorSelector {
      * @param amount    The amount of the item being evaluated
      * @return An {@link Optional} wrapping the resulting profit value. Always present in the WEIGHT case.
      */
-    public BigDecimal selectBest(@NotNull SelectorType type,
-                                 @NotNull IVoidChest voidChest,
-                                 @NotNull ItemStack item,
-                                 @NotNull BigInteger amount) {
+    public BigDecimal selectBest(@NonNull SelectorType type,
+                                 @NonNull IVoidChest voidChest,
+                                 @NonNull ItemStack item,
+                                 @NonNull BigInteger amount) {
         return selectBest(type, voidChest, item, amount, calculators);
     }
 
@@ -69,11 +69,11 @@ public class ProfitCalculatorSelector {
      * @param calculators The calculators to evaluate
      * @return An {@link Optional} profit value determined by the strategy
      */
-    public static BigDecimal selectBest(@NotNull SelectorType type,
-                                        @NotNull IVoidChest voidChest,
-                                        @NotNull ItemStack item,
-                                        @NotNull BigInteger amount,
-                                        @NotNull Map<ProfitCalculator, Integer> calculators) {
+    public static BigDecimal selectBest(@NonNull SelectorType type,
+                                        @NonNull IVoidChest voidChest,
+                                        @NonNull ItemStack item,
+                                        @NonNull BigInteger amount,
+                                        @NonNull Map<ProfitCalculator, Integer> calculators) {
 
         return switch (type) {
             case PRICE -> calculators.keySet().stream()
@@ -101,7 +101,7 @@ public class ProfitCalculatorSelector {
      *
      * @return An unmodifiable view of internal calculator mappings
      */
-    public @NotNull UnmodifiableObjectMap<ProfitCalculator, Integer> getEntries() {
+    public @NonNull UnmodifiableObjectMap<ProfitCalculator, Integer> getEntries() {
         return calculators;
     }
 
@@ -126,7 +126,7 @@ public class ProfitCalculatorSelector {
          * @param name The name of the selector type
          * @return The selector type, or WEIGHT if the name is invalid
          */
-        public static SelectorType fromString(@NotNull String name) {
+        public static SelectorType fromString(@NonNull String name) {
             try {
                 return valueOf(name.toUpperCase());
             } catch (IllegalArgumentException e) {
@@ -141,7 +141,7 @@ public class ProfitCalculatorSelector {
      * @param value The raw profit value returned by a calculator
      * @return A non-null {@link BigDecimal} (zero fallback)
      */
-    private static @NotNull BigDecimal normalize(BigDecimal value) {
+    private static @NonNull BigDecimal normalize(BigDecimal value) {
         return value != null ? value : BigDecimal.ZERO;
     }
 }

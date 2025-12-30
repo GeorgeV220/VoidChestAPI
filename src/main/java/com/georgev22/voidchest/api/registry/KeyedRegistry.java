@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.registry;
 
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A generic registry for {@link Keyed} objects, using their {@link NamespacedKey}
@@ -38,7 +38,7 @@ public class KeyedRegistry<T extends Keyed> extends AbstractRegistry<NamespacedK
      * @throws IllegalArgumentException if a value is already registered under the same key
      */
     @Override
-    public void register(@NotNull T value) throws IllegalArgumentException {
+    public void register(@NonNull T value) throws IllegalArgumentException {
         super.register(value.getKey(), value);
     }
 
@@ -51,7 +51,7 @@ public class KeyedRegistry<T extends Keyed> extends AbstractRegistry<NamespacedK
      * {@code false} if this is a new registration
      */
     @Override
-    public boolean replaceOrRegister(@NotNull T value) {
+    public boolean replaceOrRegister(@NonNull T value) {
         return super.replaceOrRegister(value.getKey(), value);
     }
 }

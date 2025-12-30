@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.utilities.color;
 
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public enum MinecraftColor {
 
@@ -46,7 +46,7 @@ public enum MinecraftColor {
         this.color = Color.from(hexColor);
     }
 
-    public @NotNull String getName() {
+    public @NonNull String getName() {
         return this.name().toLowerCase();
     }
 
@@ -59,13 +59,13 @@ public enum MinecraftColor {
     }
 
     @Contract(pure = true)
-    public @NotNull String getAppliedTag() {
+    public @NonNull String getAppliedTag() {
         return this.chatColor.replace("&", "\u00A7");
     }
 
     @Contract(pure = true)
     @Override
-    public @NotNull String toString() {
+    public @NonNull String toString() {
         return this.getAppliedTag();
     }
 }

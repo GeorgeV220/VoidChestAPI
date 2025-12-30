@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.config;
 
 import com.georgev22.voidchest.api.utilities.color.Color;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -202,7 +202,7 @@ public enum OptionsUtil {
      *
      * @return the integer value
      */
-    public @NotNull Integer getIntValue() {
+    public @NonNull Integer getIntValue() {
         if (cachedValue instanceof Number n) {
             return n.intValue();
         }
@@ -214,7 +214,7 @@ public enum OptionsUtil {
      *
      * @return the long value
      */
-    public @NotNull Long getLongValue() {
+    public @NonNull Long getLongValue() {
         if (cachedValue instanceof Number n) {
             return n.longValue();
         }
@@ -226,7 +226,7 @@ public enum OptionsUtil {
      *
      * @return the double value
      */
-    public @NotNull Double getDoubleValue() {
+    public @NonNull Double getDoubleValue() {
         if (cachedValue instanceof Number n) {
             return n.doubleValue();
         }
@@ -248,7 +248,7 @@ public enum OptionsUtil {
      * @return a list of strings, or an empty list if the value is not a list
      */
     @SuppressWarnings("unchecked")
-    public @NotNull List<String> getStringList() {
+    public @NonNull List<String> getStringList() {
         return cachedValue instanceof List
                 ? (List<String>) cachedValue
                 : List.of();
@@ -259,7 +259,7 @@ public enum OptionsUtil {
      *
      * @return a list of parsed colors
      */
-    public @NotNull List<Color> getColors() {
+    public @NonNull List<Color> getColors() {
         return getStringList().stream()
                 .map(Color::from)
                 .collect(Collectors.toList());
@@ -270,7 +270,7 @@ public enum OptionsUtil {
      *
      * @return an optional containing the string value
      */
-    public @NotNull Optional<String> getOptionalStringValue() {
+    public @NonNull Optional<String> getOptionalStringValue() {
         return Optional.ofNullable(getStringValue());
     }
 
@@ -290,7 +290,7 @@ public enum OptionsUtil {
      *
      * @return the resolved configuration path
      */
-    public @NotNull String getPath() {
+    public @NonNull String getPath() {
         if (resolvedPath != null) {
             return resolvedPath;
         }
@@ -318,7 +318,7 @@ public enum OptionsUtil {
      * @return the default path name
      */
     @Contract(pure = true)
-    public @NotNull String getDefaultPath() {
+    public @NonNull String getDefaultPath() {
         return this.pathName;
     }
 

@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.economy.player.AEconomy;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 
@@ -25,7 +25,7 @@ public class InvalidEconomy extends AEconomy {
      * @return True if the withdrawal is successful, false otherwise.
      */
     @Override
-    public boolean withdraw(@NotNull OfflinePlayer player, BigDecimal amount) {
+    public boolean withdraw(@NonNull OfflinePlayer player, BigDecimal amount) {
         return false;
     }
 
@@ -37,7 +37,7 @@ public class InvalidEconomy extends AEconomy {
      * @return True if the deposit is successful, false otherwise.
      */
     @Override
-    public boolean deposit(@NotNull OfflinePlayer player, BigDecimal amount) {
+    public boolean deposit(@NonNull OfflinePlayer player, BigDecimal amount) {
         return false;
     }
 
@@ -48,7 +48,7 @@ public class InvalidEconomy extends AEconomy {
      * @return The balance of the player's account as a BigDecimal.
      */
     @Override
-    public BigDecimal getBalance(@NotNull OfflinePlayer player) {
+    public BigDecimal getBalance(@NonNull OfflinePlayer player) {
         return BigDecimal.ZERO;
     }
 

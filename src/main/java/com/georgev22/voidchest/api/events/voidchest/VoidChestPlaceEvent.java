@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The VoidChestPlaceEvent class is an event that is fired when a player places a VoidChest.
@@ -26,7 +26,7 @@ public class VoidChestPlaceEvent extends VoidEvent implements Cancellable {
      * @param item      The ItemStack representing the VoidChest.
      * @param voidChest The VoidChest associated with the VoidChest.
      */
-    public VoidChestPlaceEvent(@NotNull final Player player, @NotNull final ItemStack item, @NotNull final IVoidChest voidChest) {
+    public VoidChestPlaceEvent(@NonNull final Player player, @NonNull final ItemStack item, @NonNull final IVoidChest voidChest) {
         super(voidChest);
         this.player = player;
         this.item = item;
@@ -47,7 +47,7 @@ public class VoidChestPlaceEvent extends VoidEvent implements Cancellable {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 

@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.voidchest.api.utilities.CustomData;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public interface Entity extends Comparable<Entity> {
      * is less than, equal to, or greater than the specified entity's UUID
      */
     @Override
-    default int compareTo(@NotNull Entity o) {
+    default int compareTo(@NonNull Entity o) {
         return getId().compareTo(o.getId());
     }
 

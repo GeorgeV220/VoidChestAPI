@@ -6,7 +6,7 @@ import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -41,7 +41,7 @@ public abstract class VoidSpecialItem implements Keyed {
      * @param itemStack the item stack to apply the special item to
      * @return the modified item stack
      */
-    public Optional<ItemStack> applyTo(@NotNull ItemStack itemStack, String @NotNull ... data) {
+    public Optional<ItemStack> applyTo(@NonNull ItemStack itemStack, String @NonNull ... data) {
         //noinspection ConstantValue
         if (itemStack == null) return Optional.empty();
         if (itemStack.getType().equals(Material.AIR)) return Optional.empty();
@@ -56,7 +56,7 @@ public abstract class VoidSpecialItem implements Keyed {
         return Optional.of(itemStack);
     }
 
-    protected abstract void applyTo0(@NotNull ReadWriteNBT nbt, String @NotNull ... data);
+    protected abstract void applyTo0(@NonNull ReadWriteNBT nbt, String @NonNull ... data);
 
     /**
      * Retrieves the name of the Special Item

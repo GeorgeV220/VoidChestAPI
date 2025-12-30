@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.shop;
 
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import java.util.List;
  *
  * <p>The methods in this interface include:
  * <ul>
- *     <li>{@code @NotNull String getName()} - Returns the name of the shop.</li>
- *     <li>{@code @NotNull List<ShopItem> getShopItems()} - Returns a list of all shop items in the shop.</li>
- *     <li>{@code @NotNull ShopItem getShopItem(@NotNull ItemStack itemStack)} - Returns the shop item associated with the given ItemStack.</li>
- *     <li>{@code void addItem(@NotNull ShopItem item)} - Adds a single shop item to the shop.</li>
- *     <li>{@code void addItems(@NotNull List<ShopItem> items)} - Adds a list of shop items to the shop.</li>
- *     <li>{@code void removeItem(@NotNull ShopItem item)} - Removes a shop item from the shop.</li>
+ *     <li>{@code @NonNull String getName()} - Returns the name of the shop.</li>
+ *     <li>{@code @NonNull List<ShopItem> getShopItems()} - Returns a list of all shop items in the shop.</li>
+ *     <li>{@code @NonNull ShopItem getShopItem(@NonNull ItemStack itemStack)} - Returns the shop item associated with the given ItemStack.</li>
+ *     <li>{@code void addItem(@NonNull ShopItem item)} - Adds a single shop item to the shop.</li>
+ *     <li>{@code void addItems(@NonNull List<ShopItem> items)} - Adds a list of shop items to the shop.</li>
+ *     <li>{@code void removeItem(@NonNull ShopItem item)} - Removes a shop item from the shop.</li>
  * </ul>
  * </p>
  *
@@ -38,14 +38,14 @@ public interface Shop {
      *
      * @return The name of the shop.
      */
-    @NotNull String getName();
+    @NonNull String getName();
 
     /**
      * Gets a list of all shop items in the shop.
      *
      * @return A list of shop items in the shop.
      */
-    @NotNull List<ShopItem> getShopItems();
+    @NonNull List<ShopItem> getShopItems();
 
     /**
      * Gets the shop item associated with the given ItemStack.
@@ -53,26 +53,26 @@ public interface Shop {
      * @param itemStack The ItemStack to look for in the shop.
      * @return The ShopItem associated with the ItemStack, or {@code null} if not found.
      */
-    @NotNull ShopItem getShopItem(@NotNull ItemStack itemStack);
+    @NonNull ShopItem getShopItem(@NonNull ItemStack itemStack);
 
     /**
      * Adds a single shop item to the shop.
      *
      * @param item The shop item to add.
      */
-    void addItem(@NotNull ShopItem item);
+    void addItem(@NonNull ShopItem item);
 
     /**
      * Adds a list of shop items to the shop.
      *
      * @param items The list of shop items to add.
      */
-    void addItems(@NotNull List<ShopItem> items);
+    void addItems(@NonNull List<ShopItem> items);
 
     /**
      * Removes a shop item from the shop.
      *
      * @param item The shop item to remove.
      */
-    void removeItem(@NotNull ShopItem item);
+    void removeItem(@NonNull ShopItem item);
 }

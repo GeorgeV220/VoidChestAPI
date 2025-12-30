@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage.data.filter;
 
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class FilterData implements Cloneable {
      * @param item    The {@link ItemStack} to add to the filter
      * @param options The {@link ItemOptions} configuring this filter entry
      */
-    public void addItem(@NotNull UUID uuid, ItemStack item, ItemOptions options) {
+    public void addItem(@NonNull UUID uuid, ItemStack item, ItemOptions options) {
         String key = uuid.toString();
         ItemContainer container = new ItemContainer(item, options);
         itemContainers.put(key, container);
@@ -40,7 +40,7 @@ public class FilterData implements Cloneable {
      *
      * @param uuid The unique identifier of the filter entry to remove
      */
-    public void removeItem(@NotNull UUID uuid) {
+    public void removeItem(@NonNull UUID uuid) {
         String key = uuid.toString();
         itemContainers.remove(key);
         itemCache.remove(key);

@@ -6,8 +6,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,7 +23,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      *
      * @param container The Container to be serialized.
      */
-    public SerializableContainer(@NotNull ContainerWrapper container) {
+    public SerializableContainer(@NonNull ContainerWrapper container) {
         super(container.getBlockState().getBlock());
         Location location = container.getBlockState().getLocation();
         this.worldName = location.getWorld().getName();
@@ -32,7 +32,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
         this.z = location.getBlockZ();
     }
 
-    public SerializableContainer(@NotNull World world, int x, int y, int z) {
+    public SerializableContainer(@NonNull World world, int x, int y, int z) {
         super(world.getBlockAt(x, y, z));
         this.worldName = world.getName();
         this.x = x;
@@ -47,7 +47,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * @return A new SerializableContainer instance.
      */
     @Contract("_ -> new")
-    public static @NotNull SerializableContainer fromBlock(@NotNull ContainerWrapper container) {
+    public static @NonNull SerializableContainer fromBlock(@NonNull ContainerWrapper container) {
         return new SerializableContainer(container);
     }
 
@@ -57,7 +57,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * @param string The string representation of the container's location.
      * @return A SerializableContainer instance, or {@code null} if the string is empty or invalid.
      */
-    public static @NotNull SerializableContainer fromString(@NotNull String string) {
+    public static @NonNull SerializableContainer fromString(@NonNull String string) {
         if (string.trim().isEmpty()) {
             throw new IllegalArgumentException("The string is empty.");
         }
@@ -79,7 +79,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * @param location The Location to be wrapped.
      * @return A new SerializableContainer instance.
      */
-    public static @NotNull SerializableContainer fromLocation(@NotNull Location location) throws IllegalArgumentException {
+    public static @NonNull SerializableContainer fromLocation(@NonNull Location location) throws IllegalArgumentException {
         Block block = location.getBlock();
         if (ContainerWrapper.isStorageContainer(block.getState())) {
             ContainerWrapper container = new ContainerWrapper(block.getState());
@@ -93,7 +93,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      *
      * @return A string representation of the container's location.
      */
-    public @NotNull String toString() {
+    public @NonNull String toString() {
         return this.worldName +
                 ":" +
                 this.x +
@@ -125,11 +125,11 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * @return A CompletableFuture that completes with the Container represented by this SerializableContainer,
      * or completes exceptionally if the world is not found.
      */
-    public @NotNull CompletableFuture<ContainerWrapper> toContainerAsync() {
+    public @NonNull CompletableFuture<ContainerWrapper> toContainerAsync() {
         return toBlockAsync().thenApply(block -> new ContainerWrapper(block.getState()));
     }
 
-    public @NotNull CompletableFuture<Block> toBlockAsync() {
+    public @NonNull CompletableFuture<Block> toBlockAsync() {
         return super.toBlockAsync().thenApply(block -> {
             if (ContainerWrapper.isStorageContainer(block.getState())) {
                 return block;

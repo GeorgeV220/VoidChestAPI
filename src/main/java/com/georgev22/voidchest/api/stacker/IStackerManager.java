@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.stacker;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The IStackerManager interface provides methods for managing a Stacker.
@@ -12,7 +12,7 @@ public interface IStackerManager {
      *
      * @return The Stacker instance.
      */
-    @NotNull
+    @NonNull
     Stacker getStacker();
 
     /**

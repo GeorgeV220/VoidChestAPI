@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.datastructures.lists;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -43,7 +43,7 @@ public class UnmodifiableArrayList<E> implements List<E> {
     }
 
     @Override
-    public @NotNull Iterator<E> iterator() {
+    public @NonNull Iterator<E> iterator() {
         return new Iterator<E>() {
             private final Iterator<? extends E> i = underlyingList.iterator();
 
@@ -67,12 +67,12 @@ public class UnmodifiableArrayList<E> implements List<E> {
     }
 
     @Override
-    public Object @NotNull [] toArray() {
+    public Object @NonNull [] toArray() {
         return underlyingList.toArray();
     }
 
     @Override
-    public <T> T @NotNull [] toArray(T @NotNull [] a) {
+    public <T> T @NonNull [] toArray(T @NonNull [] a) {
         return underlyingList.toArray(a);
     }
 
@@ -87,27 +87,27 @@ public class UnmodifiableArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean containsAll(@NotNull Collection<?> c) {
+    public boolean containsAll(@NonNull Collection<?> c) {
         return new HashSet<>(underlyingList).containsAll(c);
     }
 
     @Override
-    public boolean addAll(@NotNull Collection<? extends E> c) {
+    public boolean addAll(@NonNull Collection<? extends E> c) {
         throw new UnsupportedOperationException("Cannot modify the unmodifiable list");
     }
 
     @Override
-    public boolean addAll(int index, @NotNull Collection<? extends E> c) {
+    public boolean addAll(int index, @NonNull Collection<? extends E> c) {
         throw new UnsupportedOperationException("Cannot modify the unmodifiable list");
     }
 
     @Override
-    public boolean removeAll(@NotNull Collection<?> c) {
+    public boolean removeAll(@NonNull Collection<?> c) {
         throw new UnsupportedOperationException("Cannot modify the unmodifiable list");
     }
 
     @Override
-    public boolean retainAll(@NotNull Collection<?> c) {
+    public boolean retainAll(@NonNull Collection<?> c) {
         throw new UnsupportedOperationException("Cannot modify the unmodifiable list");
     }
 
@@ -148,7 +148,7 @@ public class UnmodifiableArrayList<E> implements List<E> {
     }
 
     @Override
-    public @NotNull ListIterator<E> listIterator() {
+    public @NonNull ListIterator<E> listIterator() {
         return new ListIterator<E>() {
             private final ListIterator<? extends E> i
                     = underlyingList.listIterator();
@@ -197,7 +197,7 @@ public class UnmodifiableArrayList<E> implements List<E> {
     }
 
     @Override
-    public @NotNull ListIterator<E> listIterator(int index) {
+    public @NonNull ListIterator<E> listIterator(int index) {
         return new ListIterator<E>() {
             private final ListIterator<? extends E> i
                     = underlyingList.listIterator(index);
@@ -246,7 +246,7 @@ public class UnmodifiableArrayList<E> implements List<E> {
     }
 
     @Override
-    public @NotNull List<E> subList(int fromIndex, int toIndex) {
+    public @NonNull List<E> subList(int fromIndex, int toIndex) {
         return new UnmodifiableArrayList<>(underlyingList.subList(fromIndex, toIndex));
     }
 }

@@ -8,8 +8,8 @@ import org.bukkit.block.Container;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A wrapper around Bukkit container BlockState objects (e.g. chests, barrels).
@@ -25,7 +25,7 @@ public class ContainerWrapper {
      * @param blockState the BlockState to wrap
      * @throws IllegalArgumentException if the BlockState is not a container
      */
-    public ContainerWrapper(@NotNull BlockState blockState) {
+    public ContainerWrapper(@NonNull BlockState blockState) {
         if (!(blockState instanceof Container c)) {
             throw new IllegalArgumentException("BlockState is not a valid storage container");
         }
@@ -73,7 +73,7 @@ public class ContainerWrapper {
      *
      * @param name The name to set, or null to remove custom name.
      */
-    public static void setCustomName(@NotNull BlockState blockState, @Nullable String name) {
+    public static void setCustomName(@NonNull BlockState blockState, @Nullable String name) {
         if (!(blockState instanceof Nameable nameable)) {
             throw new UnsupportedOperationException("BlockState does not support custom names");
         }
@@ -83,7 +83,7 @@ public class ContainerWrapper {
         blockState.update();
     }
 
-    public static void setCustomName(@NotNull BlockState blockState, @Nullable Component component) {
+    public static void setCustomName(@NonNull BlockState blockState, @Nullable Component component) {
         if (!(blockState instanceof Nameable nameable)) {
             throw new UnsupportedOperationException("BlockState does not support custom names");
         }
@@ -98,7 +98,7 @@ public class ContainerWrapper {
      * @param blockState the BlockState to check
      * @return true if it is a valid storage container, false otherwise
      */
-    public static boolean isStorageContainer(@NotNull BlockState blockState) {
+    public static boolean isStorageContainer(@NonNull BlockState blockState) {
         return blockState instanceof Container;
     }
 }

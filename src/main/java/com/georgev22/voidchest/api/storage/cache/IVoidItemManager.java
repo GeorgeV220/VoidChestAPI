@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.storage.cache;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -47,7 +47,7 @@ public interface IVoidItemManager {
      * @param name The name of the VoidChest item to retrieve.
      * @return An Optional containing the cached VoidChest item if found, or an empty Optional if not found.
      */
-    @NotNull Optional<IVoidChestItem> cachedItem(final String name);
+    @NonNull Optional<IVoidChestItem> cachedItem(final String name);
 
     /**
      * Retrieves the cached VoidChest item for the specified ItemStack.
@@ -55,6 +55,6 @@ public interface IVoidItemManager {
      * @param itemStack The ItemStack to retrieve the cached VoidChest item for.
      * @return An Optional containing the cached VoidChest item if found, or an empty Optional if not found.
      */
-    @NotNull Optional<IVoidChestItem> cachedItem(final ItemStack itemStack);
+    @NonNull Optional<IVoidChestItem> cachedItem(final ItemStack itemStack);
 
 }

@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.datastructures.maps.utilities;
 
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.google.gson.*;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Type;
 
@@ -12,7 +12,7 @@ public class ObjectMapSerializerDeserializer implements JsonSerializer<ObjectMap
     private static final String INSTANCE = "INSTANCE";
 
     @Override
-    public JsonElement serialize(@NotNull ObjectMap<?, ?> src, Type typeOfSrc, @NotNull JsonSerializationContext context) {
+    public JsonElement serialize(@NonNull ObjectMap<?, ?> src, Type typeOfSrc, @NonNull JsonSerializationContext context) {
         JsonObject retValue = new JsonObject();
         String className = src.getClass().getName();
         retValue.addProperty(CLASSNAME, className);
@@ -22,7 +22,7 @@ public class ObjectMapSerializerDeserializer implements JsonSerializer<ObjectMap
     }
 
     @Override
-    public ObjectMap<?, ?> deserialize(@NotNull JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    public ObjectMap<?, ?> deserialize(@NonNull JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);

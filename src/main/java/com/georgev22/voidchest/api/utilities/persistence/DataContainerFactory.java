@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.utilities.persistence;
 import org.bukkit.block.BlockState;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataContainer;
 
@@ -24,7 +24,7 @@ public class DataContainerFactory {
      * @return A PDC-based wrapper.
      */
     @Contract("_ -> new")
-    public static @NotNull DataContainerWrapper wrap(Object object) {
+    public static @NonNull DataContainerWrapper wrap(Object object) {
         if (object instanceof PersistentDataHolder holder) {
             return new ModernDataContainerWrapper(holder.getPersistentDataContainer());
         }
@@ -39,7 +39,7 @@ public class DataContainerFactory {
      * Wraps an {@link ItemStack} via its ItemMeta PersistentDataContainer.
      */
     @Contract("_ -> new")
-    public static @NotNull DataContainerWrapper wrap(ItemStack itemStack) {
+    public static @NonNull DataContainerWrapper wrap(ItemStack itemStack) {
         PersistentDataContainer container = itemStack.getItemMeta().getPersistentDataContainer();
         return new ModernDataContainerWrapper(container);
     }
@@ -48,7 +48,7 @@ public class DataContainerFactory {
      * Wraps a {@link BlockState} via its PersistentDataContainer.
      */
     @Contract("_ -> new")
-    public static @NotNull DataContainerWrapper wrap(BlockState blockState) {
+    public static @NonNull DataContainerWrapper wrap(BlockState blockState) {
         if (blockState instanceof PersistentDataHolder holder) {
             return new ModernDataContainerWrapper(holder.getPersistentDataContainer());
         }

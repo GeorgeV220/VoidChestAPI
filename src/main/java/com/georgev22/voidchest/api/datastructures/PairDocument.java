@@ -2,8 +2,8 @@ package com.georgev22.voidchest.api.datastructures;
 
 import com.georgev22.voidchest.api.exceptions.PairDocumentException;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -265,7 +265,7 @@ public final class PairDocument<K, V> implements Serializable {
      */
     @Contract(pure = true)
     @Override
-    public @NotNull String toString() {
+    public @NonNull String toString() {
         return "PairDocument{"
                 + "pairs=" + objectPairs
                 + "}";

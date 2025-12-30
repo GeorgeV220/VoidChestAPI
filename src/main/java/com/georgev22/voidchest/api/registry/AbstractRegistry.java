@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.registry;
 import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      * {@inheritDoc}
      */
     @Override
-    public void register(@NotNull K key, @NotNull V value) {
+    public void register(@NonNull K key, @NonNull V value) {
         if (registry.containsKey(key)) {
             throw new IllegalArgumentException("Already registered for key: " + key);
         }
@@ -50,7 +50,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      * {@inheritDoc}
      */
     @Override
-    public boolean replaceOrRegister(@NotNull K key, @NotNull V value) {
+    public boolean replaceOrRegister(@NonNull K key, @NonNull V value) {
         boolean exists = registry.containsKey(key);
         registry.put(key, value);
         return exists;
@@ -60,7 +60,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      * {@inheritDoc}
      */
     @Override
-    public boolean unregister(@NotNull K key) {
+    public boolean unregister(@NonNull K key) {
         return registry.remove(key) != null;
     }
 
@@ -68,7 +68,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      * {@inheritDoc}
      */
     @Override
-    public @NotNull Optional<V> get(K key) {
+    public @NonNull Optional<V> get(K key) {
         if (key == null) {
             return Optional.empty();
         }
@@ -79,7 +79,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      * {@inheritDoc}
      */
     @Override
-    public boolean contains(@NotNull K key) {
+    public boolean contains(@NonNull K key) {
         return registry.containsKey(key);
     }
 
@@ -87,7 +87,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      * {@inheritDoc}
      */
     @Override
-    public @NotNull ObjectMap<K, V> entries() {
+    public @NonNull ObjectMap<K, V> entries() {
         return new UnmodifiableObjectMap<>(registry);
     }
 
@@ -109,7 +109,7 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
      * @return an empty optional
      */
     @Override
-    public @NotNull Optional<V> getSelected() {
+    public @NonNull Optional<V> getSelected() {
         return Optional.empty();
     }
 }

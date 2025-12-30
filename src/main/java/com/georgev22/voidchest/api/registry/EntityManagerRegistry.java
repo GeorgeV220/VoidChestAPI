@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.data.Entity;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 import java.util.logging.Level;
@@ -66,7 +66,7 @@ public final class EntityManagerRegistry
      * @see Registry#register(Object, Object)
      */
     @Override
-    public void register(@NotNull EntityManager<? extends Entity> value) throws IllegalArgumentException {
+    public void register(@NonNull EntityManager<? extends Entity> value) throws IllegalArgumentException {
         super.register(value.getEntityClass(), value);
     }
 
@@ -78,7 +78,7 @@ public final class EntityManagerRegistry
      * @see Registry#replaceOrRegister(Object, Object)
      */
     @Override
-    public boolean replaceOrRegister(@NotNull EntityManager<? extends Entity> value) {
+    public boolean replaceOrRegister(@NonNull EntityManager<? extends Entity> value) {
         return super.replaceOrRegister(value.getEntityClass(), value);
     }
 
@@ -94,7 +94,7 @@ public final class EntityManagerRegistry
      * @return an {@link Optional} containing the validated, typed manager if present
      */
     @SuppressWarnings("unchecked")
-    public <T extends Entity> @NotNull Optional<EntityManager<T>> getTyped(Class<T> clazz) {
+    public <T extends Entity> @NonNull Optional<EntityManager<T>> getTyped(Class<T> clazz) {
         Optional<? extends EntityManager<? extends Entity>> optionalRaw = super.get(clazz);
 
         if (optionalRaw.isEmpty()) {

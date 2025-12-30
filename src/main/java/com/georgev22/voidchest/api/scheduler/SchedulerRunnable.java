@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.scheduler;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implements Runnable {
 
@@ -39,7 +39,7 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    @NotNull
+    @NonNull
     public synchronized SchedulerTask runTask() throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
         return setupTask(this.minecraftScheduler.runTask(this));
@@ -55,7 +55,7 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    @NotNull
+    @NonNull
     public synchronized SchedulerTask runTaskAsynchronously() throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
         return setupTask(this.minecraftScheduler.runAsyncTask(this));
@@ -69,7 +69,7 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    @NotNull
+    @NonNull
     public synchronized SchedulerTask runTaskLater(long delay) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
         return setupTask(this.minecraftScheduler.createDelayedTask(this, delay));
@@ -87,7 +87,7 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    @NotNull
+    @NonNull
     public synchronized SchedulerTask runTaskLaterAsynchronously(long delay) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
         return setupTask(this.minecraftScheduler.createAsyncDelayedTask(this, delay));
@@ -103,7 +103,7 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    @NotNull
+    @NonNull
     public synchronized SchedulerTask runTaskTimer(long delay, long period) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
         return setupTask(this.minecraftScheduler.createRepeatingTask(this, delay, period));
@@ -123,7 +123,7 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
      * @throws IllegalArgumentException if clazz, is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    @NotNull
+    @NonNull
     public synchronized SchedulerTask runTaskTimerAsynchronously(long delay, long period) throws IllegalArgumentException, IllegalStateException {
         checkNotYetScheduled();
         return setupTask(this.minecraftScheduler.createAsyncRepeatingTask(this, delay, period));
@@ -152,8 +152,8 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
         }
     }
 
-    @NotNull
-    private SchedulerTask setupTask(@NotNull final SchedulerTask task) {
+    @NonNull
+    private SchedulerTask setupTask(@NonNull final SchedulerTask task) {
         this.task = task;
         return task;
     }

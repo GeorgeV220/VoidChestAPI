@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.utilities.animation;
 
 import com.georgev22.voidchest.api.utilities.color.Color;
 import com.georgev22.voidchest.api.utilities.color.MinecraftColor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class SparkleAnimation extends Animation {
     private static final Random random = new Random();
 
     @Override
-    public String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors) {
+    public String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors) {
         if (colors.isEmpty()) {
             throw new IllegalArgumentException("Sparkle animation needs at least one color");
         }

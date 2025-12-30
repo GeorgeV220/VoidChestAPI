@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.datastructures.maps;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 
@@ -83,7 +83,7 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
     }
 
     @Override
-    public TreeObjectMap<K, V> append(@NotNull Map<K, V> map) {
+    public TreeObjectMap<K, V> append(@NonNull Map<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
@@ -91,7 +91,7 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
     }
 
     @Override
-    public TreeObjectMap<K, V> append(@NotNull ObjectMap<K, V> map) {
+    public TreeObjectMap<K, V> append(@NonNull ObjectMap<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
@@ -147,7 +147,7 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
      * @return this
      */
     @Override
-    public TreeObjectMap<K, V> appendIfTrue(@NotNull Map<K, V> map, boolean ifTrue) {
+    public TreeObjectMap<K, V> appendIfTrue(@NonNull Map<K, V> map, boolean ifTrue) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }
@@ -186,7 +186,7 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
      * @return this
      */
     @Override
-    public TreeObjectMap<K, V> appendIfTrue(@NotNull ObjectMap<K, V> map, boolean ifTrue) {
+    public TreeObjectMap<K, V> appendIfTrue(@NonNull ObjectMap<K, V> map, boolean ifTrue) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }

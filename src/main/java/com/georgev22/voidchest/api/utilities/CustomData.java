@@ -2,8 +2,8 @@ package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.lang.Cloneable;
 import java.util.Map;
@@ -118,7 +118,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
      * @param <T>          the type of the value
      * @return the custom data object associated with the specified key, or the default value if the key does not exist
      */
-    @NotNull
+    @NonNull
     public <T> T getOr(String key, T defaultValue) {
         T value = get(key);
         return value != null ? value : defaultValue;
@@ -164,7 +164,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
      * @param <T>          The type to cast the retrieved custom data to
      * @return The custom data cast to the specified type, or the default value if the key does not exist or the cast fails
      */
-    @NotNull
+    @NonNull
     public <T> T getOr(String key, T defaultValue, Class<T> type) {
         T value = getAs(key, type);
         return value != null ? value : defaultValue;
@@ -192,7 +192,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
     }
 
     @Override
-    public @NotNull CustomData clone() {
+    public @NonNull CustomData clone() {
         try {
             CustomData clone = (CustomData) super.clone();
             clone.customData = ObjectMap.newConcurrentObjectMap();
@@ -207,7 +207,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
     }
 
     @Override
-    public @NotNull CustomData shallowCopy() {
+    public @NonNull CustomData shallowCopy() {
         try {
             return (CustomData) super.clone();
         } catch (CloneNotSupportedException e) {
@@ -216,7 +216,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
     }
 
     @Override
-    public @NotNull CustomData deepCopy() {
+    public @NonNull CustomData deepCopy() {
         CustomData copy = new CustomData();
         copy.customData = ObjectMap.newConcurrentObjectMap();
         for (Map.Entry<String, Object> entry : customData.entrySet()) {

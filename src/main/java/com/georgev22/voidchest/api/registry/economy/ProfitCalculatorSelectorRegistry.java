@@ -8,7 +8,7 @@ import com.georgev22.voidchest.api.registry.AbstractRegistry;
 import com.georgev22.voidchest.api.registry.Registries;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +64,7 @@ public final class ProfitCalculatorSelectorRegistry
      * @throws IllegalArgumentException always thrown to prevent keyless registration
      */
     @Override
-    public void register(@NotNull ProfitCalculatorSelector value) throws IllegalArgumentException {
+    public void register(@NonNull ProfitCalculatorSelector value) throws IllegalArgumentException {
         throw new IllegalArgumentException(
                 "ProfitCalculatorSelectorRegistry requires a chest-type key when registering selectors. " +
                         "Use register(String, ProfitCalculatorSelector) instead.");
@@ -83,7 +83,7 @@ public final class ProfitCalculatorSelectorRegistry
      * @throws IllegalArgumentException always thrown to prevent keyless registration
      */
     @Override
-    public boolean replaceOrRegister(@NotNull ProfitCalculatorSelector value) {
+    public boolean replaceOrRegister(@NonNull ProfitCalculatorSelector value) {
         throw new IllegalArgumentException(
                 "ProfitCalculatorSelectorRegistry requires a chest-type key when registering selectors. " +
                         "Use replaceOrRegister(String, ProfitCalculatorSelector) instead.");

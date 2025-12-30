@@ -5,8 +5,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class UpgradeBuilder<U> {
      * @return A new {@code UpgradeBuilder} instance.
      */
     @Contract(value = " -> new", pure = true)
-    public static <U> @NotNull UpgradeBuilder<U> builder() {
+    public static <U> @NonNull UpgradeBuilder<U> builder() {
         return new UpgradeBuilder<>();
     }
 
@@ -56,7 +56,7 @@ public class UpgradeBuilder<U> {
      * @param serialized   The String representation of the upgrade.
      * @return A new {@link Upgrade} instance.
      */
-    public static <U> Upgrade<U> deserialize(@NotNull UpgradeDeserializer<U> deserializer, String serialized) {
+    public static <U> Upgrade<U> deserialize(@NonNull UpgradeDeserializer<U> deserializer, String serialized) {
         return deserializer.deserialize(serialized);
     }
 
@@ -69,7 +69,7 @@ public class UpgradeBuilder<U> {
      * @param upgrade The {@link Upgrade} instance.
      * @return A String representation of the {@link Upgrade} instance.
      */
-    public static <U> String serialize(@NotNull Upgrade<U> upgrade) {
+    public static <U> String serialize(@NonNull Upgrade<U> upgrade) {
         return upgrade.toString();
     }
 
@@ -82,7 +82,7 @@ public class UpgradeBuilder<U> {
      * @param serializer The {@link UpgradeSerializer} instance.
      * @return A String representation of the {@link Upgrade} instance.
      */
-    public static <U> String serialize(Upgrade<U> upgrade, @NotNull UpgradeSerializer<U> serializer) {
+    public static <U> String serialize(Upgrade<U> upgrade, @NonNull UpgradeSerializer<U> serializer) {
         return serializer.serialize(upgrade);
     }
 
@@ -92,7 +92,7 @@ public class UpgradeBuilder<U> {
      * @param name The name of the upgrade.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withName(@NotNull String name) {
+    public @NonNull UpgradeBuilder<U> withName(@NonNull String name) {
         this.name = name;
         return this;
     }
@@ -103,7 +103,7 @@ public class UpgradeBuilder<U> {
      * @param key The unique key identifying the upgrade.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withKey(@NotNull NamespacedKey key) {
+    public @NonNull UpgradeBuilder<U> withKey(@NonNull NamespacedKey key) {
         this.key = key;
         return this;
     }
@@ -114,7 +114,7 @@ public class UpgradeBuilder<U> {
      * @param maxLevel The maximum level.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withMaxLevel(int maxLevel) {
+    public @NonNull UpgradeBuilder<U> withMaxLevel(int maxLevel) {
         this.maxLevel = Math.max(1, maxLevel);
         return this;
     }
@@ -125,7 +125,7 @@ public class UpgradeBuilder<U> {
      * @param voidchestTypes A list of applicable VoidChest types.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withVoidchestTypes(@NotNull List<String> voidchestTypes) {
+    public @NonNull UpgradeBuilder<U> withVoidchestTypes(@NonNull List<String> voidchestTypes) {
         this.voidchestTypes = new ArrayList<>(voidchestTypes);
         return this;
     }
@@ -136,7 +136,7 @@ public class UpgradeBuilder<U> {
      * @param serializer The serializer instance.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withSerializer(@NotNull UpgradeSerializer<U> serializer) {
+    public @NonNull UpgradeBuilder<U> withSerializer(@NonNull UpgradeSerializer<U> serializer) {
         this.serializer = serializer;
         return this;
     }
@@ -147,7 +147,7 @@ public class UpgradeBuilder<U> {
      * @param levels The list of upgrade levels.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withLevels(@NotNull List<UpgradeLevel<U>> levels) {
+    public @NonNull UpgradeBuilder<U> withLevels(@NonNull List<UpgradeLevel<U>> levels) {
         this.levels.addAll(levels);
         return this;
     }
@@ -158,7 +158,7 @@ public class UpgradeBuilder<U> {
      * @param level The upgrade level to add.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withLevel(@NotNull UpgradeLevel<U> level) {
+    public @NonNull UpgradeBuilder<U> withLevel(@NonNull UpgradeLevel<U> level) {
         this.levels.add(level);
         return this;
     }
@@ -173,11 +173,11 @@ public class UpgradeBuilder<U> {
      * @param placeholders  A map of placeholder values.
      * @return The current {@code UpgradeBuilder} instance.
      */
-    public @NotNull UpgradeBuilder<U> withLevel(
+    public @NonNull UpgradeBuilder<U> withLevel(
             int level,
-            @NotNull BigDecimal price,
-            @NotNull U upgradeObject,
-            @NotNull ItemStack displayItem,
+            @NonNull BigDecimal price,
+            @NonNull U upgradeObject,
+            @NonNull ItemStack displayItem,
             Map<String, String> placeholders
     ) {
         this.levels.add(new UpgradeLevel<>(level, price, upgradeObject, displayItem.clone(), placeholders));
@@ -190,7 +190,7 @@ public class UpgradeBuilder<U> {
      * @param plugin The plugin instance to use for logging.
      * @return A new {@link Upgrade} instance.
      */
-    public @Nullable Upgrade<U> build(@NotNull Plugin plugin) {
+    public @Nullable Upgrade<U> build(@NonNull Plugin plugin) {
         if (name == null) {
             plugin.getLogger().log(Level.SEVERE, "[VoidChest/Upgrades]: Upgrade name must be set.");
             return null;
@@ -225,7 +225,7 @@ public class UpgradeBuilder<U> {
      *
      * @param plugin The plugin to use for logging.
      */
-    public void buildAndRegister(@NotNull Plugin plugin) {
+    public void buildAndRegister(@NonNull Plugin plugin) {
         Upgrade<U> upgrade = build(plugin);
         if (upgrade == null) {
             plugin.getLogger().log(Level.SEVERE, "[VoidChest/Upgrades]: Failed to build upgrade.");

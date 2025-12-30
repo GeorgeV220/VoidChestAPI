@@ -10,7 +10,7 @@ import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -59,7 +59,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      *
      * @return the NamespacedKey.
      */
-    public @NotNull NamespacedKey getKey() {
+    public @NonNull NamespacedKey getKey() {
         return key;
     }
 
@@ -100,7 +100,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param displayItem   the display item for this level.
      * @param placeholders  the placeholders for this upgrade level.
      */
-    public void addUpgradeLevel(int level, @NotNull BigDecimal price, @NotNull U upgradeObject, ItemStack displayItem, Map<String, String> placeholders) {
+    public void addUpgradeLevel(int level, @NonNull BigDecimal price, @NonNull U upgradeObject, ItemStack displayItem, Map<String, String> placeholders) {
         addUpgradeLevel(new UpgradeLevel<>(level, price, upgradeObject, displayItem, placeholders));
     }
 
@@ -109,7 +109,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      *
      * @param upgradeLevel the upgrade level to add.
      */
-    public void addUpgradeLevel(@NotNull UpgradeLevel<U> upgradeLevel) {
+    public void addUpgradeLevel(@NonNull UpgradeLevel<U> upgradeLevel) {
         if (upgradeLevel.level() < 1 || upgradeLevel.level() > maxLevel) {
             throw new IllegalArgumentException("Level must be between 1 and " + maxLevel);
         }
@@ -235,7 +235,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @deprecated Use {@link #upgrade(IVoidChest, UUID)} instead.
      */
     @Deprecated(forRemoval = true)
-    public int upgrade(@NotNull IVoidChest voidChest, int currentLevel, UUID playerUUID) {
+    public int upgrade(@NonNull IVoidChest voidChest, int currentLevel, UUID playerUUID) {
         return this.upgrade(voidChest, playerUUID, true);
     }
 
@@ -258,7 +258,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param playerUUID the UUID of the player purchasing the upgrade
      * @return the applied level, or an error code
      */
-    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID) {
+    public int upgrade(@NonNull IVoidChest voidChest, UUID playerUUID) {
         return this.upgrade(voidChest, playerUUID, true);
     }
 
@@ -280,7 +280,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param economyCheck whether to check and charge the player's balance
      * @return the new level if successful, or an error code
      */
-    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID, boolean economyCheck) {
+    public int upgrade(@NonNull IVoidChest voidChest, UUID playerUUID, boolean economyCheck) {
         int currentLevel = this.getCurrentLevel(voidChest);
         boolean isApplicable = this.isApplicableTo(voidChest.type());
         if (!isApplicable) {
@@ -320,7 +320,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param voidChest the VoidChest to get the current level for
      * @return the current level of this upgrade for the given VoidChest
      */
-    public int getCurrentLevel(@NotNull IVoidChest voidChest) {
+    public int getCurrentLevel(@NonNull IVoidChest voidChest) {
         return voidChest.upgrades().entrySet().stream()
                 .filter(upg -> upg.getKey().equals(key))
                 .map(Map.Entry::getValue)
@@ -328,7 +328,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
                 .orElse(1);
     }
 
-    private void logUpgrades(@NotNull IVoidChest voidChest) {
+    private void logUpgrades(@NonNull IVoidChest voidChest) {
         VoidChestAPI.getInstance().plugin().getLogger().info("Upgrades for VoidChest:");
         for (Map.Entry<NamespacedKey, Integer> upgrade : voidChest.upgrades().entrySet()) {
             VoidChestAPI.getInstance().plugin().getLogger().info(upgrade.getKey() + ": " + upgrade.getValue());

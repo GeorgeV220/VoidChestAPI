@@ -21,7 +21,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -161,7 +161,7 @@ public final class VoidChestAPI {
      *
      * @return a non-null {@link EntityManager} for {@link IVoidChest}
      */
-    public @NotNull EntityManager<IVoidChest> voidChestManager() {
+    public @NonNull EntityManager<IVoidChest> voidChestManager() {
         Optional<EntityManager<IVoidChest>> manager =
                 EntityManagerRegistry.getInstance().getTyped(IVoidChest.class);
         return manager.orElseGet(() -> new InvalidEntityManager<>(IVoidChest.class));
@@ -172,7 +172,7 @@ public final class VoidChestAPI {
      *
      * @return a non-null {@link EntityManager} for {@link IPlayerData}
      */
-    public @NotNull EntityManager<IPlayerData> playerManager() {
+    public @NonNull EntityManager<IPlayerData> playerManager() {
         Optional<EntityManager<IPlayerData>> manager =
                 EntityManagerRegistry.getInstance().getTyped(IPlayerData.class);
         return manager.orElseGet(() -> new InvalidEntityManager<>(IPlayerData.class));

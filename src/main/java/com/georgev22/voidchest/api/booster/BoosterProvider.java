@@ -5,7 +5,7 @@ import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class BoosterProvider {
         this.plugin = plugin;
     }
 
-    public List<Booster> getBoosters(@NotNull OfflinePlayer player) {
+    public List<Booster> getBoosters(@NonNull OfflinePlayer player) {
         List<Booster> boosterList = boosters.get(player.getUniqueId());
         if (boosterList == null) {
             return Collections.emptyList();
@@ -33,12 +33,12 @@ public class BoosterProvider {
         }
     }
 
-    public void addBooster(@NotNull OfflinePlayer player, Booster booster) {
+    public void addBooster(@NonNull OfflinePlayer player, Booster booster) {
         boosters.computeIfAbsent(player.getUniqueId(), k -> Collections.synchronizedList(new ArrayList<>()))
                 .add(booster);
     }
 
-    public void removeBooster(@NotNull OfflinePlayer player, Booster booster) {
+    public void removeBooster(@NonNull OfflinePlayer player, Booster booster) {
         boosters.computeIfAbsent(player.getUniqueId(), k -> Collections.synchronizedList(new ArrayList<>()))
                 .remove(booster);
     }

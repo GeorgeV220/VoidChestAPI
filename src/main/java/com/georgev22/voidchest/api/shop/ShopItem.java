@@ -3,8 +3,8 @@ package com.georgev22.voidchest.api.shop;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
 
@@ -22,8 +22,8 @@ import java.math.BigDecimal;
  *
  * <p>There are two constructors available:
  * <ul>
- *     <li>{@code public ShopItem(@NotNull ItemStack item)}</li>
- *     <li>{@code public ShopItem(@NotNull ItemStack item, @NotNull BigDecimal price)}</li>
+ *     <li>{@code public ShopItem(@NonNull ItemStack item)}</li>
+ *     <li>{@code public ShopItem(@NonNull ItemStack item, @NonNull BigDecimal price)}</li>
  * </ul>
  * </p>
  *
@@ -49,7 +49,7 @@ public abstract class ShopItem implements ConfigurationSerializable, Cloneable {
      *
      * @param item The ItemStack representing the item.
      */
-    public ShopItem(@NotNull ItemStack item) {
+    public ShopItem(@NonNull ItemStack item) {
         this(item, BigDecimal.ZERO);
     }
 
@@ -59,7 +59,7 @@ public abstract class ShopItem implements ConfigurationSerializable, Cloneable {
      * @param item  The ItemStack representing the item.
      * @param price The price of the item.
      */
-    public ShopItem(@NotNull ItemStack item, @NotNull BigDecimal price) {
+    public ShopItem(@NonNull ItemStack item, @NonNull BigDecimal price) {
         this.item = item;
         this.price = price;
     }
@@ -78,7 +78,7 @@ public abstract class ShopItem implements ConfigurationSerializable, Cloneable {
      *
      * @return The price of the shop item.
      */
-    public @NotNull BigDecimal getPrice() {
+    public @NonNull BigDecimal getPrice() {
         return price;
     }
 
@@ -87,7 +87,7 @@ public abstract class ShopItem implements ConfigurationSerializable, Cloneable {
      *
      * @param price The new price for the shop item.
      */
-    public void setPrice(@NotNull BigDecimal price) {
+    public void setPrice(@NonNull BigDecimal price) {
         this.price = price;
     }
 
@@ -96,7 +96,7 @@ public abstract class ShopItem implements ConfigurationSerializable, Cloneable {
      *
      * @param item The new ItemStack for the shop item.
      */
-    public void setItem(@NotNull ItemStack item) {
+    public void setItem(@NonNull ItemStack item) {
         this.item = item;
     }
 

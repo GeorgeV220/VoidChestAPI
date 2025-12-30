@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.datastructures.maps;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.*;
@@ -623,7 +623,7 @@ public class UnmodifiableObjectMap<K, V> implements ObjectMap<K, V>, Serializabl
      *                                       the specified map prevents it from being stored in this map
      */
     @Override
-    public void putAll(@NotNull Map<? extends K, ? extends V> m) {
+    public void putAll(@NonNull Map<? extends K, ? extends V> m) {
         throw new UnsupportedOperationException("UnmodifiableObjectMap");
     }
 
@@ -654,7 +654,7 @@ public class UnmodifiableObjectMap<K, V> implements ObjectMap<K, V>, Serializabl
      *
      * @return a set view of the keys contained in this map
      */
-    @NotNull
+    @NonNull
     @Override
     public Set<K> keySet() {
         return Collections.unmodifiableSet(hashObjectMap.keySet());
@@ -675,7 +675,7 @@ public class UnmodifiableObjectMap<K, V> implements ObjectMap<K, V>, Serializabl
      *
      * @return a collection view of the values contained in this map
      */
-    @NotNull
+    @NonNull
     @Override
     public Collection<V> values() {
         return Collections.unmodifiableCollection(hashObjectMap.values());
@@ -697,7 +697,7 @@ public class UnmodifiableObjectMap<K, V> implements ObjectMap<K, V>, Serializabl
      *
      * @return a set view of the mappings contained in this map
      */
-    @NotNull
+    @NonNull
     @Override
     public Set<Entry<K, V>> entrySet() {
         return Collections.unmodifiableSet(hashObjectMap.entrySet());

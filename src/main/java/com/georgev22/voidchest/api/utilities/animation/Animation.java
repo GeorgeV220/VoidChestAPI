@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils.MinecraftVersion;
 import com.georgev22.voidchest.api.utilities.color.Color;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public abstract class Animation {
      * @param animation The name of the animation (e.g., "fade", "wave").
      * @return An instance of the corresponding {@link Animation}, or a no-op implementation if unknown.
      */
-    public static @NotNull Animation valueOf(@NotNull String animation) {
+    public static @NonNull Animation valueOf(@NonNull String animation) {
         return switch (animation.toLowerCase()) {
             case "fade" -> new FadingAnimation();
             case "wave" -> new WaveAnimation();
@@ -42,13 +42,13 @@ public abstract class Animation {
             case "glitch" -> new GlitchAnimation();
             case "none" -> new Animation() {
                 @Override
-                public String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors) {
+                public String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors) {
                     return string;
                 }
             };
             default -> new Animation() {
                 @Override
-                public String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors) {
+                public String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors) {
                     VoidChestAPI.getInstance().plugin().getLogger().warning("Unknown animation: " + animation);
                     return string;
                 }
@@ -63,7 +63,7 @@ public abstract class Animation {
      * @param colors The colors to use in the animation.
      * @return The rendered animated string.
      */
-    public String render(String string, @NotNull List<Color> colors) {
+    public String render(String string, @NonNull List<Color> colors) {
         return render(string, false, computeStart(string), computeEnd(string), colors);
     }
 
@@ -75,7 +75,7 @@ public abstract class Animation {
      * @param colors The colors to use in the animation.
      * @return The rendered animated string.
      */
-    public String render(String string, boolean bold, @NotNull List<Color> colors) {
+    public String render(String string, boolean bold, @NonNull List<Color> colors) {
         return render(string, bold, computeStart(string), computeEnd(string), colors);
     }
 
@@ -89,7 +89,7 @@ public abstract class Animation {
      * @param colors The colors used during animation.
      * @return The resulting animated string.
      */
-    public abstract String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors);
+    public abstract String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors);
 
     /**
      * Retrieves the current frame from a list of precomputed frames based on system time.
@@ -97,7 +97,7 @@ public abstract class Animation {
      * @param frames A list of frames representing animation states.
      * @return The frame corresponding to the current tick.
      */
-    protected static String currentFrame(@NotNull List<String> frames) {
+    protected static String currentFrame(@NonNull List<String> frames) {
         long l = System.currentTimeMillis() / 50L;
         int i = (int) (l % (long) frames.size());
         return frames.get(i);
@@ -119,7 +119,7 @@ public abstract class Animation {
      * @param string The input string.
      * @return The ending frame offset.
      */
-    protected int computeEnd(@NotNull String string) {
+    protected int computeEnd(@NonNull String string) {
         return Math.max(10, string.length());
     }
 }

@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -26,7 +26,7 @@ public class BukkitMinecraftUtils {
      * @param msg The message to be translated
      * @return A translated message
      */
-    public static @NotNull String colorize(final String msg) {
+    public static @NonNull String colorize(final String msg) {
         String unEditedMessage = msg;
         if (unEditedMessage == null) {
             throw new IllegalArgumentException("The string can't be null!");
@@ -64,7 +64,7 @@ public class BukkitMinecraftUtils {
      * @param array Array of messages
      * @return A translated message array
      */
-    public static String @NotNull [] colorize(final String... array) {
+    public static String @NonNull [] colorize(final String... array) {
         if (array == null) {
             throw new IllegalArgumentException("The string array can't be null!");
         }
@@ -84,7 +84,7 @@ public class BukkitMinecraftUtils {
      * @param coll The collection to be translated
      * @return A translated message
      */
-    public static @NotNull List<String> colorize(final List<String> coll) {
+    public static @NonNull List<String> colorize(final List<String> coll) {
         if (coll == null) {
             throw new IllegalArgumentException("The string collection can't be null!");
         }
@@ -96,7 +96,7 @@ public class BukkitMinecraftUtils {
         return newColl;
     }
 
-    public static ItemStack @NotNull [] getItems(final @NotNull ItemStack item, int amount) {
+    public static ItemStack @NonNull [] getItems(final @NonNull ItemStack item, int amount) {
 
         final int maxSize = item.getMaxStackSize();
         if (amount <= maxSize) {
@@ -112,7 +112,7 @@ public class BukkitMinecraftUtils {
         return resultItems.toArray(new ItemStack[0]);
     }
 
-    public static @NotNull ItemStack resetItemMeta(final @NotNull ItemStack item) {
+    public static @NonNull ItemStack resetItemMeta(final @NonNull ItemStack item) {
         final ItemStack copy = item.clone();
         copy.setItemMeta(Bukkit.getItemFactory().getItemMeta(copy.getType()));
         return copy;
@@ -123,7 +123,7 @@ public class BukkitMinecraftUtils {
      *
      * @param listeners Class that implements Listener interface
      */
-    public static void registerListeners(Plugin plugin, Listener @NotNull ... listeners) {
+    public static void registerListeners(Plugin plugin, Listener @NonNull ... listeners) {
         final PluginManager pm = Bukkit.getPluginManager();
         for (final Listener listener : listeners) {
             pm.registerEvents(listener, plugin);
@@ -209,7 +209,7 @@ public class BukkitMinecraftUtils {
         return false;
     }
 
-    public static void suggestPaper(@NotNull Plugin plugin, @NotNull Level logLevel) {
+    public static void suggestPaper(@NonNull Plugin plugin, @NonNull Level logLevel) {
         if (!isPaper()) {
             String pluginName = plugin.getDescription().getName();
             Logger logger = plugin.getLogger();
@@ -336,12 +336,12 @@ public class BukkitMinecraftUtils {
         }
 
         @Contract(pure = true)
-        public static @NotNull String getCurrentVersionName() {
+        public static @NonNull String getCurrentVersionName() {
             return currentVersion.name();
         }
 
         @Contract(pure = true)
-        public static @NotNull String getCurrentVersionNameVtoLowerCase() {
+        public static @NonNull String getCurrentVersionNameVtoLowerCase() {
             return currentVersion.name().replace("V", "v");
         }
 
@@ -351,7 +351,7 @@ public class BukkitMinecraftUtils {
          * @param minecraftVersion The {@link MinecraftVersion} to be checked.
          * @return if the minecraft version is above or equal.
          */
-        public boolean isAboveOrEqual(@NotNull MinecraftVersion minecraftVersion) {
+        public boolean isAboveOrEqual(@NonNull MinecraftVersion minecraftVersion) {
             return this.ordinal() >= minecraftVersion.ordinal();
         }
 
@@ -361,7 +361,7 @@ public class BukkitMinecraftUtils {
          * @param minecraftVersion The {@link MinecraftVersion} to be checked.
          * @return if the minecraft version is above.
          */
-        public boolean isAbove(@NotNull MinecraftVersion minecraftVersion) {
+        public boolean isAbove(@NonNull MinecraftVersion minecraftVersion) {
             return this.ordinal() > minecraftVersion.ordinal();
         }
 
@@ -371,7 +371,7 @@ public class BukkitMinecraftUtils {
          * @param minecraftVersion The {@link MinecraftVersion} to be checked.
          * @return if the minecraft version is below or equal.
          */
-        public boolean isBelowOrEqual(@NotNull MinecraftVersion minecraftVersion) {
+        public boolean isBelowOrEqual(@NonNull MinecraftVersion minecraftVersion) {
             return this.ordinal() <= minecraftVersion.ordinal();
         }
 
@@ -381,7 +381,7 @@ public class BukkitMinecraftUtils {
          * @param minecraftVersion The {@link MinecraftVersion} to be checked.
          * @return if the minecraft version is below.
          */
-        public boolean isBelow(@NotNull MinecraftVersion minecraftVersion) {
+        public boolean isBelow(@NonNull MinecraftVersion minecraftVersion) {
             return this.ordinal() < minecraftVersion.ordinal();
         }
 
@@ -391,7 +391,7 @@ public class BukkitMinecraftUtils {
          * @param minecraftVersion The {@link MinecraftVersion} to be checked.
          * @return if the minecraft version is equal.
          */
-        public boolean isEqual(@NotNull MinecraftVersion minecraftVersion) {
+        public boolean isEqual(@NonNull MinecraftVersion minecraftVersion) {
             return this.ordinal() == minecraftVersion.ordinal();
         }
 

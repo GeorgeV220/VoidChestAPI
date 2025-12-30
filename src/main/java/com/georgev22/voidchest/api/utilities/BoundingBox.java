@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.utilities;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +46,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      *
      * @param other The BoundingBox to copy.
      */
-    public BoundingBox(@NotNull BoundingBox other) {
+    public BoundingBox(@NonNull BoundingBox other) {
         this.minX = other.minX;
         this.minY = other.minY;
         this.minZ = other.minZ;
@@ -61,7 +61,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @param location1 The first corner location of the bounding box.
      * @param location2 The second corner location of the bounding box.
      */
-    public BoundingBox(@NotNull SerializableLocation location1, @NotNull SerializableLocation location2) {
+    public BoundingBox(@NonNull SerializableLocation location1, @NonNull SerializableLocation location2) {
         this.minX = (int) Math.min(location1.getX(), location2.getX());
         this.minY = (int) Math.min(location1.getY(), location2.getY());
         this.minZ = (int) Math.min(location1.getZ(), location2.getZ());
@@ -81,7 +81,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @param maxY   The maximum Y-coordinate.
      * @param maxZ   The maximum Z-coordinate.
      */
-    public BoundingBox(@NotNull SerializableLocation center, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+    public BoundingBox(@NonNull SerializableLocation center, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
         this.minX = (int) (center.getX() - Math.abs(minX));
         this.minY = (int) (center.getY() - Math.abs(minY));
         this.minZ = (int) (center.getZ() - Math.abs(minZ));
@@ -120,7 +120,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @param maxY   The maximum Y-coordinate.
      * @param maxZ   The maximum Z-coordinate.
      */
-    public void setBoundingBox(@NotNull SerializableLocation center, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+    public void setBoundingBox(@NonNull SerializableLocation center, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
         this.minX = (int) (center.getX() - Math.abs(minX));
         this.minY = (int) (center.getY() - Math.abs(minY));
         this.minZ = (int) (center.getZ() - Math.abs(minZ));
@@ -255,7 +255,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @param location The location to check.
      * @return True if the location is inside the bounding box, false otherwise.
      */
-    public boolean isInside(@NotNull SerializableLocation location) {
+    public boolean isInside(@NonNull SerializableLocation location) {
         return isInside((int) location.getX(), (int) location.getY(), (int) location.getZ());
     }
 
@@ -266,7 +266,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @return True if the bounding box is inside this bounding box, false otherwise.
      */
     @Contract(pure = true)
-    public boolean isInside(@NotNull BoundingBox other) {
+    public boolean isInside(@NonNull BoundingBox other) {
         return minX <= other.minX && maxX >= other.maxX && minY <= other.minY && maxY >= other.maxY && minZ <= other.minZ && maxZ >= other.maxZ;
     }
 
@@ -331,7 +331,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @return Map containing the current state of this class
      */
     @Override
-    public @NotNull Map<String, Object> serialize() {
+    public @NonNull Map<String, Object> serialize() {
         Map<String, Object> data = new HashMap<>();
         data.put("minX", minX);
         data.put("minY", minY);
@@ -349,7 +349,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @return A BoundingBox object created from the provided serialized data.
      * @throws IllegalArgumentException If the provided data is null or incomplete.
      */
-    public static @NotNull BoundingBox deserialize(Map<String, Object> data) throws IllegalArgumentException {
+    public static @NonNull BoundingBox deserialize(Map<String, Object> data) throws IllegalArgumentException {
         return valueOf(data);
     }
 
@@ -360,7 +360,7 @@ public final class BoundingBox implements Cloneable, ConfigurationSerializable {
      * @return A BoundingBox object created from the provided serialized data.
      * @throws IllegalArgumentException If the provided data is null or incomplete.
      */
-    public static @NotNull BoundingBox valueOf(Map<String, Object> data) throws IllegalArgumentException {
+    public static @NonNull BoundingBox valueOf(Map<String, Object> data) throws IllegalArgumentException {
         if (data == null) {
             throw new IllegalArgumentException("Data cannot be null");
         }

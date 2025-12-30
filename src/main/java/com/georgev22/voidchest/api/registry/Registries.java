@@ -12,7 +12,7 @@ import com.georgev22.voidchest.api.stacker.Stacker;
 import com.georgev22.voidchest.api.upgrade.Upgrade;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class Registries {
      */
     public static KeyedRegistry<IVoidChestBank> BANK = new KeyedRegistry<>() {
         @Override
-        public @NotNull Optional<IVoidChestBank> getSelected() {
+        public @NonNull Optional<IVoidChestBank> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.BANK.getStringValue()));
         }
     };
@@ -42,7 +42,7 @@ public class Registries {
      */
     public static KeyedRegistry<IVoidChestBankTNT> BANK_TNT = new KeyedRegistry<>() {
         @Override
-        public @NotNull Optional<IVoidChestBankTNT> getSelected() {
+        public @NonNull Optional<IVoidChestBankTNT> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.BANK_TNT.getStringValue()));
         }
     };
@@ -92,7 +92,7 @@ public class Registries {
      */
     public static KeyedRegistry<Stacker> STACKER = new KeyedRegistry<>() {
         @Override
-        public @NotNull Optional<Stacker> getSelected() {
+        public @NonNull Optional<Stacker> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.STACKER.getStringValue()));
         }
     };
@@ -114,7 +114,7 @@ public class Registries {
      */
     public static KeyedRegistry<VoidHologram> HOLOGRAM = new KeyedRegistry<>() {
         @Override
-        public @NotNull Optional<VoidHologram> getSelected() {
+        public @NonNull Optional<VoidHologram> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.HOLOGRAM.getStringValue()));
         }
 

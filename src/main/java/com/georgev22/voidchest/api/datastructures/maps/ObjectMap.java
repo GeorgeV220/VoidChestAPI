@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.datastructures.maps;
 
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -17,7 +17,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new empty {@link LinkedObjectMap} instance.
      */
     @Contract(" -> new")
-    static @NotNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap() {
+    static @NonNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap() {
         return new LinkedObjectMap<>();
     }
 
@@ -27,7 +27,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new empty {@link ConcurrentObjectMap} instance.
      */
     @Contract(" -> new")
-    static @NotNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap() {
+    static @NonNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap() {
         return new ConcurrentObjectMap<>();
     }
 
@@ -37,7 +37,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new empty {@link HashObjectMap} instance.
      */
     @Contract(" -> new")
-    static @NotNull <K, V> HashObjectMap<K, V> newHashObjectMap() {
+    static @NonNull <K, V> HashObjectMap<K, V> newHashObjectMap() {
         return new HashObjectMap<>();
     }
 
@@ -47,7 +47,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new empty {@link TreeObjectMap} instance.
      */
     @Contract(" -> new")
-    static @NotNull <K, V> TreeObjectMap<K, V> newTreeObjectMap() {
+    static @NonNull <K, V> TreeObjectMap<K, V> newTreeObjectMap() {
         return new TreeObjectMap<>();
     }
 
@@ -58,7 +58,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link LinkedObjectMap#LinkedObjectMap(ObjectMap)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap(ObjectMap<K, V> map) {
+    static @NonNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap(ObjectMap<K, V> map) {
         return new LinkedObjectMap<>(map);
     }
 
@@ -69,7 +69,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link LinkedObjectMap#LinkedObjectMap(Map)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap(Map<K, V> map) {
+    static @NonNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap(Map<K, V> map) {
         return new LinkedObjectMap<>(map);
     }
 
@@ -80,7 +80,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link ConcurrentObjectMap#ConcurrentObjectMap(ObjectMap)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap(ObjectMap<K, V> map) {
+    static @NonNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap(ObjectMap<K, V> map) {
         return new ConcurrentObjectMap<>(map);
     }
 
@@ -91,7 +91,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link ConcurrentObjectMap#ConcurrentObjectMap(Map)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap(Map<K, V> map) {
+    static @NonNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap(Map<K, V> map) {
         return new ConcurrentObjectMap<>(map);
     }
 
@@ -102,7 +102,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link HashObjectMap#HashObjectMap(ObjectMap)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> HashObjectMap<K, V> newHashObjectMap(ObjectMap<K, V> map) {
+    static @NonNull <K, V> HashObjectMap<K, V> newHashObjectMap(ObjectMap<K, V> map) {
         return new HashObjectMap<>(map);
     }
 
@@ -113,7 +113,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link HashObjectMap#HashObjectMap(Map)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> HashObjectMap<K, V> newHashObjectMap(Map<K, V> map) {
+    static @NonNull <K, V> HashObjectMap<K, V> newHashObjectMap(Map<K, V> map) {
         return new HashObjectMap<>(map);
     }
 
@@ -124,7 +124,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link TreeObjectMap#TreeObjectMap(ObjectMap)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> TreeObjectMap<K, V> newTreeObjectMap(ObjectMap<K, V> map) {
+    static @NonNull <K, V> TreeObjectMap<K, V> newTreeObjectMap(ObjectMap<K, V> map) {
         return new TreeObjectMap<>(map);
     }
 
@@ -135,7 +135,7 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link TreeObjectMap#TreeObjectMap(Map)} initialized with the mappings from {@code map}
      */
     @Contract("_ -> new")
-    static @NotNull <K, V> TreeObjectMap<K, V> newTreeObjectMap(Map<K, V> map) {
+    static @NonNull <K, V> TreeObjectMap<K, V> newTreeObjectMap(Map<K, V> map) {
         return new TreeObjectMap<>(map);
     }
 
@@ -530,8 +530,8 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      * @return a new {@link ObjectMap} with the same mappings as this map
      * @throws RuntimeException if the constructor is missing or cannot be invoked
      */
-    @NotNull
-    default ObjectMap<K, V> toObjectMap(@NotNull Class<? extends ObjectMap<K, V>> clazz) {
+    @NonNull
+    default ObjectMap<K, V> toObjectMap(@NonNull Class<? extends ObjectMap<K, V>> clazz) {
         Constructor<?> constructor;
         try {
             try {

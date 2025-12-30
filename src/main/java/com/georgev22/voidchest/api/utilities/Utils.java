@@ -7,7 +7,7 @@ import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.*;
 import java.lang.reflect.*;
@@ -148,7 +148,7 @@ public final class Utils {
         return input instanceof List;
     }
 
-    public static boolean isList(final @NotNull FileConfiguration file, final String path) {
+    public static boolean isList(final @NonNull FileConfiguration file, final String path) {
         return Utils.isList(file.get(path));
     }
 
@@ -231,7 +231,7 @@ public final class Utils {
      *                   in ignore case
      * @return the new string array with the placeholders replaced
      */
-    public static String @NotNull [] placeHolder(final String[] array, final Map<String, String> map, final boolean ignoreCase) {
+    public static String @NonNull [] placeHolder(final String[] array, final Map<String, String> map, final boolean ignoreCase) {
         if (array == null) throw new IllegalArgumentException("array cannot be null");
         if (Arrays.stream(array).anyMatch(Objects::isNull))
             throw new IllegalArgumentException("array cannot have null elements");
@@ -326,8 +326,8 @@ public final class Utils {
      * @param value The BigDecimal value to split.
      * @return A list of BigDecimal values representing portions of the original value.
      */
-    @NotNull
-    public static List<BigDecimal> splitBigDecimal(@NotNull BigDecimal value) {
+    @NonNull
+    public static List<BigDecimal> splitBigDecimal(@NonNull BigDecimal value) {
         List<BigDecimal> splitValues = new ArrayList<>();
 
         if (value.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) <= 0) {
@@ -355,7 +355,7 @@ public final class Utils {
      * @param number The number to be formatted as money.
      * @return The formatted money string.
      */
-    @NotNull
+    @NonNull
     public static String formatMoney(Number number) {
         return formatMoney(number, Locale.US);
     }
@@ -367,17 +367,17 @@ public final class Utils {
      * @param locale The locale to use for formatting the money string.
      * @return The formatted money string.
      */
-    @NotNull
+    @NonNull
     public static String formatMoney(Number amount, Locale locale) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
         return numberFormat.format(amount);
     }
 
-    public static @NotNull String formatNumber(Number number, String format) {
+    public static @NonNull String formatNumber(Number number, String format) {
         return formatNumber(number, Locale.US, format);
     }
 
-    public static @NotNull String formatNumber(Number number, Locale locale, String format) {
+    public static @NonNull String formatNumber(Number number, Locale locale, String format) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
         symbols.setGroupingSeparator(' ');
 
@@ -392,7 +392,7 @@ public final class Utils {
      * @return a UUID generated from the seed
      */
     @Contract("_ -> new")
-    public static @NotNull UUID generateUUID(@NotNull String seed) {
+    public static @NonNull UUID generateUUID(@NonNull String seed) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(seed.getBytes(StandardCharsets.UTF_8));
@@ -416,7 +416,7 @@ public final class Utils {
      * @param value The BigInteger value to split.
      * @return A list of BigInteger values representing portions of the original value.
      */
-    public static @NotNull List<BigInteger> splitBigInteger(@NotNull BigInteger value) {
+    public static @NonNull List<BigInteger> splitBigInteger(@NonNull BigInteger value) {
         List<BigInteger> splitValues = new ArrayList<>();
 
         if (value.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) <= 0) {
@@ -446,7 +446,7 @@ public final class Utils {
      * @param limit The limit to split the value into.
      * @return A list of BigInteger values representing portions of the original value.
      */
-    public static @NotNull List<BigInteger> splitBigIntegerTo(@NotNull BigInteger value, int limit) {
+    public static @NonNull List<BigInteger> splitBigIntegerTo(@NonNull BigInteger value, int limit) {
         List<BigInteger> splitValues = new ArrayList<>();
 
         if (value.compareTo(BigInteger.valueOf(limit)) <= 0) {
@@ -504,7 +504,7 @@ public final class Utils {
             cooldownManagerObjectMap.remove(id + cooldownName);
         }
 
-        private static Cooldown getCooldown(@NotNull UUID id, String cooldownName) {
+        private static Cooldown getCooldown(@NonNull UUID id, String cooldownName) {
             return cooldownManagerObjectMap.get(id + cooldownName);
         }
 
@@ -525,7 +525,7 @@ public final class Utils {
             cooldownManagerObjectMap.put(this.id.toString() + this.cooldownName, this);
         }
 
-        public static @NotNull String getTimeLeft(int secondTime) {
+        public static @NonNull String getTimeLeft(int secondTime) {
             TimeZone tz = Calendar.getInstance().getTimeZone();
             SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
             df.setTimeZone(tz);

@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.scheduler;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -118,7 +118,7 @@ public interface MinecraftScheduler<Location, World, Chunk, Entity> {
      * @param delay the delay in ticks before the task executes
      * @return a {@link SchedulerTask} instance representing the scheduled task
      */
-    SchedulerTask createDelayedTaskForWorld(Runnable task, World world, @NotNull Chunk chunk, long delay);
+    SchedulerTask createDelayedTaskForWorld(Runnable task, World world, @NonNull Chunk chunk, long delay);
 
     /**
      * Schedules a synchronous delayed task in the specified world and chunk context that returns a result.
@@ -131,7 +131,7 @@ public interface MinecraftScheduler<Location, World, Chunk, Entity> {
      * @param <T>   the type of the result
      * @return a {@link CompletableFuture} that will be completed with the supplier's result
      */
-    <T> CompletableFuture<T> createDelayedTaskForWorld(Supplier<T> task, World world, @NotNull Chunk chunk, long delay);
+    <T> CompletableFuture<T> createDelayedTaskForWorld(Supplier<T> task, World world, @NonNull Chunk chunk, long delay);
 
     /**
      * Schedules a synchronous delayed task associated with a specific location.
@@ -190,7 +190,7 @@ public interface MinecraftScheduler<Location, World, Chunk, Entity> {
      * @param chunk the chunk associated with the task (must not be null)
      * @return a {@link SchedulerTask} instance representing the scheduled task
      */
-    SchedulerTask createTaskForWorld(Runnable task, World world, @NotNull Chunk chunk);
+    SchedulerTask createTaskForWorld(Runnable task, World world, @NonNull Chunk chunk);
 
     /**
      * Schedules a synchronous task in the specified world and chunk context that returns a result.
@@ -202,7 +202,7 @@ public interface MinecraftScheduler<Location, World, Chunk, Entity> {
      * @param <T>   the type of the result
      * @return a {@link CompletableFuture} that will be completed with the supplier's result
      */
-    <T> CompletableFuture<T> createTaskForWorld(Supplier<T> task, World world, @NotNull Chunk chunk);
+    <T> CompletableFuture<T> createTaskForWorld(Supplier<T> task, World world, @NonNull Chunk chunk);
 
     /**
      * Schedules a synchronous task associated with a specific location.
@@ -259,7 +259,7 @@ public interface MinecraftScheduler<Location, World, Chunk, Entity> {
      * @param period the period in ticks between subsequent executions
      * @return a {@link SchedulerTask} instance representing the scheduled task
      */
-    SchedulerTask createRepeatingTaskForWorld(Runnable task, World world, @NotNull Chunk chunk, long delay, long period);
+    SchedulerTask createRepeatingTaskForWorld(Runnable task, World world, @NonNull Chunk chunk, long delay, long period);
 
     /**
      * Schedules a synchronous repeating task associated with a specific location.

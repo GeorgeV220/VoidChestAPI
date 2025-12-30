@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.events;
 
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.event.Cancellable;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The VoidEvent class is an abstract base class for VoidChest related events.
@@ -17,7 +17,7 @@ public abstract class VoidEvent extends VoidChestBaseEvent {
      *
      * @param voidChest The VoidChest associated with the event.
      */
-    public VoidEvent(@NotNull final IVoidChest voidChest) {
+    public VoidEvent(@NonNull final IVoidChest voidChest) {
         this.voidChest = voidChest;
     }
 
@@ -27,7 +27,7 @@ public abstract class VoidEvent extends VoidChestBaseEvent {
      * @param voidChest The VoidChest associated with the event.
      * @param async     Whether the event should be executed asynchronously.
      */
-    public VoidEvent(@NotNull final IVoidChest voidChest, boolean async) {
+    public VoidEvent(@NonNull final IVoidChest voidChest, boolean async) {
         super(async);
         this.voidChest = voidChest;
     }
@@ -37,7 +37,7 @@ public abstract class VoidEvent extends VoidChestBaseEvent {
      *
      * @return The VoidChest associated with the event.
      */
-    @NotNull
+    @NonNull
     public IVoidChest getVoidChest() {
         return this.voidChest;
     }

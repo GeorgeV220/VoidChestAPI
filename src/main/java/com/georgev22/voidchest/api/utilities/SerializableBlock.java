@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -211,7 +211,7 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      *
      * @return A CompletableFuture that completes with the Block represented by this SerializableBlock, or completes exceptionally if the world is not found.
      */
-    public @NotNull CompletableFuture<Block> toBlockAsync() {
+    public @NonNull CompletableFuture<Block> toBlockAsync() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             return VoidChestAPI.getInstance().minecraftScheduler()

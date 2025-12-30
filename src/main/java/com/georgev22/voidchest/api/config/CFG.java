@@ -4,8 +4,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,7 +93,7 @@ public final class CFG {
         this.reloadFile();
     }
 
-    private void saveResource(@NotNull String resourcePath, File dataFolder, Class<?> clazz) {
+    private void saveResource(@NonNull String resourcePath, File dataFolder, Class<?> clazz) {
         if (resourcePath.isEmpty()) {
             this.logger.info("Resource path is empty!");
             return;
@@ -141,7 +141,7 @@ public final class CFG {
 
     @SuppressWarnings("DuplicatedCode")
     @Nullable
-    private InputStream getResource(@NotNull String filename, @NotNull Class<?> clazz) {
+    private InputStream getResource(@NonNull String filename, @NonNull Class<?> clazz) {
         try {
             URL url = clazz.getClassLoader().getResource(filename);
 
@@ -212,7 +212,7 @@ public final class CFG {
 
     @Contract(pure = true)
     @Override
-    public @NotNull String toString() {
+    public @NonNull String toString() {
         return "CFG{" +
                 "fileName='" + fileName + '\'' +
                 ", fileConfiguration=" + fileConfiguration +

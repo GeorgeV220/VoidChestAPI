@@ -4,7 +4,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockState;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class ModernDataContainerWrapper implements DataContainerWrapper {
 
@@ -20,7 +20,7 @@ public class ModernDataContainerWrapper implements DataContainerWrapper {
     }
 
     @Override
-    public void set(NamespacedKey key, @NotNull DataType type, Object value) {
+    public void set(NamespacedKey key, @NonNull DataType type, Object value) {
         Object converted = type.convert(value);
         if (converted == null) {
             throw new IllegalArgumentException("Failed to convert value for type " + type + ": " + value);
@@ -39,7 +39,7 @@ public class ModernDataContainerWrapper implements DataContainerWrapper {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T, Z> PersistentDataType<T, Z> toBukkitType(@NotNull DataType type) {
+    private static <T, Z> PersistentDataType<T, Z> toBukkitType(@NonNull DataType type) {
         return switch (type) {
             case BYTE -> (PersistentDataType<T, Z>) PersistentDataType.BYTE;
             case SHORT -> (PersistentDataType<T, Z>) PersistentDataType.SHORT;

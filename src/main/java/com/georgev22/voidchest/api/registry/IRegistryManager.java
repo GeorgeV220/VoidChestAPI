@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.registry;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public interface IRegistryManager {
      * @param metrics the metrics retrieved from {@link #getRegistryMetrics()}
      * @return a list of formatted lines representing categorized registry data
      */
-    static @NotNull @Unmodifiable List<String> formatRegistryMetrics(@NotNull Map<String, List<String>> metrics) {
+    static @NonNull @Unmodifiable List<String> formatRegistryMetrics(@NonNull Map<String, List<String>> metrics) {
         return metrics.entrySet().stream()
                 .map(entry -> {
                     String title = entry.getKey();

@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.*;
 import java.util.Objects;
@@ -93,7 +93,7 @@ public class VoidChunk implements Serializable {
      * @throws IOException If an I/O error occurs during serialization.
      */
     @Serial
-    private void writeObject(@NotNull ObjectOutputStream out) throws IOException {
+    private void writeObject(@NonNull ObjectOutputStream out) throws IOException {
         out.writeUTF(worldName);
         out.writeInt(x);
         out.writeInt(z);
@@ -107,7 +107,7 @@ public class VoidChunk implements Serializable {
      * @throws ClassNotFoundException If the class of the serialized object cannot be found.
      */
     @Serial
-    private void readObject(@NotNull ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(@NonNull ObjectInputStream in) throws IOException, ClassNotFoundException {
         this.worldName = in.readUTF();
         this.x = in.readInt();
         this.z = in.readInt();

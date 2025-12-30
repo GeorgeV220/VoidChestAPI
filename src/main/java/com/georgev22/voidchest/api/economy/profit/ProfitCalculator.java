@@ -4,8 +4,8 @@ import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.Keyed;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -22,7 +22,7 @@ public interface ProfitCalculator extends Keyed {
      * @return The calculated profit as a BigDecimal.
      */
     @Deprecated
-    @NotNull BigDecimal getProfit(@NotNull final ItemStack item);
+    @NonNull BigDecimal getProfit(@NonNull final ItemStack item);
 
     /**
      * Retrieves the profit for a specific item and amount.
@@ -32,7 +32,7 @@ public interface ProfitCalculator extends Keyed {
      * @return The calculated profit as a BigDecimal.
      */
     @Deprecated
-    @NotNull BigDecimal getProfit(@NotNull final ItemStack item, @NotNull final BigInteger amount);
+    @NonNull BigDecimal getProfit(@NonNull final ItemStack item, @NonNull final BigInteger amount);
 
     /**
      * Retrieves the profit for a specific item, amount, and VoidChest.
@@ -42,7 +42,7 @@ public interface ProfitCalculator extends Keyed {
      * @param amount    The amount of the item.
      * @return The calculated profit as a BigDecimal.
      */
-    @NotNull BigDecimal getProfit(@Nullable final IVoidChest voidChest, @NotNull final ItemStack item, @NotNull final BigInteger amount);
+    @NonNull BigDecimal getProfit(@Nullable final IVoidChest voidChest, @NonNull final ItemStack item, @NonNull final BigInteger amount);
 
     /**
      * Returns whether the profit calculation requires the player to be online.
@@ -56,7 +56,7 @@ public interface ProfitCalculator extends Keyed {
      *
      * @return The name of the Profit Calculator as a String.
      */
-    @NotNull String getName();
+    @NonNull String getName();
 
     /**
      * Invalidates the cache for the Profit Calculator.

@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.economy.player;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,7 +37,7 @@ public abstract class AEconomy implements Keyed {
      * @param amount The amount to withdraw as a BigDecimal.
      * @return True if the withdrawal is successful, false otherwise.
      */
-    public abstract boolean withdraw(@NotNull final OfflinePlayer player, final BigDecimal amount);
+    public abstract boolean withdraw(@NonNull final OfflinePlayer player, final BigDecimal amount);
 
     /**
      * Deposits the specified amount into the player's account.
@@ -46,7 +46,7 @@ public abstract class AEconomy implements Keyed {
      * @param amount The amount to deposit as a BigDecimal.
      * @return True if the deposit is successful, false otherwise.
      */
-    public abstract boolean deposit(@NotNull final OfflinePlayer player, final BigDecimal amount);
+    public abstract boolean deposit(@NonNull final OfflinePlayer player, final BigDecimal amount);
 
     /**
      * Retrieves the balance of the player's account.
@@ -54,7 +54,7 @@ public abstract class AEconomy implements Keyed {
      * @param player The OfflinePlayer to retrieve the balance for.
      * @return The balance of the player's account as a BigDecimal.
      */
-    public abstract BigDecimal getBalance(@NotNull final OfflinePlayer player);
+    public abstract BigDecimal getBalance(@NonNull final OfflinePlayer player);
 
     /**
      * Retrieves the name of the economy system.
@@ -107,7 +107,7 @@ public abstract class AEconomy implements Keyed {
     }
 
     @Override
-    public @NotNull NamespacedKey getKey() {
+    public @NonNull NamespacedKey getKey() {
         return this.key;
     }
 }

@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.economy.banktnt;
 
 import org.bukkit.Keyed;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
@@ -17,7 +17,7 @@ public interface IVoidChestBankTNT extends Keyed {
      * @param id     The UUID of the bank to deposit to.
      * @return True if the deposit is successful, false otherwise.
      */
-    boolean depositToBank(final int amount, final @NotNull UUID id);
+    boolean depositToBank(final int amount, final @NonNull UUID id);
 
     /**
      * Retrieves the simple name of the VoidChest bank TNT. E.g. FactionsUUID

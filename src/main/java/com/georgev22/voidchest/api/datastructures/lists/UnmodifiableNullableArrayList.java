@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.datastructures.lists;
 
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -172,7 +172,7 @@ public class UnmodifiableNullableArrayList<E> extends NullableArrayList<E> {
      * @return an unmodifiable list iterator
      */
     @Override
-    public @NotNull ListIterator<E> listIterator() {
+    public @NonNull ListIterator<E> listIterator() {
         return Collections.unmodifiableList(this).listIterator();
     }
 
@@ -183,7 +183,7 @@ public class UnmodifiableNullableArrayList<E> extends NullableArrayList<E> {
      * @return an unmodifiable list iterator
      */
     @Override
-    public @NotNull ListIterator<E> listIterator(int index) {
+    public @NonNull ListIterator<E> listIterator(int index) {
         return Collections.unmodifiableList(this).listIterator(index);
     }
 
@@ -195,7 +195,7 @@ public class UnmodifiableNullableArrayList<E> extends NullableArrayList<E> {
      * @return an unmodifiable sublist
      */
     @Override
-    public @NotNull List<E> subList(int fromIndex, int toIndex) {
+    public @NonNull List<E> subList(int fromIndex, int toIndex) {
         return Collections.unmodifiableList(super.subList(fromIndex, toIndex));
     }
 
@@ -219,7 +219,7 @@ public class UnmodifiableNullableArrayList<E> extends NullableArrayList<E> {
      * @throws NullPointerException if the specified list is null
      */
     @Contract("_ -> new")
-    public static <E> @NotNull UnmodifiableNullableArrayList<E> unmodifiableList(NullableArrayList<E> list) {
+    public static <E> @NonNull UnmodifiableNullableArrayList<E> unmodifiableList(NullableArrayList<E> list) {
         return new UnmodifiableNullableArrayList<>(list);
     }
 }

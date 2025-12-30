@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.task;
 
 import com.georgev22.voidchest.api.task.tasks.ITimedTask;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Map;
@@ -38,7 +38,7 @@ public interface ITimedTaskManager {
      * @param task The ITimedTask instance.
      * @return The UUID of the added task.
      */
-    UUID addObjectAndStart(@NotNull ITimedTask task);
+    UUID addObjectAndStart(@NonNull ITimedTask task);
 
     /**
      * Adds a new ITimedTask object with a Runnable action and starts its countdown immediately.
