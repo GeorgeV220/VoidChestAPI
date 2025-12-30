@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.lists;
+package com.georgev22.voidchest.api.datastructures.lists;
 
 /**
  * Interface for listeners to be notified of changes in the list.

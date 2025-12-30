@@ -1,6 +1,6 @@
-package com.georgev22.voidchest.api.maps.utilities;
+package com.georgev22.voidchest.api.datastructures.maps.utilities;
 
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.google.gson.*;
 import org.jetbrains.annotations.NotNull;
 

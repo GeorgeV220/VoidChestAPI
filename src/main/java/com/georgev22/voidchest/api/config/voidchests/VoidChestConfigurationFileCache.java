@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.config.voidchests;
 
 import com.georgev22.voidchest.api.config.VoidChestOptionCache;
-import com.georgev22.voidchest.api.maps.HashObjectMap;
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.HashObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;

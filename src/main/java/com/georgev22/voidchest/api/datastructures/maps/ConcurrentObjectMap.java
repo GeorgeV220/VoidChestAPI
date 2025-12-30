@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.maps;
+package com.georgev22.voidchest.api.datastructures.maps;
 
 import org.jetbrains.annotations.NotNull;
 

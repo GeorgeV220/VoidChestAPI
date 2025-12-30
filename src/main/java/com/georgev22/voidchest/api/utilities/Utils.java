@@ -2,9 +2,9 @@ package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.voidchest.api.exceptions.NotFoundException;
 import com.georgev22.voidchest.api.exceptions.ReflectionException;
-import com.georgev22.voidchest.api.maps.HashObjectMap;
-import com.georgev22.voidchest.api.maps.ObjectMap;
-import com.georgev22.voidchest.api.maps.TreeObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.HashObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.TreeObjectMap;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;

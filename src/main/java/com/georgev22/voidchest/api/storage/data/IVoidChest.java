@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.voidchest.api.link.ILink;
 import com.georgev22.voidchest.api.link.ILinkManager;
-import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.voidchest.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidchest.Charge;
 import com.georgev22.voidchest.api.storage.data.voidchest.Stats;

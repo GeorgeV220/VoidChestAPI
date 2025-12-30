@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
-import com.georgev22.voidchest.api.maps.HashObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.HashObjectMap;
 import com.georgev22.voidchest.api.utilities.color.Color;
 import com.google.common.collect.Lists;
 import org.bukkit.*;

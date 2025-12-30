@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.utilities.animation;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils.MinecraftVersion;
 import com.georgev22.voidchest.api.utilities.color.Color;
 import org.jetbrains.annotations.NotNull;

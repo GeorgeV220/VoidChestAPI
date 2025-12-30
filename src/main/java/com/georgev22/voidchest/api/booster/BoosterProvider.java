@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.booster;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;

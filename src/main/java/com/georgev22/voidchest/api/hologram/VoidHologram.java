@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.hologram;
 
-import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.Keyed;
 import org.bukkit.Location;

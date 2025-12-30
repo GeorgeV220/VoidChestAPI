@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.lists;
+package com.georgev22.voidchest.api.datastructures.lists;
 
 import org.jetbrains.annotations.NotNull;
 

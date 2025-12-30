@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.registry;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
-import com.georgev22.voidchest.api.maps.ObjectMap;
-import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

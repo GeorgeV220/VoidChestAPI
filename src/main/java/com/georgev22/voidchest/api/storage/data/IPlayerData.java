@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.voidchest.api.economy.player.EconomyMode;
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.player.Stats;
 
 import java.math.BigDecimal;

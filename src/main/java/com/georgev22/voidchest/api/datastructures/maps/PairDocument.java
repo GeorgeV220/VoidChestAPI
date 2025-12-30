@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.maps;
+package com.georgev22.voidchest.api.datastructures.maps;
 
 import com.georgev22.voidchest.api.exceptions.PairDocumentException;
 import org.jetbrains.annotations.Contract;

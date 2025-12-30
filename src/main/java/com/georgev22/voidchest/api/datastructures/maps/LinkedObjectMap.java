@@ -1,56 +1,56 @@
-package com.georgev22.voidchest.api.maps;
+package com.georgev22.voidchest.api.datastructures.maps;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.lang.String.format;
 
-public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V> {
+public class LinkedObjectMap<K, V> extends LinkedHashMap<K, V> implements ObjectMap<K, V> {
 
     /**
-     * Creates an HashObjectMap instance.
+     * Creates an LinkedObjectMap instance.
      */
-    public HashObjectMap() {
+    public LinkedObjectMap() {
     }
 
     /**
-     * Creates a HashObjectMap instance initialized with the given map.
+     * Creates a LinkedObjectMap instance initialized with the given map.
      *
      * @param map initial map
      */
-    public HashObjectMap(final ObjectMap<K, V> map) {
+    public LinkedObjectMap(final ObjectMap<K, V> map) {
         super(map);
     }
 
     /**
-     * Creates a HashObjectMap instance initialized with the given map.
+     * Creates a LinkedObjectMap instance initialized with the given map.
      *
      * @param map initial map
      */
-    public HashObjectMap(final Map<K, V> map) {
+    public LinkedObjectMap(final Map<K, V> map) {
         super(map);
     }
 
     /**
-     * Constructs a new HashObjectMap with the specified initial capacity.
+     * Constructs a new LinkedObjectMap with the specified initial capacity.
      *
-     * @param initialCapacity The initial capacity of the HashObjectMap.
+     * @param initialCapacity The initial capacity of the LinkedObjectMap.
      */
-    public HashObjectMap(final int initialCapacity) {
+    public LinkedObjectMap(final int initialCapacity) {
         super(initialCapacity);
     }
 
     /**
-     * Constructs a new HashObjectMap with the specified initial capacity and load factor.
+     * Constructs a new LinkedObjectMap with the specified initial capacity and load factor.
      *
-     * @param initialCapacity The initial capacity of the HashObjectMap.
-     * @param loadFactor      The load factor of the HashObjectMap.
+     * @param initialCapacity The initial capacity of the LinkedObjectMap.
+     * @param loadFactor      The load factor of the LinkedObjectMap.
      */
-    public HashObjectMap(final int initialCapacity, final float loadFactor) {
+    public LinkedObjectMap(final int initialCapacity, final float loadFactor) {
         super(initialCapacity, loadFactor);
     }
 
@@ -64,7 +64,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @param value value
      * @return this
      */
-    public HashObjectMap<K, V> append(final K key, final V value) {
+    public LinkedObjectMap<K, V> append(final K key, final V value) {
         if (containsKey(key)) {
             replace(key, value);
         } else {
@@ -74,7 +74,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
     }
 
     @Override
-    public HashObjectMap<K, V> append(@NotNull Map<K, V> map) {
+    public LinkedObjectMap<K, V> append(@NotNull Map<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
@@ -82,7 +82,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
     }
 
     @Override
-    public HashObjectMap<K, V> append(@NotNull ObjectMap<K, V> map) {
+    public LinkedObjectMap<K, V> append(@NotNull ObjectMap<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             append(entry.getKey(), entry.getValue());
         }
@@ -90,7 +90,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
     }
 
     /**
-     * Put/replace the given key/value pair into HashObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
+     * Put/replace the given key/value pair into LinkedObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
      * <pre>
      * user.append("a", 1, check1).append("b", 2, check2)}
      * </pre>
@@ -100,7 +100,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @param ifTrue ifTrue
      * @return this
      */
-    public HashObjectMap<K, V> appendIfTrue(final K key, final V value, boolean ifTrue) {
+    public LinkedObjectMap<K, V> appendIfTrue(final K key, final V value, boolean ifTrue) {
         if (ifTrue)
             append(key, value);
         return this;
@@ -118,7 +118,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @param ifTrue       ifTrue
      * @return this
      */
-    public HashObjectMap<K, V> appendIfTrue(final K key, final V valueIfTrue, final V valueIfFalse, boolean ifTrue) {
+    public LinkedObjectMap<K, V> appendIfTrue(final K key, final V valueIfTrue, final V valueIfFalse, boolean ifTrue) {
         if (ifTrue) {
             append(key, valueIfTrue);
         } else {
@@ -138,7 +138,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return this
      */
     @Override
-    public HashObjectMap<K, V> appendIfTrue(@NotNull Map<K, V> map, boolean ifTrue) {
+    public LinkedObjectMap<K, V> appendIfTrue(@NotNull Map<K, V> map, boolean ifTrue) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }
@@ -157,7 +157,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return this
      */
     @Override
-    public HashObjectMap<K, V> appendIfTrue(Map<K, V> mapIfTrue, Map<K, V> mapIfFalse, boolean ifTrue) {
+    public LinkedObjectMap<K, V> appendIfTrue(Map<K, V> mapIfTrue, Map<K, V> mapIfFalse, boolean ifTrue) {
         if (ifTrue) {
             append(mapIfTrue);
         } else {
@@ -177,7 +177,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return this
      */
     @Override
-    public HashObjectMap<K, V> appendIfTrue(@NotNull ObjectMap<K, V> map, boolean ifTrue) {
+    public LinkedObjectMap<K, V> appendIfTrue(@NotNull ObjectMap<K, V> map, boolean ifTrue) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
         }
@@ -196,7 +196,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return this
      */
     @Override
-    public HashObjectMap<K, V> appendIfTrue(ObjectMap<K, V> mapIfTrue, Map<K, V> mapIfFalse, boolean ifTrue) {
+    public LinkedObjectMap<K, V> appendIfTrue(ObjectMap<K, V> mapIfTrue, Map<K, V> mapIfFalse, boolean ifTrue) {
         if (ifTrue) {
             append(mapIfTrue);
         } else {
@@ -212,7 +212,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return the modified ObjectMap with the specified entry removed, or the original ObjectMap if the key was not found
      */
     @Override
-    public HashObjectMap<K, V> removeEntry(K key) {
+    public LinkedObjectMap<K, V> removeEntry(K key) {
         remove(key);
         return this;
     }
@@ -224,7 +224,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return the modified ObjectMap with the entries corresponding to the specified keys removed
      */
     @Override
-    public HashObjectMap<K, V> removeEntries(Map<K, V> map) {
+    public LinkedObjectMap<K, V> removeEntries(Map<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             remove(entry.getKey());
         }
@@ -238,7 +238,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return the modified ObjectMap with the entries corresponding to the keys in the specified ObjectMap removed
      */
     @Override
-    public HashObjectMap<K, V> removeEntries(ObjectMap<K, V> map) {
+    public LinkedObjectMap<K, V> removeEntries(ObjectMap<K, V> map) {
         for (ObjectMap.Entry<K, V> entry : map.entrySet()) {
             remove(entry.getKey());
         }
@@ -253,7 +253,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return the modified ObjectMap with the specified entry removed if the condition is true, or the original ObjectMap otherwise
      */
     @Override
-    public HashObjectMap<K, V> removeEntryIfTrue(K key, boolean ifTrue) {
+    public LinkedObjectMap<K, V> removeEntryIfTrue(K key, boolean ifTrue) {
         if (ifTrue) {
             remove(key);
         }
@@ -268,7 +268,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return the modified ObjectMap with the entries corresponding to the keys in the specified map removed if the condition is true, or the original ObjectMap otherwise
      */
     @Override
-    public HashObjectMap<K, V> removeEntriesIfTrue(Map<K, V> map, boolean ifTrue) {
+    public LinkedObjectMap<K, V> removeEntriesIfTrue(Map<K, V> map, boolean ifTrue) {
         if (ifTrue) {
             for (Map.Entry<K, V> entry : map.entrySet()) {
                 remove(entry.getKey());
@@ -285,7 +285,7 @@ public class HashObjectMap<K, V> extends HashMap<K, V> implements ObjectMap<K, V
      * @return the modified ObjectMap with the entries corresponding to the keys in the specified ObjectMap removed if the condition is true, or the original ObjectMap otherwise
      */
     @Override
-    public HashObjectMap<K, V> removeEntriesIfTrue(ObjectMap<K, V> map, boolean ifTrue) {
+    public LinkedObjectMap<K, V> removeEntriesIfTrue(ObjectMap<K, V> map, boolean ifTrue) {
         if (ifTrue) {
             for (ObjectMap.Entry<K, V> entry : map.entrySet()) {
                 remove(entry.getKey());

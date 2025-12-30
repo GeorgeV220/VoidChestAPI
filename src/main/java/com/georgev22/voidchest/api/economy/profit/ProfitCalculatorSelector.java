@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.economy.profit;
 
-import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;

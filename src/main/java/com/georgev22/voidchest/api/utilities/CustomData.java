@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.cache;
 
-import com.georgev22.voidchest.api.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
