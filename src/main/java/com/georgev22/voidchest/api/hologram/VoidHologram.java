@@ -95,4 +95,13 @@ public interface VoidHologram extends Keyed {
      * @return the holograms map
      */
     UnmodifiableObjectMap<IVoidChest, AbstractHologram<?>> getHolograms();
+
+    HologramVisibility getVisibility();
+
+    void setVisibility(HologramVisibility visibility);
+
+    enum HologramVisibility {
+        AUTO,
+        MANUAL
+    }
 }
