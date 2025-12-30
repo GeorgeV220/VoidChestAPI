@@ -1,16 +1,19 @@
 package com.georgev22.voidchest.api.utilities;
 
+import com.georgev22.voidchest.api.VoidChestAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.concurrent.CompletableFuture;
 
 
 /**
@@ -201,6 +204,39 @@ public class SerializableBlock extends SerializableLocation implements Serializa
             return null;
         }
         return block.getType();
+    }
+
+    /**
+     * Converts the SerializableBlock back to a Block asynchronously.
+     *
+     * @return A CompletableFuture that completes with the Block represented by this SerializableBlock, or completes exceptionally if the world is not found.
+     */
+    public @NotNull CompletableFuture<Block> toBlockAsync() {
+        World world = Bukkit.getWorld(worldName);
+        if (world != null) {
+            return VoidChestAPI.getInstance().minecraftScheduler()
+                    .createTaskForLocation(
+                            () -> world.getBlockAt(getBlockX(), getBlockY(), getBlockZ()),
+                            new Location(world, x, y, z)
+                    );
+        } else {
+            return CompletableFuture.failedFuture(new IllegalArgumentException("The world is not found."));
+        }
+    }
+
+    /**
+     * Returns the material of the block asynchronously.
+     *
+     * @return A CompletableFuture that completes with the material of the block, or completes exceptionally if the block is not found.
+     */
+    public CompletableFuture<Material> getMaterialAsync() {
+        return this.toBlockAsync()
+                .thenApply(block -> {
+                    if (block == null) {
+                        throw new IllegalArgumentException("The block is not found.");
+                    }
+                    return block.getType();
+                });
     }
 
     /**
