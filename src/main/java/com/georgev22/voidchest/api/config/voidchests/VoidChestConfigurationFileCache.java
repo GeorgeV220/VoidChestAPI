@@ -6,7 +6,7 @@ import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
-import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils;
+import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -61,7 +61,7 @@ public class VoidChestConfigurationFileCache {
      */
     public void cacheStorages() {
         VoidChestOptionCache.invalidateAll();
-        BukkitMinecraftUtils.debug(mainPlugin, "Loading voidchest configuration files...");
+        mainPlugin.getComponentLogger().info(Component.text("Loading voidchest configuration files..."));
         voidChestConfigurationFiles.clear();
         voidChestFileConfigurations.clear();
 
@@ -81,7 +81,7 @@ public class VoidChestConfigurationFileCache {
             final String key = rawName.toLowerCase();
 
             if (!StringUtils.isAlphanumeric(rawName)) {
-                BukkitMinecraftUtils.debug(mainPlugin, "Invalid voidchest file name: " + rawName);
+                mainPlugin.getComponentLogger().error(Component.text("Invalid voidchest file name: " + rawName));
                 continue;
             }
 
@@ -91,7 +91,7 @@ public class VoidChestConfigurationFileCache {
             voidChestConfigurationFiles.put(key, cfg);
             voidChestFileConfigurations.put(key, cfg.getFileConfiguration());
 
-            BukkitMinecraftUtils.debug(mainPlugin, "Loaded voidchest config: " + rawName);
+            mainPlugin.getComponentLogger().info(Component.text("Loaded voidchest config: " + rawName));
 
             entityManager.ifPresent(manager ->
                     manager.getAll().forEach(voidChest -> {
