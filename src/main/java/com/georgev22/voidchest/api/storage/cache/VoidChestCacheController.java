@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage.cache;
 
 import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
-import com.georgev22.voidchest.api.datastructures.maps.Pair;
+import com.georgev22.voidchest.api.datastructures.Pair;
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.storage.EntityManager;
