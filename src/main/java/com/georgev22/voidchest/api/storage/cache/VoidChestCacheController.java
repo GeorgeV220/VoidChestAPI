@@ -1,26 +1,26 @@
 package com.georgev22.voidchest.api.storage.cache;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
-import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.datastructures.Pair;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
+import com.georgev22.voidchest.api.utilities.SerializableBlock.BlockPos;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
 import com.georgev22.voidchest.api.utilities.VoidChunk;
 import com.google.common.collect.Sets;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Chest;
-import org.bukkit.inventory.DoubleChestInventory;
-import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.bukkit.World;
+import org.bukkit.block.*;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Chest;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -38,8 +38,6 @@ public class VoidChestCacheController {
     private final ConcurrentObjectMap<IPlayerData, Set<IVoidChest>> playerCache = new ConcurrentObjectMap<>();
     private final Set<BlockFace> nearBlockFaces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
             BlockFace.SOUTH, BlockFace.UP, BlockFace.DOWN);
-    private final Set<BlockFace> doubleChestFaces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
-            BlockFace.SOUTH);
 
     /**
      * Adds a {@link IVoidChest} to the location cache.
@@ -47,7 +45,7 @@ public class VoidChestCacheController {
      * @param voidChest The void chest to add.
      * @param location  The location at which the storage is located.
      */
-    public void add(@NotNull IVoidChest voidChest, @NotNull Location location) {
+    public void add(@NonNull IVoidChest voidChest, @NonNull Location location) {
         add(voidChest, SerializableLocation.fromLocation(location));
     }
 
@@ -57,7 +55,7 @@ public class VoidChestCacheController {
      * @param voidChest The void chest to add.
      * @param location  The location at which the storage is located.
      */
-    public void add(@NotNull IVoidChest voidChest, @NotNull SerializableLocation location) {
+    public void add(@NonNull IVoidChest voidChest, @NonNull SerializableLocation location) {
         voidChestCache.putIfAbsent(location, voidChest);
         chunkCache.computeIfAbsent(location.getChunk(), k -> ConcurrentHashMap.newKeySet()).add(voidChest);
     }
@@ -67,12 +65,23 @@ public class VoidChestCacheController {
      *
      * @param location The location to remove.
      */
-    public void remove(@NotNull Location location) {
+    public void remove(@NonNull Location location) {
         SerializableLocation sLocation = SerializableLocation.fromLocation(location);
         remove(sLocation);
     }
 
-    public void remove(@NotNull IVoidChest voidChest) {
+    /**
+     * Removes the specified {@link IVoidChest} from all caches.
+     *
+     * <p>This method removes the chest from:
+     * <ul>
+     *   <li>The location-based cache</li>
+     *   <li>The chunk-based cache</li>
+     * </ul>
+     *
+     * @param voidChest The void chest to remove from the cache.
+     */
+    public void remove(@NonNull IVoidChest voidChest) {
         voidChestCache.remove(voidChest.blockLocation());
         chunkCache.getOrDefault(voidChest.blockLocation().getChunk(), ConcurrentHashMap.newKeySet()).remove(voidChest);
     }
@@ -82,7 +91,7 @@ public class VoidChestCacheController {
      *
      * @param location The location to remove.
      */
-    public void remove(@NotNull SerializableLocation location) {
+    public void remove(@NonNull SerializableLocation location) {
         IVoidChest removed = voidChestCache.remove(location);
         if (removed == null) return;
         chunkCache.getOrDefault(location.getChunk(), ConcurrentHashMap.newKeySet()).remove(removed);
@@ -111,9 +120,9 @@ public class VoidChestCacheController {
      * @param playerData The player data to fetch storages for.
      * @return A {@link CompletableFuture} containing a list of void chests.
      */
-    public CompletableFuture<List<IVoidChest>> voidChests(@NotNull IPlayerData playerData) {
+    public CompletableFuture<List<IVoidChest>> voidChests(@NonNull IPlayerData playerData) {
         EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
-        @NotNull Optional<EntityManager<IVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(IVoidChest.class);
+        Optional<EntityManager<IVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(IVoidChest.class);
         if (voidEntityManager.isEmpty()) return CompletableFuture.completedFuture(new ArrayList<>());
         List<UUID> currentStorageIds = playerData.voidChests();
         Set<IVoidChest> cachedStorages = playerCache.getOrDefault(playerData, ConcurrentHashMap.newKeySet());
@@ -139,59 +148,62 @@ public class VoidChestCacheController {
      * @param block The block to retrieve the void chest for.
      * @return An {@link Optional} of the associated void chest.
      */
-    public Optional<IVoidChest> get(@NotNull Block block) {
+    public Optional<IVoidChest> get(@NonNull Block block) {
         return get(block.getLocation());
     }
 
     /**
-     * Attempts to resolve the {@link IVoidChest} associated with the given block
-     * if it is part of a double chest.
+     * Attempts to resolve a {@link IVoidChest} associated with the given block
+     * when the block is part of a double chest.
      *
-     * @param block The chest block to check.
-     * @return An {@link Optional} containing the associated void chest if the block
-     * is part of a double chest and one side is registered, otherwise empty.
+     * <p>If the block is a chest and is connected to another chest block,
+     * this method will resolve the neighboring chest block that forms the
+     * double chest structure and return its registered {@link IVoidChest}, if any.</p>
+     *
+     * <p>If the block is a single chest, this method behaves the same as {@link #get(Block)}.</p>
+     *
+     * <p>If neither the block nor its double-chest counterpart is registered as a void chest,
+     * this method returns {@link Optional#empty()}.</p>
+     *
+     * @param block The chest block to resolve.
+     * @return An {@link Optional} containing the associated {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
      */
-    public Optional<IVoidChest> getAssociatedVoidChest(@NotNull Block block) {
-        Material chestMaterial;
-        Material trappedChestMaterial;
-
-        try {
-            chestMaterial = Material.CHEST;
-            trappedChestMaterial = Material.TRAPPED_CHEST;
-        } catch (NoSuchFieldError | IllegalArgumentException e) {
-            chestMaterial = Material.valueOf("LOCKED_CHEST");
-            trappedChestMaterial = null;
-        }
-
-        if (block.getType() == chestMaterial || block.getType() == trappedChestMaterial) {
-            BlockState state = block.getState();
-            if (!(state instanceof Chest chest)) {
+    public Optional<IVoidChest> getAssociatedVoidChest(@NonNull Block block) {
+        if (isChestMaterial(block.getType())) {
+            BlockData data = block.getBlockData();
+            if (!(data instanceof Chest chest)) {
                 return Optional.empty();
             }
 
-            Inventory inventory = chest.getInventory();
-            if (!(inventory instanceof DoubleChestInventory)) {
-                return Optional.empty();
+            if (chest.getType() == Chest.Type.SINGLE) {
+                return get(block);
             }
 
-            for (BlockFace face : doubleChestFaces) {
-                Block other = block.getRelative(face);
-                Optional<IVoidChest> voidChest = this.get(other);
-                if (voidChest.isPresent()) {
-                    return voidChest;
-                }
-            }
+            BlockFace face = chest.getType() == Chest.Type.LEFT
+                    ? rotateRight(chest.getFacing())
+                    : rotateLeft(chest.getFacing());
+
+            Block other = block.getRelative(face);
+            return this.get(other);
         }
         return Optional.empty();
     }
 
     /**
-     * Searches all directly adjacent blocks of the given block for an associated {@link IVoidChest}.
+     * Searches all directly adjacent blocks of the given block for a registered {@link IVoidChest}.
      *
-     * @param block The block whose neighbors to search.
-     * @return An {@link Optional} containing the first found {@link IVoidChest}, otherwise empty.
+     * <p>This method checks all cardinally adjacent block faces defined in {@link #nearBlockFaces}
+     * and returns the first neighboring block that is registered as a void chest.</p>
+     *
+     * <p>This is useful for resolving void chests when interacting with non-chest blocks
+     * that are part of a void chest structure or multi-block setup.</p>
+     *
+     * @param block The block whose adjacent blocks will be searched.
+     * @return An {@link Optional} containing the first neighboring {@link IVoidChest} found,
+     * otherwise {@link Optional#empty()}.
      */
-    public Optional<IVoidChest> findNearbyVoidChest(@NotNull Block block) {
+    public Optional<IVoidChest> findNearbyVoidChest(@NonNull Block block) {
         for (BlockFace face : nearBlockFaces) {
             Block neighbor = block.getRelative(face);
             Optional<IVoidChest> voidChest = this.get(neighbor);
@@ -200,6 +212,64 @@ public class VoidChestCacheController {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given block.
+     *
+     * <p>This method first attempts a direct lookup using {@link #get(Block)}.
+     * If no void chest is registered at the given block position, it will attempt
+     * to resolve an associated void chest via {@link #getAssociatedVoidChest(Block)},
+     * allowing double-chest counterparts to be resolved transparently.</p>
+     *
+     * @param block The block to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull Block block) {
+        return get(block).or(() -> getAssociatedVoidChest(block));
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given {@link Location}.
+     *
+     * <p>This method behaves the same as {@link #getOrAssociated(Block)} but accepts a location
+     * instead of a block.</p>
+     *
+     * @param location The location to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull Location location) {
+        return get(location).or(() -> getAssociatedVoidChest(location.getBlock()));
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given {@link SerializableLocation}.
+     *
+     * <p>This method behaves the same as {@link #getOrAssociated(Block)} but accepts a serializable
+     * location wrapper.</p>
+     *
+     * @param serializableLocation The serializable location to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull SerializableLocation serializableLocation) {
+        return get(serializableLocation).or(() -> getAssociatedVoidChest(serializableLocation.toLocation().getBlock()));
+    }
+
+    /**
+     * Attempts to resolve a {@link IVoidChest} for the given {@link SerializableBlock}.
+     *
+     * <p>This method behaves the same as {@link #getOrAssociated(Block)} but accepts a serializable
+     * block wrapper.</p>
+     *
+     * @param serializableBlock The serializable block wrapper to resolve.
+     * @return An {@link Optional} containing the resolved {@link IVoidChest} if found,
+     * otherwise {@link Optional#empty()}.
+     */
+    public Optional<IVoidChest> getOrAssociated(@NonNull SerializableBlock serializableBlock) {
+        return get(serializableBlock).or(() -> getAssociatedVoidChest(serializableBlock.toLocation().getBlock()));
     }
 
     /**
@@ -221,7 +291,7 @@ public class VoidChestCacheController {
      * @param location The location to retrieve the void chest for.
      * @return An {@link Optional} of the associated void chest.
      */
-    public Optional<IVoidChest> get(@NotNull Location location) {
+    public Optional<IVoidChest> get(@NonNull Location location) {
         //noinspection ConstantValue
         if (location == null) return Optional.empty();
         return get(SerializableLocation.fromLocation(location));
@@ -233,7 +303,7 @@ public class VoidChestCacheController {
      * @param location The serializable location.
      * @return An {@link Optional} of the associated void chest.
      */
-    public Optional<IVoidChest> get(@NotNull SerializableLocation location) {
+    public Optional<IVoidChest> get(@NonNull SerializableLocation location) {
         //noinspection ConstantValue
         if (location == null) return Optional.empty();
         IVoidChest cached = voidChestCache.get(location);
@@ -241,22 +311,174 @@ public class VoidChestCacheController {
         return Optional.empty();
     }
 
-    public Optional<IVoidChest> get(@NotNull Chunk chunk) {
+    /**
+     * Retrieves a void chest that is stored within the given {@link Chunk}.
+     *
+     * <p>If multiple void chests exist in the chunk, the first matching
+     * instance found is returned.
+     *
+     * @param chunk The chunk to search in.
+     * @return An {@link Optional} containing the first found void chest in the chunk, otherwise empty.
+     */
+    public Optional<IVoidChest> get(@NonNull Chunk chunk) {
         return get(new VoidChunk(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()));
     }
 
-    public Optional<IVoidChest> get(@NotNull VoidChunk chunk) {
+    /**
+     * Retrieves a void chest that is stored within the given {@link VoidChunk}.
+     *
+     * <p>If multiple void chests exist in the chunk, the first matching
+     * instance found is returned.
+     *
+     * @param chunk The virtual chunk to search in.
+     * @return An {@link Optional} containing the first found void chest in the chunk, otherwise empty.
+     */
+    public Optional<IVoidChest> get(@NonNull VoidChunk chunk) {
         for (IVoidChest voidChest : getAll(chunk)) {
             if (voidChest.blockLocation().getChunk().equals(chunk)) return Optional.of(voidChest);
         }
         return Optional.empty();
     }
 
-    public List<IVoidChest> getAll(@NotNull Chunk chunk) {
+    /**
+     * Retrieves all void chests that are stored within the given {@link Chunk}.
+     *
+     * @param chunk The chunk to search in.
+     * @return A list of all void chests present in the chunk.
+     */
+    public List<IVoidChest> getAll(@NonNull Chunk chunk) {
         return getAll(new VoidChunk(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()));
     }
 
-    public List<IVoidChest> getAll(@NotNull VoidChunk chunk) {
+    /**
+     * Retrieves all void chests that are stored within the given {@link VoidChunk}.
+     *
+     * @param chunk The virtual chunk to search in.
+     * @return A list of all void chests present in the chunk.
+     */
+    public List<IVoidChest> getAll(@NonNull VoidChunk chunk) {
         return new ArrayList<>(chunkCache.getOrDefault(chunk, ConcurrentHashMap.newKeySet()));
+    }
+
+    /**
+     * Retrieves all void chests that are stored within the given {@link World}.
+     *
+     * @param world The world to search in.
+     * @return A list of all void chests present in the world.
+     */
+    public List<IVoidChest> getAll(@NonNull World world) {
+        List<IVoidChest> voidChests = new ArrayList<>();
+
+        for (VoidChunk chunk : chunkCache.keySet()) {
+            if (!chunk.getWorldName().equals(world.getName())) continue;
+            voidChests.addAll(getAll(chunk));
+        }
+
+        return voidChests;
+    }
+
+    /**
+     * Checks whether there is any container block adjacent to the given block.
+     *
+     * @param block The block to check around.
+     * @return {@code true} if an adjacent container block exists, otherwise {@code false}.
+     */
+    public boolean isChestNear(Block block) {
+        return nearBlockFaces.stream().anyMatch(face -> {
+            BlockState state = block.getRelative(face).getState();
+            return state instanceof Container;
+        });
+    }
+
+    /**
+     * Checks whether the given block is a chest block.
+     *
+     * @param block The block to check.
+     * @return {@code true} if the block represents a chest, otherwise {@code false}.
+     */
+    public boolean isChest(@NonNull Block block) {
+        return block.getBlockData() instanceof Chest;
+    }
+
+    /**
+     * Checks whether the given material represents a chest-type block.
+     *
+     * @param material The material to check.
+     * @return {@code true} if the material can represent a chest block, otherwise {@code false}.
+     */
+    public boolean isChestMaterial(@NonNull Material material) {
+        return material.isBlock() &&
+                material.createBlockData() instanceof Chest;
+    }
+
+    /**
+     * Expands a chest block into its logical double-chest pair if applicable.
+     *
+     * <p>If the supplied block is a single chest or not a chest at all, the returned pair will contain
+     * only the given block in {@link Pair#first()} and {@code null} in {@link Pair#second()}.</p>
+     *
+     * <p>If the block is part of a double chest, the returned pair will contain <b>both chest halves</b>
+     * ordered consistently:</p>
+     * <ul>
+     *   <li>{@link Pair#first()}  – the logical <b>left half</b> of the double chest</li>
+     *   <li>{@link Pair#second()} – the logical <b>right half</b> of the double chest</li>
+     * </ul>
+     *
+     * <p>This ordering is independent of which physical block was supplied and allows deterministic
+     * handling of double chests (for example when camouflaging, revealing, or syncing client-side
+     * block changes).</p>
+     *
+     * @param block the chest block to expand
+     * @return a pair containing the left and right chest halves, or {@code (block, null)} if not a double chest
+     */
+    public @NonNull Pair<BlockPos, BlockPos> expandDoubleChest(@NonNull Block block) {
+        BlockData data = block.getBlockData();
+        if (!(data instanceof Chest chest)) return Pair.create(BlockPos.of(block), null);
+        if (chest.getType() == Chest.Type.SINGLE) return Pair.create(BlockPos.of(block), null);
+
+        BlockFace facing = chest.getFacing();
+        Chest.Type type = chest.getType();
+        BlockFace side = type.equals(Chest.Type.LEFT)
+                ? rotateRight(facing)
+                : rotateLeft(facing);
+
+        Block other = block.getRelative(side);
+        if (type.equals(Chest.Type.LEFT)) {
+            return Pair.create(BlockPos.of(block), BlockPos.of(other));
+        } else {
+            return Pair.create(BlockPos.of(other), BlockPos.of(block));
+        }
+    }
+
+    /**
+     * Rotates the given horizontal block face 90 degrees counter-clockwise.
+     *
+     * @param face The face to rotate.
+     * @return The rotated face, or {@link BlockFace#SELF} if the face cannot be rotated.
+     */
+    public BlockFace rotateLeft(@NonNull BlockFace face) {
+        return switch (face) {
+            case NORTH -> BlockFace.WEST;
+            case SOUTH -> BlockFace.EAST;
+            case EAST -> BlockFace.NORTH;
+            case WEST -> BlockFace.SOUTH;
+            default -> BlockFace.SELF;
+        };
+    }
+
+    /**
+     * Rotates the given horizontal block face 90 degrees clockwise.
+     *
+     * @param face The face to rotate.
+     * @return The rotated face, or {@link BlockFace#SELF} if the face cannot be rotated.
+     */
+    public BlockFace rotateRight(@NonNull BlockFace face) {
+        return switch (face) {
+            case NORTH -> BlockFace.EAST;
+            case SOUTH -> BlockFace.WEST;
+            case EAST -> BlockFace.SOUTH;
+            case WEST -> BlockFace.NORTH;
+            default -> BlockFace.SELF;
+        };
     }
 }

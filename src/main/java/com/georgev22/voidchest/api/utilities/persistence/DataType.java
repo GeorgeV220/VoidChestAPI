@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.utilities.persistence;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public enum DataType {
     BYTE(Byte.class),

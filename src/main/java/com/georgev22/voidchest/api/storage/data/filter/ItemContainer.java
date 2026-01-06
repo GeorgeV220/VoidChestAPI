@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.storage.data.filter;
 import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.iface.ReadableNBT;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents a container for storing an item using its NBT data and associated options.

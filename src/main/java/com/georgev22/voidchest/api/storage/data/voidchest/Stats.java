@@ -1,6 +1,5 @@
 package com.georgev22.voidchest.api.storage.data.voidchest;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.utilities.CustomData;
 
 import java.math.BigDecimal;

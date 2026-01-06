@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.utilities.color;
 
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -26,7 +26,7 @@ public class Color {
      * @return A new {@link Color} instance.
      */
     @Contract("_ -> new")
-    public static @NotNull Color from(String colorCode) {
+    public static @NonNull Color from(String colorCode) {
         return new Color(colorCode);
     }
 
@@ -38,7 +38,7 @@ public class Color {
      * @param b Blue component (0–255).
      * @return A new {@link Color} instance.
      */
-    public static @NotNull Color from(int r, int g, int b) {
+    public static @NonNull Color from(int r, int g, int b) {
         javaColor = new java.awt.Color(r, g, b);
         return from(Integer.toHexString(javaColor.getRGB()).substring(2));
     }
@@ -48,7 +48,7 @@ public class Color {
      *
      * @param colorCode Hexadecimal color code (e.g., #ff5733 or ff5733).
      */
-    private Color(@NotNull String colorCode) {
+    private Color(@NonNull String colorCode) {
         this.colorCode = colorCode.replace("#", "");
         javaColor = new java.awt.Color(Integer.parseInt(this.colorCode, 16));
         this.r = javaColor.getRed();
@@ -94,14 +94,14 @@ public class Color {
     /**
      * @return A darker version of this color.
      */
-    public @NotNull Color darker() {
+    public @NonNull Color darker() {
         return Color.from(javaColor.darker().getRed(), javaColor.darker().getGreen(), javaColor.darker().getBlue());
     }
 
     /**
      * @return A brighter version of this color.
      */
-    public @NotNull Color brighter() {
+    public @NonNull Color brighter() {
         return Color.from(javaColor.brighter().getRed(), javaColor.brighter().getGreen(), javaColor.brighter().getBlue());
     }
 
@@ -151,7 +151,7 @@ public class Color {
      * @param color2 The second color.
      * @return The sum of absolute RGB differences.
      */
-    public static int difference(@NotNull Color color1, @NotNull Color color2) {
+    public static int difference(@NonNull Color color1, @NonNull Color color2) {
         return Math.abs(color1.r - color2.r)
                 + Math.abs(color1.g - color2.g)
                 + Math.abs(color1.b - color2.b);

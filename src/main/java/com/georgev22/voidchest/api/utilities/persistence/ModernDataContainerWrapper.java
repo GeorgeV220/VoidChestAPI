@@ -1,11 +1,10 @@
 package com.georgev22.voidchest.api.utilities.persistence;
 
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockState;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class ModernDataContainerWrapper implements DataContainerWrapper {
 
@@ -17,35 +16,30 @@ public class ModernDataContainerWrapper implements DataContainerWrapper {
 
     @Override
     public boolean has(NamespacedKey key, DataType type) {
-        return container.has(fromKey(key), toBukkitType(type));
+        return container.has(key, toBukkitType(type));
     }
 
     @Override
-    public void set(NamespacedKey key, @NotNull DataType type, Object value) {
+    public void set(NamespacedKey key, @NonNull DataType type, Object value) {
         Object converted = type.convert(value);
         if (converted == null) {
             throw new IllegalArgumentException("Failed to convert value for type " + type + ": " + value);
         }
-        container.set(fromKey(key), toBukkitType(type), converted);
+        container.set(key, toBukkitType(type), converted);
     }
 
     @Override
     public <T> T get(NamespacedKey key, DataType type) {
-        return container.get(fromKey(key), toBukkitType(type));
+        return container.get(key, toBukkitType(type));
     }
 
     @Override
     public void remove(NamespacedKey key) {
-        container.remove(fromKey(key));
-    }
-
-    @Contract("_ -> new")
-    private org.bukkit.@NotNull NamespacedKey fromKey(@NotNull NamespacedKey key) {
-        return new org.bukkit.NamespacedKey(key.getNamespace(), key.getKey());
+        container.remove(key);
     }
 
     @SuppressWarnings("unchecked")
-    private static <T, Z> PersistentDataType<T, Z> toBukkitType(@NotNull DataType type) {
+    private static <T, Z> PersistentDataType<T, Z> toBukkitType(@NonNull DataType type) {
         return switch (type) {
             case BYTE -> (PersistentDataType<T, Z>) PersistentDataType.BYTE;
             case SHORT -> (PersistentDataType<T, Z>) PersistentDataType.SHORT;

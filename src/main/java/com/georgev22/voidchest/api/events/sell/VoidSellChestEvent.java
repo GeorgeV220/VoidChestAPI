@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.events.sell;
 import com.georgev22.voidchest.api.events.VoidEvent;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The VoidSellChestEvent class is an event fired when the sell task for a specific VoidChest starts.
@@ -23,7 +23,7 @@ public class VoidSellChestEvent extends VoidEvent {
      *
      * @param voidChest The VoidChest associated with the sold chest.
      */
-    public VoidSellChestEvent(@NotNull final IVoidChest voidChest) {
+    public VoidSellChestEvent(@NonNull final IVoidChest voidChest) {
         super(voidChest, true);
     }
 
@@ -42,7 +42,7 @@ public class VoidSellChestEvent extends VoidEvent {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 

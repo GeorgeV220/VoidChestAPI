@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
-import com.georgev22.voidchest.api.maps.*;
+import com.georgev22.voidchest.api.datastructures.maps.*;
 
 import java.lang.reflect.Constructor;
 import java.math.BigDecimal;

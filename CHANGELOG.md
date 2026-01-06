@@ -1,3 +1,138 @@
+# [5.0.0-dev.11](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.10...v5.0.0-dev.11) (2025-12-30)
+
+
+### Features
+
+* add hologram visibility control to VoidHologram API ([c795493](https://github.com/GeorgeV220/VoidChestAPI/commit/c795493eb53285aa2ff575d99c05b31a13e485e9))
+
+# [5.0.0-dev.10](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.9...v5.0.0-dev.10) (2025-12-30)
+
+
+### Features
+
+* add async methods to SerializableBlock and extend SerializableContainer ([79dadfc](https://github.com/GeorgeV220/VoidChestAPI/commit/79dadfcec3261333e0efb9e5399a94ca3261f7d4))
+* add Component support for container custom names ([5b36c48](https://github.com/GeorgeV220/VoidChestAPI/commit/5b36c48311c2a34e1e3913c8e1dbbbd63a60f83c))
+
+# [5.0.0-dev.9](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.8...v5.0.0-dev.9) (2025-12-29)
+
+
+### Features
+
+* add method to retrieve all void chests from a specific world ([48c3347](https://github.com/GeorgeV220/VoidChestAPI/commit/48c33474b6bf2d7d680265ae657653a69c322e48))
+* add VoidChestPostPlaceEvent for post-placement hook ([7a6994f](https://github.com/GeorgeV220/VoidChestAPI/commit/7a6994fd7292bed272740d2911b331a146902669))
+
+# [5.0.0-dev.8](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.7...v5.0.0-dev.8) (2025-12-28)
+
+
+### Features
+
+* Simplify double chest handling and add resolution methods ([f137023](https://github.com/GeorgeV220/VoidChestAPI/commit/f137023eafebada715c2a417c2c67e99ce9ed217))
+
+# [5.0.0-dev.7](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.6...v5.0.0-dev.7) (2025-12-28)
+
+
+### Features
+
+* add BlockPos record and conversion to SerializableBlock ([9cce5d8](https://github.com/GeorgeV220/VoidChestAPI/commit/9cce5d89ef38677f8afce970bda8f5f40c876edc))
+* add double chest expansion utility and migrate to JSpecify annotations ([962e4ba](https://github.com/GeorgeV220/VoidChestAPI/commit/962e4baac3ea6abad71804ce58f4cdc003106ce6))
+
+# [5.0.0-dev.6](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.5...v5.0.0-dev.6) (2025-12-28)
+
+
+### Features
+
+* add removeAll method to VoidHologram API ([a276b3d](https://github.com/GeorgeV220/VoidChestAPI/commit/a276b3d19d6f990799e73ff35252691b11083c20))
+
+# [5.0.0-dev.5](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.4...v5.0.0-dev.5) (2025-12-15)
+
+
+### Features
+
+* add cache invalidation to ProfitCalculator API ([a769306](https://github.com/GeorgeV220/VoidChestAPI/commit/a769306b64171a99e434d0a44f2378169d0e77fc))
+
+# [5.0.0-dev.4](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.3...v5.0.0-dev.4) (2025-12-13)
+
+
+### Bug Fixes
+
+* cache configuration values in OptionsUtil ([b40dfb5](https://github.com/GeorgeV220/VoidChestAPI/commit/b40dfb50a94a1947133c3f6dc4ad22e7e4dbc747))
+
+# [5.0.0-dev.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.2...v5.0.0-dev.3) (2025-12-10)
+
+
+* refactor!: move plugin registries to Registries and consolidate static registries ([5f0c2de](https://github.com/GeorgeV220/VoidChestAPI/commit/5f0c2de9f9a7cd9e0b2eb40ee67d13c7cb64f59d))
+
+
+### Features
+
+* **api:** add name field to Upgrade and VoidSpecialItem ([abe64b3](https://github.com/GeorgeV220/VoidChestAPI/commit/abe64b35d409f4a84180925a46171ba2cd6e5d05))
+* **api:** Integrate EntityManagerRegistry into Registries ([75f3185](https://github.com/GeorgeV220/VoidChestAPI/commit/75f318502ade6b197c589818ff4789b89db27acd))
+
+
+### BREAKING CHANGES
+
+* The global registry access point has been renamed from `Registry` to `Registries`. All API integrations must update their imports and references accordingly. Built-in upgrades are now loaded through the registry manager instead of a separate loader class.
+
+# [5.0.0-dev.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0-dev.1...v5.0.0-dev.2) (2025-12-09)
+
+
+* refactor!: remove deprecated API classes and simplify registry system ([53469a1](https://github.com/GeorgeV220/VoidChestAPI/commit/53469a188a39f27c3e9d21db36bc5dcd6471ee31))
+* refactor!: remove legacy persistence and NBT support, use PDC only ([76ddfb9](https://github.com/GeorgeV220/VoidChestAPI/commit/76ddfb9ddf293f2bb5359d488c5d63da280a59ed))
+
+
+### Features
+
+* **api:** add null check in registry get method and pass plugin to config cache ([a972429](https://github.com/GeorgeV220/VoidChestAPI/commit/a972429a99265df648dde4db37b332f73b0157a0))
+* **api:** add profit calculator selector option and utility method ([5a9750f](https://github.com/GeorgeV220/VoidChestAPI/commit/5a9750ffb05b14727804455054908f73262c06e1))
+* **api:** enhance profit calculator registry and selector logic ([173a5b6](https://github.com/GeorgeV220/VoidChestAPI/commit/173a5b6656afe4d5ff7433d0c903feea775ae069))
+* **api:** improve ProfitCalculatorSelector logic for WEIGHT type ([63d98e3](https://github.com/GeorgeV220/VoidChestAPI/commit/63d98e32d365483741eee7a4555e5fe2eeb306a0))
+* **api:** refactor ProfitCalculatorSelector for clarity and flexibility ([a691f11](https://github.com/GeorgeV220/VoidChestAPI/commit/a691f11846c2b293e3ba5fc3de0a9cefe7d22dd1))
+
+
+### BREAKING CHANGES
+
+* Removed deprecated API classes including AEconomyHookEvent,
+EconomyRegistry, ProfitCalculatorRegistry, UpgradeRegistry, VoidSpecialItemRegistry,
+and related bank/bank TNT manager interfaces. Migrated to unified `Registry` system
+with `KeyedRegistry` implementations. All integrations now use `Keyed` interface
+with `NamespacedKey` identifiers. Removed separate faction modules; functionality
+now integrated into core registry system. Updated profit calculator selector
+registry to use new registry pattern.
+* Drops support for legacy Minecraft versions (<1.20.5) and
+removes NBT-API based persistence. Plugins must now rely on Bukkit's
+PersistentDataContainer API. Custom NamespacedKey class is removed in
+favor of org.bukkit.NamespacedKey.
+
+# [5.0.0-dev.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v5.0.0-dev.1) (2025-12-06)
+
+
+* feat!: API changes only ([aa6da3a](https://github.com/GeorgeV220/VoidChestAPI/commit/aa6da3a46b5a08f2f0458394c522ede02f6c23d3))
+
+
+### Features
+
+* **api:** add clear method to Registry interface and implementation ([538a422](https://github.com/GeorgeV220/VoidChestAPI/commit/538a422dfc8ab0eb5375075f910077083215f813))
+* **api:** add constructor from Set to UnmodifiableArrayList ([6c619eb](https://github.com/GeorgeV220/VoidChestAPI/commit/6c619eb84d8ef3f26c4ec14c1cde4ee4cfbe581b))
+* **api:** add static factory method for NamespacedKey ([72f4e57](https://github.com/GeorgeV220/VoidChestAPI/commit/72f4e577e4a2816f03aa8c526ceb428bc9fa5c0d))
+* **profit-calculator:** overhaul profit calculator system ([bd6925e](https://github.com/GeorgeV220/VoidChestAPI/commit/bd6925edc8d177f665235025b0fc53b5d7a92877))
+* replace IEconomyManager with EconomyRegistry ([1a83db6](https://github.com/GeorgeV220/VoidChestAPI/commit/1a83db66e323546666f14102c2b31ee865140fb5))
+
+
+### BREAKING CHANGES
+
+* The public API has been updated and may break existing implementations.
+
+# [4.6.0-dev.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v4.6.0-dev.1) (2025-12-06)
+
+
+### Features
+
+* **api:** add clear method to Registry interface and implementation ([538a422](https://github.com/GeorgeV220/VoidChestAPI/commit/538a422dfc8ab0eb5375075f910077083215f813))
+* **api:** add constructor from Set to UnmodifiableArrayList ([6c619eb](https://github.com/GeorgeV220/VoidChestAPI/commit/6c619eb84d8ef3f26c4ec14c1cde4ee4cfbe581b))
+* **api:** add static factory method for NamespacedKey ([72f4e57](https://github.com/GeorgeV220/VoidChestAPI/commit/72f4e577e4a2816f03aa8c526ceb428bc9fa5c0d))
+* **profit-calculator:** overhaul profit calculator system ([bd6925e](https://github.com/GeorgeV220/VoidChestAPI/commit/bd6925edc8d177f665235025b0fc53b5d7a92877))
+* replace IEconomyManager with EconomyRegistry ([1a83db6](https://github.com/GeorgeV220/VoidChestAPI/commit/1a83db66e323546666f14102c2b31ee865140fb5))
+
 # [4.5.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.4.0...v4.5.0) (2025-11-20)
 
 

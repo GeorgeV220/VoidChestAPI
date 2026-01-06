@@ -6,11 +6,11 @@
       "prerelease": true
     },
     {
-      "name": "snapshot",
+      "name": "alpha",
       "prerelease": true
     },
     {
-      "name": "alpha",
+      "name": "dev",
       "prerelease": true
     }
   ],

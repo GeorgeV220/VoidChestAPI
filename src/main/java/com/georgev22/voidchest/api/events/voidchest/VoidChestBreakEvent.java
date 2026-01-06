@@ -9,8 +9,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The VoidChestBreakEvent class is an event that is fired before a VoidChest is fully removed by being broken by an Entity.
@@ -55,7 +55,7 @@ public class VoidChestBreakEvent extends VoidEvent implements Cancellable {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 
@@ -115,7 +115,6 @@ public class VoidChestBreakEvent extends VoidEvent implements Cancellable {
         if (isFolia && location != null) {
             //noinspection unchecked
             return (T) voidChestAPI.minecraftScheduler().createTaskForLocation(
-                    voidChestAPI.plugin(),
                     () -> super.callSynchronousEvent(),
                     location
             ).join();

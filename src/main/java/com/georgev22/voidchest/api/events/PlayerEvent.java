@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.events;
 
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import org.bukkit.event.Cancellable;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The PlayerEvent class is an abstract base class for PlayerData related events.

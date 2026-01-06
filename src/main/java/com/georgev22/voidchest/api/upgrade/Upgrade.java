@@ -1,14 +1,16 @@
 package com.georgev22.voidchest.api.upgrade;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
+import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
-import com.georgev22.voidchest.api.economy.player.EconomyMode;
+import com.georgev22.voidchest.api.registry.Registries;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import org.bukkit.Bukkit;
+import org.bukkit.Keyed;
+import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -19,8 +21,9 @@ import java.util.*;
  *
  * @param <U> the type of the upgrade object associated with each level.
  */
-public abstract class Upgrade<U> implements Cloneable {
+public abstract class Upgrade<U> implements Cloneable, Keyed {
 
+    private final String name;
     private final NamespacedKey key;
     private final int maxLevel;
     private final List<String> voidchestTypes = Collections.synchronizedList(new ArrayList<>());
@@ -32,7 +35,8 @@ public abstract class Upgrade<U> implements Cloneable {
      * @param key      the unique key identifying this upgrade.
      * @param maxLevel the maximum level this upgrade can reach.
      */
-    public Upgrade(NamespacedKey key, int maxLevel) {
+    public Upgrade(String name, NamespacedKey key, int maxLevel) {
+        this.name = name;
         if (maxLevel < 1) {
             throw new IllegalArgumentException("Max level must be at least 1.");
         }
@@ -40,13 +44,13 @@ public abstract class Upgrade<U> implements Cloneable {
         this.maxLevel = maxLevel;
     }
 
-    public Upgrade(NamespacedKey key, int maxLevel, List<String> voidchestTypes) {
-        this(key, maxLevel);
+    public Upgrade(String name, NamespacedKey key, int maxLevel, List<String> voidchestTypes) {
+        this(name, key, maxLevel);
         this.voidchestTypes.addAll(voidchestTypes);
     }
 
-    public Upgrade(NamespacedKey key, int maxLevel, List<String> voidchestTypes, List<UpgradeLevel<U>> levels) {
-        this(key, maxLevel, voidchestTypes);
+    public Upgrade(String name, NamespacedKey key, int maxLevel, List<String> voidchestTypes, List<UpgradeLevel<U>> levels) {
+        this(name, key, maxLevel, voidchestTypes);
         this.levels.addAll(levels);
     }
 
@@ -55,7 +59,7 @@ public abstract class Upgrade<U> implements Cloneable {
      *
      * @return the NamespacedKey.
      */
-    public NamespacedKey getKey() {
+    public @NonNull NamespacedKey getKey() {
         return key;
     }
 
@@ -96,7 +100,7 @@ public abstract class Upgrade<U> implements Cloneable {
      * @param displayItem   the display item for this level.
      * @param placeholders  the placeholders for this upgrade level.
      */
-    public void addUpgradeLevel(int level, @NotNull BigDecimal price, @NotNull U upgradeObject, ItemStack displayItem, Map<String, String> placeholders) {
+    public void addUpgradeLevel(int level, @NonNull BigDecimal price, @NonNull U upgradeObject, ItemStack displayItem, Map<String, String> placeholders) {
         addUpgradeLevel(new UpgradeLevel<>(level, price, upgradeObject, displayItem, placeholders));
     }
 
@@ -105,7 +109,7 @@ public abstract class Upgrade<U> implements Cloneable {
      *
      * @param upgradeLevel the upgrade level to add.
      */
-    public void addUpgradeLevel(@NotNull UpgradeLevel<U> upgradeLevel) {
+    public void addUpgradeLevel(@NonNull UpgradeLevel<U> upgradeLevel) {
         if (upgradeLevel.level() < 1 || upgradeLevel.level() > maxLevel) {
             throw new IllegalArgumentException("Level must be between 1 and " + maxLevel);
         }
@@ -186,6 +190,15 @@ public abstract class Upgrade<U> implements Cloneable {
     public abstract String toString();
 
     /**
+     * Retrieves the name of the Upgrade
+     *
+     * @return The name of the Upgrade as a String.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Classes should override this method to clone the upgrade if they wish to do so.
      *
      * @return a deep copy of the upgrade
@@ -212,6 +225,7 @@ public abstract class Upgrade<U> implements Cloneable {
      *   <li>{@code -2} — The player does not have enough balance.</li>
      *   <li>{@code -3} — Withdrawal from the economy plugin failed.</li>
      *   <li>{@code -4} — This upgrade is not applicable to the VoidChest's type.</li>
+     *   <li>{@code -5} — The economy plugin is not enabled or not registered.</li>
      * </ul>
      *
      * @param voidChest    the VoidChest to upgrade
@@ -221,7 +235,7 @@ public abstract class Upgrade<U> implements Cloneable {
      * @deprecated Use {@link #upgrade(IVoidChest, UUID)} instead.
      */
     @Deprecated(forRemoval = true)
-    public int upgrade(@NotNull IVoidChest voidChest, int currentLevel, UUID playerUUID) {
+    public int upgrade(@NonNull IVoidChest voidChest, int currentLevel, UUID playerUUID) {
         return this.upgrade(voidChest, playerUUID, true);
     }
 
@@ -237,25 +251,36 @@ public abstract class Upgrade<U> implements Cloneable {
      *   <li>{@code -2} — The player does not have sufficient funds.</li>
      *   <li>{@code -3} — Withdrawal from the economy failed.</li>
      *   <li>{@code -4} — This upgrade is not applicable to the given VoidChest type.</li>
+     *   <li>{@code -5} — The economy plugin is not enabled or not registered</li>
      * </ul>
      *
      * @param voidChest  the VoidChest being upgraded
      * @param playerUUID the UUID of the player purchasing the upgrade
      * @return the applied level, or an error code
      */
-    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID) {
+    public int upgrade(@NonNull IVoidChest voidChest, UUID playerUUID) {
         return this.upgrade(voidChest, playerUUID, true);
     }
 
     /**
      * Internal upgrade handler with optional economy enforcement.
+     * <p><strong>Return codes:</strong></p>
+     * <ul>
+     *   <li>{@code >0} — The new upgrade level was successfully applied.</li>
+     *   <li>{@code 0}  — The maximum level has already been reached; no upgrade was performed.</li>
+     *   <li>{@code -1} — The next upgrade level could not be found (configuration error).</li>
+     *   <li>{@code -2} — The player does not have sufficient funds.</li>
+     *   <li>{@code -3} — Withdrawal from the economy failed.</li>
+     *   <li>{@code -4} — This upgrade is not applicable to the given VoidChest type.</li>
+     *   <li>{@code -5} — The economy plugin is not enabled or not registered</li>
+     * </ul>
      *
      * @param voidChest    the VoidChest being upgraded
      * @param playerUUID   the UUID of the player performing the upgrade
      * @param economyCheck whether to check and charge the player's balance
      * @return the new level if successful, or an error code
      */
-    public int upgrade(@NotNull IVoidChest voidChest, UUID playerUUID, boolean economyCheck) {
+    public int upgrade(@NonNull IVoidChest voidChest, UUID playerUUID, boolean economyCheck) {
         int currentLevel = this.getCurrentLevel(voidChest);
         boolean isApplicable = this.isApplicableTo(voidChest.type());
         if (!isApplicable) {
@@ -266,7 +291,11 @@ public abstract class Upgrade<U> implements Cloneable {
         return getNextUpgradeLevel(currentLevel).map(nextUpgradeLevel -> {
             BigDecimal upgradeCost = nextUpgradeLevel.price();
             OfflinePlayer player = Bukkit.getOfflinePlayer(playerUUID);
-            AEconomy econ = VoidChestAPI.getInstance().economyManager().economy(EconomyMode.UPGRADES);
+            Optional<AEconomy> optionalEcon = Registries.ECONOMY.get(NamespacedKey.fromString(OptionsUtil.ECONOMY_UPGRADES.getStringValue()));
+            if (optionalEcon.isEmpty()) {
+                return -5;
+            }
+            AEconomy econ = optionalEcon.get();
 
             if (economyCheck) {
                 if (econ.getBalance(player).compareTo(upgradeCost) < 0) {
@@ -291,7 +320,7 @@ public abstract class Upgrade<U> implements Cloneable {
      * @param voidChest the VoidChest to get the current level for
      * @return the current level of this upgrade for the given VoidChest
      */
-    public int getCurrentLevel(@NotNull IVoidChest voidChest) {
+    public int getCurrentLevel(@NonNull IVoidChest voidChest) {
         return voidChest.upgrades().entrySet().stream()
                 .filter(upg -> upg.getKey().equals(key))
                 .map(Map.Entry::getValue)
@@ -299,7 +328,7 @@ public abstract class Upgrade<U> implements Cloneable {
                 .orElse(1);
     }
 
-    private void logUpgrades(@NotNull IVoidChest voidChest) {
+    private void logUpgrades(@NonNull IVoidChest voidChest) {
         VoidChestAPI.getInstance().plugin().getLogger().info("Upgrades for VoidChest:");
         for (Map.Entry<NamespacedKey, Integer> upgrade : voidChest.upgrades().entrySet()) {
             VoidChestAPI.getInstance().plugin().getLogger().info(upgrade.getKey() + ": " + upgrade.getValue());

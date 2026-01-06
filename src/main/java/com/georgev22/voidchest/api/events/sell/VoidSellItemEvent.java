@@ -6,7 +6,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 
@@ -34,8 +34,8 @@ public class VoidSellItemEvent extends VoidEvent implements Cancellable {
      * @param price     The price of the item about to be sold.
      * @param slot      The slot index of the item in the inventory.
      */
-    public VoidSellItemEvent(@NotNull final IVoidChest voidChest, @NotNull final ItemStack item,
-                             @NotNull final Inventory inventory, final BigDecimal price, final int slot) {
+    public VoidSellItemEvent(@NonNull final IVoidChest voidChest, @NonNull final ItemStack item,
+                             @NonNull final Inventory inventory, final BigDecimal price, final int slot) {
         super(voidChest);
         this.item = item;
         this.price = price;
@@ -58,7 +58,7 @@ public class VoidSellItemEvent extends VoidEvent implements Cancellable {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 
@@ -94,7 +94,7 @@ public class VoidSellItemEvent extends VoidEvent implements Cancellable {
      *
      * @return The inventory where the item is located.
      */
-    @NotNull
+    @NonNull
     public Inventory getInventory() {
         return inventory;
     }

@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.events.VoidEvent;
 import com.georgev22.voidchest.api.link.ILink;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The VoidChestLinkRemoveEvent class is an event that is fired when a link is removed from a VoidChest.
@@ -23,7 +23,7 @@ public class VoidChestLinkRemoveEvent extends VoidEvent {
      * @param voidChest The voidChest associated with the event.
      * @param link      The link that was added.
      */
-    public VoidChestLinkRemoveEvent(@NotNull IVoidChest voidChest, @NotNull ILink link) {
+    public VoidChestLinkRemoveEvent(@NonNull IVoidChest voidChest, @NonNull ILink link) {
         super(voidChest);
         this.link = link;
     }
@@ -52,7 +52,7 @@ public class VoidChestLinkRemoveEvent extends VoidEvent {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 }

@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.utilities.persistence;
 
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
+import org.bukkit.NamespacedKey;
 
 /**
  * Interface for a data container wrapper that allows for storing and retrieving data.

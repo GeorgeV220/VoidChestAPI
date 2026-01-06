@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.voidchest.api.utilities.color.Color;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
@@ -359,7 +359,7 @@ public class DiscordWebHook {
         }
 
         @Override
-        public @NotNull String toString() {
+        public @NonNull String toString() {
             StringBuilder builder = new StringBuilder();
             Set<Map.Entry<String, Object>> entrySet = map.entrySet();
             builder.append("{");
@@ -393,7 +393,7 @@ public class DiscordWebHook {
         }
 
         @Contract(pure = true)
-        public @NotNull String quote(String string) {
+        public @NonNull String quote(String string) {
             return "\"" + string + "\"";
         }
 

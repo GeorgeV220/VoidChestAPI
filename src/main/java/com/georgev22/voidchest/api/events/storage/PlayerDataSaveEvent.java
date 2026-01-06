@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.events.storage;
 import com.georgev22.voidchest.api.events.PlayerEvent;
 import com.georgev22.voidchest.api.storage.data.IPlayerData;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The PlayerDataSaveEvent class is an event that is fired when a PlayerData is saved.
@@ -36,7 +36,7 @@ public class PlayerDataSaveEvent extends PlayerEvent {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 }

@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A generic interface that defines a contract for objects that can be copied.
@@ -20,7 +20,7 @@ public interface Copyable<T> {
      *
      * @return a shallow copy of type {@code T}
      */
-    @NotNull T shallowCopy();
+    @NonNull T shallowCopy();
 
     /**
      * Creates a deep copy of the current object.
@@ -29,7 +29,7 @@ public interface Copyable<T> {
      *
      * @return a deep copy of type {@code T}
      */
-    @NotNull T deepCopy();
+    @NonNull T deepCopy();
 
     /**
      * Creates a copy of the current object according to the given {@link CopyType}.
@@ -37,8 +37,8 @@ public interface Copyable<T> {
      * @param type the copy type (shallow or deep)
      * @return a copy of type {@code T}, based on the specified {@link CopyType}
      */
-    @NotNull
-    default T copy(@NotNull CopyType type) {
+    @NonNull
+    default T copy(@NonNull CopyType type) {
         return type.isDeep() ? deepCopy() : shallowCopy();
     }
 

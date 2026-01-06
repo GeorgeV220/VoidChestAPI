@@ -5,8 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.io.*;
 import java.util.Objects;
@@ -44,24 +43,24 @@ public class SerializableLocation implements Serializable, Cloneable {
     private static final long serialVersionUID = 2L;
 
     private transient Location location;
-    private String worldName;
-    private double x;
-    private double y;
-    private double z;
-    private float yaw;
-    private float pitch;
-    private int minY;
-    private int maxY;
-    private VoidChunk chunk;
+    protected String worldName;
+    protected double x;
+    protected double y;
+    protected double z;
+    protected float yaw;
+    protected float pitch;
+    protected int minY;
+    protected int maxY;
+    protected VoidChunk chunk;
 
-    private transient final int cachedHashCode;
+    protected transient final int cachedHashCode;
 
     /**
      * Constructs a new SerializableLocation from the provided Bukkit Location.
      *
      * @param location The Bukkit Location to be serialized.
      */
-    public SerializableLocation(@NotNull Location location) {
+    public SerializableLocation(@NonNull Location location) {
         this.location = location;
         this.worldName = location.getWorld().getName();
         this.x = location.getX();
@@ -157,7 +156,7 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @return A new SerializableLocation instance.
      */
     @Contract("_ -> new")
-    public static @NotNull SerializableLocation fromLocation(Location location) {
+    public static @NonNull SerializableLocation fromLocation(Location location) {
         return new SerializableLocation(location);
     }
 
@@ -167,7 +166,7 @@ public class SerializableLocation implements Serializable, Cloneable {
      *
      * @return A string representation of the SerializableLocation.
      */
-    public @NotNull String toString() {
+    public @NonNull String toString() {
         //noinspection StringBufferReplaceableByString
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
@@ -200,7 +199,7 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @param string The string representation of the location.
      * @return The SerializableLocation, or {@code null} if the string is empty or invalid.
      */
-    public static @NotNull SerializableLocation fromString(@NotNull String string) {
+    public static @NonNull SerializableLocation fromString(@NonNull String string) {
         if (string.trim().isEmpty()) {
             throw new IllegalArgumentException("Invalid location string: " + string);
         }
@@ -235,14 +234,12 @@ public class SerializableLocation implements Serializable, Cloneable {
      *
      * @return The Bukkit Location represented by this SerializableLocation.
      */
-    public @Nullable Location toLocation() {
+    public @NonNull Location toLocation() {
         if (location == null) {
             World world = Bukkit.getWorld(worldName);
-            if (world != null) {
-                location = new Location(world, x, y, z, yaw, pitch);
-            } else {
-                return null;
-            }
+            location = world != null
+                    ? new Location(world, x, y, z, yaw, pitch)
+                    : new Location(Bukkit.getWorlds().getFirst(), x, y, z, yaw, pitch);
         }
         return location.clone();
     }
@@ -393,7 +390,7 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @throws IOException If an I/O error occurs during serialization.
      */
     @Serial
-    private void writeObject(@NotNull ObjectOutputStream out) throws IOException {
+    private void writeObject(@NonNull ObjectOutputStream out) throws IOException {
         out.writeUTF(toString());
     }
 
@@ -405,7 +402,7 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @throws ClassNotFoundException If the class of the serialized object cannot be found.
      */
     @Serial
-    private void readObject(@NotNull ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(@NonNull ObjectInputStream in) throws IOException, ClassNotFoundException {
         String string = in.readUTF();
         SerializableLocation location = fromString(string);
         this.worldName = location.worldName;

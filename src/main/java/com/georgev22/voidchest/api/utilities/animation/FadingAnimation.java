@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.utilities.animation;
 import com.georgev22.voidchest.api.utilities.color.Color;
 import com.georgev22.voidchest.api.utilities.color.ColorCalculations;
 import com.georgev22.voidchest.api.utilities.color.MinecraftColor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class FadingAnimation extends Animation {
 
     @Override
-    public String render(String string, boolean bold, int start, int end, @NotNull List<Color> colors) {
+    public String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors) {
         if (colors.isEmpty()) {
             throw new IllegalArgumentException("Not enough colors provided");
         }
@@ -53,12 +53,12 @@ public class FadingAnimation extends Animation {
     }
 
     @Override
-    protected int computeStart(@NotNull String string) {
+    protected int computeStart(@NonNull String string) {
         return Math.max(1, string.length() / 4);
     }
 
     @Override
-    protected int computeEnd(@NotNull String string) {
+    protected int computeEnd(@NonNull String string) {
         return Math.max(5, string.length());
     }
 

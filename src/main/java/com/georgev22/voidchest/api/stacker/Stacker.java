@@ -1,15 +1,16 @@
 package com.georgev22.voidchest.api.stacker;
 
+import org.bukkit.Keyed;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigInteger;
 
 /**
  * The Stacker interface provides methods for managing item stacking.
  */
-public interface Stacker {
+public interface Stacker extends Keyed {
 
     /**
      * Retrieves the actual amount of stacked items for the specified item.
@@ -17,7 +18,7 @@ public interface Stacker {
      * @param item The Item to retrieve the actual amount for.
      * @return The actual amount of stacked items as an integer.
      */
-    BigInteger getActualAmount(@NotNull final Item item);
+    BigInteger getActualAmount(@NonNull final Item item);
 
     /**
      * Updates the amount of stacked items for the specified item.
@@ -25,22 +26,15 @@ public interface Stacker {
      * @param item      The Item to update.
      * @param newAmount The new amount of stacked items to set.
      */
-    void updateItem(@NotNull final Item item, @NotNull final BigInteger newAmount);
+    void updateItem(@NonNull final Item item, @NonNull final BigInteger newAmount);
 
-    ItemStack getItemStack(@NotNull final Item item);
-
-    /**
-     * Retrieves the name of the Stacker.
-     *
-     * @return The name of the Stacker as a String.
-     */
-    String getName();
+    ItemStack getItemStack(@NonNull final Item item);
 
     /**
      * Retrieves the simple name of the Stacker. E.g. UltimateStacker
      *
      * @return The simple name of the Stacker as a String.
      */
-    String getSimpleName();
+    String getName();
 
 }

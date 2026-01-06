@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.item;
 import com.georgev22.voidchest.api.storage.data.IVoidChest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Functional action executed when a {@link VoidSpecialItem} is applied to a VoidChest.
@@ -29,7 +29,7 @@ public interface VoidSpecialItemAction {
      * @param itemStack the item stack that is being used
      * @return SUCCESS if the action was successful, FAILED otherwise
      */
-    Result execute(@NotNull Player player, @NotNull IVoidChest voidChest, @NotNull ItemStack itemStack);
+    Result execute(@NonNull Player player, @NonNull IVoidChest voidChest, @NonNull ItemStack itemStack);
 
     /**
      * The result of a {@link VoidSpecialItemAction}.

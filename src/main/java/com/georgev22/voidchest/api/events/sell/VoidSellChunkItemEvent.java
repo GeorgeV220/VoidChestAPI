@@ -8,7 +8,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -38,9 +38,9 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
      * @param itemAmount       The amount of the item about to be sold.
      * @param price            The price of the item about to be sold.
      */
-    public VoidSellChunkItemEvent(@NotNull final IVoidChest voidChest,
-                                  @NotNull final Item droppedItem,
-                                  @NotNull final ItemStack droppedItemStack,
+    public VoidSellChunkItemEvent(@NonNull final IVoidChest voidChest,
+                                  @NonNull final Item droppedItem,
+                                  @NonNull final ItemStack droppedItemStack,
                                   final BigInteger itemAmount,
                                   final BigDecimal price
     ) {
@@ -66,7 +66,7 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 
@@ -93,7 +93,7 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
      *
      * @return The dropped item about to be sold.
      */
-    @NotNull
+    @NonNull
     public Item getDroppedItem() {
         return droppedItem;
     }
@@ -103,7 +103,7 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
      *
      * @return The dropped item stack about to be sold.
      */
-    @NotNull
+    @NonNull
     public ItemStack getDroppedItemStack() {
         return droppedItemStack;
     }
@@ -153,7 +153,6 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
         if (isFolia && location != null) {
             //noinspection unchecked
             return (T) voidChestAPI.minecraftScheduler().createTaskForLocation(
-                    voidChestAPI.plugin(),
                     () -> super.callSynchronousEvent(),
                     location
             ).join();

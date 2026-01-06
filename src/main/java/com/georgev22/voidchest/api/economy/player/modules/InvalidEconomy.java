@@ -1,9 +1,10 @@
 package com.georgev22.voidchest.api.economy.player.modules;
 
 import com.georgev22.voidchest.api.economy.player.AEconomy;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 
@@ -11,6 +12,10 @@ import java.math.BigDecimal;
  * InvalidEconomy represents an invalid economy system. VoidChest or other plugins need to replace this with their own economy system.
  */
 public class InvalidEconomy extends AEconomy {
+
+    public InvalidEconomy() {
+        super(NamespacedKey.fromString("voidchest:invalid"));
+    }
 
     /**
      * Withdraws the specified amount from the player's account.
@@ -20,7 +25,7 @@ public class InvalidEconomy extends AEconomy {
      * @return True if the withdrawal is successful, false otherwise.
      */
     @Override
-    public boolean withdraw(@NotNull OfflinePlayer player, BigDecimal amount) {
+    public boolean withdraw(@NonNull OfflinePlayer player, BigDecimal amount) {
         return false;
     }
 
@@ -32,7 +37,7 @@ public class InvalidEconomy extends AEconomy {
      * @return True if the deposit is successful, false otherwise.
      */
     @Override
-    public boolean deposit(@NotNull OfflinePlayer player, BigDecimal amount) {
+    public boolean deposit(@NonNull OfflinePlayer player, BigDecimal amount) {
         return false;
     }
 
@@ -43,7 +48,7 @@ public class InvalidEconomy extends AEconomy {
      * @return The balance of the player's account as a BigDecimal.
      */
     @Override
-    public BigDecimal getBalance(@NotNull OfflinePlayer player) {
+    public BigDecimal getBalance(@NonNull OfflinePlayer player) {
         return BigDecimal.ZERO;
     }
 
@@ -54,21 +59,7 @@ public class InvalidEconomy extends AEconomy {
      */
     @Override
     public String getName() {
-        return this.getClass().getSimpleName() +
-                "{name=VoidChestInvalid, " +
-                "version="
-                + Bukkit.getServer().getPluginManager().getPlugin("VoidChest").getDescription().getVersion() +
-                "}";
-    }
-
-    /**
-     * Retrieves the simple name of the economy system. E.g. Vault
-     *
-     * @return The simple name of the economy system as a String.
-     */
-    @Override
-    public String getSimpleName() {
-        return "VoidChestInvalid";
+        return "InvalidEconomy";
     }
 
     /**

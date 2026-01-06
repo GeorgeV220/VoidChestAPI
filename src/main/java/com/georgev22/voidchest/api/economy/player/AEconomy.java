@@ -1,7 +1,9 @@
 package com.georgev22.voidchest.api.economy.player;
 
+import org.bukkit.Keyed;
+import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,16 +16,18 @@ import java.util.List;
  * <p>
  * Only one economy of each mode can be hooked.
  */
-public abstract class AEconomy {
+public abstract class AEconomy implements Keyed {
 
     private final List<EconomyMode> economyModes;
+    private final NamespacedKey key;
 
-    public AEconomy() {
-        this(EconomyMode.PAYOUT, EconomyMode.CHARGE, EconomyMode.UPGRADES);
+    protected AEconomy(NamespacedKey key) {
+        this(key, EconomyMode.PAYOUT, EconomyMode.CHARGE, EconomyMode.UPGRADES);
     }
 
-    public AEconomy(EconomyMode... modes) {
+    public AEconomy(NamespacedKey key, EconomyMode... modes) {
         this.economyModes = List.of(modes);
+        this.key = key;
     }
 
     /**
@@ -33,7 +37,7 @@ public abstract class AEconomy {
      * @param amount The amount to withdraw as a BigDecimal.
      * @return True if the withdrawal is successful, false otherwise.
      */
-    public abstract boolean withdraw(@NotNull final OfflinePlayer player, final BigDecimal amount);
+    public abstract boolean withdraw(@NonNull final OfflinePlayer player, final BigDecimal amount);
 
     /**
      * Deposits the specified amount into the player's account.
@@ -42,7 +46,7 @@ public abstract class AEconomy {
      * @param amount The amount to deposit as a BigDecimal.
      * @return True if the deposit is successful, false otherwise.
      */
-    public abstract boolean deposit(@NotNull final OfflinePlayer player, final BigDecimal amount);
+    public abstract boolean deposit(@NonNull final OfflinePlayer player, final BigDecimal amount);
 
     /**
      * Retrieves the balance of the player's account.
@@ -50,7 +54,7 @@ public abstract class AEconomy {
      * @param player The OfflinePlayer to retrieve the balance for.
      * @return The balance of the player's account as a BigDecimal.
      */
-    public abstract BigDecimal getBalance(@NotNull final OfflinePlayer player);
+    public abstract BigDecimal getBalance(@NonNull final OfflinePlayer player);
 
     /**
      * Retrieves the name of the economy system.
@@ -58,13 +62,6 @@ public abstract class AEconomy {
      * @return The name of the economy system as a String.
      */
     public abstract String getName();
-
-    /**
-     * Retrieves the simple name of the economy system. E.g. Vault
-     *
-     * @return The simple name of the economy system as a String.
-     */
-    public abstract String getSimpleName();
 
     /**
      * Sets up the economy system.
@@ -107,5 +104,10 @@ public abstract class AEconomy {
      */
     public List<EconomyMode> getEconomyModes() {
         return economyModes;
+    }
+
+    @Override
+    public @NonNull NamespacedKey getKey() {
+        return this.key;
     }
 }

@@ -1,11 +1,12 @@
 package com.georgev22.voidchest.api.item;
 
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.iface.ReadWriteNBT;
+import org.bukkit.Keyed;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -18,18 +19,9 @@ import java.util.Optional;
  * identified by a {@link NamespacedKey}, allowing custom registration and
  * retrieval from item registries.
  * <p>
- * Developers can extend this class to create custom special items using the {@link com.georgev22.voidchest.api.registry.VoidSpecialItemRegistry}
+ * Developers can extend this class to create custom special items using the {@link com.georgev22.voidchest.api.registry.Registries#SPECIAL_ITEM}
  */
-public abstract class VoidSpecialItem {
-
-    /**
-     * Gets the unique {@link NamespacedKey} that identifies this special item.
-     * <p>
-     * This key is used for registration, lookup, and item recognition within the VoidChest system.
-     *
-     * @return the unique identifier for this special item
-     */
-    public abstract NamespacedKey getKey();
+public abstract class VoidSpecialItem implements Keyed {
 
     /**
      * Gets the action that will be executed when this item is applied to a VoidChest.
@@ -49,7 +41,7 @@ public abstract class VoidSpecialItem {
      * @param itemStack the item stack to apply the special item to
      * @return the modified item stack
      */
-    public Optional<ItemStack> applyTo(@NotNull ItemStack itemStack, String @NotNull ... data) {
+    public Optional<ItemStack> applyTo(@NonNull ItemStack itemStack, String @NonNull ... data) {
         //noinspection ConstantValue
         if (itemStack == null) return Optional.empty();
         if (itemStack.getType().equals(Material.AIR)) return Optional.empty();
@@ -64,6 +56,13 @@ public abstract class VoidSpecialItem {
         return Optional.of(itemStack);
     }
 
-    protected abstract void applyTo0(@NotNull ReadWriteNBT nbt, String @NotNull ... data);
+    protected abstract void applyTo0(@NonNull ReadWriteNBT nbt, String @NonNull ... data);
+
+    /**
+     * Retrieves the name of the Special Item
+     *
+     * @return The name of the Special Item as a String.
+     */
+    public abstract String getName();
 
 }

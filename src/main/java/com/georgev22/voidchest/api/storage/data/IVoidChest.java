@@ -2,17 +2,21 @@ package com.georgev22.voidchest.api.storage.data;
 
 import com.georgev22.voidchest.api.link.ILink;
 import com.georgev22.voidchest.api.link.ILinkManager;
-import com.georgev22.voidchest.api.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.data.voidchest.Abilities;
 import com.georgev22.voidchest.api.storage.data.voidchest.Charge;
 import com.georgev22.voidchest.api.storage.data.voidchest.Stats;
 import com.georgev22.voidchest.api.utilities.BoundingBox;
-import com.georgev22.voidchest.api.utilities.NamespacedKey;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.UnknownNullability;
+import org.jetbrains.annotations.UnmodifiableView;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -42,7 +46,7 @@ public interface IVoidChest extends Entity {
      *
      * @return The block of the VoidChest.
      */
-    @NotNull SerializableBlock block();
+    @NonNull SerializableBlock block();
 
     /**
      * Sets the block of the VoidChest.
@@ -77,7 +81,7 @@ public interface IVoidChest extends Entity {
      *
      * @return The location of the block associated with the VoidChest.
      */
-    @NotNull SerializableLocation blockLocation();
+    @NonNull SerializableLocation blockLocation();
 
     /**
      * Sets the location of the block associated with the VoidChest.

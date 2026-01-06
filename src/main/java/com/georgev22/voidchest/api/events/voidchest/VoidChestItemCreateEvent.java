@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.events.voidchest;
 import com.georgev22.voidchest.api.events.VoidChestBaseEvent;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The VoidChestItemCreateEvent class is an event that is fired when items are created for a VoidChest.
@@ -38,7 +38,7 @@ public class VoidChestItemCreateEvent extends VoidChestBaseEvent {
      * @return The HandlerList for the event.
      */
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return HANDLERS;
     }
 
