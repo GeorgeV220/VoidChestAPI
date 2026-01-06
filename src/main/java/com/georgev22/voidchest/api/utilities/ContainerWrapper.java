@@ -91,11 +91,12 @@ public class ContainerWrapper {
      * Sets a custom name for this container if supported.
      *
      * @param name The name to set, or null to clear the custom name.
-     * @throws UnsupportedOperationException if Nameable is not supported in this Bukkit version.
+     * @throws IllegalStateException if the BlockState does not implement Nameable
+     * @throws RuntimeException      when fails to set custom name on the container
      */
     public static void setCustomName(BlockState blockState, @Nullable String name) {
         if (NAMEABLE_INTERFACE == null || SET_CUSTOM_NAME_METHOD == null) {
-            throw new UnsupportedOperationException("Custom names are not supported in this Bukkit version.");
+            return;
         }
 
         if (!NAMEABLE_INTERFACE.isInstance(blockState)) {
