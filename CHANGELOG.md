@@ -1,3 +1,15 @@
+# [4.6.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v4.6.0) (2026-01-06)
+
+
+### Bug Fixes
+
+* handle unsupported Nameable gracefully instead of throwing ([c68a055](https://github.com/GeorgeV220/VoidChestAPI/commit/c68a055ff09cfc405fef7d3f8273994c741c035c))
+
+
+### Features
+
+* add Minecraft 1.21.11 version support ([a23acd1](https://github.com/GeorgeV220/VoidChestAPI/commit/a23acd1af2cdbc24accf1e2fc0082ef3cefda08a))
+
 # [4.5.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.4.0...v4.5.0) (2025-11-20)
 
 
