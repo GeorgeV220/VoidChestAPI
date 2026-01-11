@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.config;
 
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Map;
@@ -32,7 +32,7 @@ public final class VoidChestOptionCache {
      * @param <T>    the option value type
      * @return the resolved and cached option value
      */
-    public static <T> T get(@NonNull IVoidChest chest, @NonNull VoidChestOptionsUtil<T> option) {
+    public static <T> T get(@NonNull AbstractVoidChest chest, @NonNull VoidChestOptionsUtil<T> option) {
         return get(chest.type(), option);
     }
 
@@ -68,7 +68,7 @@ public final class VoidChestOptionCache {
      *
      * @param chest the VoidChest instance
      */
-    public static void invalidate(@NonNull IVoidChest chest) {
+    public static void invalidate(@NonNull AbstractVoidChest chest) {
         invalidate(chest.type());
     }
 

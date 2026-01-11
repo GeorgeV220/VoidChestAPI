@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.events.voidchest;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IPlayerData;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -22,7 +22,7 @@ public class VoidChestBreakEvent extends VoidEvent implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private final @Nullable Entity entity;
     private final Block block;
-    private final IPlayerData playerData;
+    private final AbstractPlayerData playerData;
     private boolean cancel;
 
     /**
@@ -33,7 +33,7 @@ public class VoidChestBreakEvent extends VoidEvent implements Cancellable {
      * @param block      The Block of the VoidChest being broken.
      * @param playerData The PlayerData associated with the VoidChest.
      */
-    public VoidChestBreakEvent(final @Nullable Entity entity, final IVoidChest voidChest, final Block block, final IPlayerData playerData) {
+    public VoidChestBreakEvent(final @Nullable Entity entity, final AbstractVoidChest voidChest, final Block block, final AbstractPlayerData playerData) {
         super(voidChest);
         this.entity = entity;
         this.block = block;
@@ -84,7 +84,7 @@ public class VoidChestBreakEvent extends VoidEvent implements Cancellable {
      *
      * @return The PlayerData associated with the VoidChest.
      */
-    public IPlayerData getPlayerData() {
+    public AbstractPlayerData getPlayerData() {
         return playerData;
     }
 

@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.link;
 
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import com.georgev22.voidchest.api.utilities.ContainerWrapper;
 import com.georgev22.voidchest.api.utilities.SerializableContainer;
 import org.bukkit.entity.Player;
@@ -12,41 +12,41 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * The {@code ILinkManager} interface provides methods to manage links between {@link IVoidChest} objects and {@link SerializableContainer} objects.
+ * The {@code ILinkManager} interface provides methods to manage links between {@link AbstractVoidChest} objects and {@link SerializableContainer} objects.
  * It allows adding, removing, and retrieving links, as well as checking if links exist.
  */
 public interface ILinkManager {
 
     /**
-     * Retrieves a map of pending links between players and {@link IVoidChest} objects.
+     * Retrieves a map of pending links between players and {@link AbstractVoidChest} objects.
      * The map stores the players who are in the process of linking their storage.
      *
-     * @return A map of {@link Player} to {@link IVoidChest} representing pending links.
+     * @return A map of {@link Player} to {@link AbstractVoidChest} representing pending links.
      */
     @NonNull
-    ObjectMap<Player, IVoidChest> getPendingLinks();
+    ObjectMap<Player, AbstractVoidChest> getPendingLinks();
 
     /**
-     * Adds a link between a specified {@link IVoidChest} and a {@link SerializableContainer}.
+     * Adds a link between a specified {@link AbstractVoidChest} and a {@link SerializableContainer}.
      * If the link already exists, the existing link is returned.
      *
-     * @param voidChest The {@link IVoidChest} to be linked.
+     * @param voidChest The {@link AbstractVoidChest} to be linked.
      * @param container The {@link SerializableContainer} to be linked.
      * @return The {@link ILink} that was added, or the existing link if it already exists.
      */
     @NonNull
-    ILink addLink(@NonNull IVoidChest voidChest, @NonNull SerializableContainer container);
+    ILink addLink(@NonNull AbstractVoidChest voidChest, @NonNull SerializableContainer container);
 
     /**
-     * Removes a link between a specified {@link IVoidChest} and a {@link SerializableContainer}.
+     * Removes a link between a specified {@link AbstractVoidChest} and a {@link SerializableContainer}.
      * If the link does not exist, an empty {@link Optional} is returned.
      *
-     * @param voidChest The {@link IVoidChest} to be unlinked.
+     * @param voidChest The {@link AbstractVoidChest} to be unlinked.
      * @param container The {@link SerializableContainer} to be unlinked.
      * @return An {@link Optional} containing the {@link ILink} that was removed, or empty if no link exists.
      */
     @NonNull
-    Optional<ILink> removeLink(@NonNull IVoidChest voidChest, @NonNull SerializableContainer container);
+    Optional<ILink> removeLink(@NonNull AbstractVoidChest voidChest, @NonNull SerializableContainer container);
 
     /**
      * Adds a link based on an {@link ILink} object.
@@ -69,44 +69,44 @@ public interface ILinkManager {
     Optional<ILink> removeLink(@NonNull ILink link);
 
     /**
-     * Retrieves a link between a specified {@link IVoidChest} and a {@link SerializableContainer}.
+     * Retrieves a link between a specified {@link AbstractVoidChest} and a {@link SerializableContainer}.
      *
-     * @param voidChest The {@link IVoidChest} to find the link for.
+     * @param voidChest The {@link AbstractVoidChest} to find the link for.
      * @param container The {@link SerializableContainer} to find the link for.
      * @return An {@link Optional} containing the found {@link ILink}, or empty if no link exists.
      */
-    @NonNull CompletableFuture<Optional<ILink>> getLink(@NonNull IVoidChest voidChest, @NonNull SerializableContainer container);
+    @NonNull CompletableFuture<Optional<ILink>> getLink(@NonNull AbstractVoidChest voidChest, @NonNull SerializableContainer container);
 
     /**
-     * Checks if a specified {@link IVoidChest} is linked to a {@link SerializableContainer}.
+     * Checks if a specified {@link AbstractVoidChest} is linked to a {@link SerializableContainer}.
      *
-     * @param voidChest The {@link IVoidChest} to check.
+     * @param voidChest The {@link AbstractVoidChest} to check.
      * @param container The {@link SerializableContainer} to check.
-     * @return {@code true} if the {@link IVoidChest} is linked to the {@link SerializableContainer}, {@code false} otherwise.
+     * @return {@code true} if the {@link AbstractVoidChest} is linked to the {@link SerializableContainer}, {@code false} otherwise.
      */
-    CompletableFuture<Boolean> isLinked(@NonNull IVoidChest voidChest, @NonNull SerializableContainer container);
+    CompletableFuture<Boolean> isLinked(@NonNull AbstractVoidChest voidChest, @NonNull SerializableContainer container);
 
     /**
-     * Checks if a specified {@link IVoidChest} has any links to any {@link SerializableContainer}.
+     * Checks if a specified {@link AbstractVoidChest} has any links to any {@link SerializableContainer}.
      *
-     * @param voidChest The {@link IVoidChest} to check.
-     * @return {@code true} if the {@link IVoidChest} has any links, {@code false} otherwise.
+     * @param voidChest The {@link AbstractVoidChest} to check.
+     * @return {@code true} if the {@link AbstractVoidChest} has any links, {@code false} otherwise.
      */
-    boolean hasLinks(@NonNull IVoidChest voidChest);
+    boolean hasLinks(@NonNull AbstractVoidChest voidChest);
 
     /**
-     * Retrieves all valid links associated with a specified {@link IVoidChest}.
+     * Retrieves all valid links associated with a specified {@link AbstractVoidChest}.
      *
-     * @param voidChest The {@link IVoidChest} for which to retrieve the links.
+     * @param voidChest The {@link AbstractVoidChest} for which to retrieve the links.
      * @return A list of {@link ILink} objects that represent valid connections
-     * between the specified {@link IVoidChest} and its {@link SerializableContainer}.
+     * between the specified {@link AbstractVoidChest} and its {@link SerializableContainer}.
      * The list may be empty if no valid links are found.
      */
     @NonNull
-    List<ILink> getLinks(@NonNull IVoidChest voidChest);
+    List<ILink> getLinks(@NonNull AbstractVoidChest voidChest);
 
     /**
-     * Checks if a specified {@link ContainerWrapper} has any links to any {@link IVoidChest}.
+     * Checks if a specified {@link ContainerWrapper} has any links to any {@link AbstractVoidChest}.
      *
      * @param container The {@link ContainerWrapper} to check.
      * @return {@code true} if the {@link ContainerWrapper} has any links, {@code false} otherwise.
@@ -114,10 +114,10 @@ public interface ILinkManager {
     boolean isLinked(@NonNull ContainerWrapper container);
 
     /**
-     * Retrieves the {@link IVoidChest} associated with a specified {@link ContainerWrapper}.
+     * Retrieves the {@link AbstractVoidChest} associated with a specified {@link ContainerWrapper}.
      *
-     * @param container The {@link ContainerWrapper} for which to retrieve the {@link IVoidChest}.
-     * @return The {@link IVoidChest} associated with the specified {@link ContainerWrapper}, or {@code Optional.empty()} if no link exists.
+     * @param container The {@link ContainerWrapper} for which to retrieve the {@link AbstractVoidChest}.
+     * @return The {@link AbstractVoidChest} associated with the specified {@link ContainerWrapper}, or {@code Optional.empty()} if no link exists.
      */
-    Optional<IVoidChest> getVoidChest(@NonNull ContainerWrapper container);
+    Optional<AbstractVoidChest> getVoidChest(@NonNull ContainerWrapper container);
 }

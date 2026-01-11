@@ -1,52 +1,56 @@
-package com.georgev22.voidchest.api.storage.data;
+package com.georgev22.voidchest.api.storage.model;
 
 import com.georgev22.voidchest.api.economy.player.EconomyMode;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
-import com.georgev22.voidchest.api.storage.data.player.Stats;
+import com.georgev22.voidchest.api.storage.model.player.Stats;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * The IPlayerData interface provides methods for managing player data.
+ * The AbstractPlayerData interface provides methods for managing player data.
  */
-public interface IPlayerData extends Entity {
+public abstract class AbstractPlayerData extends Entity {
+
+    public AbstractPlayerData(UUID uniqueId) {
+        super(uniqueId);
+    }
 
     /**
      * Retrieves the name of the player associated with the data.
      *
      * @return The name of the player as a String.
      */
-    String name();
+    public abstract String name();
 
     /**
      * Sets the name of the player associated with the data.
      *
      * @param name The name of the player as a String.
      */
-    void name(String name);
+    public abstract void name(String name);
 
     /**
      * Retrieves the list of UUIDs of the VoidChests associated with the player.
      *
      * @return The list of UUIDs of VoidChests as an ArrayList.
      */
-    ArrayList<UUID> voidChests();
+    public abstract ArrayList<UUID> voidChests();
 
     /**
      * Retrieves the statistics of the player.
      *
      * @return The statistics of the player as a Stats object.
      */
-    Stats stats();
+    public abstract Stats stats();
 
     /**
      * Sets the statistics of the player.
      *
      * @param stats The statistics of the player as a Stats object.
      */
-    void stats(Stats stats);
+    public abstract void stats(Stats stats);
 
     /**
      * Retrieves the current balance of the player.
@@ -65,62 +69,55 @@ public interface IPlayerData extends Entity {
      * @param economyMode The {@link EconomyMode} to use.
      * @return The current balance of the player as a BigDecimal.
      */
-    BigDecimal balance(EconomyMode economyMode);
+    public abstract BigDecimal balance(EconomyMode economyMode);
 
     /**
      * Closes all open VoidChest inventories for the player.
      */
-    void closeVoidInventories();
+    public abstract void closeVoidInventories();
 
     /**
      * Empties all VoidChests associated with the player.
      */
-    void emptyStorages();
+    public abstract void emptyStorages();
 
     /**
      * Removes all VoidChests associated with the player.
      */
-    void removeAllChests();
+    public abstract void removeAllChests();
 
     /**
      * Removes the specified VoidChest from the player's list of associated storages.
      *
      * @param voidChest The VoidChest to remove.
      */
-    void removeVoidChest(final IVoidChest voidChest);
+    public abstract void removeVoidChest(final AbstractVoidChest voidChest);
 
     /**
      * Removes the specified VoidChest from the player's list of associated storages.
      *
      * @param voidChest The VoidChest to remove.
      */
-    void removeVoidChest(final UUID voidChest);
+    public abstract void removeVoidChest(final UUID voidChest);
 
     /**
      * Adds the specified VoidChest to the player's list of associated storages.
      *
      * @param voidChest The VoidChest to add.
      */
-    void addVoidChest(final IVoidChest voidChest);
+    public abstract void addVoidChest(final AbstractVoidChest voidChest);
 
     /**
      * Adds the specified VoidChest to the player's list of associated storages.
      *
      * @param voidChest The VoidChest to add.
      */
-    void addVoidChest(final UUID voidChest);
+    public abstract void addVoidChest(final UUID voidChest);
 
     /**
      * Reloads the player data.
      */
-    void reloadPlayerData();
-
-    /**
-     * Retrieves the UUID of the player associated with the data.
-     *
-     * @return The UUID of the player.
-     */
-    UUID getId();
+    public abstract void reloadPlayerData();
 
     /**
      * Retrieves a map of placeholders for player and the specified VoidChest.
@@ -128,5 +125,5 @@ public interface IPlayerData extends Entity {
      * @param voidChest The VoidChest to retrieve placeholders for.
      * @return A map of placeholders.
      */
-    ObjectMap<String, String> getPlaceHolders(IVoidChest voidChest);
+    public abstract ObjectMap<String, String> getPlaceHolders(AbstractVoidChest voidChest);
 }

@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.economy.player.AEconomy;
 import com.georgev22.voidchest.api.registry.Registries;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
@@ -215,7 +215,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
     }
 
     /**
-     * Attempts to upgrade this upgrade key on the given {@link IVoidChest}, charging the
+     * Attempts to upgrade this upgrade key on the given {@link AbstractVoidChest}, charging the
      * player using the upgrade economy if enabled.
      *
      * <p><strong>Return codes:</strong></p>
@@ -232,15 +232,15 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param currentLevel the current level (ignored internally)
      * @param playerUUID   the UUID of the player performing the upgrade
      * @return the new level, or a negative error code
-     * @deprecated Use {@link #upgrade(IVoidChest, UUID)} instead.
+     * @deprecated Use {@link #upgrade(AbstractVoidChest, UUID)} instead.
      */
     @Deprecated(forRemoval = true)
-    public int upgrade(@NonNull IVoidChest voidChest, int currentLevel, UUID playerUUID) {
+    public int upgrade(@NonNull AbstractVoidChest voidChest, int currentLevel, UUID playerUUID) {
         return this.upgrade(voidChest, playerUUID, true);
     }
 
     /**
-     * Attempts to upgrade this upgrade key on the given {@link IVoidChest}, optionally
+     * Attempts to upgrade this upgrade key on the given {@link AbstractVoidChest}, optionally
      * deducting the cost from the player's upgrade economy balance.
      *
      * <p><strong>Return codes:</strong></p>
@@ -258,7 +258,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param playerUUID the UUID of the player purchasing the upgrade
      * @return the applied level, or an error code
      */
-    public int upgrade(@NonNull IVoidChest voidChest, UUID playerUUID) {
+    public int upgrade(@NonNull AbstractVoidChest voidChest, UUID playerUUID) {
         return this.upgrade(voidChest, playerUUID, true);
     }
 
@@ -280,7 +280,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param economyCheck whether to check and charge the player's balance
      * @return the new level if successful, or an error code
      */
-    public int upgrade(@NonNull IVoidChest voidChest, UUID playerUUID, boolean economyCheck) {
+    public int upgrade(@NonNull AbstractVoidChest voidChest, UUID playerUUID, boolean economyCheck) {
         int currentLevel = this.getCurrentLevel(voidChest);
         boolean isApplicable = this.isApplicableTo(voidChest.type());
         if (!isApplicable) {
@@ -320,7 +320,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
      * @param voidChest the VoidChest to get the current level for
      * @return the current level of this upgrade for the given VoidChest
      */
-    public int getCurrentLevel(@NonNull IVoidChest voidChest) {
+    public int getCurrentLevel(@NonNull AbstractVoidChest voidChest) {
         return voidChest.upgrades().entrySet().stream()
                 .filter(upg -> upg.getKey().equals(key))
                 .map(Map.Entry::getValue)
@@ -328,7 +328,7 @@ public abstract class Upgrade<U> implements Cloneable, Keyed {
                 .orElse(1);
     }
 
-    private void logUpgrades(@NonNull IVoidChest voidChest) {
+    private void logUpgrades(@NonNull AbstractVoidChest voidChest) {
         VoidChestAPI.getInstance().plugin().getLogger().info("Upgrades for VoidChest:");
         for (Map.Entry<NamespacedKey, Integer> upgrade : voidChest.upgrades().entrySet()) {
             VoidChestAPI.getInstance().plugin().getLogger().info(upgrade.getKey() + ": " + upgrade.getValue());

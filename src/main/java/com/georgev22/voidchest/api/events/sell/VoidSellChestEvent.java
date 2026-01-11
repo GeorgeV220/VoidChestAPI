@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.events.sell;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.event.HandlerList;
 import org.jspecify.annotations.NonNull;
 
@@ -23,7 +23,7 @@ public class VoidSellChestEvent extends VoidEvent {
      *
      * @param voidChest The VoidChest associated with the sold chest.
      */
-    public VoidSellChestEvent(@NonNull final IVoidChest voidChest) {
+    public VoidSellChestEvent(@NonNull final AbstractVoidChest voidChest) {
         super(voidChest, true);
     }
 

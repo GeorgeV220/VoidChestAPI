@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.economy.bank;
 
-import com.georgev22.voidchest.api.storage.data.IPlayerData;
+import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
 import org.bukkit.Keyed;
 import org.jspecify.annotations.NonNull;
 
@@ -19,7 +19,7 @@ public interface IVoidChestBank extends Keyed {
      * @param data   The player data associated with the bank.
      * @return True if the deposit is successful, false otherwise.
      */
-    boolean depositToBank(@NonNull final BigDecimal amount, @NonNull final IPlayerData data);
+    boolean depositToBank(@NonNull final BigDecimal amount, @NonNull final AbstractPlayerData data);
 
     /**
      * Retrieves the simple name of the VoidChest bank. E.g. SuperiorSkyblock2

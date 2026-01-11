@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.events.voidchest;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
 import com.georgev22.voidchest.api.link.ILink;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.event.HandlerList;
 import org.jspecify.annotations.NonNull;
 
@@ -23,7 +23,7 @@ public class VoidChestLinkAddEvent extends VoidEvent {
      * @param voidChest The voidChest associated with the event.
      * @param link      The link that was added.
      */
-    public VoidChestLinkAddEvent(@NonNull IVoidChest voidChest, @NonNull ILink link) {
+    public VoidChestLinkAddEvent(@NonNull AbstractVoidChest voidChest, @NonNull ILink link) {
         super(voidChest);
         this.link = link;
     }

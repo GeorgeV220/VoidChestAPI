@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage;
 
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import com.georgev22.voidchest.api.storage.data.filter.FilterData;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.Nullable;
@@ -30,7 +30,7 @@ public interface IFilterManager {
      * @param voidChest The VoidChest to check against.
      * @return {@code true} if the item is allowed, otherwise {@code false}.
      */
-    boolean isAllowed(ItemStack item, @Nullable IVoidChest voidChest);
+    boolean isAllowed(ItemStack item, @Nullable AbstractVoidChest voidChest);
 
     /**
      * Adds an item to the global filter list.

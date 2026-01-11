@@ -1,7 +1,6 @@
 package com.georgev22.voidchest.api.events;
 
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
-import org.bukkit.event.Cancellable;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -10,14 +9,14 @@ import org.jspecify.annotations.NonNull;
  */
 public abstract class VoidEvent extends VoidChestBaseEvent {
 
-    private final IVoidChest voidChest;
+    private final AbstractVoidChest voidChest;
 
     /**
      * Constructs a new VoidEvent with the specified VoidChest.
      *
      * @param voidChest The VoidChest associated with the event.
      */
-    public VoidEvent(@NonNull final IVoidChest voidChest) {
+    public VoidEvent(@NonNull final AbstractVoidChest voidChest) {
         this.voidChest = voidChest;
     }
 
@@ -27,7 +26,7 @@ public abstract class VoidEvent extends VoidChestBaseEvent {
      * @param voidChest The VoidChest associated with the event.
      * @param async     Whether the event should be executed asynchronously.
      */
-    public VoidEvent(@NonNull final IVoidChest voidChest, boolean async) {
+    public VoidEvent(@NonNull final AbstractVoidChest voidChest, boolean async) {
         super(async);
         this.voidChest = voidChest;
     }
@@ -38,7 +37,7 @@ public abstract class VoidEvent extends VoidChestBaseEvent {
      * @return The VoidChest associated with the event.
      */
     @NonNull
-    public IVoidChest getVoidChest() {
+    public AbstractVoidChest getVoidChest() {
         return this.voidChest;
     }
 

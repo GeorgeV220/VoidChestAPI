@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.events.storage;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.event.HandlerList;
 import org.jspecify.annotations.NonNull;
 
@@ -16,7 +16,7 @@ public class VoidChestSaveEvent extends VoidEvent {
      *
      * @param voidChest The VoidChest associated with the VoidChest.
      */
-    public VoidChestSaveEvent(IVoidChest voidChest) {
+    public VoidChestSaveEvent(AbstractVoidChest voidChest) {
         super(voidChest);
     }
 

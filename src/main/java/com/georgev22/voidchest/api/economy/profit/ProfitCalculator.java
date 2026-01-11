@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.economy.profit;
 
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Keyed;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
@@ -42,7 +42,7 @@ public interface ProfitCalculator extends Keyed {
      * @param amount    The amount of the item.
      * @return The calculated profit as a BigDecimal.
      */
-    @NonNull BigDecimal getProfit(@Nullable final IVoidChest voidChest, @NonNull final ItemStack item, @NonNull final BigInteger amount);
+    @NonNull BigDecimal getProfit(@Nullable final AbstractVoidChest voidChest, @NonNull final ItemStack item, @NonNull final BigInteger amount);
 
     /**
      * Returns whether the profit calculation requires the player to be online.

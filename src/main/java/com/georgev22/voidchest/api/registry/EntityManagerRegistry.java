@@ -1,8 +1,8 @@
 package com.georgev22.voidchest.api.registry;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
+import com.georgev22.voidchest.api.storage.model.Entity;
 import com.georgev22.voidchest.api.storage.EntityManager;
-import com.georgev22.voidchest.api.storage.data.Entity;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NonNull;
 

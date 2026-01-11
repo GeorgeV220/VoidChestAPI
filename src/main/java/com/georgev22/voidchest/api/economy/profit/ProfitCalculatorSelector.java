@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.economy.profit;
 
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 
@@ -52,7 +52,7 @@ public class ProfitCalculatorSelector {
      * @return An {@link Optional} wrapping the resulting profit value. Always present in the WEIGHT case.
      */
     public BigDecimal selectBest(@NonNull SelectorType type,
-                                 @NonNull IVoidChest voidChest,
+                                 @NonNull AbstractVoidChest voidChest,
                                  @NonNull ItemStack item,
                                  @NonNull BigInteger amount) {
         return selectBest(type, voidChest, item, amount, calculators);
@@ -70,7 +70,7 @@ public class ProfitCalculatorSelector {
      * @return An {@link Optional} profit value determined by the strategy
      */
     public static BigDecimal selectBest(@NonNull SelectorType type,
-                                        @NonNull IVoidChest voidChest,
+                                        @NonNull AbstractVoidChest voidChest,
                                         @NonNull ItemStack item,
                                         @NonNull BigInteger amount,
                                         @NonNull Map<ProfitCalculator, Integer> calculators) {

@@ -1,7 +1,6 @@
 package com.georgev22.voidchest.api.events;
 
-import com.georgev22.voidchest.api.storage.data.IPlayerData;
-import org.bukkit.event.Cancellable;
+import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -10,14 +9,14 @@ import org.jspecify.annotations.Nullable;
  */
 public abstract class PlayerEvent extends VoidChestBaseEvent {
 
-    private final @Nullable IPlayerData playerData;
+    private final @Nullable AbstractPlayerData playerData;
 
     /**
      * Constructs a new PlayerEvent with the specified PlayerData.
      *
      * @param playerData The PlayerEvent associated with the event.
      */
-    public PlayerEvent(@Nullable final IPlayerData playerData) {
+    public PlayerEvent(@Nullable final AbstractPlayerData playerData) {
         this.playerData = playerData;
     }
 
@@ -27,7 +26,7 @@ public abstract class PlayerEvent extends VoidChestBaseEvent {
      * @param playerData The PlayerEvent associated with the event.
      * @param async Whether the event is asynchronous or not.
      */
-    public PlayerEvent(@Nullable final IPlayerData playerData, boolean async) {
+    public PlayerEvent(@Nullable final AbstractPlayerData playerData, boolean async) {
         super(async);
         this.playerData = playerData;
     }
@@ -38,7 +37,7 @@ public abstract class PlayerEvent extends VoidChestBaseEvent {
      * @return The PlayerData associated with the event.
      */
     @Nullable
-    public IPlayerData getPlayerData() {
+    public AbstractPlayerData getPlayerData() {
         return playerData;
     }
 }

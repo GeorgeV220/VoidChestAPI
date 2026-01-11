@@ -12,8 +12,8 @@ import com.georgev22.voidchest.api.storage.IFilterManager;
 import com.georgev22.voidchest.api.storage.InvalidEntityManager;
 import com.georgev22.voidchest.api.storage.cache.IVoidItemManager;
 import com.georgev22.voidchest.api.storage.cache.VoidChestCacheController;
-import com.georgev22.voidchest.api.storage.data.IPlayerData;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import com.georgev22.voidchest.api.task.ITimedTaskManager;
 import com.georgev22.voidchest.api.config.voidchests.VoidChestConfigurationFileCache;
 import org.bukkit.Chunk;
@@ -159,23 +159,23 @@ public final class VoidChestAPI {
     /**
      * Retrieves the entity manager for void chest storage.
      *
-     * @return a non-null {@link EntityManager} for {@link IVoidChest}
+     * @return a non-null {@link EntityManager} for {@link AbstractVoidChest}
      */
-    public @NonNull EntityManager<IVoidChest> voidChestManager() {
-        Optional<EntityManager<IVoidChest>> manager =
-                EntityManagerRegistry.getInstance().getTyped(IVoidChest.class);
-        return manager.orElseGet(() -> new InvalidEntityManager<>(IVoidChest.class));
+    public @NonNull EntityManager<AbstractVoidChest> voidChestManager() {
+        Optional<EntityManager<AbstractVoidChest>> manager =
+                EntityManagerRegistry.getInstance().getTyped(AbstractVoidChest.class);
+        return manager.orElseGet(() -> new InvalidEntityManager<>(AbstractVoidChest.class));
     }
 
     /**
      * Retrieves the entity manager for player persistent storage.
      *
-     * @return a non-null {@link EntityManager} for {@link IPlayerData}
+     * @return a non-null {@link EntityManager} for {@link AbstractPlayerData}
      */
-    public @NonNull EntityManager<IPlayerData> playerManager() {
-        Optional<EntityManager<IPlayerData>> manager =
-                EntityManagerRegistry.getInstance().getTyped(IPlayerData.class);
-        return manager.orElseGet(() -> new InvalidEntityManager<>(IPlayerData.class));
+    public @NonNull EntityManager<AbstractPlayerData> playerManager() {
+        Optional<EntityManager<AbstractPlayerData>> manager =
+                EntityManagerRegistry.getInstance().getTyped(AbstractPlayerData.class);
+        return manager.orElseGet(() -> new InvalidEntityManager<>(AbstractPlayerData.class));
     }
 
     /**

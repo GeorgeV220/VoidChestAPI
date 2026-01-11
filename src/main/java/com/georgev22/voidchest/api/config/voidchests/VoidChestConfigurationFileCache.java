@@ -5,7 +5,7 @@ import com.georgev22.voidchest.api.datastructures.maps.HashObjectMap;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.storage.EntityManager;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -25,7 +25,7 @@ import java.util.Optional;
  *     <li>Creating the <b>voidchest</b> folder if missing</li>
  *     <li>Ensuring at least one default configuration exists</li>
  *     <li>Loading all valid .yml files into memory</li>
- *     <li>Reloading all {@link IVoidChest} instances that depend on a config</li>
+ *     <li>Reloading all {@link AbstractVoidChest} instances that depend on a config</li>
  * </ul>
  *
  * <p>All keys are stored in lowercase to allow case-insensitive lookups.</p>
@@ -56,7 +56,7 @@ public class VoidChestConfigurationFileCache {
      *     <li>Create the folder if missing</li>
      *     <li>Copy default.yml if no configs exist</li>
      *     <li>Cache all valid .yml files</li>
-     *     <li>Reload all affected {@link IVoidChest} entities</li>
+     *     <li>Reload all affected {@link AbstractVoidChest} entities</li>
      * </ol>
      */
     public void cacheStorages() {
@@ -73,8 +73,8 @@ public class VoidChestConfigurationFileCache {
             return;
         }
 
-        final Optional<EntityManager<IVoidChest>> entityManager =
-                EntityManagerRegistry.getInstance().getTyped(IVoidChest.class);
+        final Optional<EntityManager<AbstractVoidChest>> entityManager =
+                EntityManagerRegistry.getInstance().getTyped(AbstractVoidChest.class);
 
         for (File file : files) {
             final String rawName = file.getName().substring(0, file.getName().length() - 4);
@@ -139,7 +139,7 @@ public class VoidChestConfigurationFileCache {
      * @return cached file or null if not found
      */
     @Nullable
-    public VoidChestConfigurationFile getCachedStorageCFG(final @NonNull IVoidChest voidChest) {
+    public VoidChestConfigurationFile getCachedStorageCFG(final @NonNull AbstractVoidChest voidChest) {
         return getCachedStorageCFG(voidChest.type());
     }
 
@@ -159,7 +159,7 @@ public class VoidChestConfigurationFileCache {
      * @return cached configuration or null
      */
     @Nullable
-    public FileConfiguration getCachedStorageFileCFG(final @NonNull IVoidChest voidChest) {
+    public FileConfiguration getCachedStorageFileCFG(final @NonNull AbstractVoidChest voidChest) {
         return getCachedStorageFileCFG(voidChest.type());
     }
 }

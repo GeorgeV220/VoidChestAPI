@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.config;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.voidchests.VoidChestConfigurationFile;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jspecify.annotations.NonNull;
 
@@ -297,7 +297,7 @@ public final class VoidChestOptionsUtil<T> {
      * @param chest the VoidChest instance
      * @return the resolved option value
      */
-    public T get(@NonNull IVoidChest chest) {
+    public T get(@NonNull AbstractVoidChest chest) {
         return VoidChestOptionCache.get(chest, this);
     }
 
@@ -340,7 +340,7 @@ public final class VoidChestOptionsUtil<T> {
      * @param chest the VoidChest instance
      * @return the resolved value
      */
-    T loadFromConfig(@NonNull IVoidChest chest) {
+    T loadFromConfig(@NonNull AbstractVoidChest chest) {
         return loadFromConfig(chest.type());
     }
 
@@ -372,7 +372,7 @@ public final class VoidChestOptionsUtil<T> {
      * @param value     the new value
      * @param <T>       the value type
      */
-    public static <T> void setValue(@NonNull IVoidChest voidChest,
+    public static <T> void setValue(@NonNull AbstractVoidChest voidChest,
                                     @NonNull VoidChestOptionsUtil<T> option,
                                     T value) {
         setValue(voidChest.type(), option, value);

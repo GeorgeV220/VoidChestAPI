@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.events.voidchest;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -26,7 +26,7 @@ public class VoidChestPlaceEvent extends VoidEvent implements Cancellable {
      * @param item      The ItemStack representing the VoidChest.
      * @param voidChest The VoidChest associated with the VoidChest.
      */
-    public VoidChestPlaceEvent(@NonNull final Player player, @NonNull final ItemStack item, @NonNull final IVoidChest voidChest) {
+    public VoidChestPlaceEvent(@NonNull final Player player, @NonNull final ItemStack item, @NonNull final AbstractVoidChest voidChest) {
         super(voidChest);
         this.player = player;
         this.item = item;

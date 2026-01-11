@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.storage.cache;
 
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 
@@ -34,7 +34,7 @@ public interface IVoidItemManager {
      * @param voidChest The VoidChest to check the ownership.
      * @return True if the ItemStack represents a VoidChest item and belongs to the specified VoidChest, false otherwise.
      */
-    boolean voidItem(final ItemStack itemStack, IVoidChest voidChest);
+    boolean voidItem(final ItemStack itemStack, AbstractVoidChest voidChest);
 
     /**
      * Caches the VoidChest items.

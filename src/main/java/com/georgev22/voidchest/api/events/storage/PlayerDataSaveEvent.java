@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.events.storage;
 
 import com.georgev22.voidchest.api.events.PlayerEvent;
-import com.georgev22.voidchest.api.storage.data.IPlayerData;
+import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
 import org.bukkit.event.HandlerList;
 import org.jspecify.annotations.NonNull;
 
@@ -16,7 +16,7 @@ public class PlayerDataSaveEvent extends PlayerEvent {
      *
      * @param playerData The playerData associated with the PlayerData.
      */
-    public PlayerDataSaveEvent(IPlayerData playerData) {
+    public PlayerDataSaveEvent(AbstractPlayerData playerData) {
         super(playerData);
     }
 

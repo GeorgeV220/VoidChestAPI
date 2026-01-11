@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.storage.data.player;
+package com.georgev22.voidchest.api.storage.model.player;
 
 import com.georgev22.voidchest.api.utilities.CustomData;
 

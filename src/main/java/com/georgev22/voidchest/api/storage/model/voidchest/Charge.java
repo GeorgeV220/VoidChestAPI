@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.storage.data.voidchest;
+package com.georgev22.voidchest.api.storage.model.voidchest;
 
 import com.georgev22.voidchest.api.utilities.CustomData;
 

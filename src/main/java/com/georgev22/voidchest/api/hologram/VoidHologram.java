@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.hologram;
 
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Keyed;
 import org.bukkit.Location;
 import org.jspecify.annotations.NonNull;
@@ -9,7 +9,7 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 
 /**
- * Represents a hologram bound to a specific {@link IVoidChest}.
+ * Represents a hologram bound to a specific {@link AbstractVoidChest}.
  * <p>
  * Implementations are responsible for creating, updating, positioning,
  * and removing holograms using a specific hologram provider
@@ -24,17 +24,17 @@ import java.util.Optional;
 public interface VoidHologram extends Keyed {
 
     /**
-     * Checks whether the hologram associated with the given {@link IVoidChest}
+     * Checks whether the hologram associated with the given {@link AbstractVoidChest}
      * has been deleted or is no longer valid.
      *
      * @param voidChest the void chest whose hologram state is being checked
      * @return {@code true} if the hologram has been deleted or does not exist,
      * {@code false} if it is still present
      */
-    boolean isDeleted(@NonNull IVoidChest voidChest);
+    boolean isDeleted(@NonNull AbstractVoidChest voidChest);
 
     /**
-     * Removes (despawns) the hologram associated with the given {@link IVoidChest}.
+     * Removes (despawns) the hologram associated with the given {@link AbstractVoidChest}.
      * <p>
      * Implementations should ensure this operation is safe to call multiple times
      * and does not throw errors if the hologram is already removed.
@@ -42,7 +42,7 @@ public interface VoidHologram extends Keyed {
      *
      * @param voidChest the void chest whose hologram should be removed
      */
-    void remove(@NonNull IVoidChest voidChest);
+    void remove(@NonNull AbstractVoidChest voidChest);
 
     /**
      * Removes (despawns) all holograms.
@@ -54,7 +54,7 @@ public interface VoidHologram extends Keyed {
     void removeAll();
 
     /**
-     * Updates the hologram associated with the given {@link IVoidChest}.
+     * Updates the hologram associated with the given {@link AbstractVoidChest}.
      * <p>
      * This may include updating displayed text, lines, visibility,
      * or any provider-specific properties.
@@ -62,11 +62,11 @@ public interface VoidHologram extends Keyed {
      *
      * @param voidChest the void chest whose hologram should be updated
      */
-    void update(@NonNull IVoidChest voidChest);
+    void update(@NonNull AbstractVoidChest voidChest);
 
     /**
      * Calculates and applies the correct world location for the hologram
-     * associated with the given {@link IVoidChest}.
+     * associated with the given {@link AbstractVoidChest}.
      * <p>
      * This method should account for chest location changes, offsets,
      * and provider-specific positioning rules.
@@ -75,7 +75,7 @@ public interface VoidHologram extends Keyed {
      * @param voidChest the void chest used to calculate the hologram location
      * @return The calculated location or {@code null} if the location cannot be calculated
      */
-    @NonNull Location calculateLocation(@NonNull IVoidChest voidChest);
+    @NonNull Location calculateLocation(@NonNull AbstractVoidChest voidChest);
 
     /**
      * Returns the human-readable name of the hologram implementation.
@@ -87,14 +87,14 @@ public interface VoidHologram extends Keyed {
      */
     @NonNull String getName();
 
-    Optional<AbstractHologram<?>> getHologram(@NonNull IVoidChest voidChest);
+    Optional<AbstractHologram<?>> getHologram(@NonNull AbstractVoidChest voidChest);
 
     /**
      * Returns the holograms map.
      *
      * @return the holograms map
      */
-    UnmodifiableObjectMap<IVoidChest, AbstractHologram<?>> getHolograms();
+    UnmodifiableObjectMap<AbstractVoidChest, AbstractHologram<?>> getHolograms();
 
     HologramVisibility getVisibility();
 

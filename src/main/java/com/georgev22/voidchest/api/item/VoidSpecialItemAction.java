@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.item;
 
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
@@ -8,7 +8,7 @@ import org.jspecify.annotations.NonNull;
 /**
  * Functional action executed when a {@link VoidSpecialItem} is applied to a VoidChest.
  * <p>
- * The action operates on both the player and the target {@link IVoidChest}, allowing
+ * The action operates on both the player and the target {@link AbstractVoidChest}, allowing
  * full control for modifying chest data or player-related states.
  * <p>
  * Example uses include:
@@ -29,7 +29,7 @@ public interface VoidSpecialItemAction {
      * @param itemStack the item stack that is being used
      * @return SUCCESS if the action was successful, FAILED otherwise
      */
-    Result execute(@NonNull Player player, @NonNull IVoidChest voidChest, @NonNull ItemStack itemStack);
+    Result execute(@NonNull Player player, @NonNull AbstractVoidChest voidChest, @NonNull ItemStack itemStack);
 
     /**
      * The result of a {@link VoidSpecialItemAction}.

@@ -1,10 +1,11 @@
 package com.georgev22.voidchest.api.storage;
 
-import com.georgev22.voidchest.api.storage.data.Entity;
+import com.georgev22.voidchest.api.storage.model.Entity;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 /**
@@ -64,8 +65,8 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      * @return an empty {@link Optional}
      */
     @Override
-    public Optional<E> load(@NonNull String id) {
-        return Optional.empty();
+    public CompletableFuture<Optional<E>> load(@NonNull String id) {
+        return CompletableFuture.completedFuture(Optional.empty());
     }
 
     /**
@@ -113,18 +114,6 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     @Override
     public boolean exists(@NonNull String id) {
         return false;
-    }
-
-    /**
-     * Always returns {@link Optional#empty()}.
-     *
-     * @param id           the unique identifier
-     * @param loadIfExists ignored
-     * @return an empty {@link Optional}
-     */
-    @Override
-    public Optional<E> getEntity(@NonNull String id, boolean loadIfExists) {
-        return Optional.empty();
     }
 
     @Override

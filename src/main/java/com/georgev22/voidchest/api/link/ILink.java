@@ -1,21 +1,21 @@
 package com.georgev22.voidchest.api.link;
 
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import com.georgev22.voidchest.api.utilities.SerializableContainer;
 
 import java.util.Optional;
 
 /**
- * ILink represents a link between a {@link IVoidChest} and a {@link SerializableContainer}.
+ * ILink represents a link between a {@link AbstractVoidChest} and a {@link SerializableContainer}.
  */
 public interface ILink {
 
     /**
-     * Get the {@link IVoidChest} that this link is linked to.
+     * Get the {@link AbstractVoidChest} that this link is linked to.
      *
-     * @return The {@link IVoidChest} that this link is linked to.
+     * @return The {@link AbstractVoidChest} that this link is linked to.
      */
-    IVoidChest getVoidChest();
+    AbstractVoidChest getVoidChest();
 
     /**
      * Retrieves the {@link SerializableContainer} that this link is associated with.

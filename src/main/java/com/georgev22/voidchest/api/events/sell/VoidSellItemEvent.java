@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.events.sell;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
@@ -34,7 +34,7 @@ public class VoidSellItemEvent extends VoidEvent implements Cancellable {
      * @param price     The price of the item about to be sold.
      * @param slot      The slot index of the item in the inventory.
      */
-    public VoidSellItemEvent(@NonNull final IVoidChest voidChest, @NonNull final ItemStack item,
+    public VoidSellItemEvent(@NonNull final AbstractVoidChest voidChest, @NonNull final ItemStack item,
                              @NonNull final Inventory inventory, final BigDecimal price, final int slot) {
         super(voidChest);
         this.item = item;

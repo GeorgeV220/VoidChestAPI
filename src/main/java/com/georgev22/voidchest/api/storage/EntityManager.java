@@ -1,12 +1,12 @@
 package com.georgev22.voidchest.api.storage;
 
-import com.georgev22.voidchest.api.storage.data.Entity;
-import org.jetbrains.annotations.ApiStatus;
+import com.georgev22.voidchest.api.storage.model.Entity;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 /**
@@ -16,6 +16,11 @@ import java.util.function.Consumer;
  */
 public interface EntityManager<E extends Entity> {
 
+    /**
+     * Returns the class of the entity managed by this manager.
+     *
+     * @return the entity class
+     */
     Class<E> getEntityClass();
 
     /**
@@ -56,7 +61,7 @@ public interface EntityManager<E extends Entity> {
      * @param id the unique identifier
      * @return an {@link Optional} containing the entity if found, or an empty Optional if not found
      */
-    Optional<E> load(@NonNull String id);
+    CompletableFuture<Optional<E>> load(@NonNull String id);
 
     /**
      * Loads an entity by its unique identifier.
@@ -64,7 +69,7 @@ public interface EntityManager<E extends Entity> {
      * @param uuid the unique identifier
      * @return an {@link Optional} containing the entity if found, or an empty Optional if not found
      */
-    default Optional<E> load(@NonNull UUID uuid) {
+    default CompletableFuture<Optional<E>> load(@NonNull UUID uuid) {
         return load(uuid.toString());
     }
 
@@ -114,28 +119,6 @@ public interface EntityManager<E extends Entity> {
     }
 
     /**
-     * Retrieves an entity by its unique identifier. Optionally, loads the entity
-     * if it exists.
-     *
-     * @param id           the unique identifier
-     * @param loadIfExists whether to load the entity if it exists
-     * @return an {@link Optional} containing the entity if found, or empty if not found
-     */
-    Optional<E> getEntity(@NonNull String id, boolean loadIfExists);
-
-    /**
-     * Retrieves an entity by its unique identifier. Optionally, loads the entity
-     * if it exists.
-     *
-     * @param uuid         the unique identifier
-     * @param loadIfExists whether to load the entity if it exists
-     * @return an {@link Optional} containing the entity if found, or empty if not found
-     */
-    default Optional<E> getEntity(@NonNull UUID uuid, boolean loadIfExists) {
-        return getEntity(uuid.toString(), loadIfExists);
-    }
-
-    /**
      * Creates a new entity with the specified identifier and executes the provided consumer.
      *
      * @param id       the unique identifier
@@ -172,7 +155,6 @@ public interface EntityManager<E extends Entity> {
     /**
      * Shuts down this manager.
      */
-    @ApiStatus.Internal
     default void shutdown() {
         shutdown(entity -> {
         });
@@ -183,7 +165,6 @@ public interface EntityManager<E extends Entity> {
      *
      * @param consumer the consumer to apply
      */
-    @ApiStatus.Internal
     void shutdown(Consumer<E> consumer);
 
 }

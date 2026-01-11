@@ -13,7 +13,6 @@ import com.georgev22.voidchest.api.upgrade.Upgrade;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 

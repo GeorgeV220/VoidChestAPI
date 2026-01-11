@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.events.sell;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Location;
 import org.bukkit.entity.Item;
 import org.bukkit.event.Cancellable;
@@ -38,7 +38,7 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
      * @param itemAmount       The amount of the item about to be sold.
      * @param price            The price of the item about to be sold.
      */
-    public VoidSellChunkItemEvent(@NonNull final IVoidChest voidChest,
+    public VoidSellChunkItemEvent(@NonNull final AbstractVoidChest voidChest,
                                   @NonNull final Item droppedItem,
                                   @NonNull final ItemStack droppedItemStack,
                                   final BigInteger itemAmount,

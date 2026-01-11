@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.events.voidchest;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
-import com.georgev22.voidchest.api.storage.data.IVoidChest;
+import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -22,7 +22,7 @@ public class VoidChestPostPlaceEvent extends VoidEvent {
 
     public VoidChestPostPlaceEvent(@NonNull final Player player,
                                    @NonNull final ItemStack item,
-                                   @NonNull final IVoidChest voidChest,
+                                   @NonNull final AbstractVoidChest voidChest,
                                    @NonNull final Block block) {
         super(voidChest);
         this.player = player;

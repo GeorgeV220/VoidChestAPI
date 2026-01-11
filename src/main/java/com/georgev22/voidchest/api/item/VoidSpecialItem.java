@@ -15,7 +15,7 @@ import java.util.Optional;
  * when used by a player.
  * <p>
  * Special items are typically used to apply upgrades, add fuel, or trigger
- * internal mechanics related to a {@code IVoidChest}. Each item is uniquely
+ * internal mechanics related to a {@code AbstractVoidChest}. Each item is uniquely
  * identified by a {@link NamespacedKey}, allowing custom registration and
  * retrieval from item registries.
  * <p>
