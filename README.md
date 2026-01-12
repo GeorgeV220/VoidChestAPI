@@ -16,16 +16,21 @@ You can have your project depend on VoidChestAPI as a dependency through the fol
 <project>
     <repositories>
         <repository>
-            <id>georgev22-repository</id>
-            <name>GeorgeV22 Repository</name>
-            <url>https://repo.georgev22.com/releases</url>
+            <id>shulkerlabs-repository</id>
+            <name>ShulkerLabs Repository</name>
+            <url>https://repo.shulkerlabs.com/releases</url>
+        </repository>
+        <repository>
+            <id>shulkerlabs-repository-snapshots</id>
+            <name>ShulkerLabs Repository Snapshots</name>
+            <url>https://repo.shulkerlabs.com/snapshots</url>
         </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>com.georgev22.voidchest-shade</groupId>
-            <artifactId>voidchestapi-shade</artifactId>
+            <groupId>com.georgev22.voidchest</groupId>
+            <artifactId>voidchestapi</artifactId>
             <version>5.0.0</version>
             <classifier>shade</classifier>
             <scope>provided</scope>
@@ -41,15 +46,15 @@ You can include VoidChestAPI into your gradle project using the following lines:
 ```groovy
 repositories {
     maven {
-        url "https://repo.georgev22.com/releases"
+        url "https://repo.shulkerlabs.com/releases"
     }
     maven {
-        url "https://repo.georgev22.com/snapshots"
+        url "https://repo.shulkerlabs.com/snapshots"
     }
 }
 
 dependencies {
-    compileOnly "com.georgev22.voidchest-shade:voidchestapi-shade:5.0.0"
+    compileOnly "com.georgev22.voidchest:voidchestapi:5.0.0"
 }
 ```
 
@@ -57,13 +62,13 @@ dependencies {
 
 ### Gradle
 
-VoidChestAPI can be built by running the following: `gradle clean build shadowJar`. The resultant jar is built and
+VoidChestAPI can be built by running the following: `gradle clean build jar`. The resultant jar is built and
 written
-to `build/libs/voidchestapi-2.14.0-shade.jar`.
+to `build/libs/voidchestapi-5.0.0.jar`.
 
 The build directories can be cleaned instead using the `gradle clean` command.
 
-If you want to clean (install) and build the plugin use `gradle clean build shadowJar` command.
+If you want to clean (install) and build the plugin use `gradle clean build jar` command.
 
 ## Contributing
 
