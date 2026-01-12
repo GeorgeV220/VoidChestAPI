@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.stacker;
+package com.georgev22.voidchest.api.integrations.stacker;
 
 import org.jspecify.annotations.NonNull;
 

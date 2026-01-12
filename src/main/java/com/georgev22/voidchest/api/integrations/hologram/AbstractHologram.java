@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.hologram;
+package com.georgev22.voidchest.api.integrations.hologram;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

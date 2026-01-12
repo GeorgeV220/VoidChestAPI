@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.economy.profit;
+package com.georgev22.voidchest.api.integrations.economy.profit;
 
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Keyed;

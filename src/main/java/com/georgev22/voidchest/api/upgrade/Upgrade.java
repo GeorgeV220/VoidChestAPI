@@ -2,7 +2,7 @@ package com.georgev22.voidchest.api.upgrade;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.OptionsUtil;
-import com.georgev22.voidchest.api.economy.player.AEconomy;
+import com.georgev22.voidchest.api.integrations.economy.balance.AEconomy;
 import com.georgev22.voidchest.api.registry.Registries;
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Bukkit;

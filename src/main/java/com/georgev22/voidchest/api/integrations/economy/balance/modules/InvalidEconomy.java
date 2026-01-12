@@ -1,8 +1,7 @@
-package com.georgev22.voidchest.api.economy.player.modules;
+package com.georgev22.voidchest.api.integrations.economy.balance.modules;
 
-import com.georgev22.voidchest.api.economy.player.AEconomy;
+import com.georgev22.voidchest.api.integrations.economy.balance.AEconomy;
 import org.bukkit.NamespacedKey;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jspecify.annotations.NonNull;
 

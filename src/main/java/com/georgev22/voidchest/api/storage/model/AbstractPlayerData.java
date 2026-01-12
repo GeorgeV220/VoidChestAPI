@@ -1,6 +1,6 @@
 package com.georgev22.voidchest.api.storage.model;
 
-import com.georgev22.voidchest.api.economy.player.EconomyMode;
+import com.georgev22.voidchest.api.integrations.economy.balance.EconomyMode;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.model.player.Stats;
 

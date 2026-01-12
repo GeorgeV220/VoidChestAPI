@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.economy.player;
+package com.georgev22.voidchest.api.integrations.economy.balance;
 
 public enum EconomyMode {
 

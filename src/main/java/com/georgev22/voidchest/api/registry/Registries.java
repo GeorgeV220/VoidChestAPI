@@ -1,14 +1,14 @@
 package com.georgev22.voidchest.api.registry;
 
 import com.georgev22.voidchest.api.config.OptionsUtil;
-import com.georgev22.voidchest.api.economy.bank.IVoidChestBank;
-import com.georgev22.voidchest.api.economy.banktnt.IVoidChestBankTNT;
-import com.georgev22.voidchest.api.economy.player.AEconomy;
-import com.georgev22.voidchest.api.economy.profit.ProfitCalculator;
-import com.georgev22.voidchest.api.hologram.VoidHologram;
+import com.georgev22.voidchest.api.integrations.economy.bank.IVoidChestBank;
+import com.georgev22.voidchest.api.integrations.economy.banktnt.IVoidChestBankTNT;
+import com.georgev22.voidchest.api.integrations.economy.balance.AEconomy;
+import com.georgev22.voidchest.api.integrations.economy.profit.ProfitCalculator;
+import com.georgev22.voidchest.api.integrations.hologram.VoidHologram;
 import com.georgev22.voidchest.api.item.VoidSpecialItem;
 import com.georgev22.voidchest.api.registry.economy.ProfitCalculatorSelectorRegistry;
-import com.georgev22.voidchest.api.stacker.Stacker;
+import com.georgev22.voidchest.api.integrations.stacker.Stacker;
 import com.georgev22.voidchest.api.upgrade.Upgrade;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.ApiStatus;
@@ -130,7 +130,7 @@ public class Registries {
      * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.
      *
      * <p>This registry stores handlers responsible for loading, saving,
-     * and managing persistent {@link com.georgev22.voidchest.api.storage.data.Entity}
+     * and managing persistent {@link com.georgev22.voidchest.api.storage.model.Entity}
      * data types such as player data and VoidChest records.</p>
      *
      * <h3>⚠️ Modification Warning</h3>

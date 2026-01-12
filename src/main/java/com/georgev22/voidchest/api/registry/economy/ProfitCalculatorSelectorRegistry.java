@@ -2,12 +2,11 @@ package com.georgev22.voidchest.api.registry.economy;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.config.VoidChestOptionsUtil;
-import com.georgev22.voidchest.api.economy.profit.ProfitCalculator;
-import com.georgev22.voidchest.api.economy.profit.ProfitCalculatorSelector;
+import com.georgev22.voidchest.api.integrations.economy.profit.ProfitCalculator;
+import com.georgev22.voidchest.api.integrations.economy.profit.ProfitCalculatorSelector;
 import com.georgev22.voidchest.api.registry.AbstractRegistry;
 import com.georgev22.voidchest.api.registry.Registries;
 import org.bukkit.NamespacedKey;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;

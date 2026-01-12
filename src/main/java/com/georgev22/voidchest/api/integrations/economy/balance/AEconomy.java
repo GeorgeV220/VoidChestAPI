@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.economy.player;
+package com.georgev22.voidchest.api.integrations.economy.balance;
 
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;

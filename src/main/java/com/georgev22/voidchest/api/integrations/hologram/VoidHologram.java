@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.hologram;
+package com.georgev22.voidchest.api.integrations.hologram;
 
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;

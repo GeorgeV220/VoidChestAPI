@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.economy.banktnt;
+package com.georgev22.voidchest.api.integrations.economy.banktnt;
 
 import org.bukkit.Keyed;
 import org.jspecify.annotations.NonNull;

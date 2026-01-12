@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.economy.bank;
+package com.georgev22.voidchest.api.integrations.economy.bank;
 
 import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
 import org.bukkit.Keyed;
