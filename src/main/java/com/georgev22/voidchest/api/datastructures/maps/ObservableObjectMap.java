@@ -4,258 +4,279 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiFunction;
 
 /**
- * An implementation of the {@link ObjectMap} interface that provides an easy way to add listeners
- * that get notified when a new entry is added to the map.
+ * An observable concurrent map implementation that extends {@link ConcurrentHashObjectMap}
+ * and allows registering listeners to react to changes in the map.
+ * <p>
+ * This class notifies all registered {@link MapChangeListener}s whenever an entry
+ * is added, removed, or updated. It is especially useful in reactive systems,
+ * caches, and event-driven applications.
+ * <p>
+ * Thread-safety:
+ * <ul>
+ *     <li>The underlying storage is a {@link java.util.concurrent.ConcurrentHashMap}.</li>
+ *     <li>Listeners are stored in a {@link CopyOnWriteArrayList}, so they can be
+ *     safely added and removed while notifications are being dispatched.</li>
+ * </ul>
  *
- * @param <K> the type of keys maintained by this map
- * @param <V> the type of mapped values
+ * @param <K> key type
+ * @param <V> value type
  */
-public class ObservableObjectMap<K, V> extends ConcurrentObjectMap<K, V> {
-
-    private final List<MapChangeListener<K, V>> listeners = new ArrayList<>();
+public class ObservableObjectMap<K, V> extends ConcurrentHashObjectMap<K, V> {
 
     /**
-     * Creates an ObservableObjectMap instance.
+     * Registered listeners that will be notified when map entries change.
+     */
+    private final List<MapChangeListener<K, V>> listeners = new CopyOnWriteArrayList<>();
+
+    private int initialCapacity = -1;
+    private float loadFactor = -1;
+
+    /**
+     * Creates an empty {@link ObservableObjectMap}.
      */
     public ObservableObjectMap() {
+        super();
     }
 
     /**
-     * Creates a ObservableObjectMap instance initialized with the given map.
+     * Creates a new {@link ObservableObjectMap} initialized with the entries from another {@link ObjectMap}.
      *
-     * @param map initial map
+     * @param map the initial map
      */
     public ObservableObjectMap(final ObjectMap<K, V> map) {
         super(map);
     }
 
     /**
-     * Creates a ObservableObjectMap instance initialized with the given map.
+     * Creates a new {@link ObservableObjectMap} initialized with the entries from another {@link Map}.
      *
-     * @param map initial map
+     * @param map the initial map
      */
     public ObservableObjectMap(final Map<K, V> map) {
         super(map);
     }
 
     /**
-     * Constructs a new ObservableObjectMap with the specified initial capacity.
+     * Creates a new {@link ObservableObjectMap} with a given initial capacity.
      *
-     * @param initialCapacity The initial capacity of the ObservableObjectMap.
+     * @param initialCapacity initial capacity
      */
     public ObservableObjectMap(final int initialCapacity) {
         super(initialCapacity);
+        this.initialCapacity = initialCapacity;
     }
 
     /**
-     * Constructs a new ObservableObjectMap with the specified initial capacity and load factor.
+     * Creates a new {@link ObservableObjectMap} with a given initial capacity and load factor.
      *
-     * @param initialCapacity The initial capacity of the ObservableObjectMap.
-     * @param loadFactor      The load factor of the ObservableObjectMap.
+     * @param initialCapacity initial capacity
+     * @param loadFactor      load factor
      */
     public ObservableObjectMap(final int initialCapacity, final float loadFactor) {
         super(initialCapacity, loadFactor);
+        this.initialCapacity = initialCapacity;
+        this.loadFactor = loadFactor;
     }
 
-
     /**
-     * Adds a {@link MapChangeListener} to this map.
+     * Registers a listener to receive notifications when map entries change.
      *
-     * @param listener the listener to be added
+     * @param listener listener to add
      */
-    public void addListener(MapChangeListener<K, V> listener) {
+    public void addListener(@NonNull MapChangeListener<K, V> listener) {
         listeners.add(listener);
     }
 
     /**
-     * Removes a {@link MapChangeListener} to this map.
+     * Unregisters a previously registered listener.
      *
-     * @param listener the listener to be removed
+     * @param listener listener to remove
      */
-    public void removeListener(MapChangeListener<K, V> listener) {
+    public void removeListener(@NonNull MapChangeListener<K, V> listener) {
         listeners.remove(listener);
     }
 
     /**
-     * Returns an unmodifiable List of the registered MapChangeListeners.
+     * Returns an unmodifiable view of the registered listeners.
      *
-     * @return An unmodifiable List of the registered MapChangeListeners.
+     * @return listeners list
      */
     public List<MapChangeListener<K, V>> getListeners() {
         return Collections.unmodifiableList(listeners);
     }
 
     /**
-     * Associates the specified value with the specified key in this map. If the map previously contained a mapping
-     * for the key, the old value is replaced by the specified value. Notifies all registered listeners with the
-     * added key-value pair.
-     *
-     * @param key   key with which the specified value is to be associated
-     * @param value value to be associated with the specified key
-     * @return the previous value associated with the specified key, or {@code null} if there was no mapping for the key
+     * {@inheritDoc}
      */
     @Override
     public V put(@NonNull K key, @NonNull V value) {
         V oldValue = super.put(key, value);
-        fireEntryAddedEvent(key, value);
+        if (oldValue == null) {
+            fireEntryAdded(key, value);
+        } else if (!Objects.equals(oldValue, value)) {
+            fireEntryUpdated(key, oldValue, value);
+        }
         return oldValue;
     }
 
     /**
-     * Associates the specified value with the specified key in this map if it is not already associated with a value.
-     * If the specified key is already associated with a value, the existing value is returned and no change is made.
-     *
-     * @param key   the key with which the specified value is to be associated
-     * @param value the value to be associated with the specified key
-     * @return the previous value associated with the specified key, or {@code null} if there was no mapping for the key
+     * {@inheritDoc}
      */
     @Override
-    public V putIfAbsent(K key, V value) {
+    public V putIfAbsent(@NonNull K key, @NonNull V value) {
         V oldValue = super.putIfAbsent(key, value);
-        fireEntryAddedEvent(key, value);
+        if (oldValue == null) {
+            fireEntryAdded(key, value);
+        }
         return oldValue;
     }
 
     /**
-     * Copies all the mappings from the specified map to this map.
-     * The effect of this call is equivalent to that of calling
-     * {@code put(k, v)} on this map once for each mapping from key {@code k} to value {@code v} in the specified map.
-     * The behavior of this operation is undefined if the specified map is modified while the operation is in progress.
-     *
-     * @param m the map whose mappings are to be added to this map
+     * {@inheritDoc}
      */
     @Override
     public void putAll(@NonNull Map<? extends K, ? extends V> m) {
-        m.forEach(this::fireEntryAddedEvent);
-        super.putAll(m);
+        for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
+            put(entry.getKey(), entry.getValue()); // reuse put logic for notifications
+        }
     }
 
     /**
-     * Removes the mapping for a key from this map if it is present.
-     * The value previously associated with the key is returned.
-     *
-     * @param key the key whose mapping is to be removed from the map
-     * @return the previous value associated with the key, or {@code null} if there was no mapping for the key
+     * {@inheritDoc}
      */
     @Override
     public V remove(@NonNull Object key) {
-        fireEntryRemovedEvent(key, null);
-        return super.remove(key);
+        V oldValue = super.remove(key);
+        if (oldValue != null) {
+            fireEntryRemoved(key, oldValue);
+        }
+        return oldValue;
     }
 
     /**
-     * Removes the entry for a key only if currently mapped to a given value.
-     *
-     * @param key   key with which the specified value is associated
-     * @param value value expected to be associated with the specified key
-     * @return {@code true} if the value was removed
+     * {@inheritDoc}
      */
     @Override
     public boolean remove(Object key, Object value) {
-        fireEntryRemovedEvent(key, value);
-        return super.remove(key, value);
+        boolean removed = super.remove(key, value);
+        if (removed) {
+            fireEntryRemoved(key, value);
+        }
+        return removed;
     }
 
     /**
-     * Replaces the entry for a key only if currently mapped to some value.
-     *
-     * @param key      key with which the specified value is associated
-     * @param oldValue value expected to be associated with the specified key
-     * @param newValue value to be associated with the specified key
-     * @return {@code true} if the value was replaced
+     * {@inheritDoc}
      */
     @Override
     public boolean replace(K key, V oldValue, V newValue) {
-        fireEntryRemovedEvent(key, oldValue);
-        fireEntryAddedEvent(key, newValue);
-        return super.replace(key, oldValue, newValue);
+        boolean replaced = super.replace(key, oldValue, newValue);
+        if (replaced && !Objects.equals(oldValue, newValue)) {
+            fireEntryUpdated(key, oldValue, newValue);
+        }
+        return replaced;
     }
 
     /**
-     * Replaces the entry for a key only if currently mapped to some value.
-     *
-     * @param key   key with which the specified value is associated
-     * @param value value to be associated with the specified key
-     * @return the previous value associated with the specified key, or {@code null} if there was no mapping for the key
+     * {@inheritDoc}
      */
     @Override
     public V replace(K key, V value) {
-        fireEntryRemovedEvent(key, null);
-        fireEntryAddedEvent(key, value);
-        return super.replace(key, value);
+        V oldValue = super.replace(key, value);
+        if (oldValue != null && !Objects.equals(oldValue, value)) {
+            fireEntryUpdated(key, oldValue, value);
+        }
+        return oldValue;
     }
 
     /**
-     * Replaces each entry's value with the result of invoking the given function on that entry.
-     *
-     * @param function the function to apply to each entry
+     * {@inheritDoc}
      */
     @Override
-    public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
-        Map<K, V> oldMap = new ConcurrentObjectMap<>(this);
+    public void replaceAll(@NonNull BiFunction<? super K, ? super V, ? extends V> function) {
+        if (listeners.isEmpty()) {
+            super.replaceAll(function);
+            return;
+        }
 
+        Map<K, V> oldSnapshot = new HashMap<>(this);
         super.replaceAll(function);
 
-        for (K key : oldMap.keySet()) {
-            V oldValue = oldMap.get(key);
-            V newValue = get(key);
+        for (Entry<K, V> entry : entrySet()) {
+            V oldValue = oldSnapshot.get(entry.getKey());
+            V newValue = entry.getValue();
             if (!Objects.equals(oldValue, newValue)) {
-                fireEntryRemovedEvent(key, oldValue);
-                fireEntryAddedEvent(key, newValue);
+                fireEntryUpdated(entry.getKey(), oldValue, newValue);
             }
         }
     }
 
-
-    /**
-     * Notifies all registered listeners that a new entry has been added to the map.
-     *
-     * @param key   the key of the added entry
-     * @param value the value of the added entry
-     */
-    private void fireEntryAddedEvent(K key, V value) {
+    private void fireEntryAdded(K key, V value) {
         for (MapChangeListener<K, V> listener : listeners) {
             listener.entryAdded(key, value);
         }
     }
 
-    /**
-     * Notifies all registered listeners that an entry has been removed from the map.
-     *
-     * @param key   the key of the removed entry
-     * @param value the value of the removed entry, or {@code null} if the key was not previously mapped
-     */
-    private void fireEntryRemovedEvent(Object key, @Nullable Object value) {
+    private void fireEntryRemoved(Object key, @Nullable Object value) {
         for (MapChangeListener<K, V> listener : listeners) {
             listener.entryRemoved(key, value);
         }
     }
 
+    private void fireEntryUpdated(K key, @Nullable V oldValue, @NonNull V newValue) {
+        for (MapChangeListener<K, V> listener : listeners) {
+            listener.entryUpdated(key, oldValue, newValue);
+        }
+    }
+
     /**
-     * A listener interface for receiving notifications when a new entry is added to an {@link ObservableObjectMap}.
+     * Listener interface for receiving map change events.
      *
-     * @param <K> the type of keys maintained by the map
-     * @param <V> the type of mapped values
+     * @param <K> key type
+     * @param <V> value type
      */
     public interface MapChangeListener<K, V> {
+
         /**
          * Called when a new entry is added to the map.
          *
-         * @param key   the key of the added entry
-         * @param value the value of the added entry
+         * @param key   the added key
+         * @param value the added value
          */
         void entryAdded(K key, V value);
 
         /**
          * Called when an entry is removed from the map.
          *
-         * @param key   the key of the removed entry
-         * @param value the value of the removed entry, or {@code null} if there was no value associated with the key
+         * @param key   the removed key
+         * @param value the removed value (may be {@code null})
          */
         void entryRemoved(Object key, @Nullable Object value);
+
+        /**
+         * Called when an entry is updated in the map.
+         *
+         * @param key      the updated key
+         * @param oldValue the previous value (may be {@code null})
+         * @param newValue the new value
+         */
+        void entryUpdated(K key, @Nullable V oldValue, @NonNull V newValue);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ObservableObjectMap<K, V> newObjectMap() {
+        if (initialCapacity > 0) {
+            return (loadFactor > 0)
+                    ? new ObservableObjectMap<>(initialCapacity, loadFactor)
+                    : new ObservableObjectMap<>(initialCapacity);
+        }
+        return new ObservableObjectMap<>();
+    }
 }

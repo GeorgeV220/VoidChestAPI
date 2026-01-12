@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMaps;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -24,7 +25,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
     private ObjectMap<String, Object> customData;
 
     public CustomData() {
-        this.customData = ObjectMap.newConcurrentObjectMap();
+        this.customData = ObjectMaps.newConcurrentHashObjectMap();
     }
 
     /**
@@ -195,7 +196,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
     public @NonNull CustomData clone() {
         try {
             CustomData clone = (CustomData) super.clone();
-            clone.customData = ObjectMap.newConcurrentObjectMap();
+            clone.customData = ObjectMaps.newConcurrentHashObjectMap();
             for (Map.Entry<String, Object> entry : customData.entrySet()) {
                 clone.customData.put(entry.getKey(), DeepCloner.cloneValue(entry.getValue()));
             }
@@ -218,7 +219,7 @@ public final class CustomData implements Cloneable, Copyable<CustomData> {
     @Override
     public @NonNull CustomData deepCopy() {
         CustomData copy = new CustomData();
-        copy.customData = ObjectMap.newConcurrentObjectMap();
+        copy.customData = ObjectMaps.newConcurrentHashObjectMap();
         for (Map.Entry<String, Object> entry : customData.entrySet()) {
             copy.customData.put(entry.getKey(), DeepCloner.cloneValue(entry.getValue()));
         }

@@ -1,306 +1,207 @@
 package com.georgev22.voidchest.api.datastructures.maps;
 
+import com.georgev22.voidchest.api.utilities.Copyable;
+import com.georgev22.voidchest.api.utilities.DeepCloner;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public interface ObjectMap<K, V> extends Map<K, V> {
-
-    /**
-     * Creates a new empty {@link LinkedObjectMap} instance.
-     *
-     * @return a new empty {@link LinkedObjectMap} instance.
-     */
-    @Contract(" -> new")
-    static @NonNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap() {
-        return new LinkedObjectMap<>();
-    }
-
-    /**
-     * Creates a new empty {@link ConcurrentObjectMap} instance.
-     *
-     * @return a new empty {@link ConcurrentObjectMap} instance.
-     */
-    @Contract(" -> new")
-    static @NonNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap() {
-        return new ConcurrentObjectMap<>();
-    }
+/**
+ * An extension of the {@link Map} interface with additional utilities for
+ * fluent operations, conditional modifications, type-safe retrieval, and cloning.
+ *
+ * <p>This interface is the common base for specialized {@code ObjectMap}
+ * implementations such as {@link LinkedHashObjectMap}, {@link ConcurrentHashObjectMap},
+ * {@link HashObjectMap}, and {@link TreeObjectMap}.
+ *
+ * @param <K> the key type
+ * @param <V> the value type
+ */
+public interface ObjectMap<K, V> extends Map<K, V>, Copyable<ObjectMap<K, V>> {
 
     /**
-     * Creates a new empty {@link HashObjectMap} instance.
+     * Creates an unmodifiable {@link ObjectMap} containing the given entries.
+     * <p>
+     * This method allows you to create a map from a variable number of key-value entries.
+     * The returned map cannot be modified; attempts to put, remove, or change entries
+     * will throw an {@link UnsupportedOperationException}.
+     * </p>
      *
-     * @return a new empty {@link HashObjectMap} instance.
-     */
-    @Contract(" -> new")
-    static @NonNull <K, V> HashObjectMap<K, V> newHashObjectMap() {
-        return new HashObjectMap<>();
-    }
-
-    /**
-     * Creates a new empty {@link TreeObjectMap} instance.
-     *
-     * @return a new empty {@link TreeObjectMap} instance.
-     */
-    @Contract(" -> new")
-    static @NonNull <K, V> TreeObjectMap<K, V> newTreeObjectMap() {
-        return new TreeObjectMap<>();
-    }
-
-    /**
-     * Creates a {@link LinkedObjectMap} instance with the same mappings as the specified map.
-     *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link LinkedObjectMap#LinkedObjectMap(ObjectMap)} initialized with the mappings from {@code map}
+     * @param <K>     the type of keys maintained by the map
+     * @param <V>     the type of mapped values
+     * @param entries the key-value entries to include in the map; must not be {@code null}
+     * @return a new unmodifiable {@link ObjectMap} containing the specified entries
+     * @implNote The returned map is an instance of {@link UnmodifiableObjectMap}.
+     * @see UnmodifiableObjectMap
      */
     @Contract("_ -> new")
-    static @NonNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap(ObjectMap<K, V> map) {
-        return new LinkedObjectMap<>(map);
+    @SafeVarargs
+    static <K, V> @NonNull ObjectMap<K, V> ofEntries(Entry<K, V> @NonNull ... entries) {
+        //noinspection ConstantValue
+        if (entries == null) throw new IllegalArgumentException("Entries cannot be null");
+        for (Entry<K, V> entry : entries) {
+            if (entry == null) throw new IllegalArgumentException("Entries cannot be null");
+            if (entry.getKey() == null) throw new IllegalArgumentException("Keys cannot be null");
+            if (entry.getValue() == null) throw new IllegalArgumentException("Values cannot be null");
+        }
+        return new UnmodifiableObjectMap<>(entries);
+    }
+
+    @Contract(value = "_, _ -> new", pure = true)
+    static <K, V> @NonNull Entry<K, V> entry(K k, V v) {
+        return new AbstractMap.SimpleImmutableEntry<>(k, v);
     }
 
     /**
-     * Creates a {@link LinkedObjectMap} instance with the same mappings as the specified map.
+     * Adds or replaces a single entry, returning this map for fluent chaining.
      *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link LinkedObjectMap#LinkedObjectMap(Map)} initialized with the mappings from {@code map}
-     */
-    @Contract("_ -> new")
-    static @NonNull <K, V> LinkedObjectMap<K, V> newLinkedObjectMap(Map<K, V> map) {
-        return new LinkedObjectMap<>(map);
-    }
-
-    /**
-     * Creates a {@link ConcurrentObjectMap} instance with the same mappings as the specified map.
-     *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link ConcurrentObjectMap#ConcurrentObjectMap(ObjectMap)} initialized with the mappings from {@code map}
-     */
-    @Contract("_ -> new")
-    static @NonNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap(ObjectMap<K, V> map) {
-        return new ConcurrentObjectMap<>(map);
-    }
-
-    /**
-     * Creates a {@link ConcurrentObjectMap} instance with the same mappings as the specified map.
-     *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link ConcurrentObjectMap#ConcurrentObjectMap(Map)} initialized with the mappings from {@code map}
-     */
-    @Contract("_ -> new")
-    static @NonNull <K, V> ConcurrentObjectMap<K, V> newConcurrentObjectMap(Map<K, V> map) {
-        return new ConcurrentObjectMap<>(map);
-    }
-
-    /**
-     * Creates a {@link HashObjectMap} instance with the same mappings as the specified map.
-     *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link HashObjectMap#HashObjectMap(ObjectMap)} initialized with the mappings from {@code map}
-     */
-    @Contract("_ -> new")
-    static @NonNull <K, V> HashObjectMap<K, V> newHashObjectMap(ObjectMap<K, V> map) {
-        return new HashObjectMap<>(map);
-    }
-
-    /**
-     * Creates a {@link HashObjectMap} instance with the same mappings as the specified map.
-     *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link HashObjectMap#HashObjectMap(Map)} initialized with the mappings from {@code map}
-     */
-    @Contract("_ -> new")
-    static @NonNull <K, V> HashObjectMap<K, V> newHashObjectMap(Map<K, V> map) {
-        return new HashObjectMap<>(map);
-    }
-
-    /**
-     * Creates a {@link TreeObjectMap} instance with the same mappings as the specified map.
-     *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link TreeObjectMap#TreeObjectMap(ObjectMap)} initialized with the mappings from {@code map}
-     */
-    @Contract("_ -> new")
-    static @NonNull <K, V> TreeObjectMap<K, V> newTreeObjectMap(ObjectMap<K, V> map) {
-        return new TreeObjectMap<>(map);
-    }
-
-    /**
-     * Creates a {@link TreeObjectMap} instance with the same mappings as the specified map.
-     *
-     * @param map the mappings to be placed in the new map
-     * @return a new {@link TreeObjectMap#TreeObjectMap(Map)} initialized with the mappings from {@code map}
-     */
-    @Contract("_ -> new")
-    static @NonNull <K, V> TreeObjectMap<K, V> newTreeObjectMap(Map<K, V> map) {
-        return new TreeObjectMap<>(map);
-    }
-
-
-    /**
-     * Put/replace the given key/value pair into this ObjectMap and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.append("a", 1).append("b", 2)}
-     * </pre>
-     *
-     * @param key   key
-     * @param value value
-     * @return this
+     * @param key   the key
+     * @param value the value
+     * @return this map
      */
     ObjectMap<K, V> append(final K key, final V value);
 
     /**
-     * Put/replace a given map into this ObjectMap and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.append("a", 1).append(map)}
-     * </pre>
+     * Adds or replaces all entries from the given map, returning this map for fluent chaining.
      *
-     * @param map the map to append to the current one
-     * @return this
+     * @param map the map to append
+     * @return this map
      */
     ObjectMap<K, V> append(final Map<K, V> map);
 
     /**
-     * Put/replace a given map into this ObjectMap and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.append("a", 1).append(map)}
-     * </pre>
+     * Adds or replaces all entries from the given {@link ObjectMap}, returning this map for fluent chaining.
      *
-     * @param map the map to append to the current one
-     * @return this
+     * @param map the map to append
+     * @return this map
      */
     ObjectMap<K, V> append(final ObjectMap<K, V> map);
 
     /**
-     * Put/replace the given key/value pair into ObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, check1).appendIfTrue("b", 2, check2)}
-     * </pre>
+     * Adds or replaces an entry if the given {@link Optional} contains a value.
      *
-     * @param key    key
-     * @param value  value
-     * @param ifTrue ifTrue
-     * @return this
+     * @param key   the key
+     * @param value optional value (if empty, nothing is added)
+     * @return this map
      */
-    ObjectMap<K, V> appendIfTrue(final K key, final V value, boolean ifTrue);
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    default ObjectMap<K, V> append(final K key, final @NonNull Optional<? extends V> value) {
+        value.ifPresent(v -> append(key, v));
+        return this;
+    }
 
     /**
-     * Put/replace the given key/value pair into ObjectMap if boolean is true or not and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, 2, check1).appendIfTrue("b", 3, 4, check2)}
-     * </pre>
+     * Adds or replaces an entry if the condition is true.
      *
-     * @param key          key
-     * @param valueIfTrue  the value if the ifTrue is true
-     * @param valueIfFalse the value if the ifTrue is false
-     * @param ifTrue       ifTrue
-     * @return this
+     * @param key    the key
+     * @param value  the value
+     * @param ifTrue whether to insert
+     * @return this map
      */
-    ObjectMap<K, V> appendIfTrue(final K key, final V valueIfTrue, final V valueIfFalse, boolean ifTrue);
+    ObjectMap<K, V> append(final K key, final V value, boolean ifTrue);
 
     /**
-     * Put/replace a given map into this ObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, check1).appendIfTrue(map, check2)}
-     * </pre>
+     * Adds or replaces an entry with one of two possible values depending on the condition.
      *
-     * @param map    key
-     * @param ifTrue ifTrue
-     * @return this
+     * @param key          the key
+     * @param valueIfTrue  value if condition is true
+     * @param valueIfFalse value if condition is false
+     * @param ifTrue       condition
+     * @return this map
      */
-    ObjectMap<K, V> appendIfTrue(final Map<K, V> map, boolean ifTrue);
+    ObjectMap<K, V> append(final K key, final V valueIfTrue, final V valueIfFalse, boolean ifTrue);
 
     /**
-     * Put/replace the given key/value pair into ObjectMap if boolean is true or not and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, 2, check1).appendIfTrue(map1, map2, check2)}
-     * </pre>
+     * Adds or replaces all entries from the given map if the condition is true.
      *
-     * @param mapIfTrue  the map if the ifTrue is true
-     * @param mapIfFalse the map if the ifTrue is false
-     * @param ifTrue     ifTrue
-     * @return this
+     * @param map    the map
+     * @param ifTrue condition
+     * @return this map
      */
-    ObjectMap<K, V> appendIfTrue(final Map<K, V> mapIfTrue, final Map<K, V> mapIfFalse, boolean ifTrue);
+    ObjectMap<K, V> append(final Map<K, V> map, boolean ifTrue);
 
     /**
-     * Put/replace a given map into this ObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, check1).appendIfTrue(map, check2)}
-     * </pre>
+     * Adds or replaces all entries from one of two maps depending on the condition.
      *
-     * @param map    key
-     * @param ifTrue ifTrue
-     * @return this
+     * @param mapIfTrue  map if condition is true
+     * @param mapIfFalse map if condition is false
+     * @param ifTrue     condition
+     * @return this map
      */
-    ObjectMap<K, V> appendIfTrue(final ObjectMap<K, V> map, boolean ifTrue);
+    ObjectMap<K, V> append(final Map<K, V> mapIfTrue, final Map<K, V> mapIfFalse, boolean ifTrue);
 
     /**
-     * Put/replace the given key/value pair into ObjectMap if boolean is true or not and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, 2, check1).appendIfTrue(map1, map2, check2)}
-     * </pre>
+     * Adds or replaces all entries from the given {@link ObjectMap} if the condition is true.
      *
-     * @param mapIfTrue  the map if the ifTrue is true
-     * @param mapIfFalse the map if the ifTrue is false
-     * @param ifTrue     ifTrue
-     * @return this
+     * @param map    the map
+     * @param ifTrue condition
+     * @return this map
      */
-    ObjectMap<K, V> appendIfTrue(final ObjectMap<K, V> mapIfTrue, final Map<K, V> mapIfFalse, boolean ifTrue);
+    ObjectMap<K, V> append(final ObjectMap<K, V> map, boolean ifTrue);
 
     /**
-     * Removes the entry with the specified key from the ObjectMap.
+     * Adds or replaces all entries from one of two maps depending on the condition.
      *
-     * @param key the key of the entry to be removed
-     * @return the modified ObjectMap with the specified entry removed, or the original ObjectMap if the key was not found
+     * @param mapIfTrue  map if condition is true
+     * @param mapIfFalse map if condition is false
+     * @param ifTrue     condition
+     * @return this map
+     */
+    ObjectMap<K, V> append(final ObjectMap<K, V> mapIfTrue, final Map<K, V> mapIfFalse, boolean ifTrue);
+
+    /**
+     * Removes an entry by key.
+     *
+     * @param key the key to remove
+     * @return this map
      */
     ObjectMap<K, V> removeEntry(final K key);
 
     /**
-     * Removes all entries with keys present in the specified map from the ObjectMap.
+     * Removes all entries with keys present in the given map.
      *
-     * @param map the map containing the keys to be removed
-     * @return the modified ObjectMap with the entries corresponding to the specified keys removed
+     * @param map the map whose keys should be removed
+     * @return this map
      */
     ObjectMap<K, V> removeEntries(final Map<K, V> map);
 
     /**
-     * Removes all entries with keys present in the specified ObjectMap from the ObjectMap.
+     * Removes all entries with keys present in the given {@link ObjectMap}.
      *
-     * @param map the ObjectMap containing the keys to be removed
-     * @return the modified ObjectMap with the entries corresponding to the keys in the specified ObjectMap removed
+     * @param map the map whose keys should be removed
+     * @return this map
      */
     ObjectMap<K, V> removeEntries(final ObjectMap<K, V> map);
 
     /**
-     * Removes the entry with the specified key from the ObjectMap if the condition is true.
+     * Removes an entry if the condition is true.
      *
-     * @param key    the key of the entry to be removed
-     * @param ifTrue the condition to check before removing the entry
-     * @return the modified ObjectMap with the specified entry removed if the condition is true, or the original ObjectMap otherwise
+     * @param key    the key to remove
+     * @param ifTrue condition
+     * @return this map
      */
-    ObjectMap<K, V> removeEntryIfTrue(final K key, boolean ifTrue);
+    ObjectMap<K, V> removeEntry(final K key, boolean ifTrue);
 
     /**
-     * Removes all entries with keys present in the specified map from the ObjectMap if the condition is true.
+     * Removes all entries from the given map if the condition is true.
      *
-     * @param map    the map containing the keys to be removed
-     * @param ifTrue the condition to check before removing the entries
-     * @return the modified ObjectMap with the entries corresponding to the keys in the specified map removed if the condition is true, or the original ObjectMap otherwise
+     * @param map    the map whose keys should be removed
+     * @param ifTrue condition
+     * @return this map
      */
-    ObjectMap<K, V> removeEntriesIfTrue(final Map<K, V> map, boolean ifTrue);
+    ObjectMap<K, V> removeEntries(final Map<K, V> map, boolean ifTrue);
 
     /**
-     * Removes all entries with keys present in the specified ObjectMap from the ObjectMap if the condition is true.
+     * Removes all entries from the given {@link ObjectMap} if the condition is true.
      *
-     * @param map    the ObjectMap containing the keys to be removed
-     * @param ifTrue the condition to check before removing the entries
-     * @return the modified ObjectMap with the entries corresponding to the keys in the specified ObjectMap removed if the condition is true, or the original ObjectMap otherwise
+     * @param map    the map whose keys should be removed
+     * @param ifTrue condition
+     * @return this map
      */
-    ObjectMap<K, V> removeEntriesIfTrue(final ObjectMap<K, V> map, boolean ifTrue);
+    ObjectMap<K, V> removeEntries(final ObjectMap<K, V> map, boolean ifTrue);
 
     /**
      * Gets the value of the given key as an Integer.
@@ -466,69 +367,67 @@ public interface ObjectMap<K, V> extends Map<K, V> {
      */
     <T> T get(final Object key, final T defaultValue);
 
-
     /**
-     * Returns a new {@link HashObjectMap} containing the same mappings as this map.
+     * Converts this map into a new {@link HashObjectMap}.
      *
-     * @return a new {@link HashObjectMap} with the same entries
+     * @return a new {@link HashObjectMap} containing the same entries
      */
     default HashObjectMap<K, V> toHashObjectMap() {
         return new HashObjectMap<>(this);
     }
 
     /**
-     * Returns a new {@link ConcurrentObjectMap} containing the same mappings as this map.
+     * Converts this map into a new {@link ConcurrentHashObjectMap}.
      *
-     * @return a new {@link ConcurrentObjectMap} with the same entries
+     * @return a new {@link ConcurrentHashObjectMap} containing the same entries
      */
-    default ConcurrentObjectMap<K, V> toConcurrentObjectMap() {
-        return new ConcurrentObjectMap<>(this);
+    default ConcurrentHashObjectMap<K, V> toConcurrentObjectMap() {
+        return new ConcurrentHashObjectMap<>(this);
     }
 
     /**
-     * Returns a new {@link LinkedObjectMap} containing the same mappings as this map.
+     * Converts this map into a new {@link LinkedHashObjectMap}.
      *
-     * @return a new {@link LinkedObjectMap} with the same entries
+     * @return a new {@link LinkedHashObjectMap} containing the same entries
      */
-    default LinkedObjectMap<K, V> toLinkedObjectMap() {
-        return new LinkedObjectMap<>(this);
+    default LinkedHashObjectMap<K, V> toLinkedObjectMap() {
+        return new LinkedHashObjectMap<>(this);
     }
 
     /**
-     * Returns a new {@link ObservableObjectMap} containing the same mappings as this map.
+     * Converts this map into a new {@link ObservableObjectMap}.
      *
-     * @return a new {@link ObservableObjectMap} with the same entries
+     * @return a new {@link ObservableObjectMap} containing the same entries
      */
     default ObservableObjectMap<K, V> toObservableObjectMap() {
         return new ObservableObjectMap<>(this);
     }
 
     /**
-     * Returns a new {@link TreeObjectMap} containing the same mappings as this map.
+     * Converts this map into a new {@link TreeObjectMap}.
      *
-     * @return a new {@link TreeObjectMap} with the same entries
+     * @return a new {@link TreeObjectMap} containing the same entries
      */
     default TreeObjectMap<K, V> toTreeObjectMap() {
         return new TreeObjectMap<>(this);
     }
 
     /**
-     * Returns a new {@link UnmodifiableObjectMap} containing the same mappings as this map.
+     * Converts this map into a new unmodifiable wrapper.
      *
-     * @return a new {@link UnmodifiableObjectMap} with the same entries
+     * @return an {@link UnmodifiableObjectMap} containing the same entries
      */
     default UnmodifiableObjectMap<K, V> toUnmodifiableObjectMap() {
         return new UnmodifiableObjectMap<>(this);
     }
 
     /**
-     * Creates a new {@link ObjectMap} instance of the specified class with the same mappings as this map.
-     * <p>
-     * The target class must have a constructor accepting a {@link Map}.
+     * Creates a new instance of the specified map type with the same entries.
+     * <p>The class must define a constructor accepting a {@link Map} or {@link ObjectMap}.
      *
-     * @param clazz class of the new map to create
-     * @return a new {@link ObjectMap} with the same mappings as this map
-     * @throws RuntimeException if the constructor is missing or cannot be invoked
+     * @param clazz the map class
+     * @return a new map of the requested type
+     * @throws RuntimeException if no suitable constructor exists
      */
     @NonNull
     default ObjectMap<K, V> toObjectMap(@NonNull Class<? extends ObjectMap<K, V>> clazz) {
@@ -549,5 +448,66 @@ public interface ObjectMap<K, V> extends Map<K, V> {
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Creates a new empty {@link ObjectMap} of the same type as this instance.
+     *
+     * @return a new empty map
+     */
+    ObjectMap<K, V> newObjectMap();
+
+    /**
+     * Creates a new {@link ObjectMap} of the same type as this instance,
+     * containing all entries from the given map.
+     *
+     * @param map the source map
+     * @return a new populated map
+     */
+    default ObjectMap<K, V> newObjectMap(Map<K, V> map) {
+        ObjectMap<K, V> newObjectMap = newObjectMap();
+        newObjectMap.putAll(map);
+        return newObjectMap;
+    }
+
+    /**
+     * Creates a new {@link ObjectMap} of the same type as this instance,
+     * containing all entries from the given {@link ObjectMap}.
+     *
+     * @param map the source map
+     * @return a new populated map
+     */
+    default ObjectMap<K, V> newObjectMap(ObjectMap<K, V> map) {
+        ObjectMap<K, V> newObjectMap = newObjectMap();
+        newObjectMap.putAll(map);
+        return newObjectMap;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default @NonNull ObjectMap<K, V> shallowCopy() {
+        ObjectMap<K, V> copy = newObjectMap();
+        copy.putAll(this);
+        return copy;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    default @NonNull ObjectMap<K, V> deepCopy() {
+        ObjectMap<K, V> copy = newObjectMap();
+        for (Entry<K, V> entry : entrySet()) {
+            try {
+                copy.put((K) DeepCloner.cloneValue(entry.getKey()), (V) DeepCloner.cloneValue(entry.getValue()));
+            } catch (UnsupportedOperationException e) {
+                break; // target map does not support modifications
+            } catch (Exception ignored) {
+            }
+        }
+        return copy;
     }
 }

@@ -1,7 +1,8 @@
 package com.georgev22.voidchest.api.registry;
 
-import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ConcurrentHashObjectMap;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMaps;
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import org.jspecify.annotations.NonNull;
 
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 /**
  * A base implementation of {@link Registry} that stores key–value
- * pairs inside a thread-safe {@link ConcurrentObjectMap}.
+ * pairs inside a thread-safe {@link ConcurrentHashObjectMap}.
  * <p>
  * Subclasses may extend this to customize selection logic
  * (see {@link #getSelected()}) or key extraction behavior
@@ -25,14 +26,14 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
     protected final ObjectMap<K, V> registry;
 
     /**
-     * Creates a new abstract registry backed by a {@link ConcurrentObjectMap}.
+     * Creates a new abstract registry backed by a {@link ConcurrentHashObjectMap}.
      * <p>
      * The default constructor ensures a thread-safe underlying storage,
      * while allowing subclasses to build additional behavior.
      * </p>
      */
     protected AbstractRegistry() {
-        this.registry = new ConcurrentObjectMap<>();
+        this.registry = ObjectMaps.newConcurrentHashObjectMap();
     }
 
     /**

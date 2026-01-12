@@ -4,14 +4,16 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 
-import static java.lang.String.format;
+public class TreeObjectMap<K, V> extends AbstractObjectMap<K, V> implements ObjectMap<K, V>, NavigableMap<K, V>, Cloneable {
 
-public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V> {
+    private Comparator<? super K> comparator;
 
     /**
      * Creates a TreeObjectMap instance.
      */
     public TreeObjectMap() {
+        super(new TreeMap<>());
+        this.comparator = null;
     }
 
     /**
@@ -20,7 +22,8 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
      * @param comparator the comparator to order the keys
      */
     public TreeObjectMap(Comparator<? super K> comparator) {
-        super(comparator);
+        super(new TreeMap<>(comparator));
+        this.comparator = comparator;
     }
 
     /**
@@ -29,7 +32,12 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
      * @param map the initial ObjectMap
      */
     public TreeObjectMap(final ObjectMap<K, V> map) {
-        super(map);
+        super(new TreeMap<>(map));
+        if (map instanceof TreeObjectMap<K, V> treeObjectMap) {
+            this.comparator = treeObjectMap.comparator;
+        } else {
+            this.comparator = null;
+        }
     }
 
     /**
@@ -38,7 +46,12 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
      * @param map the initial Map
      */
     public TreeObjectMap(final Map<K, V> map) {
-        super(map);
+        super(new TreeMap<>(map));
+        if (map instanceof TreeMap<K, V> treeMap) {
+            this.comparator = treeMap.comparator();
+        } else {
+            this.comparator = null;
+        }
     }
 
     /**
@@ -48,7 +61,8 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
      * @param map        the initial ObjectMap
      */
     public TreeObjectMap(Comparator<? super K> comparator, final ObjectMap<K, V> map) {
-        super(comparator);
+        super(new TreeMap<>(comparator));
+        this.comparator = comparator;
         putAll(map);
     }
 
@@ -59,455 +73,293 @@ public class TreeObjectMap<K, V> extends TreeMap<K, V> implements ObjectMap<K, V
      * @param map        the initial Map
      */
     public TreeObjectMap(Comparator<? super K> comparator, final Map<K, V> map) {
-        super(comparator);
+        super(new TreeMap<>(comparator));
+        this.comparator = comparator;
         putAll(map);
     }
 
     /**
-     * Put/replace the given key/value pair into this User and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.append("a", 1).append("b", 2)}
-     * </pre>
-     *
-     * @param key   key
-     * @param value value
-     * @return this
+     * {@inheritDoc}
      */
-    public TreeObjectMap<K, V> append(final K key, final V value) {
-        if (containsKey(key)) {
-            replace(key, value);
-        } else {
-            put(key, value);
-        }
-        return this;
-    }
-
     @Override
-    public TreeObjectMap<K, V> append(@NonNull Map<K, V> map) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            append(entry.getKey(), entry.getValue());
-        }
-        return this;
-    }
-
-    @Override
-    public TreeObjectMap<K, V> append(@NonNull ObjectMap<K, V> map) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            append(entry.getKey(), entry.getValue());
-        }
-        return this;
+    public TreeObjectMap<K, V> newObjectMap() {
+        return new TreeObjectMap<>(comparator);
     }
 
     /**
-     * Put/replace the given key/value pair into TreeObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.append("a", 1, check1).append("b", 2, check2)}
-     * </pre>
+     * Returns the comparator used to order the keys in this map.
      *
-     * @param key    key
-     * @param value  value
-     * @param ifTrue ifTrue
-     * @return this
+     * @return the comparator used to order the keys
      */
-    public TreeObjectMap<K, V> appendIfTrue(final K key, final V value, boolean ifTrue) {
-        if (ifTrue)
-            append(key, value);
-        return this;
+    public Comparator<? super K> comparator() {
+        return comparator;
     }
 
     /**
-     * Put/replace the given key/value pair into ObjectMap if boolean is true or not and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, 2, check1).appendIfTrue("b", 3, 4, check2)}
-     * </pre>
-     *
-     * @param key          key
-     * @param valueIfTrue  the value if the ifTrue is true
-     * @param valueIfFalse the value if the ifTrue is false
-     * @param ifTrue       ifTrue
-     * @return this
-     */
-    public TreeObjectMap<K, V> appendIfTrue(final K key, final V valueIfTrue, final V valueIfFalse, boolean ifTrue) {
-        if (ifTrue) {
-            append(key, valueIfTrue);
-        } else {
-            append(key, valueIfFalse);
-        }
-        return this;
-    }
-
-    /**
-     * Put/replace a given map into this ObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, check1).appendIfTrue(map, check2)}
-     * </pre>
-     *
-     * @param map    key
-     * @param ifTrue ifTrue
-     * @return this
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> appendIfTrue(@NonNull Map<K, V> map, boolean ifTrue) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
-        }
-        return this;
+    public Entry<K, V> lowerEntry(K key) {
+        return ((NavigableMap<K, V>) delegate).lowerEntry(key);
     }
 
     /**
-     * Put/replace the given key/value pair into ObjectMap if boolean is true or not and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, 2, check1).appendIfTrue(map1, map2, check2)}
-     * </pre>
-     *
-     * @param mapIfTrue  the map if the ifTrue is true
-     * @param mapIfFalse the map if the ifTrue is false
-     * @param ifTrue     ifTrue
-     * @return this
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> appendIfTrue(Map<K, V> mapIfTrue, Map<K, V> mapIfFalse, boolean ifTrue) {
-        if (ifTrue) {
-            append(mapIfTrue);
-        } else {
-            append(mapIfFalse);
-        }
-        return this;
+    public K lowerKey(K key) {
+        return ((NavigableMap<K, V>) delegate).lowerKey(key);
     }
 
     /**
-     * Put/replace a given map into this ObjectMap if boolean is true and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, check1).appendIfTrue(map, check2)}
-     * </pre>
-     *
-     * @param map    key
-     * @param ifTrue ifTrue
-     * @return this
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> appendIfTrue(@NonNull ObjectMap<K, V> map, boolean ifTrue) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            appendIfTrue(entry.getKey(), entry.getValue(), ifTrue);
-        }
-        return this;
+    public Entry<K, V> floorEntry(K key) {
+        return ((NavigableMap<K, V>) delegate).floorEntry(key);
     }
 
     /**
-     * Put/replace the given key/value pair into ObjectMap if boolean is true or not and return this.  Useful for chaining puts in a single expression, e.g.
-     * <pre>
-     * user.appendIfTrue("a", 1, 2, check1).appendIfTrue(map1, map2, check2)}
-     * </pre>
-     *
-     * @param mapIfTrue  the map if the ifTrue is true
-     * @param mapIfFalse the map if the ifTrue is false
-     * @param ifTrue     ifTrue
-     * @return this
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> appendIfTrue(ObjectMap<K, V> mapIfTrue, Map<K, V> mapIfFalse, boolean ifTrue) {
-        if (ifTrue) {
-            append(mapIfTrue);
-        } else {
-            append(mapIfFalse);
-        }
-        return this;
+    public K floorKey(K key) {
+        return ((NavigableMap<K, V>) delegate).floorKey(key);
     }
 
     /**
-     * Removes the entry with the specified key from the ObjectMap.
-     *
-     * @param key the key of the entry to be removed
-     * @return the modified ObjectMap with the specified entry removed, or the original ObjectMap if the key was not found
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> removeEntry(K key) {
-        remove(key);
-        return this;
+    public Entry<K, V> ceilingEntry(K key) {
+        return ((NavigableMap<K, V>) delegate).ceilingEntry(key);
     }
 
     /**
-     * Removes all entries with keys present in the specified map from the ObjectMap.
-     *
-     * @param map the map containing the keys to be removed
-     * @return the modified ObjectMap with the entries corresponding to the specified keys removed
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> removeEntries(Map<K, V> map) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            remove(entry.getKey());
-        }
-        return this;
+    public K ceilingKey(K key) {
+        return ((NavigableMap<K, V>) delegate).ceilingKey(key);
     }
 
     /**
-     * Removes all entries with keys present in the specified ObjectMap from the ObjectMap.
-     *
-     * @param map the ObjectMap containing the keys to be removed
-     * @return the modified ObjectMap with the entries corresponding to the keys in the specified ObjectMap removed
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> removeEntries(ObjectMap<K, V> map) {
-        for (ObjectMap.Entry<K, V> entry : map.entrySet()) {
-            remove(entry.getKey());
-        }
-        return this;
+    public Entry<K, V> higherEntry(K key) {
+        return ((NavigableMap<K, V>) delegate).higherEntry(key);
     }
 
     /**
-     * Removes the entry with the specified key from the ObjectMap if the condition is true.
-     *
-     * @param key    the key of the entry to be removed
-     * @param ifTrue the condition to check before removing the entry
-     * @return the modified ObjectMap with the specified entry removed if the condition is true, or the original ObjectMap otherwise
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> removeEntryIfTrue(K key, boolean ifTrue) {
-        if (ifTrue) {
-            remove(key);
-        }
-        return this;
+    public K higherKey(K key) {
+        return ((NavigableMap<K, V>) delegate).higherKey(key);
     }
 
     /**
-     * Removes all entries with keys present in the specified map from the ObjectMap if the condition is true.
-     *
-     * @param map    the map containing the keys to be removed
-     * @param ifTrue the condition to check before removing the entries
-     * @return the modified ObjectMap with the entries corresponding to the keys in the specified map removed if the condition is true, or the original ObjectMap otherwise
+     * {@inheritDoc}
      */
     @Override
-    public TreeObjectMap<K, V> removeEntriesIfTrue(Map<K, V> map, boolean ifTrue) {
-        if (ifTrue) {
-            for (Map.Entry<K, V> entry : map.entrySet()) {
-                remove(entry.getKey());
+    public Entry<K, V> firstEntry() {
+        return ((NavigableMap<K, V>) delegate).firstEntry();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entry<K, V> lastEntry() {
+        return ((NavigableMap<K, V>) delegate).lastEntry();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entry<K, V> pollFirstEntry() {
+        return ((NavigableMap<K, V>) delegate).pollFirstEntry();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entry<K, V> pollLastEntry() {
+        return ((NavigableMap<K, V>) delegate).pollLastEntry();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NavigableMap<K, V> descendingMap() {
+        return ((NavigableMap<K, V>) delegate).descendingMap();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NavigableSet<K> navigableKeySet() {
+        return ((NavigableMap<K, V>) delegate).navigableKeySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NavigableSet<K> descendingKeySet() {
+        return ((NavigableMap<K, V>) delegate).descendingKeySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NavigableMap<K, V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
+        return ((NavigableMap<K, V>) delegate).subMap(fromKey, fromInclusive, toKey, toInclusive);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NavigableMap<K, V> headMap(K toKey, boolean inclusive) {
+        return ((NavigableMap<K, V>) delegate).headMap(toKey, inclusive);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NavigableMap<K, V> tailMap(K fromKey, boolean inclusive) {
+        return ((NavigableMap<K, V>) delegate).tailMap(fromKey, inclusive);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NonNull SortedMap<K, V> subMap(K fromKey, K toKey) {
+        return ((SortedMap<K, V>) delegate).subMap(fromKey, toKey);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NonNull SortedMap<K, V> headMap(K toKey) {
+        return ((SortedMap<K, V>) delegate).headMap(toKey);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NonNull SortedMap<K, V> tailMap(K fromKey) {
+        return ((SortedMap<K, V>) delegate).tailMap(fromKey);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public K firstKey() {
+        return ((SortedMap<K, V>) delegate).firstKey();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public K lastKey() {
+        return ((SortedMap<K, V>) delegate).lastKey();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public V putFirst(K k, V v) {
+        return ((SortedMap<K, V>) delegate).putFirst(k, v);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public V putLast(K k, V v) {
+        return ((SortedMap<K, V>) delegate).putLast(k, v);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SequencedSet<K> sequencedKeySet() {
+        return ((SequencedMap<K, V>) delegate).sequencedKeySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SequencedCollection<V> sequencedValues() {
+        return ((SequencedMap<K, V>) delegate).sequencedValues();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SequencedSet<Entry<K, V>> sequencedEntrySet() {
+        return ((SequencedMap<K, V>) delegate).sequencedEntrySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NavigableMap<K, V> reversed() {
+        return ((NavigableMap<K, V>) delegate).reversed();
+    }
+
+    /**
+     * Creates a shallow clone of this {@link TreeObjectMap}.
+     * <p>
+     * The returned {@code TreeObjectMap} is a new instance with its own
+     * backing {@link TreeMap}, so modifications to the clone's entries
+     * do not affect the original map and vice versa.
+     * <p>
+     * <b>Note:</b> This is a shallow copy. The keys and values themselves
+     * are not cloned; if they are mutable objects, changes to them will
+     * be reflected in both the original and the clone.
+     * <p>
+     * If a deep copy is required, use the {@link #deepCopy()} method
+     * provided by the {@link ObjectMap}
+     * interface (which extends {@link com.georgev22.voidchest.api.utilities.Copyable}).
+     *
+     * @return a shallow clone of this {@code TreeObjectMap}
+     */
+    @Override
+    public TreeObjectMap<K, V> clone() {
+        try {
+            @SuppressWarnings("unchecked")
+            TreeObjectMap<K, V> clone = (TreeObjectMap<K, V>) super.clone();
+            if (this.delegate instanceof TreeMap<K, V> treeMap) {
+                //noinspection unchecked
+                clone.delegate = (TreeMap<K, V>) treeMap.clone();
+                clone.comparator = treeMap.comparator();
+            } else {
+                clone.delegate = new TreeMap<>(this.delegate);
+                clone.comparator = this.comparator;
             }
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e); // should never happen
         }
-        return this;
     }
-
-    /**
-     * Removes all entries with keys present in the specified ObjectMap from the ObjectMap if the condition is true.
-     *
-     * @param map    the ObjectMap containing the keys to be removed
-     * @param ifTrue the condition to check before removing the entries
-     * @return the modified ObjectMap with the entries corresponding to the keys in the specified ObjectMap removed if the condition is true, or the original ObjectMap otherwise
-     */
-    @Override
-    public TreeObjectMap<K, V> removeEntriesIfTrue(ObjectMap<K, V> map, boolean ifTrue) {
-        if (ifTrue) {
-            for (ObjectMap.Entry<K, V> entry : map.entrySet()) {
-                remove(entry.getKey());
-            }
-        }
-        return this;
-    }
-
-    /**
-     * Gets the value of the given key as an Integer.
-     *
-     * @param key the key
-     * @return the value as an integer, which may be null
-     * @throws ClassCastException if the value is not an integer
-     */
-    public Integer getInteger(final Object key) {
-        return getInteger(key, 0);
-    }
-
-    /**
-     * Gets the value of the given key as a primitive int.
-     *
-     * @param key          the key
-     * @param defaultValue what to return if the value is null
-     * @return the value as an integer, which may be null
-     * @throws ClassCastException if the value is not an integer
-     */
-    public int getInteger(final Object key, final int defaultValue) {
-        return get(key, defaultValue);
-    }
-
-    /**
-     * Gets the value of the given key as a Long.
-     *
-     * @param key the key
-     * @return the value as a long, which may be null
-     * @throws ClassCastException if the value is not an long
-     */
-    public Long getLong(final Object key) {
-        return getLong(key, 0L);
-    }
-
-    /**
-     * Gets the value of the given key as a Long.
-     *
-     * @param key          the key
-     * @param defaultValue what to return if the value is null
-     * @return the value as a long, which may be null
-     * @throws ClassCastException if the value is not an long
-     */
-    public Long getLong(final Object key, final long defaultValue) {
-        return get(key, defaultValue);
-    }
-
-    /**
-     * Gets the value of the given key as a Double.
-     *
-     * @param key the key
-     * @return the value as a double, which may be null
-     * @throws ClassCastException if the value is not an double
-     */
-    public Double getDouble(final Object key) {
-        return getDouble(key, 0D);
-    }
-
-    /**
-     * Gets the value of the given key as a Double.
-     *
-     * @param key          the key
-     * @param defaultValue what to return if the value is null
-     * @return the value as a double, which may be null
-     * @throws ClassCastException if the value is not an double
-     */
-    public Double getDouble(final Object key, final double defaultValue) {
-        return get(key, defaultValue);
-    }
-
-    /**
-     * Gets the value of the given key as a String.
-     *
-     * @param key the key
-     * @return the value as a String, which may be null
-     * @throws ClassCastException if the value is not a String
-     */
-    public String getString(final Object key) {
-        return getString(key, "");
-    }
-
-    /**
-     * Gets the value of the given key as a String.
-     *
-     * @param key          the key
-     * @param defaultValue what to return if the value is null
-     * @return the value as a String, which may be null
-     * @throws ClassCastException if the value is not a String
-     */
-    public String getString(final Object key, final String defaultValue) {
-        return get(key, defaultValue);
-    }
-
-    /**
-     * Gets the value of the given key as a Boolean.
-     *
-     * @param key the key
-     * @return the value as a Boolean, which may be null
-     * @throws ClassCastException if the value is not an boolean
-     */
-    public Boolean getBoolean(final Object key) {
-        return getBoolean(key, false);
-    }
-
-    /**
-     * Gets the value of the given key as a primitive boolean.
-     *
-     * @param key          the key
-     * @param defaultValue what to return if the value is null
-     * @return the value as a primitive boolean
-     * @throws ClassCastException if the value is not a boolean
-     */
-    public boolean getBoolean(final Object key, final boolean defaultValue) {
-        return get(key, defaultValue);
-    }
-
-    /**
-     * Gets the value of the given key as a Date.
-     *
-     * @param key the key
-     * @return the value as a Date, which may be null
-     * @throws ClassCastException if the value is not a Date
-     */
-    public Date getDate(final Object key) {
-        return getDate(key, new Date());
-    }
-
-    /**
-     * Gets the value of the given key as a Date.
-     *
-     * @param key          the key
-     * @param defaultValue what to return if the value is null
-     * @return the value as a Date, which may be null
-     * @throws ClassCastException if the value is not a Date
-     */
-    public Date getDate(final Object key, final Date defaultValue) {
-        return get(key, defaultValue);
-    }
-
-    /**
-     * Gets the list value of the given key, casting the list elements to the given {@code Class<T>}.  This is useful to avoid having
-     * casts in client code, though the effect is the same.
-     *
-     * @param key   the key
-     * @param clazz the non-null class to cast the list value to
-     * @param <T>   the type of the class
-     * @return the list value of the given key, or null if the instance does not contain this key.
-     * @throws ClassCastException if the elements in the list value of the given key is not of type T or the value is not a list
-     */
-    public <T> List<T> getList(Object key, Class<T> clazz) {
-        return getList(key, clazz, null);
-    }
-
-    /**
-     * Gets the list value of the given key, casting the list elements to {@code Class<T>} or returning the default list value if null.
-     * This is useful to avoid having casts in client code, though the effect is the same.
-     *
-     * @param key          the key
-     * @param clazz        the non-null class to cast the list value to
-     * @param defaultValue what to return if the value is null
-     * @param <T>          the type of the class
-     * @return the list value of the given key, or the default list value if the instance does not contain this key.
-     * @throws ClassCastException if the value of the given key is not of type T
-     */
-    public <T> List<T> getList(final Object key, final Class<T> clazz, final List<T> defaultValue) {
-        List<T> value = get(key, List.class);
-        if (value == null) {
-            return defaultValue;
-        }
-
-        for (Object item : value) {
-            if (!clazz.isAssignableFrom(item.getClass())) {
-                throw new ClassCastException(format("List element cannot be cast to %s", clazz.getName()));
-            }
-        }
-        return value;
-    }
-
-    /**
-     * Gets the value of the given key, casting it to the given {@code Class<T>}.  This is useful to avoid having casts in client code,
-     * though the effect is the same.  So to get the value of a key that is of type String, you would write {@code String name =
-     * doc.get("name", String.class)} instead of {@code String name = (String) doc.get("x") }.
-     *
-     * @param key   the key
-     * @param clazz the non-null class to cast the value to
-     * @param <T>   the type of the class
-     * @return the value of the given key, or null if the instance does not contain this key.
-     * @throws ClassCastException if the value of the given key is not of type T
-     */
-    public <T> T get(final Object key, final Class<T> clazz) {
-        return clazz.cast(get(key));
-    }
-
-    /**
-     * Gets the value of the given key, casting it to {@code Class<T>} or returning the default value if null.
-     * This is useful to avoid having casts in client code, though the effect is the same.
-     *
-     * @param key          the key
-     * @param defaultValue what to return if the value is null
-     * @param <T>          the type of the class
-     * @return the value of the given key, or null if the instance does not contain this key.
-     * @throws ClassCastException if the value of the given key is not of type T
-     */
-    public <T> T get(final Object key, final T defaultValue) {
-        Object value = get(key);
-        return value == null ? defaultValue : (T) value;
-    }
-
 }

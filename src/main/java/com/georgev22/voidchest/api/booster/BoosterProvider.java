@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.booster;
 
-import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMaps;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class BoosterProvider {
 
-    private final ObjectMap<UUID, List<Booster>> boosters = new ConcurrentObjectMap<>();
+    private final ObjectMap<UUID, List<Booster>> boosters = ObjectMaps.newConcurrentHashObjectMap();
     private final JavaPlugin plugin;
 
     public BoosterProvider(JavaPlugin plugin) {

@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.utilities;
 
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMaps;
 import com.georgev22.voidchest.api.datastructures.maps.TreeObjectMap;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
@@ -296,7 +297,7 @@ public final class Utils {
         if (number <= 0) {
             return String.valueOf(number);
         }
-        TreeObjectMap<Integer, String> map = ObjectMap.newTreeObjectMap();
+        TreeObjectMap<Integer, String> map = ObjectMaps.newTreeObjectMap();
         map
                 .append(1000, "M")
                 .append(900, "CM")
@@ -480,7 +481,7 @@ public final class Utils {
     }
 
     public static class Cooldown {
-        private static final ObjectMap<String, Cooldown> cooldownManagerObjectMap = ObjectMap.newHashObjectMap();
+        private static final ObjectMap<String, Cooldown> cooldownManagerObjectMap = ObjectMaps.newHashObjectMap();
         private long start;
         private final int timeInSeconds;
         private final UUID id;

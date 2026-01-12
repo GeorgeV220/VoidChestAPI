@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.utilities.animation;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMaps;
 import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils.MinecraftVersion;
 import com.georgev22.voidchest.api.utilities.color.Color;
 import org.jspecify.annotations.NonNull;
@@ -23,7 +24,7 @@ public abstract class Animation {
     /**
      * Caches animation frame data mapped by identifier.
      */
-    protected static final ObjectMap<String, List<String>> animationCache = ObjectMap.newHashObjectMap();
+    protected static final ObjectMap<String, List<String>> animationCache = ObjectMaps.newHashObjectMap();
 
     /**
      * Factory method to retrieve a specific animation implementation.

@@ -1,7 +1,8 @@
 package com.georgev22.voidchest.api.storage.cache;
 
-import com.georgev22.voidchest.api.datastructures.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.datastructures.Pair;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMaps;
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.storage.EntityManager;
@@ -33,9 +34,9 @@ import java.util.stream.Collectors;
  */
 public class VoidChestCacheController {
 
-    private final ConcurrentObjectMap<SerializableLocation, AbstractVoidChest> voidChestCache = new ConcurrentObjectMap<>();
-    private final ConcurrentObjectMap<VoidChunk, Set<AbstractVoidChest>> chunkCache = new ConcurrentObjectMap<>();
-    private final ConcurrentObjectMap<AbstractPlayerData, Set<AbstractVoidChest>> playerCache = new ConcurrentObjectMap<>();
+    private final ObjectMap<SerializableLocation, AbstractVoidChest> voidChestCache = ObjectMaps.newConcurrentHashObjectMap();
+    private final ObjectMap<VoidChunk, Set<AbstractVoidChest>> chunkCache = ObjectMaps.newConcurrentHashObjectMap();
+    private final ObjectMap<AbstractPlayerData, Set<AbstractVoidChest>> playerCache = ObjectMaps.newConcurrentHashObjectMap();
     private final Set<BlockFace> nearBlockFaces = Sets.immutableEnumSet(BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
             BlockFace.SOUTH, BlockFace.UP, BlockFace.DOWN);
 

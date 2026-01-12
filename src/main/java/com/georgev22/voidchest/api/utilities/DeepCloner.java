@@ -62,12 +62,12 @@ public final class DeepCloner {
         // === MAPS ===
         register(ObjectMap.class, o -> switch (o) {
             case ObservableObjectMap<?, ?> ignored -> new ObservableObjectMap<>();
-            case ConcurrentObjectMap<?, ?> ignored -> new ConcurrentObjectMap<>();
-            case HashObjectMap<?, ?> ignored -> new HashObjectMap<>();
-            case LinkedObjectMap<?, ?> ignored -> new LinkedObjectMap<>();
-            case TreeObjectMap<?, ?> treeObjectMap -> new TreeObjectMap<>(treeObjectMap.comparator());
             case UnmodifiableObjectMap<?, ?> ignored ->
-                    throw new UnsupportedOperationException("Cannot clone unmodifiable map");
+                    ObjectMaps.newUnmodifiableObjectMap(new ConcurrentHashObjectMap<>());
+            case ConcurrentHashObjectMap<?, ?> ignored -> new ConcurrentHashObjectMap<>();
+            case HashObjectMap<?, ?> ignored -> new HashObjectMap<>();
+            case LinkedHashObjectMap<?, ?> ignored -> new LinkedHashObjectMap<>();
+            case TreeObjectMap<?, ?> treeObjectMap -> new TreeObjectMap<>(treeObjectMap.comparator());
             default -> throw new IllegalArgumentException("Unknown map type: " + o.getClass());
         });
         register(HashMap.class, o -> new HashMap<>());
