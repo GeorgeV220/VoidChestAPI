@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0...v5.0.1) (2026-01-12)
+
+
+### Bug Fixes
+
+* reorganize integration modules into unified structure ([460c773](https://github.com/GeorgeV220/VoidChestAPI/commit/460c773c17d0f4d1e538276cb754b95490cb9eff))
+
 # [5.0.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v5.0.0) (2026-01-06)
 
 
