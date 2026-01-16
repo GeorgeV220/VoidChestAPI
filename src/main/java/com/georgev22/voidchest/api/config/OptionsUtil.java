@@ -43,10 +43,6 @@ public enum OptionsUtil {
 
     DATABASE_DATABASE("database.SQL.database", "VoidChest", Optional.empty()),
 
-    DATABASE_USERS_TABLE_NAME("database.SQL.users table name", "voidchest_users", Optional.empty()),
-
-    DATABASE_VOIDCHESTS_TABLE_NAME("database.SQL.voidchests table name", "voidchest_voidchests", Optional.empty()),
-
     DATABASE_FILE_NAME("database.SQL.SQLite file name", "VoidChest", Optional.empty()),
 
     DATABASE_MONGO_HOST("database.MongoDB.host", "localhost", Optional.empty()),
@@ -58,10 +54,6 @@ public enum OptionsUtil {
     DATABASE_MONGO_PASSWORD("database.MongoDB.password", "yourpassword", Optional.empty()),
 
     DATABASE_MONGO_DATABASE("database.MongoDB.database", "VoidChest", Optional.empty()),
-
-    DATABASE_MONGO_USERS_COLLECTION("database.MongoDB.users collection", "voidchest_users", Optional.empty()),
-
-    DATABASE_MONGO_VOIDCHEST_COLLECTION("database.MongoDB.voidchest collection", "voidchest_voidchests", Optional.empty()),
 
     DATABASE_TYPE("database.type", "File", Optional.empty()),
 

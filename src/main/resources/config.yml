@@ -81,8 +81,6 @@ Options:
       user: "youruser"      # SQL database username
       password: "yourpassword"   # SQL database password
       database: "VoidChest"   # SQL database name
-      users table name: "voidchest_users"   # SQL table for users
-      voidchests table name: "voidchest_voidchests"   # SQL table for voidchests
       SQLite file name: "voidchest"   # SQLite file name
 
     # MongoDB options
@@ -92,8 +90,6 @@ Options:
       user: "youruser"      # MongoDB username
       password: "yourpassword"   # MongoDB password
       database: "voidchest"   # MongoDB database name
-      users collection: "voidchest_users"   # MongoDB collection for users
-      voidchest collection: "voidchest_voidchests"   # MongoDB collection for voidchests
 
   # Certain timings are automatically converted into d,h,m,s.
   # For example, charge time, hologram sell interval, etc.
