@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.storage;
 
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.model.Entity;
 import org.jspecify.annotations.NonNull;
 
@@ -125,7 +126,9 @@ public interface EntityManager<E extends Entity> {
      * @param consumer the consumer to apply to the new entity
      * @return an {@link Optional} containing the new entity if created, or empty if not created
      */
-    Optional<E> create(@NonNull String id, @NonNull Consumer<E> consumer);
+    default Optional<E> create(@NonNull String id, @NonNull Consumer<E> consumer) {
+        return create(UUID.fromString(id), consumer);
+    }
 
     /**
      * Creates a new entity with the specified identifier and executes the provided consumer.
@@ -135,8 +138,17 @@ public interface EntityManager<E extends Entity> {
      * @return an {@link Optional} containing the new entity if created, or empty if not created
      */
     default Optional<E> create(@NonNull UUID uuid, @NonNull Consumer<E> consumer) {
-        return create(uuid.toString(), consumer);
+        return create(ObjectMap.ofEntries(ObjectMap.entry("id", uuid)), consumer);
     }
+
+    /**
+     * Creates a new entity with the specified identifier and executes the provided consumer.
+     *
+     * @param data     the data to create the entity with
+     * @param consumer the consumer to apply to the new entity
+     * @return an {@link Optional} containing the new entity if created, or empty if not created
+     */
+    Optional<E> create(@NonNull ObjectMap<String, Object> data, @NonNull Consumer<E> consumer);
 
     /**
      * Gets the name of this entity manager.

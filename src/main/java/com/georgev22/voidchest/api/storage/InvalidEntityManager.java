@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.storage;
 
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.model.Entity;
 import org.jspecify.annotations.NonNull;
 
@@ -117,7 +118,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     }
 
     @Override
-    public Optional<E> create(@NonNull String id, @NonNull Consumer<E> consumer) {
+    public Optional<E> create(@NonNull ObjectMap<String, Object> data, @NonNull Consumer<E> consumer) {
         return Optional.empty();
     }
 
