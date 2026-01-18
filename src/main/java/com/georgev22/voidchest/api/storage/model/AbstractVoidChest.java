@@ -168,18 +168,49 @@ public abstract class AbstractVoidChest extends Entity {
     public abstract void removeUpgrade(NamespacedKey upgrade);
 
     /**
-     * Retrieves the booster value of the VoidChest.
+     * Returns the base booster value of this VoidChest.
+     * <p>
+     * This value is loaded from the VoidChest configuration file and represents
+     * the default booster for this chest type. It does <strong>not</strong> include
+     * upgrades or any persistent extra boosters.
      *
-     * @return The booster value of the VoidChest.
+     * @return the base booster value (from configuration)
+     */
+    public abstract BigDecimal baseBooster();
+
+    /**
+     * Returns the persistent booster value of this VoidChest.
+     * <p>
+     * This value is stored in persistent storage
+     * and represents extra booster points applied to this specific chest.
+     * It does <strong>not</strong> include the base booster or upgrades.
+     *
+     * @return the persistent booster value (saved to storage)
      */
     public abstract BigDecimal booster();
 
     /**
-     * Sets the booster value of the VoidChest.
+     * Returns the total effective booster value of this VoidChest.
+     * <p>
+     * This value is derived by combining:
+     * <ul>
+     *   <li>{@link #baseBooster()}</li>
+     *   <li>any applicable upgrades</li>
+     *   <li>{@link #booster()} (persistent extra booster)</li>
+     * </ul>
+     * It represents the full effective booster and should <strong>not</strong>
+     * be saved directly to persistent storage.
      *
-     * @param booster The booster value to set.
+     * @return the total effective booster value
      */
-    public abstract void booster(Double booster);
+    public abstract BigDecimal totalBooster();
+
+    /**
+     * Sets the extra booster value of the VoidChest.
+     *
+     * @param booster The extra booster value to set.
+     */
+    public abstract void booster(BigDecimal booster);
 
     /**
      * Retrieves the charge state of the VoidChest.
