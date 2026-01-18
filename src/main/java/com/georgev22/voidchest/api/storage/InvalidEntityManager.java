@@ -138,16 +138,6 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     }
 
     /**
-     * Returns the simple class name.
-     *
-     * @return the simple class name
-     */
-    @Override
-    public String getSimpleName() {
-        return this.getClass().getSimpleName();
-    }
-
-    /**
      * No-op shutdown implementation.
      *
      * @param consumer consumer to apply to each entity

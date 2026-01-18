@@ -162,13 +162,6 @@ public interface EntityManager<E extends Entity> {
     String getName();
 
     /**
-     * Gets the simple name of this entity manager.
-     *
-     * @return the simple name
-     */
-    String getSimpleName();
-
-    /**
      * Shuts down this manager.
      */
     default void shutdown() {
