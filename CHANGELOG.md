@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.6.0...v4.6.1) (2026-01-18)
+
+
+### Bug Fixes
+
+* correct booster separation and calculation logic ([b397165](https://github.com/GeorgeV220/VoidChestAPI/commit/b397165696e52e8548e459ff622b347fd9bda6d6))
+
 # [4.6.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.5.0...v4.6.0) (2026-01-06)
 
 
