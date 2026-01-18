@@ -9,6 +9,7 @@ import org.jspecify.annotations.NonNull;
 
 import java.io.*;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A serializable representation of a Bukkit Location, allowing for easy storage and retrieval of location data.
@@ -230,18 +231,21 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
-     * Converts the SerializableLocation back to a Bukkit Location.
+     * Attempts to convert this SerializableLocation into a Bukkit {@link Location}.
+     * <p>
+     * The {@link Location} is resolved lazily and cached after the first successful
+     * resolution. If the referenced world is not currently loaded or cannot be found,
+     * the returned {@link Optional} will be empty.
      *
-     * @return The Bukkit Location represented by this SerializableLocation.
+     * @return an {@link Optional} containing the resolved {@link Location} if available,
+     * or {@link Optional#empty()} if the world cannot be resolved
      */
-    public @NonNull Location toLocation() {
+    public @NonNull Optional<Location> toLocation() {
         if (location == null) {
             World world = Bukkit.getWorld(worldName);
-            location = world != null
-                    ? new Location(world, x, y, z, yaw, pitch)
-                    : new Location(Bukkit.getWorlds().getFirst(), x, y, z, yaw, pitch);
+            location = world != null ? new Location(world, x, y, z, yaw, pitch) : null;
         }
-        return location.clone();
+        return Optional.ofNullable(location);
     }
 
     /**

@@ -161,20 +161,15 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @return A string representation of the block's location.
      */
     public @NonNull String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        Location location = toLocation();
-        stringBuilder
-                .append(location.getWorld().getName())
-                .append(":")
-                .append(location.getBlockX())
-                .append(":")
-                .append(location.getBlockY())
-                .append(":")
-                .append(location.getBlockZ())
-                .append(":")
-                .append(this.material);
-
-        return stringBuilder.toString();
+        return worldName +
+                ":" +
+                getBlockX() +
+                ":" +
+                getBlockY() +
+                ":" +
+                getBlockZ() +
+                ":" +
+                this.material;
     }
 
     /**

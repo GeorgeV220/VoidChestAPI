@@ -256,7 +256,8 @@ public class VoidChestCacheController {
      * otherwise {@link Optional#empty()}.
      */
     public Optional<AbstractVoidChest> getOrAssociated(@NonNull SerializableLocation serializableLocation) {
-        return get(serializableLocation).or(() -> getAssociatedVoidChest(serializableLocation.toLocation().getBlock()));
+        return get(serializableLocation).or(() -> serializableLocation.toLocation()
+                .flatMap(location -> getAssociatedVoidChest(location.getBlock())));
     }
 
     /**
@@ -270,7 +271,8 @@ public class VoidChestCacheController {
      * otherwise {@link Optional#empty()}.
      */
     public Optional<AbstractVoidChest> getOrAssociated(@NonNull SerializableBlock serializableBlock) {
-        return get(serializableBlock).or(() -> getAssociatedVoidChest(serializableBlock.toLocation().getBlock()));
+        return get(serializableBlock).or(() -> serializableBlock.toBlock()
+                .flatMap(this::getAssociatedVoidChest));
     }
 
     /**
