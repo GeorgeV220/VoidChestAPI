@@ -1,8 +1,15 @@
 package com.georgev22.voidchest.api.storage.model;
 
+import com.georgev22.voidchest.api.VoidChestAPI;
+import com.georgev22.voidchest.api.events.storage.VoidChestCreateEvent;
+import com.georgev22.voidchest.api.events.storage.VoidChestDeleteEvent;
+import com.georgev22.voidchest.api.events.storage.VoidChestLoadEvent;
+import com.georgev22.voidchest.api.events.storage.VoidChestSaveEvent;
 import com.georgev22.voidchest.api.link.ILink;
 import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
+import com.georgev22.voidchest.api.registry.Registries;
+import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.model.voidchest.Abilities;
 import com.georgev22.voidchest.api.storage.model.voidchest.Charge;
 import com.georgev22.voidchest.api.storage.model.voidchest.Stats;
@@ -20,12 +27,15 @@ import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * The AbstractVoidChest abstract class provides methods for managing a VoidChest.
  */
 public abstract class AbstractVoidChest extends Entity {
+
+    private transient final VoidChestAPI voidChestAPI = VoidChestAPI.getInstance();
 
     public AbstractVoidChest(UUID uuid) {
         super(uuid);
@@ -304,4 +314,43 @@ public abstract class AbstractVoidChest extends Entity {
      */
     public abstract FileConfiguration voidChestTypeConfig();
 
+
+    @Override
+    public void postLoad() {
+        voidChestAPI.voidChestCacheController().add(this, this.blockLocation());
+        new VoidChestLoadEvent(this).call();
+    }
+
+    @Override
+    public void postSave() {
+        new VoidChestSaveEvent(this).call();
+    }
+
+    @Override
+    public void postDelete() {
+        voidChestAPI.plugin().getLogger().info("deleted voidchest " + getUniqueId());
+        this.customData.set("deleted", true);
+        Registries.HOLOGRAM.getSelected().ifPresent(hologram -> hologram.remove(this));
+        voidChestAPI.timedTaskManager().removeObject(this.getUniqueId());
+        voidChestAPI.voidChestCacheController().remove(this);
+
+        Optional<EntityManager<AbstractPlayerData>> entityManager = Registries.ENTITY_MANAGER.getTyped(AbstractPlayerData.class);
+        if (entityManager.isPresent()) {
+            Optional<AbstractPlayerData> playerData = entityManager.get().findById(this.ownerUUID().toString());
+            if (playerData.isPresent()) {
+                playerData.get().closeVoidInventories();
+                playerData.get().removeVoidChest(this);
+                entityManager.get().save(playerData.get());
+            }
+        }
+
+        new VoidChestDeleteEvent(this).call();
+    }
+
+    @Override
+    public void postCreate() {
+        voidChestAPI.plugin().getLogger().info("Created new voidchest " + getUniqueId());
+        voidChestAPI.voidChestCacheController().add(this, blockLocation());
+        new VoidChestCreateEvent(this).call();
+    }
 }

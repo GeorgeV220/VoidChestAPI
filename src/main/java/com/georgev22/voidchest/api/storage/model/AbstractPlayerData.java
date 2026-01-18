@@ -1,11 +1,19 @@
 package com.georgev22.voidchest.api.storage.model;
 
+import com.georgev22.voidchest.api.events.storage.PlayerDataDeleteEvent;
+import com.georgev22.voidchest.api.events.storage.PlayerDataLoadEvent;
+import com.georgev22.voidchest.api.events.storage.PlayerDataCreateEvent;
+import com.georgev22.voidchest.api.events.storage.PlayerDataSaveEvent;
 import com.georgev22.voidchest.api.integrations.economy.balance.EconomyMode;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.registry.Registries;
+import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.model.player.Stats;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -126,4 +134,33 @@ public abstract class AbstractPlayerData extends Entity {
      * @return A map of placeholders.
      */
     public abstract ObjectMap<String, String> getPlaceHolders(AbstractVoidChest voidChest);
+
+    @Override
+    public void postLoad() {
+        new PlayerDataLoadEvent(this).call();
+    }
+
+    @Override
+    public void postDelete() {
+        if (!voidChests().isEmpty()) {
+            @NotNull Optional<EntityManager<AbstractVoidChest>> entityManager = Registries.ENTITY_MANAGER.getTyped(AbstractVoidChest.class);
+            if (entityManager.isPresent()) {
+                for (UUID storage : voidChests()) {
+                    Optional<AbstractVoidChest> voidChest = entityManager.get().findById(storage.toString());
+                    voidChest.ifPresent(entityManager.get()::delete);
+                }
+            }
+        }
+        new PlayerDataDeleteEvent(this).call();
+    }
+
+    @Override
+    public void postCreate() {
+        new PlayerDataCreateEvent(this).call();
+    }
+
+    @Override
+    public void postSave() {
+        new PlayerDataSaveEvent(this).call();
+    }
 }

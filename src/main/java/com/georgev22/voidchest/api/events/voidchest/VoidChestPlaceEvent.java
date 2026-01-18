@@ -1,6 +1,8 @@
 package com.georgev22.voidchest.api.events.voidchest;
 
 import com.georgev22.voidchest.api.events.VoidEvent;
+import com.georgev22.voidchest.api.events.storage.VoidChestCreateEvent;
+import com.georgev22.voidchest.api.events.storage.VoidChestDeleteEvent;
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -9,8 +11,18 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 
 /**
- * The VoidChestPlaceEvent class is an event that is fired when a player places a VoidChest.
- * It extends the VoidEvent class.
+ * The VoidChestPlaceEvent is fired when a player places a VoidChest block.
+ * <p>
+ * <strong>Important behavior notes:</strong>
+ * <ul>
+ *   <li>Cancelling this event does <b>not</b> prevent {@link VoidChestCreateEvent}
+ *   from executing, as creation occurs before this event is fired.</li>
+ *   <li>If this event is cancelled, {@link VoidChestDeleteEvent} will still be fired
+ *   to clean up the already-created VoidChest.</li>
+ * </ul>
+ * <p>
+ * This event is primarily intended to allow plugins to react to or veto
+ * the placement outcome rather than the creation lifecycle itself.
  */
 public class VoidChestPlaceEvent extends VoidEvent implements Cancellable {
 
@@ -20,13 +32,17 @@ public class VoidChestPlaceEvent extends VoidEvent implements Cancellable {
     private boolean cancel;
 
     /**
-     * Constructs a new VoidChestPlaceEvent with the specified player, item, and VoidChest.
+     * Constructs a new VoidChestPlaceEvent.
      *
      * @param player    The player who placed the VoidChest.
      * @param item      The ItemStack representing the VoidChest.
-     * @param voidChest The VoidChest associated with the VoidChest.
+     * @param voidChest The VoidChest instance associated with the placement.
      */
-    public VoidChestPlaceEvent(@NonNull final Player player, @NonNull final ItemStack item, @NonNull final AbstractVoidChest voidChest) {
+    public VoidChestPlaceEvent(
+            @NonNull final Player player,
+            @NonNull final ItemStack item,
+            @NonNull final AbstractVoidChest voidChest
+    ) {
         super(voidChest);
         this.player = player;
         this.item = item;
@@ -81,6 +97,10 @@ public class VoidChestPlaceEvent extends VoidEvent implements Cancellable {
 
     /**
      * Sets whether the event has been cancelled.
+     * <p>
+     * Cancelling this event will prevent the placement from completing,
+     * but will <b>not</b> undo {@link VoidChestCreateEvent}. Instead,
+     * {@link VoidChestDeleteEvent} will be fired afterwards.
      *
      * @param cancelled {@code true} if the event should be cancelled, {@code false} otherwise
      */
