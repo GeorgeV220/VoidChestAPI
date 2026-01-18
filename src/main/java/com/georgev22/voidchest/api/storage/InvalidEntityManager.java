@@ -28,6 +28,11 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
         return entityClass;
     }
 
+    @Override
+    public ManagedEntity<E> getManagedEntity() {
+        return new ManagedEntity<>("invalid", entityClass, data -> null);
+    }
+
     /**
      * No-op save implementation.
      *

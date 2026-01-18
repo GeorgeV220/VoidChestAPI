@@ -22,7 +22,11 @@ public interface EntityManager<E extends Entity> {
      *
      * @return the entity class
      */
-    Class<E> getEntityClass();
+    default Class<E> getEntityClass() {
+        return getManagedEntity().type();
+    }
+
+    ManagedEntity<E> getManagedEntity();
 
     /**
      * Saves the specified entity.
