@@ -281,9 +281,9 @@ public class VoidChestCacheController {
      */
     public Optional<AbstractVoidChest> get(@Nullable SerializableBlock serializableBlock) {
         if (serializableBlock == null) return Optional.empty();
-        Block block = serializableBlock.toBlock();
-        if (block == null) return Optional.empty();
-        return get(block);
+        Optional<Block> block = serializableBlock.toBlock();
+        if (block.isEmpty()) return Optional.empty();
+        return get(block.get());
     }
 
     /**

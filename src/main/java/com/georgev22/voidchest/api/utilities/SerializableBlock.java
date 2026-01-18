@@ -8,11 +8,11 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -55,7 +55,7 @@ public class SerializableBlock extends SerializableLocation implements Serializa
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final @Nullable Material material;
+    private @Nullable Material material;
 
     /**
      * Constructs a new SerializableBlock from a Block.
@@ -178,32 +178,40 @@ public class SerializableBlock extends SerializableLocation implements Serializa
     }
 
     /**
-     * Converts the SerializableBlock back to a Block.
+     * Attempts to convert this SerializableBlock back into a Bukkit {@link Block}.
+     * <p>
+     * The returned {@link Optional} will be empty if the referenced world is not
+     * currently loaded or cannot be found by name.
      *
-     * @return The Block represented by this SerializableBlock, or {@code null} if the world is not found.
+     * @return an {@link Optional} containing the resolved {@link Block} if available,
+     * or {@link Optional#empty()} if the world is not loaded
      */
-    public @Nullable Block toBlock() {
+    public @NonNull Optional<Block> toBlock() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
-            return world.getBlockAt((int) x, (int) y, (int) z);
+            return Optional.of(world.getBlockAt((int) x, (int) y, (int) z));
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
-     * Returns the material of the block.
+     * Retrieves the {@link Material} of this block.
+     * <p>
+     * If the material has already been resolved, it is returned from the internal cache.
+     * Otherwise, the block will be resolved via {@link #toBlock()} and the material will
+     * be cached if successfully obtained.
      *
-     * @return The material of the block, or {@code null} if the block is not found.
+     * @return an {@link Optional} containing the block's {@link Material} if available,
+     * or {@link Optional#empty()} if the block or its world cannot be resolved
      */
-    public @Nullable Material getMaterial() {
+    public @NonNull Optional<Material> getMaterial() {
         if (this.material != null) {
+            return Optional.of(this.material);
+        }
+        return toBlock().map(block -> {
+            this.material = block.getType();
             return this.material;
-        }
-        Block block = this.toBlock();
-        if (block == null) {
-            return null;
-        }
-        return block.getType();
+        });
     }
 
     /**
@@ -227,15 +235,18 @@ public class SerializableBlock extends SerializableLocation implements Serializa
     /**
      * Returns the material of the block asynchronously.
      *
-     * @return A CompletableFuture that completes with the material of the block, or completes exceptionally if the block is not found.
+     * @return a {@link CompletableFuture} that completes with the block {@link Material},
+     * or completes exceptionally if the block or its world cannot be resolved
      */
     public CompletableFuture<Material> getMaterialAsync() {
         return this.toBlockAsync()
-                .thenApply(block -> {
+                .thenCompose(block -> {
                     if (block == null) {
-                        throw new IllegalArgumentException("The block is not found.");
+                        return CompletableFuture.failedFuture(
+                                new IllegalStateException("The block could not be resolved.")
+                        );
                     }
-                    return block.getType();
+                    return CompletableFuture.completedFuture(block.getType());
                 });
     }
 
