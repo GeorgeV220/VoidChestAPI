@@ -1,3 +1,10 @@
+# [4.7.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.6.1...v4.7.0) (2026-01-19)
+
+
+### Features
+
+* add getName method to all animation implementations ([b8ec038](https://github.com/GeorgeV220/VoidChestAPI/commit/b8ec038a9811538e38435870e9612c459838a5f9))
+
 ## [4.6.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.6.0...v4.6.1) (2026-01-18)
 
 
