@@ -46,12 +46,22 @@ public abstract class Animation {
                 public String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors) {
                     return string;
                 }
+
+                @Override
+                public @NonNull String getName() {
+                    return "none";
+                }
             };
             default -> new Animation() {
                 @Override
                 public String render(String string, boolean bold, int start, int end, @NonNull List<Color> colors) {
-                    VoidChestAPI.getInstance().plugin().getLogger().warning("Unknown animation: " + animation);
+                    if (VoidChestAPI.debug())
+                        VoidChestAPI.getInstance().plugin().getLogger().warning("Unknown animation: " + animation);
                     return string;
+                }
+
+                public @NonNull String getName() {
+                    return "Unknown";
                 }
             };
         };
@@ -123,4 +133,14 @@ public abstract class Animation {
     protected int computeEnd(@NonNull String string) {
         return Math.max(10, string.length());
     }
+
+    /**
+     * Gets the unique name identifier for this animation.
+     * This name is used to register and retrieve the animation implementation.
+     *
+     * @return The unique name of this animation (e.g., "fade", "wave", "rainbow").
+     * Should not be null or empty.
+     */
+    @NonNull
+    public abstract String getName();
 }

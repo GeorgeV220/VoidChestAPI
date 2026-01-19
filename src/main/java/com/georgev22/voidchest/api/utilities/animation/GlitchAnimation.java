@@ -52,4 +52,8 @@ public class GlitchAnimation extends Animation {
         return Math.max(15, string.length() * 2);
     }
 
+    @Override
+    public @NonNull String getName() {
+        return "glitch";
+    }
 }
