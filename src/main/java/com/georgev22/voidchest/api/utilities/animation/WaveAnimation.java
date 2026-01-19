@@ -66,4 +66,8 @@ public class WaveAnimation extends Animation {
         return Math.max(10, string.length() * 2);
     }
 
+    @Override
+    public @NotNull String getName() {
+        return "wave";
+    }
 }

@@ -46,4 +46,8 @@ public class PulseAnimation extends Animation {
         return Math.max(8, string.length() / 2);
     }
 
+    @Override
+    public @NotNull String getName() {
+        return "pulse";
+    }
 }

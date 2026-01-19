@@ -47,4 +47,8 @@ public class TypingAnimation extends Animation {
         return string.length() * 2;
     }
 
+    @Override
+    public @NotNull String getName() {
+        return "typing";
+    }
 }

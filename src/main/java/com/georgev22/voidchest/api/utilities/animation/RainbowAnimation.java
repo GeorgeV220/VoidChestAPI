@@ -49,4 +49,9 @@ public class RainbowAnimation extends Animation {
     protected int computeEnd(@NotNull String string) {
         return string.length();
     }
+
+    @Override
+    public @NotNull String getName() {
+        return "rainbow";
+    }
 }

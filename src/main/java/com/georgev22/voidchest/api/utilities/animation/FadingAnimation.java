@@ -62,4 +62,9 @@ public class FadingAnimation extends Animation {
         return Math.max(5, string.length());
     }
 
+    @Override
+    public @NotNull String getName() {
+        return "fade";
+    }
+
 }

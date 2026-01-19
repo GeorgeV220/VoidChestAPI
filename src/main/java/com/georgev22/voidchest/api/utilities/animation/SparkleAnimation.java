@@ -45,4 +45,9 @@ public class SparkleAnimation extends Animation {
         animationCache.put(key, frames);
         return currentFrame(frames);
     }
+
+    @Override
+    public @NotNull String getName() {
+        return "sparkle";
+    }
 }
