@@ -1,3 +1,18 @@
+# [5.1.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.1...v5.1.0) (2026-01-19)
+
+
+### Bug Fixes
+
+* correct booster separation and calculation logic ([3953a07](https://github.com/GeorgeV220/VoidChestAPI/commit/3953a07d5abae35809cfcdce5e57bb4422de1af5))
+
+
+### Features
+
+* add getName method to all animation implementations ([04c2327](https://github.com/GeorgeV220/VoidChestAPI/commit/04c2327fb32d09e6d9360560db022918ba491956))
+* add ManagedEntity record and enhance storage API ([0c89256](https://github.com/GeorgeV220/VoidChestAPI/commit/0c892567178744237360cf2bd4886280fb4c5deb))
+* add storage lifecycle events and implement entity manager integration ([a5749f4](https://github.com/GeorgeV220/VoidChestAPI/commit/a5749f445dd6b5af1491ac63b803d59bc7823d0b))
+* Change SerializableLocation.toLocation() to return Optional<Location> ([11c4c92](https://github.com/GeorgeV220/VoidChestAPI/commit/11c4c92367cfc1a665312af58f13247634020ca0))
+
 ## [5.0.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.0...v5.0.1) (2026-01-12)
 
 
