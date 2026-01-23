@@ -64,7 +64,7 @@ public final class VoidChestAPI {
     private final VoidChestCacheController voidChestCacheController;
     private final IFilterManager filterManager;
     private final ILinkManager linkManager;
-    private final MinecraftScheduler<Location, World, Chunk, Entity> minecraftScheduler;
+    private final MinecraftScheduler minecraftScheduler;
     private final VoidChestConfigurationFileCache voidChestConfigurationFileCache;
     private final ITimedTaskManager timedTaskManager;
     private final BoosterManager boosterManager;
@@ -90,7 +90,7 @@ public final class VoidChestAPI {
             IVoidItemManager voidItemManager,
             IFilterManager filterManager,
             ILinkManager linkManager,
-            MinecraftScheduler<Location, World, Chunk, Entity> minecraftScheduler,
+            MinecraftScheduler minecraftScheduler,
             ITimedTaskManager timedTaskManager,
             BoosterManager boosterManager) {
         this.plugin = plugin;
@@ -237,7 +237,7 @@ public final class VoidChestAPI {
     /**
      * @return minecraft scheduler abstraction (Bukkit + Folia safe)
      */
-    public MinecraftScheduler<Location, World, Chunk, Entity> minecraftScheduler() {
+    public MinecraftScheduler minecraftScheduler() {
         return minecraftScheduler;
     }
 

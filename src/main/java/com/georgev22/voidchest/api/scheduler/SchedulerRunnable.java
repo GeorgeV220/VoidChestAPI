@@ -6,9 +6,9 @@ public abstract class SchedulerRunnable<Location, World, Chunk, Entity> implemen
 
     private SchedulerTask task;
 
-    private final MinecraftScheduler<Location, World, Chunk, Entity> minecraftScheduler;
+    private final MinecraftScheduler minecraftScheduler;
 
-    public SchedulerRunnable(MinecraftScheduler<Location, World, Chunk, Entity> minecraftScheduler) {
+    public SchedulerRunnable(MinecraftScheduler minecraftScheduler) {
         this.minecraftScheduler = minecraftScheduler;
     }
 

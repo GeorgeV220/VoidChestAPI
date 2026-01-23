@@ -1,5 +1,9 @@
 package com.georgev22.voidchest.api.scheduler;
 
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -10,7 +14,7 @@ import java.util.function.Supplier;
  * Tasks can be scheduled synchronously (on the main server thread) or asynchronously,
  * with optional delays, repetition, and context-specific execution (world, chunk, location, entity).
  */
-public interface MinecraftScheduler<Location, World, Chunk, Entity> {
+public interface MinecraftScheduler {
 
     /**
      * Schedules a synchronous task to run on the main server thread.
@@ -295,6 +299,6 @@ public interface MinecraftScheduler<Location, World, Chunk, Entity> {
      *
      * @return The scheduler
      */
-    MinecraftScheduler<Location, World, Chunk, Entity> getScheduler();
+    MinecraftScheduler getScheduler();
 
 }
