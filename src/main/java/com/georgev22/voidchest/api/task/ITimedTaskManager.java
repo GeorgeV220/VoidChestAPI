@@ -128,4 +128,20 @@ public interface ITimedTaskManager {
      * @return The ScheduledExecutorService used for scheduling tasks.
      */
     ScheduledExecutorService getScheduler();
+
+    /**
+     * Shuts down the task manager and its internal scheduler.
+     * <p>
+     * This method performs a graceful shutdown of all active {@link ITimedTask} objects,
+     * stopping or canceling their countdowns as necessary, and prevents new tasks from being scheduled.
+     * After calling this method, the manager and its scheduler should no longer be used.
+     * <p>
+     * Implementations should ensure that:
+     * <ul>
+     *     <li>All active tasks are stopped or canceled.</li>
+     *     <li>The internal {@link ScheduledExecutorService} is shut down.</li>
+     *     <li>Any resources used by the tasks or scheduler are released.</li>
+     * </ul>
+     */
+    void shutdown();
 }
