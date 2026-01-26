@@ -79,15 +79,15 @@ publishing {
     repositories {
         def isGitHub = System.getenv("GITHUB_REPOSITORY") != null
         maven {
-            name = "GeorgeV22"
+            name = "shulkerlabs"
             if (isGitHub) {
                 if (getBranch().toLowerCase().contains("alpha") || getBranch().toLowerCase().contains("beta")) {
-                    url = uri("https://repo.georgev22.com/snapshots")
+                    url = uri("https://repo.shulkerlabs.com/snapshots")
                 } else {
-                    url = uri("https://repo.georgev22.com/releases")
+                    url = uri("https://repo.shulkerlabs.com/releases")
                 }
             } else {
-                url = uri("https://repo.georgev22.com/snapshots")
+                url = uri("https://repo.shulkerlabs.com/snapshots")
             }
 
             def mavenUsername = System.getenv("MAVEN_USERNAME") ?: System.getProperty("MAVEN_USERNAME")

@@ -16,9 +16,9 @@ You can have your project depend on VoidChestAPI as a dependency through the fol
 <project>
     <repositories>
         <repository>
-            <id>georgev22-repository</id>
-            <name>GeorgeV22 Repository</name>
-            <url>https://repo.georgev22.com/releases</url>
+            <id>shulkerlabs-repository</id>
+            <name>ShulkerLabs Repository</name>
+            <url>https://repo.shulkerlabs.com/releases</url>
         </repository>
     </repositories>
 
@@ -41,10 +41,10 @@ You can include VoidChestAPI into your gradle project using the following lines:
 ```groovy
 repositories {
     maven {
-        url "https://repo.georgev22.com/releases"
+        url "https://repo.shulkerlabs.com/releases"
     }
     maven {
-        url "https://repo.georgev22.com/snapshots"
+        url "https://repo.shulkerlabs.com/snapshots"
     }
 }
 
