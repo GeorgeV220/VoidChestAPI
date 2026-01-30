@@ -13,6 +13,7 @@ import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.model.voidchest.Abilities;
 import com.georgev22.voidchest.api.storage.model.voidchest.Charge;
 import com.georgev22.voidchest.api.storage.model.voidchest.Stats;
+import com.georgev22.voidchest.api.storage.model.voidchest.VoidChestBooster;
 import com.georgev22.voidchest.api.utilities.BoundingBox;
 import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import com.georgev22.voidchest.api.utilities.SerializableLocation;
@@ -179,15 +180,30 @@ public abstract class AbstractVoidChest extends Entity {
     public abstract BigDecimal baseBooster();
 
     /**
-     * Returns the persistent booster value of this VoidChest.
+     * Returns all extra boosters applied to this VoidChest.
      * <p>
-     * This value is stored in persistent storage
-     * and represents extra booster points applied to this specific chest.
-     * It does <strong>not</strong> include the base booster or upgrades.
+     * Extra boosters represent <strong>additional</strong> booster values applied
+     * specifically to this chest. They do <strong>not</strong> include:
+     * <ul>
+     *     <li>the base booster defined by the chest type</li>
+     *     <li>booster values provided by upgrades</li>
+     * </ul>
      *
-     * @return the persistent booster value (saved to storage)
+     * <p>Each {@link VoidChestBooster} also specifies whether it is persisted
+     * to storage or applied at runtime only.
+     *
+     * @return an immutable or read-only list of extra boosters applied to this chest
      */
-    public abstract BigDecimal booster();
+    public abstract List<VoidChestBooster> extraBoosters();
+
+    /**
+     * Retrieves an extra booster applied to this VoidChest by its unique identifier.
+     *
+     * @param boosterId the unique id of the booster
+     * @return an {@link Optional} containing the matching booster if present,
+     * or {@link Optional#empty()} if no booster with the given id exists
+     */
+    public abstract Optional<VoidChestBooster> retrieveBooster(UUID boosterId);
 
     /**
      * Returns the total effective booster value of this VoidChest.
@@ -196,7 +212,7 @@ public abstract class AbstractVoidChest extends Entity {
      * <ul>
      *   <li>{@link #baseBooster()}</li>
      *   <li>any applicable upgrades</li>
-     *   <li>{@link #booster()} (persistent extra booster)</li>
+     *   <li>{@link #extraBoosters()} ()} (persistent extra boosters)</li>
      * </ul>
      * It represents the full effective booster and should <strong>not</strong>
      * be saved directly to persistent storage.
@@ -206,11 +222,40 @@ public abstract class AbstractVoidChest extends Entity {
     public abstract BigDecimal totalBooster();
 
     /**
-     * Sets the extra booster value of the VoidChest.
+     * Adds an extra booster to this VoidChest.
+     * <p>
+     * Extra boosters represent <strong>additional</strong> booster values applied
+     * specifically to this chest. They do <strong>not</strong> include base boosters
+     * or upgrade-provided boosters.
      *
-     * @param booster The extra booster value to set.
+     * <p>The provided {@link VoidChestBooster} defines both the booster value and
+     * whether it should be persisted to storage:
+     * <ul>
+     *     <li>If {@code saveToDb} is {@code true}, the booster is saved and restored
+     *     on the next load.</li>
+     *     <li>If {@code saveToDb} is {@code false}, the booster is applied at runtime
+     *     only and will be lost after a restart.</li>
+     * </ul>
+     *
+     * <p>If a booster with the same {@code boosterId} already exists, it will be replaced.
+     *
+     * @param voidChestBooster the extra booster to add
      */
-    public abstract void booster(BigDecimal booster);
+    public abstract void addExtraBooster(VoidChestBooster voidChestBooster);
+
+    /**
+     * Removes an extra booster from this VoidChest.
+     *
+     * @param voidChestBooster the booster to remove
+     */
+    public abstract void removeExtraBooster(@NonNull VoidChestBooster voidChestBooster);
+
+    /**
+     * Removes an extra booster from this VoidChest by its unique identifier.
+     *
+     * @param boosterId the unique id of the booster to remove
+     */
+    public abstract void removeExtraBooster(UUID boosterId);
 
     /**
      * Retrieves the charge state of the VoidChest.
