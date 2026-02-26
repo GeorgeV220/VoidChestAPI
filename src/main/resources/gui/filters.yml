@@ -35,7 +35,10 @@ FiltersMenu:
         - "&7━━━━━━━━━━━━━━━━━━━"
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F3F8FA"
         - "#A2CCE3"
@@ -58,7 +61,10 @@ FiltersMenu:
           glow: true
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F3F8FA"
         - "#A2CCE3"
@@ -81,7 +87,10 @@ FiltersMenu:
           glow: true
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#FF5555"
         - "#FF0000"
@@ -101,7 +110,10 @@ FiltersMenu:
           amount: 1
           glow: true
       glow: true
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F3F8FA"
         - "#A2CCE3"

@@ -12,7 +12,10 @@ UpgradesMenu:
         - "This menu contains all available upgrades for %voidchest% voidchest."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F3F8FA"
         - "#A2CCE3"
@@ -36,7 +39,10 @@ UpgradesMenu:
           glow: true
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F3F8FA"
         - "#A2CCE3"
@@ -59,7 +65,10 @@ UpgradesMenu:
           amount: 1
           glow: true
       glow: true
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       action: voidchest:close
       slot:
         - 49
@@ -80,7 +89,10 @@ UpgradesMenu:
           amount: 1
           glow: true
       glow: true
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       action: voidchest:next_page
       slot:
         - 53

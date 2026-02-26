@@ -17,7 +17,7 @@ public class Color {
     private final int r;
     private final int g;
     private final int b;
-    private static java.awt.Color javaColor;
+    private final java.awt.Color javaColor;
 
     /**
      * Creates a {@link Color} instance from a hex string (with or without the # prefix).
@@ -39,7 +39,7 @@ public class Color {
      * @return A new {@link Color} instance.
      */
     public static @NonNull Color from(int r, int g, int b) {
-        javaColor = new java.awt.Color(r, g, b);
+        java.awt.Color javaColor = new java.awt.Color(r, g, b);
         return from(Integer.toHexString(javaColor.getRGB()).substring(2));
     }
 
@@ -85,10 +85,38 @@ public class Color {
     }
 
     /**
-     * @return A {@link java.awt.Color} representation of this color.
+     * Returns the underlying {@link java.awt.Color} instance for this color.
+     *
+     * <p>This provides direct access to the Java AWT color representation,
+     * allowing interoperability with APIs that require {@code java.awt.Color}.
+     *
+     * <p>The returned instance is immutable and safe to use externally.
+     *
+     * @return the {@link java.awt.Color} equivalent of this color
      */
     public java.awt.Color getJavaColor() {
         return javaColor;
+    }
+
+    /**
+     * Returns the packed RGB integer value of this color.
+     *
+     * <p>The returned value is in the standard {@code 0xAARRGGBB} format used by
+     * {@link java.awt.Color#getRGB()}, where:
+     * <ul>
+     *     <li>AA = Alpha (always 255 / 0xFF for this class)</li>
+     *     <li>RR = Red component</li>
+     *     <li>GG = Green component</li>
+     *     <li>BB = Blue component</li>
+     * </ul>
+     *
+     * <p>This value is suitable for APIs that expect a packed RGB integer,
+     * such as Adventure's {@code TextColor.color(int)}.
+     *
+     * @return the packed ARGB integer representation of this color
+     */
+    public int getRGB() {
+        return javaColor.getRGB();
     }
 
     /**
@@ -155,6 +183,44 @@ public class Color {
         return Math.abs(color1.r - color2.r)
                 + Math.abs(color1.g - color2.g)
                 + Math.abs(color1.b - color2.b);
+    }
+
+    /**
+     * Scales the brightness of this color by a factor.
+     *
+     * @param factor The brightness factor (>1 to brighten, <1 to darken, 0 = black).
+     * @return A new {@link Color} with adjusted brightness.
+     */
+    public @NonNull Color scaleBrightness(double factor) {
+        int newR = (int) Math.min(255, Math.max(0, r * factor));
+        int newG = (int) Math.min(255, Math.max(0, g * factor));
+        int newB = (int) Math.min(255, Math.max(0, b * factor));
+        return Color.from(newR, newG, newB);
+    }
+
+    /**
+     * Linearly interpolates between this color and the target color.
+     * <p>
+     * The interpolation is calculated for each RGB channel separately using the formula:
+     * <pre>
+     * channel = this.channel + (to.channel - this.channel) * t
+     * </pre>
+     * The result is clamped to the range [0, 255] and rounded to the nearest integer.
+     * </p>
+     *
+     * @param to the target {@link Color} to interpolate towards; must not be null
+     * @param t  the interpolation factor, where 0.0 returns this color, and 1.0 returns the target color.
+     *           Values outside [0.0, 1.0] will be clamped.
+     * @return a new {@link Color} representing the interpolated color between this and {@code to}
+     */
+    public Color interpolate(@NonNull Color to, double t) {
+        t = Math.min(1.0, Math.max(0.0, t));
+
+        int newR = (int) Math.round(Math.min(255, Math.max(0, r + (to.r - r) * t)));
+        int newG = (int) Math.round(Math.min(255, Math.max(0, g + (to.g - g) * t)));
+        int newB = (int) Math.round(Math.min(255, Math.max(0, b + (to.b - b) * t)));
+
+        return Color.from(newR, newG, newB);
     }
 
     /**

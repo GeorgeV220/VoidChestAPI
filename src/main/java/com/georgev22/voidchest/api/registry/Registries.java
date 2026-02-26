@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.registry;
 
+import com.georgev22.voidchest.api.animation.type.AnimationType;
 import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.integrations.economy.bank.IVoidChestBank;
 import com.georgev22.voidchest.api.integrations.economy.banktnt.IVoidChestBankTNT;
@@ -125,6 +126,14 @@ public class Registries {
             return super.unregister(key);
         }
     };
+
+    /**
+     * Global registry for animation types.
+     * <p>
+     * Animation types determine how items are animated in VoidChests.
+     * </p>
+     */
+    public static KeyedRegistry<AnimationType> ANIMATION_TYPE = new KeyedRegistry<>();
 
     /**
      * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.

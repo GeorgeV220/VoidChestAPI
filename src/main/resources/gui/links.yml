@@ -28,7 +28,10 @@ LinksMenu:
         - "This menu contains %voidchest%'s links."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F3F8FA"
         - "#A2CCE3"
@@ -51,7 +54,10 @@ LinksMenu:
           glow: true
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F3F8FA"
         - "#A2CCE3"
@@ -73,7 +79,10 @@ LinksMenu:
           amount: 1
           glow: true
       glow: true
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       action: voidchest:close
       colors:
         - "#00ff00"
@@ -93,7 +102,10 @@ LinksMenu:
           amount: 1
           glow: true
       glow: true
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       action: voidchest:next_page
       colors:
         - "#00ff00"

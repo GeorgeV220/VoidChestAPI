@@ -45,7 +45,10 @@ VoidChestMenu:
         - "&eClick to toggle."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#FFE066"
         - "#FFB347"
@@ -64,7 +67,10 @@ VoidChestMenu:
         - "&eClick to toggle."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#FFA07A"
         - "#FF7F50"
@@ -83,7 +89,10 @@ VoidChestMenu:
         - "&eClick to toggle."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#FFB6C1"
         - "#FF69B4"
@@ -99,7 +108,10 @@ VoidChestMenu:
         - "&7Open the upgrades menu to enhance your VoidChest."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#87CEFA"
         - "#00BFFF"
@@ -118,7 +130,10 @@ VoidChestMenu:
         - "&eClick to toggle."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#D8BFD8"
         - "#DA70D6"
@@ -138,7 +153,10 @@ VoidChestMenu:
         - "&7Renewal Time: &e%renewal%"
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#FF69B4"
         - "#FF1493"
@@ -157,7 +175,10 @@ VoidChestMenu:
         - "&eClick to toggle."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#98FB98"
         - "#7CFC00"
@@ -176,7 +197,10 @@ VoidChestMenu:
         - "&eClick to toggle."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#87CEEB"
         - "#4682B4"
@@ -194,7 +218,10 @@ VoidChestMenu:
         - "&eClick to open."
       glow: true
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#F0E68C"
         - "#FFD700"
@@ -217,7 +244,10 @@ VoidChestMenu:
         - "&8&m---------------------"
       glow: false
       amount: 1
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#B0E0E6"
         - "#ADD8E6"
@@ -238,7 +268,10 @@ VoidChestMenu:
           amount: 1
           glow: true
       glow: true
-      animation: "wave"
+      animation-options:
+        type: "voidchest:wave"
+        bold: false
+        ticks-per-frame: 4
       colors:
         - "#FF0000"
         - "#DC143C"
