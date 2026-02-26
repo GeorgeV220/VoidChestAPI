@@ -1,3 +1,13 @@
+# [5.2.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.1.0...v5.2.0) (2026-02-26)
+
+
+### Features
+
+* add graceful shutdown to TimedTaskManager ([9c403e5](https://github.com/GeorgeV220/VoidChestAPI/commit/9c403e56ecb0bf570bd0a58e8ee530a9bece5eda))
+* **api:** extract menu & messaging framework to VoidChestAPI ([8e10b44](https://github.com/GeorgeV220/VoidChestAPI/commit/8e10b447b5bced8402c6b37c6d0f7d45ccfe8f59))
+* implement new animation system with modular generators and renderers ([958b568](https://github.com/GeorgeV220/VoidChestAPI/commit/958b5681fbdd6e6a0063d2381142fb2a2c35351c))
+* replace single booster field with multiple extra boosters ([afd93c7](https://github.com/GeorgeV220/VoidChestAPI/commit/afd93c7a58b0c3338cb4e7cdbc07aa9fb79c1b5b))
+
 # [5.1.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.0.1...v5.1.0) (2026-01-19)
 
 
