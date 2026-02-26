@@ -9,6 +9,7 @@ log4j = "2.22.1"
 guava = "33.0.0-jre"
 slf4j = "2.0.10"
 placeholder-api = "2.11.6"
+auth-lib = "3.16.29"
 
 [libraries]
 paper-api = { module = "io.papermc.paper:paper-api", version.ref = "mc-version" }
@@ -16,3 +17,4 @@ jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version
 vault-api = { group = "com.github.MilkBowl", name = "VaultAPI", version.ref = "vault" }
 item-nbt-api = { group = "de.tr7zw", name = "item-nbt-api-plugin", version.ref = "nbt-api" }
 placeholder-api = { module = "me.clip:placeholderapi", version.ref = "placeholder-api" }
+auth-lib = { module = "com.mojang:authlib", version.ref = "auth-lib" }

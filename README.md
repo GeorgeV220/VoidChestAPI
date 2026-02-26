@@ -31,7 +31,7 @@ You can have your project depend on VoidChestAPI as a dependency through the fol
         <dependency>
             <groupId>com.georgev22.voidchest</groupId>
             <artifactId>voidchestapi</artifactId>
-            <version>5.1.0</version>
+            <version>5.2.0</version>
             <classifier>shade</classifier>
             <scope>provided</scope>
         </dependency>
@@ -54,7 +54,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "com.georgev22.voidchest:voidchestapi:5.1.0"
+    compileOnly "com.georgev22.voidchest:voidchestapi:5.2.0"
 }
 ```
 
@@ -63,8 +63,7 @@ dependencies {
 ### Gradle
 
 VoidChestAPI can be built by running the following: `gradle clean build jar`. The resultant jar is built and
-written
-to `build/libs/voidchestapi-5.0.0.jar`.
+written to `build/libs/voidchestapi-5.2.0.jar`.
 
 The build directories can be cleaned instead using the `gradle clean` command.
 
@@ -74,3 +73,18 @@ If you want to clean (install) and build the plugin use `gradle clean build jar`
 
 VoidChestAPI is an open source `GNU General Public License v3.0` licensed project. I accept contributions through pull
 requests, and will make sure to credit you for your awesome contribution.
+
+## Third-Party Code
+
+This project contains modified code derived from the InvUI project:
+https://github.com/NichtStudioCode/InvUI
+
+InvUI is licensed under the MIT License.
+
+The original `ItemProvider` / `ItemBuilder` implementations were adapted and modified for use in:
+
+* VoidChest (closed source)
+* VoidChestAPI (GPL-3.0)
+
+A copy of the original MIT License is included in this repository
+(see LICENSE-InvUI).

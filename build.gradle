@@ -33,6 +33,7 @@ dependencies {
     compileOnly(libs.vault.api)
     compileOnly(libs.placeholder.api)
     compileOnly(libs.item.nbt.api)
+    compileOnly(libs.auth.lib)
 }
 
 configurations.configureEach {

@@ -8,6 +8,8 @@ import com.georgev22.voidchest.api.integrations.economy.balance.AEconomy;
 import com.georgev22.voidchest.api.integrations.economy.profit.ProfitCalculator;
 import com.georgev22.voidchest.api.integrations.hologram.VoidHologram;
 import com.georgev22.voidchest.api.item.VoidSpecialItem;
+import com.georgev22.voidchest.api.menu.actions.Action;
+import com.georgev22.voidchest.api.menu.state.StateCondition;
 import com.georgev22.voidchest.api.registry.economy.ProfitCalculatorSelectorRegistry;
 import com.georgev22.voidchest.api.integrations.stacker.Stacker;
 import com.georgev22.voidchest.api.upgrade.Upgrade;
@@ -134,6 +136,10 @@ public class Registries {
      * </p>
      */
     public static KeyedRegistry<AnimationType> ANIMATION_TYPE = new KeyedRegistry<>();
+
+    public static KeyedRegistry<Action> MENU_ACTION = new KeyedRegistry<>();
+
+    public static KeyedRegistry<StateCondition> MENU_STATE_CONDITION = new KeyedRegistry<>();
 
     /**
      * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.
