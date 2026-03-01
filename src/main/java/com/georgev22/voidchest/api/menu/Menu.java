@@ -12,7 +12,7 @@ import com.georgev22.voidchest.api.menu.item.items.MenuItem;
 import com.georgev22.voidchest.api.menu.item.items.StatefulMenuItem;
 import com.georgev22.voidchest.api.menu.viewer.ViewerContext;
 import com.georgev22.voidchest.api.utilities.CustomData;
-import com.georgev22.voidchest.api.utilities.MessageBuilder;
+import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -803,12 +803,12 @@ public class Menu {
         }
 
         Component newName = MessageBuilder.builder()
-                .context(context.getPlayerContext())
+                .placeholderContext(context.getPlayerContext())
                 .placeholders(context.getMenu().getPlaceholders(context))
                 .append(oldName).build();
         List<Component> newLore = oldLore.stream()
                 .map(lore -> MessageBuilder.builder()
-                        .context(context.getPlayerContext())
+                        .placeholderContext(context.getPlayerContext())
                         .placeholders(context.getMenu().getPlaceholders(context))
                         .append(lore).build())
                 .collect(Collectors.toList());

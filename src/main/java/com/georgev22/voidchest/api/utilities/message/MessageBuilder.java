@@ -1,7 +1,5 @@
-package com.georgev22.voidchest.api.utilities;
+package com.georgev22.voidchest.api.utilities.message;
 
-import com.georgev22.voidchest.api.datastructures.maps.HashObjectMap;
-import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils.MinecraftVersion;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -14,14 +12,12 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.permissions.ServerOperator;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * A utility class for building and sending styled chat messages to players in a Minecraft server environment
@@ -66,8 +62,7 @@ public class MessageBuilder {
     private TextColor currentColor = NamedTextColor.WHITE;
     private ClickEvent currentClickEvent;
     private HoverEvent<?> currentHoverEvent;
-    private ObjectMap<String, String> placeholders = new HashObjectMap<>();
-    private ServerOperator serverOperator;
+    private Placeholder placeholder = new Placeholder();
 
     /**
      * Constructs a new MessageBuilder instance.
@@ -85,11 +80,6 @@ public class MessageBuilder {
     @Contract(" -> new")
     public static @NonNull MessageBuilder builder() {
         return new MessageBuilder();
-    }
-
-    public MessageBuilder context(@Nullable ServerOperator serverOperator) {
-        this.serverOperator = serverOperator;
-        return this;
     }
 
     /**
@@ -311,7 +301,7 @@ public class MessageBuilder {
      */
     public Component build() {
         return MessageParser.miniMessage(
-                replacePlaceholders(
+                this.placeholder.resolve(
                         MiniMessage.miniMessage().serialize(componentBuilder.build())
                 ),
                 TagResolver.empty()
@@ -417,134 +407,105 @@ public class MessageBuilder {
 
     public MessageBuilder reset() {
         this.componentBuilder = Component.text();
-        this.placeholders.clear();
+        this.placeholder = new Placeholder();
         return this.resetStyles();
     }
 
     /**
-     * Sets the placeholders for the message.
+     * Sets the target {@link ServerOperator} for PlaceholderAPI integration.
+     * <p>
+     * This allows placeholders to be resolved using PlaceholderAPI for the given target.
      *
-     * @param placeholders The placeholders to set.
-     * @return The MessageBuilder instance for method chaining.
+     * @param target The target player or server operator, can be null.
+     * @return The current {@link MessageBuilder} instance for method chaining.
      */
-    public MessageBuilder placeholders(ObjectMap<String, String> placeholders) {
-        this.placeholders = new HashObjectMap<>(placeholders);
+    public MessageBuilder placeholderContext(@Nullable ServerOperator target) {
+        this.placeholder.setTarget(target);
         return this;
     }
 
     /**
-     * Clears all placeholders from the message.
+     * Adds a simple placeholder key-value pair that will be replaced in messages.
+     * <p>
+     * Example usage:
+     * <pre>{@code
+     * messageBuilder.addPlaceholder("%player%", player.getName());
+     * }</pre>
      *
-     * @return The MessageBuilder instance for method chaining.
+     * @param key   The placeholder key to replace (e.g., "%player%").
+     * @param value The value to replace the placeholder with.
+     * @return The current {@link MessageBuilder} instance for method chaining.
      */
-    public MessageBuilder clearPlaceholders() {
-        this.placeholders.clear();
+    public MessageBuilder addPlaceholder(@NonNull String key, @NonNull String value) {
+        this.placeholder.addPlaceholder(key, value);
         return this;
     }
 
     /**
-     * Adds a placeholder to the message.
+     * Adds multiple boolean states for dynamic inline switches in messages.
+     * <p>
+     * Example usage:
+     * <pre>{@code
+     * Map<String, Boolean> states = Map.of("autosell", true, "linked", false);
+     * messageBuilder.addStates(states);
+     * // Then in message: "AutoSell is {autosell:enabled|disabled}, Chest is {linked:linked|not linked}"
+     * // Output: "AutoSell is enabled, Chest is not linked"
+     * }</pre>
      *
-     * @param key   The placeholder key.
-     * @param value The placeholder value.
-     * @return The MessageBuilder instance for method chaining.
+     * @param states A map containing key-boolean pairs representing states.
+     * @return The current {@link MessageBuilder} instance for method chaining.
      */
-    public MessageBuilder addPlaceholder(String key, String value) {
-        this.placeholders.put(key, value);
+    public MessageBuilder addStates(@NonNull Map<String, Boolean> states) {
+        this.placeholder.addStates(states);
         return this;
     }
 
     /**
-     * Replaces placeholders in the given string with their corresponding values.
+     * Adds a single boolean state for dynamic inline switches in messages.
+     * <p>
+     * Example usage:
+     * <pre>{@code
+     * messageBuilder.addState("autosell", true);
+     * // Then in message: "AutoSell is {autosell:enabled|disabled}"
+     * // Output: "AutoSell is enabled"
+     * }</pre>
      *
-     * @param input The input string containing placeholders.
-     * @return The input string with placeholders replaced.
+     * @param key   The key representing the state.
+     * @param state The boolean value of the state.
+     * @return The current {@link MessageBuilder} instance for method chaining.
      */
-    private String replacePlaceholders(String input) {
-        if (this.serverOperator != null) {
-            return placeholderAPI(serverOperator, input, placeholders, true);
-        }
-        return Utils.placeHolder(input, placeholders, true);
-    }
-
-
-    /**
-     * Translates all the placeholders of the string from the map
-     *
-     * @param target     target for the placeholders.
-     * @param str        the input string to translate the placeholders on
-     * @param map        the map that contains all the placeholders with the replacement
-     * @param ignoreCase if it is <code>true</code> all the placeholders will be replaced
-     *                   in ignore case
-     * @return the new string with the placeholders replaced
-     */
-    public static String placeholderAPI(final ServerOperator target, String str, final Map<String, String> map, final boolean ignoreCase) {
-        if (target == null) {
-            throw new IllegalArgumentException("The target can't be null");
-        }
-        if (str == null) {
-            throw new IllegalArgumentException("The string can't be null!");
-        }
-        if (map == null) {
-            try {
-                if (target instanceof OfflinePlayer offlinePlayer) {
-                    return me.clip.placeholderapi.PlaceholderAPI.setBracketPlaceholders(offlinePlayer, str);
-                }
-                return str;
-            } catch (Throwable error) {
-                return str;
-            }
-        }
-        for (final Map.Entry<String, String> entry : map.entrySet()) {
-            str = ignoreCase ? Utils.replaceIgnoreCase(str, entry.getKey(), entry.getValue())
-                    : str.replace(entry.getKey(), entry.getValue());
-        }
-        try {
-            if (target instanceof OfflinePlayer offlinePlayer) {
-                return me.clip.placeholderapi.PlaceholderAPI.setBracketPlaceholders(offlinePlayer, str);
-            }
-            return str;
-        } catch (Throwable error) {
-            return str;
-        }
+    public MessageBuilder addState(@NonNull String key, boolean state) {
+        this.placeholder.addState(key, state);
+        return this;
     }
 
     /**
-     * Translates all the placeholders of the string from the map
+     * Replaces the current {@link Placeholder} instance with a new one.
+     * <p>
+     * This can be useful if you want to set multiple placeholders and states at once.
      *
-     * @param target     target for the placeholders.
-     * @param array      the input array of string to translate the placeholders on
-     * @param map        the map that contains all the placeholders with the replacement
-     * @param ignoreCase if it is <code>true</code> all the placeholders will be replaced
-     *                   in ignore case
-     * @return the new string array with the placeholders replaced
+     * @param placeholder The new {@link Placeholder} instance to use.
+     * @return The current {@link MessageBuilder} instance for method chaining.
      */
-    public static String @NonNull [] placeholderAPI(final ServerOperator target, final String[] array, final Map<String, String> map, final boolean ignoreCase) {
-        if (array == null) throw new IllegalArgumentException("The string array can't be null!");
-        if (Arrays.stream(array).anyMatch(Objects::isNull))
-            throw new IllegalArgumentException("The string array can't have null elements!");
-        final String[] newArray = Arrays.copyOf(array, array.length);
-        for (int i = 0; i < newArray.length; i++) {
-            newArray[i] = placeholderAPI(target, newArray[i], map, ignoreCase);
-        }
-        return newArray;
+    public MessageBuilder placeholders(@NonNull Placeholder placeholder) {
+        this.placeholder = placeholder;
+        return this;
     }
 
     /**
-     * Translates all the placeholders of the string from the map
+     * Adds multiple string placeholders at once from a map.
+     * <p>
+     * Example usage:
+     * <pre>{@code
+     * Map<String, String> placeholders = Map.of("%player%", player.getName(), "%island%", island.getName());
+     * messageBuilder.placeholders(placeholders);
+     * }</pre>
      *
-     * @param target     target for the placeholders.
-     * @param coll       the input string list to translate the placeholders on
-     * @param map        the map that contains all the placeholders with the replacement
-     * @param ignoreCase if it is <code>true</code> all the placeholders will be replaced
-     *                   in ignore case
-     * @return the new string list with the placeholders replaced
+     * @param placeholders A map containing key-value pairs for placeholders.
+     * @return The current {@link MessageBuilder} instance for method chaining.
      */
-    public static List<String> placeholderAPI(final ServerOperator target, final List<String> coll, final Map<String, String> map,
-                                              final boolean ignoreCase) {
-        if (coll == null) throw new IllegalArgumentException("The string collection can't be null!");
-        if (coll.stream().anyMatch(Objects::isNull))
-            throw new IllegalArgumentException("The string collection can't have null elements!");
-        return coll.stream().map(str -> placeholderAPI(target, str, map, ignoreCase)).collect(Collectors.toList());
+    public MessageBuilder placeholders(@NonNull Map<String, String> placeholders) {
+        this.placeholder.addPlaceholders(placeholders);
+        return this;
     }
 }

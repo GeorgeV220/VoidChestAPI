@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
+import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Nameable;

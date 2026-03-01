@@ -1,4 +1,4 @@
-package com.georgev22.voidchest.api.utilities;
+package com.georgev22.voidchest.api.utilities.message;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

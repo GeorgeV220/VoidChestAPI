@@ -4,7 +4,7 @@ import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.menu.Menu;
 import com.georgev22.voidchest.api.menu.item.items.MenuItem;
 import com.georgev22.voidchest.api.utilities.CustomData;
-import com.georgev22.voidchest.api.utilities.MessageBuilder;
+import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryEvent;
@@ -67,7 +67,7 @@ public class ViewerContext implements InventoryHolder {
         this.dynamicPlaceholderSupplier = dynamicPlaceholderSupplier;
         this.inventory = Bukkit.createInventory(this, menu.getRows() * 9,
                 MessageBuilder.builder()
-                        .context(playerContext)
+                        .placeholderContext(playerContext)
                         .placeholders(menu.getPlaceholders(this))
                         .append(menu.getTitle())
                         .build());

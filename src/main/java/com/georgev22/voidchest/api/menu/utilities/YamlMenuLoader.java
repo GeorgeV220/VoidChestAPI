@@ -14,7 +14,7 @@ import com.georgev22.voidchest.api.menu.item.items.StatefulMenuItem;
 import com.georgev22.voidchest.api.menu.state.StateCondition;
 import com.georgev22.voidchest.api.registry.Registries;
 import com.georgev22.voidchest.api.utilities.EnumUtils;
-import com.georgev22.voidchest.api.utilities.MessageBuilder;
+import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
 import com.georgev22.voidchest.api.utilities.color.Color;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;

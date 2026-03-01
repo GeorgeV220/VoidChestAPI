@@ -3,7 +3,7 @@ package com.georgev22.voidchest.api.menu.item.builder;
 import com.georgev22.voidchest.api.datastructures.Pair;
 import com.georgev22.voidchest.api.menu.item.ItemProvider;
 import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils.MinecraftVersion;
-import com.georgev22.voidchest.api.utilities.MessageBuilder;
+import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
 import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import net.kyori.adventure.text.Component;
