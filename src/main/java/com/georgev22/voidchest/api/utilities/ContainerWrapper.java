@@ -74,13 +74,7 @@ public class ContainerWrapper {
      * @param name The name to set, or null to remove custom name.
      */
     public static void setCustomName(@NonNull BlockState blockState, @Nullable String name) {
-        if (!(blockState instanceof Nameable nameable)) {
-            throw new UnsupportedOperationException("BlockState does not support custom names");
-        }
-
-        //noinspection deprecation
-        nameable.setCustomName(name);
-        blockState.update();
+        setCustomName(blockState, MessageBuilder.builder().appendMiniMessage(name).build());
     }
 
     public static void setCustomName(@NonNull BlockState blockState, @Nullable Component component) {

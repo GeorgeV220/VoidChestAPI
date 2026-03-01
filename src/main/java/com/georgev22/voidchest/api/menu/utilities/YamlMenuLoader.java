@@ -13,6 +13,8 @@ import com.georgev22.voidchest.api.menu.item.items.MenuItem;
 import com.georgev22.voidchest.api.menu.item.items.StatefulMenuItem;
 import com.georgev22.voidchest.api.menu.state.StateCondition;
 import com.georgev22.voidchest.api.registry.Registries;
+import com.georgev22.voidchest.api.utilities.EnumUtils;
+import com.georgev22.voidchest.api.utilities.MessageBuilder;
 import com.georgev22.voidchest.api.utilities.color.Color;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
@@ -69,7 +71,7 @@ public class YamlMenuLoader {
         String bottomInventoryActionKey = section.getString("bottomInventoryAction", "voidchest:nothing");
         String[] structure = section.getStringList("structure").toArray(String[]::new);
 
-        MenuBuilder builder = new MenuBuilder(title);
+        MenuBuilder builder = new MenuBuilder(MessageBuilder.builder().appendMiniMessage(title).build());
         builder.setAnimated(isAnimated);
         if (structure.length != 0) {
             builder.setStructure(new Structure(structure));
@@ -207,7 +209,7 @@ public class YamlMenuLoader {
     private @NonNull ItemProvider finalItem(@NonNull ConfigurationSection itemSection) {
         String itemType = itemSection.getString("item", "PAPER");
         String skullProperty = itemSection.getString("skullProperty");
-        Material material = Material.valueOf(itemType);
+        Material material = EnumUtils.valueOfIgnoreCase(Material.class, itemType).orElse(Material.PAPER);
         //noinspection ExtractMethodRecommender
         AbstractItemBuilder<?> itemBuilder;
         if (material.equals(Material.PLAYER_HEAD) && skullProperty != null) {

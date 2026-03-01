@@ -6,6 +6,7 @@ import com.georgev22.voidchest.api.menu.Menu;
 import com.georgev22.voidchest.api.menu.actions.Action;
 import com.georgev22.voidchest.api.menu.item.ItemProvider;
 import com.georgev22.voidchest.api.menu.item.items.MenuItem;
+import net.kyori.adventure.text.Component;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @SuppressWarnings("UnusedReturnValue")
 public class MenuBuilder {
 
-    private final String title;
+    private final Component title;
     private int rows;
     private boolean isAnimated;
     private final List<MenuItem> items;
@@ -35,7 +36,7 @@ public class MenuBuilder {
      *
      * @param title The title of the menu.
      */
-    public MenuBuilder(String title) {
+    public MenuBuilder(Component title) {
         this.title = title;
         this.rows = 6;
         this.items = new ArrayList<>();

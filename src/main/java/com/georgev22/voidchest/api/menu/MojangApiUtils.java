@@ -21,7 +21,7 @@ public class MojangApiUtils {
     public static String @Nullable [] getSkinData(UUID uuid, boolean requestSignature) throws MojangApiException, IOException {
         String url = String.format(SKIN_DATA_URL, uuid, !requestSignature);
         Reader reader = new InputStreamReader(new URL(url).openConnection().getInputStream());
-        JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
 
         checkForError(jsonObject);
         if (jsonObject.has("properties")) {
@@ -42,7 +42,7 @@ public class MojangApiUtils {
     public static @Nullable UUID getUuidAtTime(String name, long timestamp) throws MojangApiException, IOException {
         String url = String.format(NAME_AT_TIME_URL, name, timestamp);
         Reader reader = new InputStreamReader(new URL(url).openConnection().getInputStream());
-        JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
 
         checkForError(jsonObject);
         if (jsonObject.has("id")) {

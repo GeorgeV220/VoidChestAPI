@@ -4,6 +4,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a shop interface that provides methods for managing shop items.
@@ -53,7 +54,7 @@ public interface Shop {
      * @param itemStack The ItemStack to look for in the shop.
      * @return The ShopItem associated with the ItemStack, or {@code null} if not found.
      */
-    @NonNull ShopItem getShopItem(@NonNull ItemStack itemStack);
+    @NonNull Optional<ShopItem> getShopItem(@NonNull ItemStack itemStack);
 
     /**
      * Adds a single shop item to the shop.

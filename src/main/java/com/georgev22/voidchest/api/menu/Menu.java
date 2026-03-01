@@ -45,7 +45,7 @@ public class Menu {
     private final List<Integer> reservedSlots;
     private final ObjectMap<Integer, MenuItem> reservedItems = new HashObjectMap<>();
     private final int rows;
-    private final String title;
+    private final Component title;
     private boolean isAnimated;
     private @Nullable Action defaultAction;
     private @Nullable Action bottomInventoryAction;
@@ -62,7 +62,7 @@ public class Menu {
      * @param title The title of the menu.
      * @param rows  The number of rows for the menu.
      */
-    public Menu(String title, int rows) {
+    public Menu(Component title, int rows) {
         this(title, rows, new ArrayList<>());
     }
 
@@ -73,7 +73,7 @@ public class Menu {
      * @param rows          The number of rows for the menu.
      * @param reservedSlots The list of reserved slots in the menu.
      */
-    public Menu(String title, int rows, List<Integer> reservedSlots) {
+    public Menu(Component title, int rows, List<Integer> reservedSlots) {
         this.rows = rows;
         this.title = title;
         this.reservedSlots = new ArrayList<>(reservedSlots);
@@ -400,7 +400,7 @@ public class Menu {
      *
      * @return The title of the menu.
      */
-    public String getTitle() {
+    public Component getTitle() {
         return title;
     }
 

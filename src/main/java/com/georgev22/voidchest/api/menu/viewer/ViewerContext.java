@@ -69,7 +69,7 @@ public class ViewerContext implements InventoryHolder {
                 MessageBuilder.builder()
                         .context(playerContext)
                         .placeholders(menu.getPlaceholders(this))
-                        .appendMiniMessage(menu.getTitle())
+                        .append(menu.getTitle())
                         .build());
     }
 
