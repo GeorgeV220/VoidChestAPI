@@ -1,3 +1,11 @@
+# [5.3.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.2.0...v5.3.0) (2026-03-02)
+
+
+### Features
+
+* reorganize message utilities and improve placeholder handling ([f688c25](https://github.com/GeorgeV220/VoidChestAPI/commit/f688c25c40630c2ef8aca7461a9b1ae3eea8e39a))
+* Replace XSeries with native Material and new utilities ([53e0739](https://github.com/GeorgeV220/VoidChestAPI/commit/53e073907c4ab706fa8527c8f36ff82e93356dd2))
+
 # [5.2.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.1.0...v5.2.0) (2026-02-26)
 
 

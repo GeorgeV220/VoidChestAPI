@@ -1,6 +1,6 @@
 # VoidChestAPI
 
-This API won't work for VoidChest versions bellow 5.2.0
+This API won't work for VoidChest versions bellow 5.3.0
 
 ## Adding VoidChestAPI as a dependency to your build system
 
@@ -31,7 +31,7 @@ You can have your project depend on VoidChestAPI as a dependency through the fol
         <dependency>
             <groupId>com.georgev22.voidchest</groupId>
             <artifactId>voidchestapi</artifactId>
-            <version>5.2.0</version>
+            <version>5.3.0</version>
             <classifier>shade</classifier>
             <scope>provided</scope>
         </dependency>
@@ -54,7 +54,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "com.georgev22.voidchest:voidchestapi:5.2.0"
+    compileOnly "com.georgev22.voidchest:voidchestapi:5.3.0"
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 ### Gradle
 
 VoidChestAPI can be built by running the following: `gradle clean build jar`. The resultant jar is built and
-written to `build/libs/voidchestapi-5.2.0.jar`.
+written to `build/libs/voidchestapi-5.3.0.jar`.
 
 The build directories can be cleaned instead using the `gradle clean` command.
 
