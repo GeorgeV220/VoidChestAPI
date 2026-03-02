@@ -404,7 +404,6 @@ public abstract class AbstractVoidChest extends Entity {
 
     @Override
     public void postDelete() {
-        voidChestAPI.plugin().getLogger().info("deleted voidchest " + getUniqueId());
         this.customData.set("deleted", true);
         Registries.HOLOGRAM.getSelected().ifPresent(hologram -> hologram.remove(this));
         voidChestAPI.timedTaskManager().removeObject(this.getUniqueId());
@@ -425,7 +424,6 @@ public abstract class AbstractVoidChest extends Entity {
 
     @Override
     public void postCreate() {
-        voidChestAPI.plugin().getLogger().info("Created new voidchest " + getUniqueId());
         voidChestAPI.voidChestCacheController().add(this, blockLocation());
         new VoidChestCreateEvent(this).call();
     }
