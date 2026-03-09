@@ -1,3 +1,10 @@
+# [4.8.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.7.0...v4.8.0) (2026-03-09)
+
+
+### Features
+
+* **api:** add utility methods for color parsing and enum handling ([a792efe](https://github.com/GeorgeV220/VoidChestAPI/commit/a792efe2788b9119745ae87e084c81c4bab951ed))
+
 # [4.7.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.6.1...v4.7.0) (2026-01-19)
 
 
