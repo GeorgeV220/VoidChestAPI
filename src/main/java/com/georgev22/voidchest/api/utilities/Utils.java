@@ -1129,6 +1129,21 @@ public final class Utils {
         return splitValues;
     }
 
+
+    public static int clamp(int v) {
+        return Math.max(0, Math.min(255, v));
+    }
+
+    public static <T extends Enum<T>> T safeEnum(Class<T> enumClass, String value, T defaultValue) {
+        if (value == null) return defaultValue;
+
+        try {
+            return Enum.valueOf(enumClass, value.trim().toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            return defaultValue;
+        }
+    }
+
     /**
      * Returns the floor of the given double value.
      *

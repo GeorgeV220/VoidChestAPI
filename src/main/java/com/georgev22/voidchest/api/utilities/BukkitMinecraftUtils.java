@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
@@ -33,7 +34,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.georgev22.voidchest.api.utilities.Utils.clamp;
+
 public class BukkitMinecraftUtils {
+
+    private static final Method FROM_ARGB_METHOD;
+
+    static {
+        Method m;
+        try {
+            m = org.bukkit.Color.class.getMethod("fromARGB", int.class, int.class, int.class, int.class);
+        } catch (NoSuchMethodException e) {
+            m = null;
+        }
+        FROM_ARGB_METHOD = m;
+    }
 
     private static boolean join = false;
     private static String disableJoinMessage = "";
@@ -781,6 +796,32 @@ public class BukkitMinecraftUtils {
             logger.log(logLevel, " Join the Paper Community @ https://papermc.io");
 
             logger.log(logLevel, "====================================================");
+        }
+    }
+
+    public static org.bukkit.Color parseARGB(String value, org.bukkit.Color defaultColor) {
+        if (value == null || value.isBlank()) return defaultColor;
+
+        try {
+            String[] parts = value.split(",");
+            if (parts.length != 4) return defaultColor;
+
+            int a = clamp(Integer.parseInt(parts[0].trim()));
+            int r = clamp(Integer.parseInt(parts[1].trim()));
+            int g = clamp(Integer.parseInt(parts[2].trim()));
+            int b = clamp(Integer.parseInt(parts[3].trim()));
+
+            if (FROM_ARGB_METHOD != null) {
+                try {
+                    return (org.bukkit.Color) FROM_ARGB_METHOD.invoke(null, a, r, g, b);
+                } catch (Exception ignored) {
+                }
+            }
+
+            return org.bukkit.Color.fromRGB(r, g, b);
+
+        } catch (Exception ex) {
+            return defaultColor;
         }
     }
 
