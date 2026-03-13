@@ -13,6 +13,7 @@ import com.georgev22.voidchest.api.menu.item.items.StatefulMenuItem;
 import com.georgev22.voidchest.api.menu.viewer.ViewerContext;
 import com.georgev22.voidchest.api.utilities.CustomData;
 import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
+import com.georgev22.voidchest.api.utilities.message.Placeholder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -50,9 +51,9 @@ public class Menu {
     private @Nullable Action defaultAction;
     private @Nullable Action bottomInventoryAction;
     private final CustomData customData = new CustomData();
-    private ObjectMap<String, String> staticPlaceholders = new HashObjectMap<>();
-    private Supplier<ObjectMap<String, String>> dynamicPlaceholderSupplier;
-    private final ObjectMap<UUID, Function<ViewerContext, ObjectMap<String, String>>> perViewerPlaceholderFunctions = new HashObjectMap<>();
+    private Placeholder staticPlaceholders = new Placeholder();
+    private Supplier<Placeholder> dynamicPlaceholderSupplier;
+    private final ObjectMap<UUID, Function<ViewerContext, Placeholder>> perViewerPlaceholderFunctions = new HashObjectMap<>();
     private final List<MenuItem> pendingItems = new ArrayList<>();
     private final ObjectMap<UUID, ItemsFilter> perViewerFilters = new HashObjectMap<>();
 
@@ -105,7 +106,7 @@ public class Menu {
      * @param page                       The page number to open the menu on.
      * @param dynamicPlaceholderSupplier The supplier of dynamic placeholders to use for the menu.
      */
-    public void open(Player player, int page, Supplier<ObjectMap<String, String>> dynamicPlaceholderSupplier) {
+    public void open(Player player, int page, Supplier<Placeholder> dynamicPlaceholderSupplier) {
         ViewerContext context = new ViewerContext(this, player, page, dynamicPlaceholderSupplier);
         viewers.add(context);
         update(context);
@@ -639,7 +640,7 @@ public class Menu {
      *
      * @param staticPlaceholders the static placeholders to be set
      */
-    public void setStaticPlaceholders(ObjectMap<String, String> staticPlaceholders) {
+    public void setStaticPlaceholders(Placeholder staticPlaceholders) {
         this.staticPlaceholders = staticPlaceholders;
     }
 
@@ -648,11 +649,11 @@ public class Menu {
      *
      * @param dynamicPlaceholderSupplier the dynamic placeholder supplier to be set
      */
-    public void setDynamicPlaceholderSupplier(Supplier<ObjectMap<String, String>> dynamicPlaceholderSupplier) {
+    public void setDynamicPlaceholderSupplier(Supplier<Placeholder> dynamicPlaceholderSupplier) {
         this.dynamicPlaceholderSupplier = dynamicPlaceholderSupplier;
     }
 
-    public void setViewerPlaceholderFunction(UUID playerId, Function<ViewerContext, ObjectMap<String, String>> function) {
+    public void setViewerPlaceholderFunction(UUID playerId, Function<ViewerContext, Placeholder> function) {
         perViewerPlaceholderFunctions.put(playerId, function);
     }
 
@@ -661,7 +662,7 @@ public class Menu {
      *
      * @return the placeholders, never null.
      */
-    public ObjectMap<String, String> getPlaceholders() {
+    public Placeholder getPlaceholders() {
         return this.getPlaceholders(null);
     }
 
@@ -671,26 +672,26 @@ public class Menu {
      * @param viewerContext the viewer context to retrieve dynamic placeholders for
      * @return the combined placeholders, never null.
      */
-    public ObjectMap<String, String> getPlaceholders(@Nullable ViewerContext viewerContext) {
-        HashObjectMap<String, String> placeholders = new HashObjectMap<>();
-        placeholders.putAll(staticPlaceholders);
+    public Placeholder getPlaceholders(@Nullable ViewerContext viewerContext) {
+        final Placeholder finalPlaceholders = new Placeholder();
+        finalPlaceholders.merge(staticPlaceholders);
 
         if (dynamicPlaceholderSupplier != null) {
-            placeholders.putAll(dynamicPlaceholderSupplier.get());
+            finalPlaceholders.merge(dynamicPlaceholderSupplier.get());
         }
 
         if (viewerContext != null) {
             if (viewerContext.getDynamicPlaceholderSupplier() != null) {
-                placeholders.putAll(viewerContext.getDynamicPlaceholderSupplier().get());
+                finalPlaceholders.merge(viewerContext.getDynamicPlaceholderSupplier().get());
             }
             UUID id = viewerContext.getPlayerContext().getUniqueId();
-            Function<ViewerContext, ObjectMap<String, String>> perViewerFn = perViewerPlaceholderFunctions.get(id);
+            Function<ViewerContext, Placeholder> perViewerFn = perViewerPlaceholderFunctions.get(id);
             if (perViewerFn != null) {
-                placeholders.putAll(perViewerFn.apply(viewerContext));
+                finalPlaceholders.merge(perViewerFn.apply(viewerContext));
             }
         }
 
-        return placeholders;
+        return finalPlaceholders;
     }
 
     /**

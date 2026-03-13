@@ -487,8 +487,11 @@ public class MessageBuilder {
      * @param placeholder The new {@link Placeholder} instance to use.
      * @return The current {@link MessageBuilder} instance for method chaining.
      */
-    public MessageBuilder placeholders(@NonNull Placeholder placeholder) {
-        this.placeholder = placeholder;
+    public MessageBuilder placeholders(@Nullable Placeholder placeholder) {
+        if (placeholder == null) {
+            return this;
+        }
+        this.placeholder.merge(placeholder);
         return this;
     }
 

@@ -5,10 +5,10 @@ import com.georgev22.voidchest.api.events.storage.PlayerDataLoadEvent;
 import com.georgev22.voidchest.api.events.storage.PlayerDataCreateEvent;
 import com.georgev22.voidchest.api.events.storage.PlayerDataSaveEvent;
 import com.georgev22.voidchest.api.integrations.economy.balance.EconomyMode;
-import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.registry.Registries;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.model.player.Stats;
+import com.georgev22.voidchest.api.utilities.message.Placeholder;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -128,12 +128,12 @@ public abstract class AbstractPlayerData extends Entity {
     public abstract void reloadPlayerData();
 
     /**
-     * Retrieves a map of placeholders for player and the specified VoidChest.
+     * Retrieves the placeholders for player and the specified VoidChest.
      *
      * @param voidChest The VoidChest to retrieve placeholders for.
      * @return A map of placeholders.
      */
-    public abstract ObjectMap<String, String> getPlaceHolders(AbstractVoidChest voidChest);
+    public abstract Placeholder getPlaceHolders(AbstractVoidChest voidChest);
 
     @Override
     public void postLoad() {

@@ -1,10 +1,10 @@
 package com.georgev22.voidchest.api.menu.viewer;
 
-import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.menu.Menu;
 import com.georgev22.voidchest.api.menu.item.items.MenuItem;
 import com.georgev22.voidchest.api.utilities.CustomData;
 import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
+import com.georgev22.voidchest.api.utilities.message.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryEvent;
@@ -34,7 +34,7 @@ public class ViewerContext implements InventoryHolder {
     private boolean isUpdating = false;
     private boolean isInvalidated = false;
     private final AtomicLong updateVersion = new AtomicLong();
-    private Supplier<ObjectMap<String, String>> dynamicPlaceholderSupplier;
+    private Supplier<Placeholder> dynamicPlaceholderSupplier;
     private final CustomData customData = new CustomData();
 
     public ViewerContext(@NonNull Menu menu, Player playerContext) {
@@ -60,7 +60,7 @@ public class ViewerContext implements InventoryHolder {
      * @param page                       The initial page number of the menu.
      * @param dynamicPlaceholderSupplier The supplier for dynamic placeholders
      */
-    public ViewerContext(@NonNull Menu menu, Player playerContext, int page, Supplier<ObjectMap<String, String>> dynamicPlaceholderSupplier) {
+    public ViewerContext(@NonNull Menu menu, Player playerContext, int page, Supplier<Placeholder> dynamicPlaceholderSupplier) {
         this.menu = menu;
         this.playerContext = playerContext;
         this.page = page;
@@ -176,7 +176,7 @@ public class ViewerContext implements InventoryHolder {
      *
      * @param supplier the supplier providing dynamic placeholders, or {@code null} to clear it
      */
-    public void setDynamicPlaceholderSupplier(Supplier<ObjectMap<String, String>> supplier) {
+    public void setDynamicPlaceholderSupplier(Supplier<Placeholder> supplier) {
         this.dynamicPlaceholderSupplier = supplier;
     }
 
@@ -188,7 +188,7 @@ public class ViewerContext implements InventoryHolder {
      *
      * @return the dynamic placeholder supplier, or {@code null} if none has been set
      */
-    public Supplier<ObjectMap<String, String>> getDynamicPlaceholderSupplier() {
+    public Supplier<Placeholder> getDynamicPlaceholderSupplier() {
         return dynamicPlaceholderSupplier;
     }
 
