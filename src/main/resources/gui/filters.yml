@@ -1,5 +1,5 @@
 FiltersMenu:
-  title: "&a&l%filter% Filter Menu &8(&e%type%&8)"
+  title: "&a&l%filter% Filter Menu &8(&e{allowMode:Allow List|Block List}&8)"
   rows: 6
   animation: true
   defaultAction: voidchest:remove_filter
