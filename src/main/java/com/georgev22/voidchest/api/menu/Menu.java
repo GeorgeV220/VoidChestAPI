@@ -11,6 +11,8 @@ import com.georgev22.voidchest.api.menu.item.items.MenuFrameItem;
 import com.georgev22.voidchest.api.menu.item.items.MenuItem;
 import com.georgev22.voidchest.api.menu.item.items.StatefulMenuItem;
 import com.georgev22.voidchest.api.menu.viewer.ViewerContext;
+import com.georgev22.voidchest.api.task.ExecutorManager;
+import com.georgev22.voidchest.api.task.ExecutorType;
 import com.georgev22.voidchest.api.utilities.CustomData;
 import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
 import com.georgev22.voidchest.api.utilities.message.Placeholder;
@@ -26,7 +28,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -187,17 +188,16 @@ public class Menu {
     ) {
         pendingTasks.incrementAndGet();
 
-        CompletableFuture
-                .supplyAsync(() -> buildMenuItem(viewerContext, menuItem, 0), this.voidChestAPI.timedTaskManager().getScheduler())
-                .handle((item, error) -> {
-                    if (error != null) {
-                        voidChestAPI.plugin().getLogger()
-                                .log(Level.WARNING, "Failed to render menu item: " + item, error);
-                        return null;
-                    }
-                    return item;
-                })
-                .thenAccept(item -> this.voidChestAPI
+        ExecutorManager.getInstance().submit(ExecutorType.COMPUTE, () -> {
+            ItemStack item = null;
+            try {
+                item = buildMenuItem(viewerContext, menuItem, 0);
+            } catch (Throwable t) {
+                voidChestAPI.plugin().getLogger()
+                        .log(Level.WARNING, "Failed to render menu item: " + menuItem, t);
+            } finally {
+                ItemStack finalItem = item;
+                this.voidChestAPI
                         .minecraftScheduler()
                         .createTaskForEntity(() -> {
                             if (!viewerContext.isUpdateValid(version)) {
@@ -207,17 +207,20 @@ public class Menu {
                                 return;
                             }
 
-                            if (item != null) {
+                            if (finalItem != null) {
                                 menuItem.setSlot(slot);
                                 menuItem.addViewerContext(viewerContext);
-                                inventory.setItem(slot, item);
+                                inventory.setItem(slot, finalItem);
                             }
 
                             if (pendingTasks.decrementAndGet() == 0) {
                                 finishUpdate(viewerContext, version);
                             }
 
-                        }, viewerContext::invalidate, viewerContext.getPlayerContext()));
+                        }, viewerContext::invalidate, viewerContext.getPlayerContext());
+            }
+        });
+
     }
 
     private void finishUpdate(@NonNull ViewerContext viewerContext, long version) {
