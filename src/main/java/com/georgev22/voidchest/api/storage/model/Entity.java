@@ -1,8 +1,10 @@
 package com.georgev22.voidchest.api.storage.model;
 
+import com.georgev22.voidchest.api.datastructures.Pair;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.utilities.CustomData;
+import com.google.gson.JsonObject;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NonNull;
 
@@ -67,13 +69,6 @@ public abstract class Entity implements Comparable<Entity> {
     }
 
     /**
-     * Converts this {@link Entity} into its map representation.
-     *
-     * @return an {@link ObjectMap} representing this {@link Entity}.
-     */
-    public abstract ObjectMap<String, Object> toMap();
-
-    /**
      * Converts this {@link Entity} into its JSON string representation.
      * The formatting of the resulting JSON string can be controlled.
      *
@@ -81,7 +76,14 @@ public abstract class Entity implements Comparable<Entity> {
      *               if false, the JSON output will be compact, without unnecessary whitespace.
      * @return a JSON string representing this {@link Entity}.
      */
-    public abstract String toJson(boolean pretty);
+    public abstract String toJsonString(boolean pretty);
+
+    /**
+     * Converts this {@link Entity} into its JSON representation.
+     *
+     * @return a JSON representing this {@link Entity}.
+     */
+    public abstract JsonObject toJson();
 
     /**
      * Called immediately after this entity has been loaded from storage.
