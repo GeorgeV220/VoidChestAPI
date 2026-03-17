@@ -1,3 +1,10 @@
+# [5.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.3.0...v5.4.0) (2026-03-17)
+
+
+### Features
+
+* add getLoadedEntities method to EntityManager interface ([eceaf9d](https://github.com/GeorgeV220/VoidChestAPI/commit/eceaf9d0d6392ba8be3df322994d2b15810b326c))
+
 # [5.3.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.2.0...v5.3.0) (2026-03-02)
 
 
