@@ -26,7 +26,6 @@ import org.jspecify.annotations.Nullable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * Manages a cache for {@link AbstractVoidChest} objects, storing them based on {@link Location}, {@link Chunk}, and {@link AbstractPlayerData}.
@@ -123,20 +122,33 @@ public class VoidChestCacheController {
      */
     public CompletableFuture<List<AbstractVoidChest>> voidChests(@NonNull AbstractPlayerData playerData) {
         EntityManagerRegistry entityManagerRegistry = EntityManagerRegistry.getInstance();
-        Optional<EntityManager<AbstractVoidChest>> voidEntityManager = entityManagerRegistry.getTyped(AbstractVoidChest.class);
-        if (voidEntityManager.isEmpty()) return CompletableFuture.completedFuture(new ArrayList<>());
+        Optional<EntityManager<AbstractVoidChest>> optionalManager = entityManagerRegistry.getTyped(AbstractVoidChest.class);
+
+        if (optionalManager.isEmpty()) {
+            return CompletableFuture.completedFuture(new ArrayList<>());
+        }
+
+        EntityManager<AbstractVoidChest> manager = optionalManager.get();
+
         List<UUID> currentStorageIds = playerData.voidChests();
         Set<AbstractVoidChest> cachedStorages = playerCache.getOrDefault(playerData, ConcurrentHashMap.newKeySet());
-        if (cachedStorages.size() == currentStorageIds.size() &&
-                cachedStorages.stream().allMatch(storage -> currentStorageIds.contains(storage.getUniqueId()))) {
+
+        Set<UUID> idSet = new HashSet<>(currentStorageIds);
+
+        if (cachedStorages.size() == idSet.size() &&
+                cachedStorages.stream().allMatch(storage -> idSet.contains(storage.getUniqueId()))) {
             return CompletableFuture.completedFuture(new ArrayList<>(cachedStorages));
         }
+
         return CompletableFuture.supplyAsync(() -> {
-            Set<AbstractVoidChest> updatedStorages = currentStorageIds.stream()
-                    .map(id -> voidEntityManager.get().findById(id.toString()))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .collect(Collectors.toCollection(ConcurrentHashMap::newKeySet));
+            Set<AbstractVoidChest> updatedStorages = ConcurrentHashMap.newKeySet();
+
+            for (UUID id : currentStorageIds) {
+                AbstractVoidChest chest = manager.getLoadedEntities().get(id.toString());
+                if (chest != null) {
+                    updatedStorages.add(chest);
+                }
+            }
 
             playerCache.put(playerData, updatedStorages);
             return new ArrayList<>(updatedStorages);

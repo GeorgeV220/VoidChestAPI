@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.storage;
 
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.model.Entity;
 import org.jspecify.annotations.NonNull;
 
@@ -104,6 +105,13 @@ public interface EntityManager<E extends Entity> {
      * @return a list of all entities
      */
     List<E> getAll();
+
+    /**
+     * Returns a view of the entities currently loaded in memory.
+     *
+     * @return an unmodifiable view of the loaded entities
+     */
+    UnmodifiableObjectMap<String, E> getLoadedEntities();
 
     /**
      * Checks if an entity with the specified identifier exists.

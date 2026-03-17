@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.storage;
 
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
+import com.georgev22.voidchest.api.datastructures.maps.UnmodifiableObjectMap;
 import com.georgev22.voidchest.api.storage.model.Entity;
 import org.jspecify.annotations.NonNull;
 
@@ -109,6 +110,11 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
     @Override
     public List<E> getAll() {
         return List.of();
+    }
+
+    @Override
+    public UnmodifiableObjectMap<String, E> getLoadedEntities() {
+        return new UnmodifiableObjectMap<>();
     }
 
     /**
