@@ -15,16 +15,12 @@ public class UnmodifiableArrayList<E> implements List<E> {
     private final List<E> underlyingList;
 
     /**
-     * Constructs an unmodifiable list that is a copy of the specified list.
+     * Constructs an unmodifiable list that is a copy of the specified collection.
      *
-     * @param originalList the list to be copied into an unmodifiable list
+     * @param collection the collection to be copied into an unmodifiable list
      */
-    public UnmodifiableArrayList(List<E> originalList) {
-        this.underlyingList = new ArrayList<>(originalList);
-    }
-
-    public UnmodifiableArrayList(Set<E> originalSet) {
-        this.underlyingList = new ArrayList<>(originalSet);
+    public UnmodifiableArrayList(Collection<E> collection) {
+        this.underlyingList = new ArrayList<>(collection);
     }
 
     @Override

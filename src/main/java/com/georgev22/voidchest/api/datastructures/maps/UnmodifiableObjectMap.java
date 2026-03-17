@@ -4,10 +4,9 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Returns an unmodifiable view of the
@@ -16,7 +15,7 @@ import java.util.Set;
  * map, whether direct or via its collection views, result in an
  * {@code UnsupportedOperationException}.<p>
  */
-public class UnmodifiableObjectMap<K, V> extends ConcurrentHashObjectMap<K, V> implements ObjectMap<K, V>, Serializable {
+public class UnmodifiableObjectMap<K, V> extends AbstractObjectMap<K, V> implements ObjectMap<K, V>, Serializable {
 
     @SafeVarargs
     public UnmodifiableObjectMap(Entry<K, V> @NonNull ... entries) {
@@ -27,11 +26,11 @@ public class UnmodifiableObjectMap<K, V> extends ConcurrentHashObjectMap<K, V> i
     }
 
     public UnmodifiableObjectMap(ObjectMap<K, V> map) {
-        super(new ConcurrentHashObjectMap<>(map));
+        super(map);
     }
 
     public UnmodifiableObjectMap(Map<K, V> map) {
-        super(new ConcurrentHashObjectMap<>(map));
+        super(map);
     }
 
     /**
@@ -183,6 +182,70 @@ public class UnmodifiableObjectMap<K, V> extends ConcurrentHashObjectMap<K, V> i
      * {@inheritDoc}
      */
     @Override
+    public V putIfAbsent(K key, V value) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public V computeIfAbsent(K key, @NonNull Function<? super K, ? extends V> mappingFunction) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public V computeIfPresent(K key, @NonNull BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public V compute(K key, @NonNull BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public V merge(K key, @NonNull V value, @NonNull BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean replace(K key, V oldValue, V newValue) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public V replace(K key, V value) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
+        throw new UnsupportedOperationException("UnmodifiableObjectMap");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void clear() {
         throw new UnsupportedOperationException("UnmodifiableObjectMap");
     }
@@ -211,7 +274,14 @@ public class UnmodifiableObjectMap<K, V> extends ConcurrentHashObjectMap<K, V> i
     @NonNull
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return Collections.unmodifiableSet(super.entrySet());
+        Set<Entry<K, V>> original = super.entrySet();
+        Set<Entry<K, V>> wrapped = new HashSet<>();
+
+        for (Entry<K, V> entry : original) {
+            wrapped.add(new AbstractMap.SimpleImmutableEntry<>(entry));
+        }
+
+        return Collections.unmodifiableSet(wrapped);
     }
 
     /**
