@@ -75,4 +75,11 @@ public interface Shop {
      * @param item The shop item to remove.
      */
     void removeItem(@NotNull ShopItem item);
+
+    /**
+     * Sets a callback to be executed when the shop changes.
+     *
+     * @param runnable The callback to be executed when the shop changes.
+     */
+    void setOnChange(Runnable runnable);
 }

@@ -49,6 +49,20 @@ public interface IShopManager {
     Shop getShop(String voidChestName);
 
     /**
+     * Check if shop exists in memory or disk
+     *
+     * @param name The name of the shop to check
+     */
+    boolean exists(String name);
+
+    /**
+     * Marks a shop as dirty
+     *
+     * @param name The name of the shop to mark as dirty
+     */
+    void markDirty(String name);
+
+    /**
      * Loads a shop with the given name.
      *
      * @param name The name of the shop to load.
@@ -61,6 +75,16 @@ public interface IShopManager {
      * @param name The name of the shop to save.
      */
     void saveShop(String name);
+
+    /**
+     * Start async autosave task
+     */
+    void startAutoSaveTask();
+
+    /**
+     * Force flush all shops
+     */
+    void flushAllNow();
 
     /**
      * Loads all registered shops.
