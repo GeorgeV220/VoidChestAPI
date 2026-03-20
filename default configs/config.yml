@@ -141,7 +141,35 @@ Options:
     plugin: "None"
     # This value is in seconds.
     update interval: 1
-
+    provider settings:
+      CMI:
+        require perms: false
+        LOS interval: 0
+        text down order: true
+        text spacing: 0.25
+        icon spacing: 0.5
+        show range: 8
+        update range: 8
+      HolographicDisplays:
+        allow placeholders: false
+      DecentHolograms:
+        require perms: false
+        update range: 48
+        show range: 48
+        text down order: false
+        always face player: false
+        facing: 0
+      FancyHolograms:
+        visibility distance: 10
+        billboard:
+          type: CENTER
+          alignment: CENTER
+          background color: 0,0,0,0
+          see through: false
+        shadow:
+          enabled: true
+          radius: 0.5
+          strength: 0.5
 
   # Ignore item meta option
   ignore item meta: true
