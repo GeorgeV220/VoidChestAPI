@@ -74,6 +74,22 @@ public class ProfitCalculatorRegistry {
     }
 
     /**
+     * Unregisters all calculators associated with a specific VoidChest type.
+     *
+     * @param voidchestType The type of the VoidChest.
+     */
+    public static void unregisterCalculators(String voidchestType) {
+        calculatorMap.remove(voidchestType);
+    }
+
+    /**
+     * Unregisters all calculators from the registry.
+     */
+    public static void unregisterAll() {
+        calculatorMap.clear();
+    }
+
+    /**
      * Checks if a calculator is already registered to a specific VoidChest type.
      *
      * @param voidchestType The type of the VoidChest.
@@ -93,7 +109,6 @@ public class ProfitCalculatorRegistry {
     public static List<ProfitCalculator> getAllCalculators() {
         return calculatorMap.values().stream()
                 .flatMap(List::stream)
-                .map(e -> e)
                 .sorted(Comparator.comparingInt(ProfitCalculator::getWeight))
                 .collect(Collectors.toList());
     }
