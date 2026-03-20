@@ -1,3 +1,11 @@
+# [4.9.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.8.0...v4.9.0) (2026-03-20)
+
+
+### Features
+
+* add async autosave and dirty tracking for shops ([902e074](https://github.com/GeorgeV220/VoidChestAPI/commit/902e07431b860ec5c7ff557115f2ecc84edafbee))
+* add methods to unregister profit calculators and refactor getAllCalculators ([caae54d](https://github.com/GeorgeV220/VoidChestAPI/commit/caae54dc0538decb6b29df799a84e5ff03b89754))
+
 # [4.8.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.7.0...v4.8.0) (2026-03-09)
 
 
