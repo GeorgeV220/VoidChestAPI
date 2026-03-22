@@ -1,6 +1,8 @@
 package com.georgev22.voidchest.api.storage.model.voidchest;
 
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.CustomData;
+import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -72,6 +74,16 @@ public interface Stats {
      * @param itemsPurged The number of items purged to add as a BigInteger.
      */
     void addItemsPurged(BigInteger itemsPurged);
+
+    /**
+     * An {@link ObjectMap} representing the stats of the void chest.
+     * <p>
+     * <strong>Modifying the resulting map will not affect the stats of the void chest.</strong>
+     * </p>
+     *
+     * @return The map of stats.
+     */
+    @NonNull ObjectMap<String, Number> asMap();
 
     /**
      * Retrieves the custom data associated with the void chest stats.

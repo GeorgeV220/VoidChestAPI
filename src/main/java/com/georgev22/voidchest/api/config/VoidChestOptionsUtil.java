@@ -83,6 +83,12 @@ public final class VoidChestOptionsUtil<T> {
     public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_STORE_STATS
             = new VoidChestOptionsUtil<>("Mechanics.break.store stats", false);
 
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_STORE_UPGRADES
+            = new VoidChestOptionsUtil<>("Mechanics.break.store upgrades", false);
+
+    public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_STORE_CHARGE
+            = new VoidChestOptionsUtil<>("Mechanics.break.store charge", false);
+
     public static final VoidChestOptionsUtil<Boolean> MECHANICS_BREAK_DROP_VOIDCHEST_ON_EXPLOSION
             = new VoidChestOptionsUtil<>("Mechanics.break.drop voidchest on explosion", false);
 
@@ -215,12 +221,6 @@ public final class VoidChestOptionsUtil<T> {
 
     public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHARGE_FORCE_DISABLE
             = new VoidChestOptionsUtil<>("Options.charge.force disable", false);
-
-    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHARGE_BREAK_PERSISTENT_ENABLED
-            = new VoidChestOptionsUtil<>("Options.charge.break persistent.enabled", true);
-
-    public static final VoidChestOptionsUtil<Boolean> OPTIONS_CHARGE_BREAK_PERSISTENT_SAVE_TIME
-            = new VoidChestOptionsUtil<>("Options.charge.break persistent.save time", true);
 
     public static final VoidChestOptionsUtil<String> OPTIONS_CHARGE_HOLOGRAM_NO_FUEL
             = new VoidChestOptionsUtil<>("Options.charge.hologram.no fuel", "No Fuel");

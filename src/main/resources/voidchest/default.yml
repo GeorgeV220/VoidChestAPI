@@ -75,6 +75,12 @@ Mechanics:
     # Should, once a voidchest is broken, store the statistics and then be recovered once placed again?
     store stats: false
 
+    # Should, once a voidchest is broken, store the upgrades and then be recovered once placed again?
+    store upgrades: false
+
+    # Should, once a voidchest is broken, store the charge and then be recovered once placed again?
+    store charge: false
+
     # Should voidchests drop when exploded by any kind of explosion, such as tnt, creepers, etc.?
     drop voidchest on explosion: false
 
@@ -173,10 +179,6 @@ Options:
   charge:
     # Forcefully disable the charge system even if voidchests have it enabled.
     force disable: false
-    # Save the charge to the voidchest item
-    break persistent:
-      enabled: false
-      save time: false
     # Hologram placeholder
     hologram:
       no fuel: 'No Fuel'
