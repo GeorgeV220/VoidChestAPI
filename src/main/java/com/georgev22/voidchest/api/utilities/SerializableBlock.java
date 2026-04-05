@@ -14,6 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
 
 
 /**
@@ -182,11 +183,33 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * or {@link Optional#empty()} if the world is not loaded
      */
     public @NonNull Optional<Block> toBlock() {
+        if (VoidChestAPI.isFolia() || !Bukkit.isPrimaryThread()) {
+            Optional<Location> locationOptional = toLocation();
+            if (locationOptional.isEmpty()) {
+                // probably throw an exception? not sure yet
+                VoidChestAPI.getInstance().plugin().getLogger().log(Level.SEVERE, "Failed to get block " + this);
+                return Optional.empty();
+            }
+            return Optional.ofNullable(VoidChestAPI.getInstance().minecraftScheduler().createTaskForLocation(
+                    this::toBlock0,
+                    locationOptional.get()
+            ).handle((block, throwable) -> {
+                if (throwable != null) {
+                    VoidChestAPI.getInstance().plugin().getLogger().log(Level.SEVERE, "Failed to get block " + this, throwable);
+                    return null;
+                }
+                return block;
+            }).join());
+        }
+        return Optional.ofNullable(toBlock0());
+    }
+
+    private @Nullable Block toBlock0() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
-            return Optional.of(world.getBlockAt((int) x, (int) y, (int) z));
+            return world.getBlockAt(getBlockX(), getBlockY(), getBlockZ());
         }
-        return Optional.empty();
+        return null;
     }
 
     /**
@@ -215,12 +238,17 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @return A CompletableFuture that completes with the Block represented by this SerializableBlock, or completes exceptionally if the world is not found.
      */
     public @NonNull CompletableFuture<Block> toBlockAsync() {
-        World world = Bukkit.getWorld(worldName);
+        Optional<Location> locationOptional = this.toLocation();
+        if (locationOptional.isEmpty()) {
+            return CompletableFuture.failedFuture(new IllegalArgumentException("The world is not found."));
+        }
+        Location location = locationOptional.get();
+        World world = location.getWorld();
         if (world != null) {
             return VoidChestAPI.getInstance().minecraftScheduler()
                     .createTaskForLocation(
                             () -> world.getBlockAt(getBlockX(), getBlockY(), getBlockZ()),
-                            new Location(world, x, y, z)
+                            location
                     );
         } else {
             return CompletableFuture.failedFuture(new IllegalArgumentException("The world is not found."));
