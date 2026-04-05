@@ -16,25 +16,6 @@ import java.math.BigInteger;
 public interface ProfitCalculator extends Keyed {
 
     /**
-     * Retrieves the profit for a specific item.
-     *
-     * @param item The item to calculate the profit for.
-     * @return The calculated profit as a BigDecimal.
-     */
-    @Deprecated
-    @NonNull BigDecimal getProfit(@NonNull final ItemStack item);
-
-    /**
-     * Retrieves the profit for a specific item and amount.
-     *
-     * @param item   The item to calculate the profit for.
-     * @param amount The amount of the item.
-     * @return The calculated profit as a BigDecimal.
-     */
-    @Deprecated
-    @NonNull BigDecimal getProfit(@NonNull final ItemStack item, @NonNull final BigInteger amount);
-
-    /**
      * Retrieves the profit for a specific item, amount, and VoidChest.
      *
      * @param voidChest The VoidChest to calculate the profit for.
