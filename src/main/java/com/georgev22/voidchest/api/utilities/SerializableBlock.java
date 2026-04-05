@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.utilities;
 
+import com.georgev22.voidchest.api.VoidChestAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.logging.Level;
 
 
 /**
@@ -87,9 +89,9 @@ public class SerializableBlock implements Serializable {
      * Constructs a new SerializableBlock from a string representation.
      *
      * @param worldName The name of the world containing the block.
-     * @param x The x-coordinate of the block.
-     * @param y The y-coordinate of the block.
-     * @param z The z-coordinate of the block.
+     * @param x         The x-coordinate of the block.
+     * @param y         The y-coordinate of the block.
+     * @param z         The z-coordinate of the block.
      */
     public SerializableBlock(String worldName, int x, int y, int z) {
         this(worldName, x, y, z, null);
@@ -99,9 +101,9 @@ public class SerializableBlock implements Serializable {
      * Constructs a new SerializableBlock from a string representation.
      *
      * @param worldName The name of the world containing the block.
-     * @param x The x-coordinate of the block.
-     * @param y The y-coordinate of the block.
-     * @param z The z-coordinate of the block.
+     * @param x         The x-coordinate of the block.
+     * @param y         The y-coordinate of the block.
+     * @param z         The z-coordinate of the block.
      */
     public SerializableBlock(String worldName, int x, int y, int z, @Nullable Material material) {
         this.worldName = worldName;
@@ -206,6 +208,36 @@ public class SerializableBlock implements Serializable {
      * @return The Block represented by this SerializableBlock, or {@code null} if the world is not found.
      */
     public @Nullable Block toBlock() {
+        if (VoidChestAPI.isFolia() || !Bukkit.isPrimaryThread()) {
+            return VoidChestAPI.getInstance().minecraftScheduler().createTaskForLocation(
+                    VoidChestAPI.getInstance().plugin(),
+                    this::toBlock0,
+                    this.toLocation()
+            ).handle((block, throwable) -> {
+                if (throwable != null) {
+                    VoidChestAPI.getInstance().plugin().getLogger().log(Level.SEVERE, "Failed to get block " + this, throwable);
+                    return null;
+                }
+                return block;
+            }).join();
+        }
+        return this.toBlock0();
+    }
+
+    /**
+     * Converts the SerializableBlock back to a Location.
+     *
+     * @return The Location represented by this SerializableBlock, or {@code null} if the world is not found.
+     */
+    public @Nullable Location toLocation() {
+        World world = Bukkit.getWorld(worldName);
+        if (world != null) {
+            return new Location(world, x, y, z);
+        }
+        return null;
+    }
+
+    private @Nullable Block toBlock0() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             return world.getBlockAt(x, y, z);
