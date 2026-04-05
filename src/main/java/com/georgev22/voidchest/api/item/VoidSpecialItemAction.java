@@ -32,11 +32,21 @@ public interface VoidSpecialItemAction {
     Result execute(@NonNull Player player, @NonNull AbstractVoidChest voidChest, @NonNull ItemStack itemStack);
 
     /**
-     * The result of a {@link VoidSpecialItemAction}.
+     * The result of a {@link VoidSpecialItemAction} execution.
+     * <p>
+     * Each result can optionally include a descriptive reason for the outcome,
+     * which can be useful for logging, user feedback, or debugging purposes.
      */
     enum Result {
+        /**
+         * Indicates that the special item action was executed successfully.
+         */
         SUCCESS,
-        FAILED
+
+        /**
+         * Indicates that the special item action failed to execute properly.
+         */
+        FAILED;
     }
 
 }

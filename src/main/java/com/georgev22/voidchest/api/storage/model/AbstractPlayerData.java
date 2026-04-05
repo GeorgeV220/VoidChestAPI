@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.storage.model;
 
+import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.events.storage.PlayerDataDeleteEvent;
 import com.georgev22.voidchest.api.events.storage.PlayerDataLoadEvent;
 import com.georgev22.voidchest.api.events.storage.PlayerDataCreateEvent;
@@ -9,6 +10,7 @@ import com.georgev22.voidchest.api.registry.Registries;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.model.player.Stats;
 import com.georgev22.voidchest.api.utilities.message.Placeholder;
+import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -121,6 +123,38 @@ public abstract class AbstractPlayerData extends Entity {
      * @param voidChest The VoidChest to add.
      */
     public abstract void addVoidChest(final UUID voidChest);
+
+    /**
+     * Returns a map of all special items and the last time they were used.
+     *
+     * @return an ObjectMap where the key is the NamespacedKey of the special item
+     * and the value is the timestamp (in milliseconds) of the last usage
+     */
+    public abstract ObjectMap<NamespacedKey, Long> getSpecialItemLastUsages();
+
+    /**
+     * Records the last usage time (timestamp) for a special item.
+     *
+     * @param key      the NamespacedKey identifying the special item
+     * @param cooldown the timestamp (in milliseconds) representing the last usage time
+     */
+    public abstract void setSpecialItemLastUsage(NamespacedKey key, long cooldown);
+
+    /**
+     * Removes the recorded last usage time for a special item.
+     *
+     * @param key the NamespacedKey identifying the special item to remove
+     */
+    public abstract void removeSpecialItemLastUsage(NamespacedKey key);
+
+    /**
+     * Retrieves the last usage time of a special item, if present.
+     *
+     * @param key the NamespacedKey identifying the special item
+     * @return an Optional containing the timestamp (in milliseconds) of the last usage,
+     * or an empty Optional if the item has never been used or is not tracked
+     */
+    public abstract Optional<Long> getSpecialItemLastUsage(NamespacedKey key);
 
     /**
      * Reloads the player data.
