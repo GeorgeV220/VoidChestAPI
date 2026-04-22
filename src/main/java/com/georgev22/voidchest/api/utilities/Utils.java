@@ -480,6 +480,51 @@ public final class Utils {
         return (double) floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
     }
 
+    /**
+     * Safely parses a {@link Enum} constant from a string value.
+     *
+     * <p>This method attempts to convert the provided string into an enum constant
+     * of the specified enum type. The input is {@link String#trim() trimmed} and
+     * converted to upper case before matching, making the lookup case-insensitive
+     * for typical enum naming conventions.</p>
+     *
+     * <p>If the input value is {@code null} or does not match any constant in the
+     * specified enum class, the provided {@code defaultValue} is returned instead
+     * of throwing an exception.</p>
+     *
+     * @param enumClass the {@link Class} object of the enum type
+     * @param value the string representation of the enum constant (case-insensitive, may be {@code null})
+     * @param defaultValue the fallback value to return if parsing fails
+     * @param <T> the enum type
+     * @return the matching enum constant, or {@code defaultValue} if the input is {@code null}
+     *         or does not correspond to any enum constant
+     *
+     * @throws NullPointerException if {@code enumClass} or {@code defaultValue} is {@code null}
+     */
+    public static <T extends Enum<T>> T safeEnum(Class<T> enumClass, String value, T defaultValue) {
+        if (value == null) return defaultValue;
+
+        try {
+            return Enum.valueOf(enumClass, value.trim().toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Clamps the given value to the 8-bit unsigned integer range [0, 255].
+     *
+     * <p>If the value is less than 0, 0 is returned.
+     * If the value is greater than 255, 255 is returned.
+     * Otherwise, the value itself is returned.</p>
+     *
+     * @param value the input value to clamp
+     * @return the clamped value within the range [0, 255]
+     */
+    public static int clampToByte(int value) {
+        return Math.max(0, Math.min(255, value));
+    }
+
     public static class Cooldown {
         private static final ObjectMap<String, Cooldown> cooldownManagerObjectMap = ObjectMaps.newHashObjectMap();
         private long start;

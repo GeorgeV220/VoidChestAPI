@@ -107,6 +107,33 @@ public enum OptionsUtil {
 
     HOLOGRAM_UPDATE_INTERVAL("hologram.update interval", 1, Optional.empty()),
 
+    // Provider-specific settings for holograms
+    HOLOGRAM_PROVIDER_CMI_REQUIRE_PERMS("hologram.provider.CMI.require perms", false, Optional.empty()),
+    HOLOGRAM_PROVIDER_CMI_LOS_INTERVAL("hologram.provider.CMI.LOS interval", 0, Optional.empty()),
+    HOLOGRAM_PROVIDER_CMI_TEXT_DOWN_ORDER("hologram.provider.CMI.text down order", true, Optional.empty()),
+    HOLOGRAM_PROVIDER_CMI_TEXT_SPACING("hologram.provider.CMI.text spacing", 0.25, Optional.empty()),
+    HOLOGRAM_PROVIDER_CMI_ICON_SPACING("hologram.provider.CMI.icon spacing", 0.5, Optional.empty()),
+    HOLOGRAM_PROVIDER_CMI_SHOW_RANGE("hologram.provider.CMI.show range", 8, Optional.empty()),
+    HOLOGRAM_PROVIDER_CMI_UPDATE_RANGE("hologram.provider.CMI.update range", 8, Optional.empty()),
+
+    // DecentHolograms
+    HOLOGRAM_PROVIDER_DECENT_REQUIRE_PERMS("hologram.provider.DecentHolograms.require perms", false, Optional.empty()),
+    HOLOGRAM_PROVIDER_DECENT_UPDATE_RANGE("hologram.provider.DecentHolograms.update range", 48, Optional.empty()),
+    HOLOGRAM_PROVIDER_DECENT_SHOW_RANGE("hologram.provider.DecentHolograms.show range", 48, Optional.empty()),
+    HOLOGRAM_PROVIDER_DECENT_TEXT_DOWN_ORDER("hologram.provider.DecentHolograms.text down order", false, Optional.empty()),
+    HOLOGRAM_PROVIDER_DECENT_ALWAYS_FACE_PLAYER("hologram.provider.DecentHolograms.always face player", false, Optional.empty()),
+    HOLOGRAM_PROVIDER_DECENT_FACING("hologram.provider.DecentHolograms.facing", 0, Optional.empty()),
+
+    // FancyHolograms
+    HOLOGRAM_PROVIDER_FANCY_VISIBILITY_DISTANCE("hologram.provider.FancyHolograms.visibility distance", 10, Optional.empty()),
+    HOLOGRAM_PROVIDER_FANCY_BILLBOARD_TYPE("hologram.provider.FancyHolograms.billboard.type", "CENTER", Optional.empty()),
+    HOLOGRAM_PROVIDER_FANCY_BILLBOARD_ALIGNMENT("hologram.provider.FancyHolograms.billboard.alignment", "CENTER", Optional.empty()),
+    HOLOGRAM_PROVIDER_FANCY_BILLBOARD_BACKGROUND_COLOR("hologram.provider.FancyHolograms.billboard.background color", "0,0,0,0", Optional.empty()),
+    HOLOGRAM_PROVIDER_FANCY_BILLBOARD_SEE_THROUGH("hologram.provider.FancyHolograms.billboard.see through", false, Optional.empty()),
+    HOLOGRAM_PROVIDER_FANCY_SHADOW_ENABLED("hologram.provider.FancyHolograms.shadow.enabled", true, Optional.empty()),
+    HOLOGRAM_PROVIDER_FANCY_SHADOW_RADIUS("hologram.provider.FancyHolograms.shadow.radius", 0.5, Optional.empty()),
+    HOLOGRAM_PROVIDER_FANCY_SHADOW_STRENGTH("hologram.provider.FancyHolograms.shadow.strength", 0.5, Optional.empty()),
+
     CHUNK_SEE_Y_CENTRAL("chunk see.Y central", 0, Optional.empty()),
 
     CHUNK_SEE_Y_UP("chunk see.Y up", 0, Optional.empty()),
@@ -223,6 +250,18 @@ public enum OptionsUtil {
             return n.doubleValue();
         }
         return Double.parseDouble(String.valueOf(cachedValue));
+    }
+
+    /**
+     * Returns the cached float value of this option.
+     *
+     * @return the float value
+     */
+    public @NonNull Float getFloatValue() {
+        if (cachedValue instanceof Number n) {
+            return n.floatValue();
+        }
+        return Float.parseFloat(String.valueOf(cachedValue));
     }
 
     /**
