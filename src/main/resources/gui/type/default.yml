@@ -40,7 +40,7 @@ VoidChestMenu:
       name: "&6&lAuto Sell"
       lore:
         - "&7Enable automatic selling of contents."
-        - "&7Status: &e%status_auto_sell%"
+        - "&7Status: &e{auto_sell:&eEnabled|&cDisabled}"
         - ""
         - "&eClick to toggle."
       glow: true
@@ -62,7 +62,7 @@ VoidChestMenu:
       name: "&6&lChunk Collector"
       lore:
         - "&7Collect items in the chunk automatically."
-        - "&7Status: &e%status_chunk_collector%"
+        - "&7Status: &e{chunk_collector:&eEnabled|&cDisabled}"
         - ""
         - "&eClick to toggle."
       glow: true
@@ -84,7 +84,7 @@ VoidChestMenu:
       name: "&c&lPurge Non-Sellable"
       lore:
         - "&7Delete non-sellable items automatically."
-        - "&7Status: &e%status_purge%"
+        - "&7Status: &e{purge:&eEnabled|&cDisabled}"
         - ""
         - "&eClick to toggle."
       glow: true
@@ -125,7 +125,7 @@ VoidChestMenu:
       name: "&b&lHologram Display"
       lore:
         - "&7Toggle the hologram for this VoidChest."
-        - "&7Status: &e%status_hologram%"
+        - "&7Status: &e{hologram:&eEnabled|&cDisabled}"
         - ""
         - "&eClick to toggle."
       glow: true
@@ -170,7 +170,7 @@ VoidChestMenu:
       name: "&a&lTransfer Non-Sellable"
       lore:
         - "&7Transfer non-sellable items to a linked chest."
-        - "&7Status: &e%status_transfer_non_sellable%"
+        - "&7Status: &e{transfer_non_sellable:&eEnabled|&cDisabled}"
         - ""
         - "&eClick to toggle."
       glow: true
@@ -192,7 +192,7 @@ VoidChestMenu:
       name: "&9&lBank Transfer"
       lore:
         - "&7Choose whether income goes to your bank."
-        - "&7Current Destination: &e%status_bank%"
+        - "&7Current Destination: &e{bank_transfer:&eBank|&ePersonal}"
         - ""
         - "&eClick to toggle."
       glow: true
