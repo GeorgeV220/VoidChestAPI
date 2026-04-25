@@ -1,3 +1,17 @@
+# [5.5.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.4.0...v5.5.0-beta.1) (2026-04-25)
+
+
+### Bug Fixes
+
+* Folia support and improve thread safety in SerializableBlock ([89ec11d](https://github.com/GeorgeV220/VoidChestAPI/commit/89ec11deca1003a42bce0e9fec3bcaa4a07536e1))
+
+
+### Features
+
+* add cooldown, consumption and stackability to special items ([08e1814](https://github.com/GeorgeV220/VoidChestAPI/commit/08e181483374e6f6d14b5d83ba294b41e6d5407e))
+* add hologram provider configuration and utility methods ([3d7e942](https://github.com/GeorgeV220/VoidChestAPI/commit/3d7e942a6d6d4ca5788ea9790134cdf1ad4ad42a))
+* add persistent storage for void chest stats, upgrades, and charge ([9f3f07b](https://github.com/GeorgeV220/VoidChestAPI/commit/9f3f07b76498e56bc63f18041edf9f6e015dbe13))
+
 # [5.4.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.3.0...v5.4.0) (2026-03-17)
 
 
