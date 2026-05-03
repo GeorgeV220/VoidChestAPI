@@ -321,7 +321,7 @@ public class MessageBuilder {
      * @return The serialized Legacy string.
      */
     public String buildLegacyString() {
-        if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_16_R1)) {
+        if (MinecraftVersion.getCurrent().isAtLeast(1, 16)) {
             return LegacyComponentSerializer.builder()
                     .hexColors()
                     .useUnusualXRepeatedCharacterHexFormat()

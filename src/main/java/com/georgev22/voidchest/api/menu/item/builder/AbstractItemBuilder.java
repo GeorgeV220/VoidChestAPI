@@ -159,7 +159,7 @@ public abstract class AbstractItemBuilder<S> implements ItemProvider {
             }
 
             // damage
-            if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_13_R1)) {
+            if (MinecraftVersion.getCurrent().isAtLeast(1, 13)) {
                 if (itemMeta instanceof org.bukkit.inventory.meta.Damageable)
                     ((org.bukkit.inventory.meta.Damageable) itemMeta).setDamage(damage);
             } else {
@@ -168,13 +168,13 @@ public abstract class AbstractItemBuilder<S> implements ItemProvider {
             }
 
             // custom model data
-            if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_14_R1)) {
+            if (MinecraftVersion.getCurrent().isAtLeast(1, 14)) {
                 if (customModelData != 0)
                     itemMeta.setCustomModelData(customModelData);
             }
 
             // unbreakable
-            if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_11_R1)) {
+            if (MinecraftVersion.getCurrent().isAtLeast(1, 11)) {
                 if (unbreakable != null)
                     itemMeta.setUnbreakable(unbreakable);
             }
@@ -211,7 +211,7 @@ public abstract class AbstractItemBuilder<S> implements ItemProvider {
                     || (pluginsNbtConsumers != null && !pluginsNbtConsumers.isEmpty())
                     || glow != null) {
 
-                if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_20_R4)) {
+                if (MinecraftVersion.getCurrent().isAtLeast(1, 20, 5)) {
                     // Components system (1.20.5+)
                     NBT.modifyComponents(itemStack, nbtCompound -> {
                         if (glow != null) {

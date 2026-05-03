@@ -16,7 +16,7 @@ public final class LegacyRenderer implements AnimationRenderer<String> {
     /**
      * Indicates whether the current Minecraft version supports hex color codes.
      */
-    private static final boolean supportsHex = BukkitMinecraftUtils.MinecraftVersion.getCurrentVersion().isAboveOrEqual(BukkitMinecraftUtils.MinecraftVersion.V1_16_R1);
+    private static final boolean supportsHex = BukkitMinecraftUtils.MinecraftVersion.getCurrent().isAtLeast(1, 16);
 
     @Override
     public @NonNull String render(@NonNull String text, @NonNull FrameData frame, boolean bold) {
