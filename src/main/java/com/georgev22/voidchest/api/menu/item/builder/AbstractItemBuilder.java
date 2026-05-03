@@ -206,41 +206,42 @@ public abstract class AbstractItemBuilder<S> implements ItemProvider {
         }
 
         // NBT
-        if ((minecraftInternalNbtConsumers != null && !minecraftInternalNbtConsumers.isEmpty())
-                || (pluginsNbtConsumers != null && !pluginsNbtConsumers.isEmpty())
-                || glow != null) {
+        if (!itemStack.getType().equals(Material.AIR))
+            if ((minecraftInternalNbtConsumers != null && !minecraftInternalNbtConsumers.isEmpty())
+                    || (pluginsNbtConsumers != null && !pluginsNbtConsumers.isEmpty())
+                    || glow != null) {
 
-            if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_20_R4)) {
-                // Components system (1.20.5+)
-                NBT.modifyComponents(itemStack, nbtCompound -> {
-                    if (glow != null) {
-                        nbtCompound.setBoolean("minecraft:enchantment_glint_override", glow);
-                    }
-                    if (minecraftInternalNbtConsumers != null) {
-                        minecraftInternalNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
-                    }
-                });
+                if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_20_R4)) {
+                    // Components system (1.20.5+)
+                    NBT.modifyComponents(itemStack, nbtCompound -> {
+                        if (glow != null) {
+                            nbtCompound.setBoolean("minecraft:enchantment_glint_override", glow);
+                        }
+                        if (minecraftInternalNbtConsumers != null) {
+                            minecraftInternalNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
+                        }
+                    });
 
-                NBT.modify(itemStack, nbtCompound -> {
-                    if (pluginsNbtConsumers != null) {
-                        pluginsNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
-                    }
-                });
-            } else {
-                // Classic NBT (pre-1.20.5)
-                NBT.modify(itemStack, nbtCompound -> {
-                    if (glow != null) {
-                        nbtCompound.setBoolean("Glowing", glow);
-                    }
-                    if (minecraftInternalNbtConsumers != null) {
-                        minecraftInternalNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
-                    }
-                    if (pluginsNbtConsumers != null) {
-                        pluginsNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
-                    }
-                });
+                    NBT.modify(itemStack, nbtCompound -> {
+                        if (pluginsNbtConsumers != null) {
+                            pluginsNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
+                        }
+                    });
+                } else {
+                    // Classic NBT (pre-1.20.5)
+                    NBT.modify(itemStack, nbtCompound -> {
+                        if (glow != null) {
+                            nbtCompound.setBoolean("Glowing", glow);
+                        }
+                        if (minecraftInternalNbtConsumers != null) {
+                            minecraftInternalNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
+                        }
+                        if (pluginsNbtConsumers != null) {
+                            pluginsNbtConsumers.forEach(consumer -> consumer.accept(nbtCompound));
+                        }
+                    });
+                }
             }
-        }
 
         cachedItem = itemStack;
         cacheDirty = false;

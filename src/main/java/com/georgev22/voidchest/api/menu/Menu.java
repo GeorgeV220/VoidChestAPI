@@ -18,6 +18,7 @@ import com.georgev22.voidchest.api.utilities.message.MessageBuilder;
 import com.georgev22.voidchest.api.utilities.message.Placeholder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -778,6 +779,10 @@ public class Menu {
             baseItem = menuItem.getItemProvider().get();
         }
         ItemStack finalItemStack = baseItem.clone();
+
+        if (finalItemStack.getType().equals(Material.AIR)) {
+            return finalItemStack;
+        }
 
         // Apply frame if present
         if (menuItem.hasFrames() && frameIndex >= 0) {
