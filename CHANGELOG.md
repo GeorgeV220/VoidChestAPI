@@ -1,3 +1,10 @@
+# [4.11.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.10.0...v4.11.0) (2026-05-03)
+
+
+### Features
+
+* replace enum-based MinecraftVersion with numeric version class ([ab51e85](https://github.com/GeorgeV220/VoidChestAPI/commit/ab51e85030b743086ce793317a4b098f5369af95))
+
 # [4.10.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.9.0...v4.10.0) (2026-05-03)
 
 
