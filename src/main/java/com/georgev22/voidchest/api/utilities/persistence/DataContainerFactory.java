@@ -86,7 +86,7 @@ public class DataContainerFactory {
     public static @NotNull DataContainerWrapper wrap(BlockState blockState) {
         if (IS_MODERN && blockState instanceof org.bukkit.persistence.PersistentDataHolder holder) {
             return new ModernDataContainerWrapper(holder.getPersistentDataContainer());
-        } else if (MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_14_R1)) {
+        } else if (MinecraftVersion.getCurrent().isAtLeast(1, 14)) {
             ReadWriteNBT state = NBT.createNBTObject();
             NBT.get(blockState, state::mergeCompound);
             return new NBTDataContainerWrapper(state);

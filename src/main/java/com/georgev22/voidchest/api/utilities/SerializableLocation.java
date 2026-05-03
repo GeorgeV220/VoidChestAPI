@@ -69,7 +69,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         this.z = location.getZ();
         this.yaw = location.getYaw();
         this.pitch = location.getPitch();
-        this.minY = MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_17_R1) ? location.getWorld().getMinHeight() : 0;
+        this.minY = MinecraftVersion.getCurrent().isAtLeast(1, 17) ? location.getWorld().getMinHeight() : 0;
         this.maxY = location.getWorld().getMaxHeight();
         this.chunk = new VoidChunk(worldName, (int) getX() >> 4, (int) getZ() >> 4);
         this.cachedHashCode = this.computeHashCode();

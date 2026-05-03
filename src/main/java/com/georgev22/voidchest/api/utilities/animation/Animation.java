@@ -18,7 +18,7 @@ public abstract class Animation {
     /**
      * Indicates whether the current Minecraft version supports hex color codes.
      */
-    protected static final boolean supportsHex = MinecraftVersion.getCurrentVersion().isAboveOrEqual(MinecraftVersion.V1_16_R1);
+    protected static final boolean supportsHex = MinecraftVersion.getCurrent().isAtLeast(1, 16);
 
     /**
      * Caches animation frame data mapped by identifier.
