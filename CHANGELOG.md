@@ -1,3 +1,15 @@
+# [4.10.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.9.0...v4.10.0) (2026-05-03)
+
+
+### Bug Fixes
+
+* Folia support and improve thread safety in SerializableBlock ([deb3447](https://github.com/GeorgeV220/VoidChestAPI/commit/deb34479776e928f7c10f11bbbafc576f9c6b19e))
+
+
+### Features
+
+* add Minecraft 26.1 version support and display server version in developer info ([a72511c](https://github.com/GeorgeV220/VoidChestAPI/commit/a72511cec5ace4e0f9514687035a256fccdc0d28))
+
 # [4.9.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.8.0...v4.9.0) (2026-03-20)
 
 
