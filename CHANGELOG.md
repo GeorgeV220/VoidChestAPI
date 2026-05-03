@@ -1,3 +1,15 @@
+# [5.5.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.5.0-beta.1...v5.5.0-beta.2) (2026-05-03)
+
+
+### Bug Fixes
+
+* skip NBT modification and frame rendering for AIR items ([569d1e3](https://github.com/GeorgeV220/VoidChestAPI/commit/569d1e3d0c42fcc4ac741c311151797db5f82d78))
+
+
+### Features
+
+* replace version enum with numeric version checks ([733b5b4](https://github.com/GeorgeV220/VoidChestAPI/commit/733b5b4258dc316e46ff5b79a6e8b2cb5f07417c))
+
 # [5.5.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.4.0...v5.5.0-beta.1) (2026-04-25)
 
 
