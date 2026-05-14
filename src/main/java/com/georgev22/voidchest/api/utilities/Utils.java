@@ -1040,8 +1040,6 @@ public final class Utils {
 
     public static @NotNull String formatNumber(Number number, Locale locale, String format) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
-        symbols.setGroupingSeparator(' ');
-
         DecimalFormat decimalFormat = new DecimalFormat(format, symbols);
         return decimalFormat.format(number);
     }
