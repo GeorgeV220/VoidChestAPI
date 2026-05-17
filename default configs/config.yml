@@ -110,6 +110,7 @@ Options:
     invalid: Invalid
 
   money format: "##.####"
+  number format: "###,###.###"
 
   # Available plugins: Vault, TheNewEconomy, VoidChest, Custom
   #
