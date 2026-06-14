@@ -1,10 +1,10 @@
 package com.georgev22.voidchest.api.utilities;
 
-import com.georgev22.voidchest.api.VoidChestAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.Container;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -23,9 +23,9 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      *
      * @param container The Container to be serialized.
      */
-    public SerializableContainer(@NonNull ContainerWrapper container) {
-        super(container.getBlockState().getBlock());
-        Location location = container.getBlockState().getLocation();
+    public SerializableContainer(@NonNull Container container) {
+        super(container.getBlock());
+        Location location = container.getLocation();
         this.worldName = location.getWorld().getName();
         this.x = location.getBlockX();
         this.y = location.getBlockY();
@@ -47,7 +47,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * @return A new SerializableContainer instance.
      */
     @Contract("_ -> new")
-    public static @NonNull SerializableContainer fromBlock(@NonNull ContainerWrapper container) {
+    public static @NonNull SerializableContainer fromBlock(@NonNull Container container) {
         return new SerializableContainer(container);
     }
 
@@ -81,8 +81,7 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      */
     public static @NonNull SerializableContainer fromLocation(@NonNull Location location) throws IllegalArgumentException {
         Block block = location.getBlock();
-        if (ContainerWrapper.isStorageContainer(block.getState())) {
-            ContainerWrapper container = new ContainerWrapper(block.getState());
+        if (block.getState() instanceof Container container) {
             return new SerializableContainer(container);
         }
         throw new IllegalArgumentException("The block at this location is not a container.");
@@ -108,12 +107,12 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      *
      * @return The Container represented by this SerializableContainer, or {@code null} if the world is not found.
      */
-    public @Nullable ContainerWrapper toContainer() {
+    public @Nullable Container toContainer() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             Block block = world.getBlockAt(getBlockX(), getBlockY(), getBlockZ());
-            if (ContainerWrapper.isStorageContainer(block.getState())) {
-                return new ContainerWrapper(block.getState());
+            if (block.getState() instanceof Container container) {
+                return container;
             }
         }
         return null;
@@ -125,13 +124,13 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * @return A CompletableFuture that completes with the Container represented by this SerializableContainer,
      * or completes exceptionally if the world is not found.
      */
-    public @NonNull CompletableFuture<ContainerWrapper> toContainerAsync() {
-        return toBlockAsync().thenApply(block -> new ContainerWrapper(block.getState()));
+    public @NonNull CompletableFuture<Container> toContainerAsync() {
+        return toBlockAsync().thenApply(block -> (Container) block.getState());
     }
 
     public @NonNull CompletableFuture<Block> toBlockAsync() {
         return super.toBlockAsync().thenApply(block -> {
-            if (ContainerWrapper.isStorageContainer(block.getState())) {
+            if (block.getState() instanceof Container) {
                 return block;
             }
             throw new IllegalArgumentException("The block at this location is not a container.");

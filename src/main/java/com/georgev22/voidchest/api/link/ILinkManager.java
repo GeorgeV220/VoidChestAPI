@@ -2,8 +2,8 @@ package com.georgev22.voidchest.api.link;
 
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
-import com.georgev22.voidchest.api.utilities.ContainerWrapper;
 import com.georgev22.voidchest.api.utilities.SerializableContainer;
+import org.bukkit.block.Container;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NonNull;
 
@@ -106,18 +106,18 @@ public interface ILinkManager {
     List<ILink> getLinks(@NonNull AbstractVoidChest voidChest);
 
     /**
-     * Checks if a specified {@link ContainerWrapper} has any links to any {@link AbstractVoidChest}.
+     * Checks if a specified {@link Container} has any links to any {@link AbstractVoidChest}.
      *
-     * @param container The {@link ContainerWrapper} to check.
-     * @return {@code true} if the {@link ContainerWrapper} has any links, {@code false} otherwise.
+     * @param container The {@link Container} to check.
+     * @return {@code true} if the {@link Container} has any links, {@code false} otherwise.
      */
-    boolean isLinked(@NonNull ContainerWrapper container);
+    boolean isLinked(@NonNull Container container);
 
     /**
-     * Retrieves the {@link AbstractVoidChest} associated with a specified {@link ContainerWrapper}.
+     * Retrieves the {@link AbstractVoidChest} associated with a specified {@link Container}.
      *
-     * @param container The {@link ContainerWrapper} for which to retrieve the {@link AbstractVoidChest}.
-     * @return The {@link AbstractVoidChest} associated with the specified {@link ContainerWrapper}, or {@code Optional.empty()} if no link exists.
+     * @param container The {@link Container} for which to retrieve the {@link AbstractVoidChest}.
+     * @return The {@link AbstractVoidChest} associated with the specified {@link Container}, or {@code Optional.empty()} if no link exists.
      */
-    Optional<AbstractVoidChest> getVoidChest(@NonNull ContainerWrapper container);
+    Optional<AbstractVoidChest> getVoidChest(@NonNull Container container);
 }
