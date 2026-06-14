@@ -102,6 +102,7 @@ public enum OptionsUtil {
     TIME_FORMAT_INVALID("time format.invalid", "Invalid", Optional.empty()),
 
     MONEY_FORMAT("money format", "##.####", Optional.empty()),
+    NUMBER_FORMAT("number format", "###,###.###", Optional.empty()),
 
     HOLOGRAM("hologram.plugin", "voidchest:none", Optional.empty()),
 

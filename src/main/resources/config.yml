@@ -106,6 +106,7 @@ Options:
     invalid: Invalid
 
   money format: "##.####"
+  number format: "###,###.###"
 
   # Available plugins: voidchest:vault, voidchest:the_new_economy, voidchest:voidchest, namespace:key (custom implementations)
   #
