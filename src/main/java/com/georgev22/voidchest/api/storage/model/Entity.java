@@ -69,6 +69,14 @@ public abstract class Entity implements Comparable<Entity> {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return this.uniqueId.hashCode();
+    }
+
+    /**
      * Converts this {@link Entity} into its JSON string representation.
      * The formatting of the resulting JSON string can be controlled.
      *
