@@ -43,16 +43,17 @@ public class SerializableLocation implements Serializable, Cloneable {
     @Serial
     private static final long serialVersionUID = 2L;
 
+    protected static final int VERSION = 2;
     private transient Location location;
-    private String worldName;
-    private double x;
-    private double y;
-    private double z;
-    private float yaw;
-    private float pitch;
-    private int minY;
-    private int maxY;
-    private VoidChunk chunk;
+    protected String worldName;
+    protected double x;
+    protected double y;
+    protected double z;
+    protected float yaw;
+    protected float pitch;
+    protected int minY;
+    protected int maxY;
+    protected VoidChunk chunk;
 
     private transient final int cachedHashCode;
 
@@ -168,43 +169,90 @@ public class SerializableLocation implements Serializable, Cloneable {
      * @return A string representation of the SerializableLocation.
      */
     public @NotNull String toString() {
-        //noinspection StringBufferReplaceableByString
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append(this.worldName)
-                .append(":")
-                .append(this.x)
-                .append(":")
-                .append(this.y)
-                .append(":")
-                .append(this.z)
-                .append(":")
-                .append(this.pitch)
-                .append(":")
-                .append(this.yaw)
-                .append(":")
-                .append(this.minY)
-                .append(":")
-                .append(this.maxY)
-                .append(":")
-                .append(this.chunk.getX())
-                .append(":")
-                .append(this.chunk.getZ());
-
-        return stringBuilder.toString();
+        return "v" + VERSION +
+                ":" +
+                this.worldName +
+                ":" +
+                this.x +
+                ":" +
+                this.y +
+                ":" +
+                this.z +
+                ":" +
+                this.pitch +
+                ":" +
+                this.yaw +
+                ":" +
+                this.minY +
+                ":" +
+                this.maxY +
+                ":" +
+                this.chunk.getX() +
+                ":" +
+                this.chunk.getZ();
     }
 
     /**
      * Creates a SerializableLocation from a string representation.
      *
      * @param string The string representation of the location.
-     * @return The SerializableLocation, or {@code null} if the string is empty or invalid.
+     * @return The SerializableLocation, or throws {@link IllegalArgumentException} if the string is empty or invalid.
      */
     public static @NotNull SerializableLocation fromString(@NotNull String string) {
         if (string.trim().isEmpty()) {
             throw new IllegalArgumentException("Invalid location string: " + string);
         }
+
         String[] parts = string.split(":");
+
+        // Legacy format:
+        // world:x:y:z:pitch:yaw:minY:maxY:chunkX:chunkZ
+        // if there be future formats this will be changed to a switch statement
+        if (!("v" + VERSION).equals(parts[0])) {
+            return fromLegacy(parts);
+        }
+
+        return fromV2(parts);
+    }
+
+    private static @NotNull SerializableLocation fromV2(@NotNull String @NotNull [] parts) {
+        String worldName = parts[1];
+        World world = Bukkit.getServer().getWorld(worldName);
+
+        double x = Double.parseDouble(parts[2]);
+        double y = Double.parseDouble(parts[3]);
+        double z = Double.parseDouble(parts[4]);
+
+        float pitch = Float.parseFloat(parts[5]);
+        float yaw = Float.parseFloat(parts[6]);
+
+        int minY = Integer.parseInt(parts[7]);
+        int maxY = Integer.parseInt(parts[8]);
+
+        int chunkX = Integer.parseInt(parts[9]);
+        int chunkZ = Integer.parseInt(parts[10]);
+
+        if (world != null) {
+            return new SerializableLocation(
+                    new Location(world, x, y, z, yaw, pitch)
+            );
+        }
+
+        return new SerializableLocation(
+                worldName,
+                x,
+                y,
+                z,
+                yaw,
+                pitch,
+                minY,
+                maxY,
+                chunkX,
+                chunkZ
+        );
+    }
+
+    private static @NotNull SerializableLocation fromLegacy(@NotNull String @NotNull [] parts) {
         String worldName = parts[0];
         World world = Bukkit.getServer().getWorld(worldName);
         double x = Double.parseDouble(parts[1]);
@@ -212,22 +260,31 @@ public class SerializableLocation implements Serializable, Cloneable {
         double z = Double.parseDouble(parts[3]);
         float pitch = Float.parseFloat(parts[4]);
         float yaw = Float.parseFloat(parts[5]);
-        if (world == null) {
-            if (parts.length > 7) {
-                int minY = Integer.parseInt(parts[6]);
-                int maxY = Integer.parseInt(parts[7]);
-                if (parts.length == 10) {
-                    int chunkX = Integer.parseInt(parts[8]);
-                    int chunkZ = Integer.parseInt(parts[9]);
-                    return new SerializableLocation(worldName, x, y, z, yaw, pitch, minY, maxY, chunkX, chunkZ);
-                }
-                return new SerializableLocation(worldName, x, y, z, yaw, pitch, minY, maxY);
-            }
-        } else {
-            return new SerializableLocation(new Location(world, x, y, z, yaw, pitch));
+
+        int minY = Integer.parseInt(parts[6]);
+        int maxY = Integer.parseInt(parts[7]);
+
+        int chunkX = Integer.parseInt(parts[8]);
+        int chunkZ = Integer.parseInt(parts[9]);
+
+        if (world != null) {
+            return new SerializableLocation(
+                    new Location(world, x, y, z, yaw, pitch)
+            );
         }
 
-        return new SerializableLocation(worldName, x, y, z, yaw, pitch);
+        return new SerializableLocation(
+                worldName,
+                x,
+                y,
+                z,
+                yaw,
+                pitch,
+                minY,
+                maxY,
+                chunkX,
+                chunkZ
+        );
     }
 
     /**
@@ -257,12 +314,30 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
+     * Sets the name of the world containing the block.
+     *
+     * @param worldName The new name of the world.
+     */
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
+    }
+
+    /**
      * Gets the x-coordinate.
      *
      * @return The x-coordinate.
      */
     public double getX() {
         return x;
+    }
+
+    /**
+     * Sets the x-coordinate.
+     *
+     * @param x The new x-coordinate.
+     */
+    public void setX(double x) {
+        this.x = x;
     }
 
     /**
@@ -275,12 +350,30 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
+     * Sets the y-coordinate.
+     *
+     * @param y The new y-coordinate.
+     */
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    /**
      * Gets the minimum y-coordinate.
      *
      * @return The minimum y-coordinate.
      */
     public int getMinY() {
         return minY;
+    }
+
+    /**
+     * Sets the minimum y-coordinate.
+     *
+     * @param minY The new minimum y-coordinate.
+     */
+    public void setMinY(int minY) {
+        this.minY = minY;
     }
 
     /**
@@ -293,25 +386,12 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
-     * Gets the bounding box of the location.
+     * Sets the maximum y-coordinate.
      *
-     * @return The bounding box of the location.
+     * @param maxY The new maximum y-coordinate.
      */
-    public BoundingBox getBoundingBox() {
-        int minChunkX = this.chunk.getX() * 16;
-        int minChunkZ = this.chunk.getZ() * 16;
-        int maxChunkX = minChunkX + 15;
-        int maxChunkZ = minChunkZ + 15;
-
-        if (this.chunk.getX() < 0) {
-            minChunkX++;
-            maxChunkX++;
-        }
-        if (this.chunk.getZ() < 0) {
-            minChunkZ++;
-            maxChunkZ++;
-        }
-        return new BoundingBox(minChunkX, this.minY, minChunkZ, maxChunkX, this.maxY, maxChunkZ);
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
     }
 
     /**
@@ -324,6 +404,15 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
+     * Sets the z-coordinate.
+     *
+     * @param z The new z-coordinate.
+     */
+    public void setZ(double z) {
+        this.z = z;
+    }
+
+    /**
      * Gets the pitch angle.
      *
      * @return The pitch angle.
@@ -333,12 +422,30 @@ public class SerializableLocation implements Serializable, Cloneable {
     }
 
     /**
+     * Sets the pitch angle.
+     *
+     * @param pitch The new pitch angle.
+     */
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
+    }
+
+    /**
      * Gets the yaw angle.
      *
      * @return The yaw angle.
      */
     public float getYaw() {
         return yaw;
+    }
+
+    /**
+     * Sets the yaw angle.
+     *
+     * @param yaw The new yaw angle.
+     */
+    public void setYaw(float yaw) {
+        this.yaw = yaw;
     }
 
     /**
@@ -366,6 +473,28 @@ public class SerializableLocation implements Serializable, Cloneable {
      */
     public int getBlockZ() {
         return Utils.floor(z);
+    }
+
+    /**
+     * Gets the bounding box of the location.
+     *
+     * @return The bounding box of the location.
+     */
+    public BoundingBox getBoundingBox() {
+        int minChunkX = this.chunk.getX() * 16;
+        int minChunkZ = this.chunk.getZ() * 16;
+        int maxChunkX = minChunkX + 15;
+        int maxChunkZ = minChunkZ + 15;
+
+        if (this.chunk.getX() < 0) {
+            minChunkX++;
+            maxChunkX++;
+        }
+        if (this.chunk.getZ() < 0) {
+            minChunkZ++;
+            maxChunkZ++;
+        }
+        return new BoundingBox(minChunkX, this.minY, minChunkZ, maxChunkX, this.maxY, maxChunkZ);
     }
 
     /**
@@ -438,7 +567,7 @@ public class SerializableLocation implements Serializable, Cloneable {
         return cachedHashCode;
     }
 
-    private int computeHashCode() {
+    protected int computeHashCode() {
         int result = worldName != null ? worldName.hashCode() : 0;
 
         result = 31 * result + Double.hashCode(x);
