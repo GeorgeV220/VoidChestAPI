@@ -1,24 +1,27 @@
 package com.georgev22.voidchest.api.utilities.persistence;
 
-import com.georgev22.voidchest.api.utilities.BukkitMinecraftUtils.MinecraftVersion;
-import com.georgev22.voidchest.api.utilities.SerializableBlock;
-import de.tr7zw.nbtapi.NBT;
-import de.tr7zw.nbtapi.iface.ReadWriteNBT;
+import com.georgev22.voidchest.api.utilities.ContainerWrapper;
+import com.georgev22.voidchest.api.utilities.SerializableContainer;
+import com.georgev22.voidchest.api.utilities.persistence.holder.PlayerHolder;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
- * Factory class for wrapping various Bukkit objects into {@link DataContainerWrapper} implementations.
- * Supports modern (PersistentDataContainer) and legacy (NBT or custom binary) systems.
+ * Factory for creating {@link DataContainerWrapper} instances for different
+ * Bukkit objects across both modern (PDC) and legacy systems.
+ *
+ * <p>Routing rules:
+ * <ul>
+ *     <li>1.14+ → PersistentDataContainer (Bukkit API)</li>
+ *     <li>&lt; 1.14 → Legacy binary persistence system</li>
+ * </ul>
  */
-public class DataContainerFactory {
+public final class DataContainerFactory {
 
-    /**
-     * Whether the server is running a modern version that supports {@link org.bukkit.persistence.PersistentDataContainer}.
-     */
-    private static final boolean IS_MODERN;
+    private static final boolean MODERN;
 
     static {
         boolean modern;
@@ -28,7 +31,7 @@ public class DataContainerFactory {
         } catch (ClassNotFoundException e) {
             modern = false;
         }
-        IS_MODERN = modern;
+        MODERN = modern;
     }
 
     /**
@@ -37,62 +40,55 @@ public class DataContainerFactory {
      * @return true if running a modern version, false otherwise.
      */
     public static boolean isModern() {
-        return IS_MODERN;
+        return MODERN;
     }
 
-    /**
-     * Wraps a supported object (PersistentDataContainer or ReadWriteNBT) in a {@link DataContainerWrapper}.
-     *
-     * @param object the object to wrap (must be a valid data container).
-     * @return a wrapper implementation for the given object.
-     * @throws IllegalArgumentException if the object is not supported.
-     */
     @Contract("_ -> new")
-    public static @NotNull DataContainerWrapper wrap(Object object) {
-        if (IS_MODERN && object instanceof org.bukkit.persistence.PersistentDataContainer pdc) {
-            return new ModernDataContainerWrapper(pdc);
-        } else if (object instanceof ReadWriteNBT nbt) {
-            return new NBTDataContainerWrapper(nbt);
+    public static @NotNull DataContainerWrapper wrap(@NotNull Object object) {
+        if (MODERN) {
+            return wrapModern(object);
         }
-        throw new IllegalArgumentException("Unsupported container type: " + object.getClass() +
-                " Expected: " + (IS_MODERN ? "PersistentDataContainer" : "ReadWriteNBT"));
+
+        return wrapLegacy(object);
     }
 
-    /**
-     * Wraps an {@link ItemStack} in a {@link DataContainerWrapper}.
-     * Uses PersistentDataContainer if available, otherwise falls back to NBT.
-     *
-     * @param itemStack the ItemStack to wrap.
-     * @return a wrapper around the item's metadata.
-     */
-    @Contract("_ -> new")
-    public static @NotNull DataContainerWrapper wrap(ItemStack itemStack) {
-        if (IS_MODERN && itemStack instanceof org.bukkit.persistence.PersistentDataHolder holder) {
+    @Contract("null -> fail")
+    private static @NonNull DataContainerWrapper wrapModern(Object object) {
+        if (object instanceof org.bukkit.persistence.PersistentDataHolder holder) {
             return new ModernDataContainerWrapper(holder.getPersistentDataContainer());
-        } else {
-            return new NBTDataContainerWrapper(NBT.itemStackToNBT(itemStack));
         }
+
+        throw new IllegalArgumentException(
+                "Unsupported modern container type: " + object.getClass().getName()
+        );
     }
 
-    /**
-     * Wraps a {@link BlockState} in a {@link DataContainerWrapper}.
-     * Uses PersistentDataContainer if available, NBT otherwise. For older versions, falls back to {@link LegacyDataContainerWrapper}.
-     *
-     * @param blockState the BlockState to wrap.
-     * @return a data container wrapper for the given block state.
-     * @see LegacyDataContainerWrapper
-     */
-    @Contract("_ -> new")
-    public static @NotNull DataContainerWrapper wrap(BlockState blockState) {
-        if (IS_MODERN && blockState instanceof org.bukkit.persistence.PersistentDataHolder holder) {
-            return new ModernDataContainerWrapper(holder.getPersistentDataContainer());
-        } else if (MinecraftVersion.getCurrent().isAtLeast(1, 14)) {
-            ReadWriteNBT state = NBT.createNBTObject();
-            NBT.get(blockState, state::mergeCompound);
-            return new NBTDataContainerWrapper(state);
-        } else {
-            SerializableBlock serializableBlock = new SerializableBlock(blockState.getBlock());
-            return new LegacyDataContainerWrapper(serializableBlock);
+    @Contract("null -> fail")
+    private static @NonNull DataContainerWrapper wrapLegacy(Object object) {
+        if (object instanceof OfflinePlayer player) {
+            return new LegacyDataContainerWrapper(
+                    new PlayerHolder(player.getUniqueId())
+            );
         }
+
+        if (object instanceof BlockState blockState && ContainerWrapper.isStorageContainer(blockState)) {
+            return new LegacyDataContainerWrapper(
+                    SerializableContainer.fromLocation(blockState.getLocation())
+            );
+        }
+
+        if (object instanceof ContainerWrapper containerWrapper) {
+            return new LegacyDataContainerWrapper(
+                    new SerializableContainer(containerWrapper)
+            );
+        }
+
+        if (object instanceof PersistentHolder persistentHolder) {
+            return new LegacyDataContainerWrapper(persistentHolder);
+        }
+
+        throw new IllegalArgumentException(
+                "Unsupported legacy container type: " + object.getClass().getName()
+        );
     }
 }

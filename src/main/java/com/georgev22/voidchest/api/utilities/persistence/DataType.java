@@ -1,61 +1,116 @@
 package com.georgev22.voidchest.api.utilities.persistence;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
-public enum DataType {
-    BYTE(Byte.class),
-    SHORT(Short.class),
-    INTEGER(Integer.class),
-    LONG(Long.class),
-    FLOAT(Float.class),
-    DOUBLE(Double.class),
-    BOOLEAN(Boolean.class),
-    STRING(String.class),
-    BYTE_ARRAY(byte[].class),
-    INTEGER_ARRAY(int[].class),
-    LONG_ARRAY(long[].class);
+public abstract class DataType<T> {
 
-    private final Class<?> primitiveClass;
-
-    DataType(Class<?> primitiveClass) {
-        this.primitiveClass = primitiveClass;
-    }
-
-    public Class<?> getPrimitiveClass() {
-        return primitiveClass;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> @Nullable T convert(Object input) {
-        try {
-            return switch (this) {
-                case BYTE -> (T) (Byte) Byte.parseByte(input.toString());
-                case SHORT -> (T) (Short) Short.parseShort(input.toString());
-                case INTEGER -> (T) (Integer) Integer.parseInt(input.toString());
-                case LONG -> (T) (Long) Long.parseLong(input.toString());
-                case FLOAT -> (T) (Float) Float.parseFloat(input.toString());
-                case DOUBLE -> (T) (Double) Double.parseDouble(input.toString());
-                case BOOLEAN -> {
-                    if (input instanceof Boolean) {
-                        yield (T) input;
-                    } else if (input instanceof Number num) {
-                        yield (T) Boolean.valueOf(num.intValue() != 0);
-                    } else {
-                        String str = input.toString().trim().toLowerCase();
-                        if (str.equals("true") || str.equals("1")) {
-                            yield (T) Boolean.TRUE;
-                        } else if (str.equals("false") || str.equals("0")) {
-                            yield (T) Boolean.FALSE;
-                        } else {
-                            throw new IllegalArgumentException("Invalid boolean value: " + input);
-                        }
-                    }
-                }
-                case STRING -> (T) input.toString();
-                case BYTE_ARRAY, INTEGER_ARRAY, LONG_ARRAY -> (T) input;
-            };
-        } catch (Exception e) {
-            return null;
+    public static final DataType<Byte> BYTE = new DataType<>(Byte.class) {
+        @Override
+        public @NonNull Byte convert(@NonNull Object input) {
+            return Byte.parseByte(input.toString());
         }
+    };
+
+    public static final DataType<Short> SHORT = new DataType<>(Short.class) {
+        @Override
+        public @NonNull Short convert(@NonNull Object input) {
+            return Short.parseShort(input.toString());
+        }
+    };
+
+    public static final DataType<Integer> INTEGER = new DataType<>(Integer.class) {
+        @Override
+        public @NonNull Integer convert(@NonNull Object input) {
+            return Integer.parseInt(input.toString());
+        }
+    };
+
+    public static final DataType<Long> LONG = new DataType<>(Long.class) {
+        @Override
+        public @NonNull Long convert(@NonNull Object input) {
+            return Long.parseLong(input.toString());
+        }
+    };
+
+    public static final DataType<Float> FLOAT = new DataType<>(Float.class) {
+        @Override
+        public @NonNull Float convert(@NonNull Object input) {
+            return Float.parseFloat(input.toString());
+        }
+    };
+
+    public static final DataType<Double> DOUBLE = new DataType<>(Double.class) {
+        @Override
+        public @NonNull Double convert(@NonNull Object input) {
+            return Double.parseDouble(input.toString());
+        }
+    };
+
+    public static final DataType<Boolean> BOOLEAN = new DataType<>(Boolean.class) {
+        @Override
+        public Boolean convert(@NonNull Object input) {
+            if (input instanceof Boolean b) {
+                return b;
+            }
+
+            if (input instanceof Number num) {
+                return (num.intValue() != 0);
+            }
+
+            String str = input.toString().trim().toLowerCase();
+
+            return switch (str) {
+                case "true", "1" -> Boolean.TRUE;
+                case "false", "0" -> Boolean.FALSE;
+                default -> throw new IllegalArgumentException(
+                        "Invalid boolean value: " + input
+                );
+            };
+        }
+    };
+
+    public static final DataType<String> STRING = new DataType<>(String.class) {
+        @Override
+        public String convert(@NonNull Object input) {
+            return input.toString();
+        }
+    };
+
+    public static final DataType<byte[]> BYTE_ARRAY = new DataType<>(byte[].class) {
+        @Override
+        public byte[] convert(@NonNull Object input) {
+            return (byte[]) input;
+        }
+    };
+
+    public static final DataType<int[]> INTEGER_ARRAY = new DataType<>(int[].class) {
+        @Override
+        public int[] convert(@NonNull Object input) {
+            return (int[]) input;
+        }
+    };
+
+    public static final DataType<long[]> LONG_ARRAY = new DataType<>(long[].class) {
+        @Override
+        public long[] convert(@NonNull Object input) {
+            return (long[]) input;
+        }
+    };
+
+    private final Class<T> type;
+
+    private DataType(Class<T> type) {
+        this.type = type;
     }
+
+    public Class<T> getPrimitiveClass() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return type.getSimpleName();
+    }
+
+    public abstract T convert(@NonNull Object input);
 }
