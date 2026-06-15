@@ -4,7 +4,6 @@ import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.maps.HashObjectMap;
 import com.georgev22.voidchest.api.maps.ObjectMap;
 import com.georgev22.voidchest.api.utilities.NamespacedKey;
-import com.georgev22.voidchest.api.utilities.SerializableBlock;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,9 +13,24 @@ import java.util.Map;
 import java.util.logging.Level;
 
 /**
- * LegacyDataContainerWrapper provides binary persistence for {@link SerializableBlock} data.
- * It supports storing arbitrary serializable values keyed by {@link NamespacedKey} and {@link DataType}.
- * Data is divided across multiple binary shard files to reduce file size and memory footprint.
+ * Legacy implementation of {@link DataContainerWrapper} for platforms that do
+ * not provide Bukkit's PersistentDataContainer API.
+ *
+ * <p>This implementation stores arbitrary serializable values associated with a
+ * {@link PersistentHolder}. Data is identified by {@link NamespacedKey}s and
+ * validated using {@link DataType}s.</p>
+ *
+ * <p>All data is persisted inside the plugin's data folder using binary shard
+ * files. Entries are distributed across multiple shards to reduce individual
+ * file size and improve loading and saving performance.</p>
+ *
+ * <p>Supported holder types include blocks players
+ * and custom holder implementations through the {@link PersistentHolder}
+ * abstraction.</p>
+ *
+ * <p>This class is intended to provide functionality similar to Bukkit's
+ * PersistentDataContainer on legacy Minecraft versions where the API is not
+ * available.</p>
  */
 public class LegacyDataContainerWrapper implements DataContainerWrapper {
 
@@ -36,26 +50,29 @@ public class LegacyDataContainerWrapper implements DataContainerWrapper {
     private static final File SHARD_DIR = new File(plugin.getDataFolder(), ".persistence/shards");
 
     /**
-     * In-memory cache of all shards, keyed by shard ID.
+     * In-memory cache of all loaded shards.
+     *
+     * <p>The outer map is keyed by shard ID. Each shard contains a map of
+     * holder storage keys to their associated persistent data.</p>
      */
-    private static final Map<Integer, Map<SerializableBlock, ObjectMap<String, Object>>> shards = new HashMap<>();
+    private static final Map<Integer, Map<String, ObjectMap<String, Object>>> shards = new HashMap<>();
 
     /**
-     * The block associated with this data wrapper instance.
+     * The holder associated with this data container.
      */
-    private final SerializableBlock block;
+    private final PersistentHolder holder;
 
     static {
         loadAllShards();
     }
 
     /**
-     * Constructs a new LegacyDataContainerWrapper for the given block.
+     * Creates a new legacy data container wrapper for the specified holder.
      *
-     * @param block the block to associate data with.
+     * @param holder the holder whose persistent data will be managed
      */
-    public LegacyDataContainerWrapper(@NotNull SerializableBlock block) {
-        this.block = block;
+    public LegacyDataContainerWrapper(@NotNull PersistentHolder holder) {
+        this.holder = holder;
     }
 
     /**
@@ -66,30 +83,58 @@ public class LegacyDataContainerWrapper implements DataContainerWrapper {
      * @return true if a matching key/value exists and the type matches.
      */
     @Override
-    public boolean has(@NotNull NamespacedKey key, DataType type) {
-        ObjectMap<String, Object> data = getBlockData(block);
+    public <T> boolean has(
+            @NotNull NamespacedKey key,
+            DataType<T> type
+    ) {
+        ObjectMap<String, Object> data =
+                getHolderData(holder);
+
         Object value = data.get(key.toString());
-        return value != null && type.getPrimitiveClass().isAssignableFrom(value.getClass());
+
+        return value != null &&
+                type.getPrimitiveClass()
+                        .isAssignableFrom(value.getClass());
     }
 
     /**
      * Stores a value in the data container.
      *
-     * @param key   the key to associate the value with.
-     * @param type  the type of the value.
-     * @param value the serializable value to store.
+     * <p>The supplied value must implement {@link Serializable} in order to be
+     * persisted.</p>
+     *
+     * @param key   the key to associate the value with
+     * @param type  the value type
+     * @param value the value to store
+     * @throws IllegalArgumentException if the value is not serializable
      */
     @Override
-    public void set(NamespacedKey key, DataType type, Object value) {
+    public <T> void set(
+            NamespacedKey key,
+            DataType<T> type,
+            T value
+    ) {
         if (!(value instanceof Serializable)) {
-            throw new IllegalArgumentException("Value must be Serializable");
+            throw new IllegalArgumentException(
+                    "Value must be Serializable"
+            );
         }
 
-        ObjectMap<String, Object> blockData = getBlockData(block);
-        blockData.put(key.toString(), value);
-        getShardMap(block).put(block, blockData);
+        ObjectMap<String, Object> holderData =
+                getHolderData(holder);
 
-        saveShard(block);
+        holderData.put(
+                key.toString(),
+                value
+        );
+
+        getShardMap(holder)
+                .put(
+                        holder.getStorageKey(),
+                        holderData
+                );
+
+        saveShard(holder);
     }
 
     /**
@@ -101,12 +146,19 @@ public class LegacyDataContainerWrapper implements DataContainerWrapper {
      * @return the value if found and valid; otherwise, null.
      */
     @Override
-    public <T> T get(@NotNull NamespacedKey key, @NotNull DataType type) {
-        ObjectMap<String, Object> data = getBlockData(block);
+    public <T> T get(
+            @NotNull NamespacedKey key,
+            @NotNull DataType<T> type
+    ) {
+        ObjectMap<String, Object> data =
+                getHolderData(holder);
+
         Object value = data.get(key.toString());
+
         if (type.getPrimitiveClass().isInstance(value)) {
             return type.convert(value);
         }
+
         return null;
     }
 
@@ -116,17 +168,26 @@ public class LegacyDataContainerWrapper implements DataContainerWrapper {
      * @param key the key to remove.
      */
     @Override
-    public void remove(@NotNull NamespacedKey key) {
-        ObjectMap<String, Object> blockData = getBlockData(block);
-        blockData.remove(key.toString());
+    public void remove(
+            @NotNull NamespacedKey key
+    ) {
+        ObjectMap<String, Object> holderData =
+                getHolderData(holder);
 
-        if (blockData.isEmpty()) {
-            getShardMap(block).remove(block);
+        holderData.remove(key.toString());
+
+        if (holderData.isEmpty()) {
+            getShardMap(holder)
+                    .remove(holder.getStorageKey());
         } else {
-            getShardMap(block).put(block, blockData);
+            getShardMap(holder)
+                    .put(
+                            holder.getStorageKey(),
+                            holderData
+                    );
         }
 
-        saveShard(block);
+        saveShard(holder);
     }
 
     /**
@@ -138,107 +199,202 @@ public class LegacyDataContainerWrapper implements DataContainerWrapper {
      */
     @Override
     public <T> T apply(T object) {
-        saveShard(block);
+        saveShard(holder);
         return object;
     }
 
     /**
-     * Gets the data map associated with the block from the appropriate shard.
+     * Retrieves the persistent data associated with the specified holder.
      *
-     * @param block the block.
-     * @return the data map.
+     * <p>If no data currently exists for the holder, an empty map is returned.</p>
+     *
+     * @param holder the holder
+     * @return the holder's persistent data map
      */
-    private static ObjectMap<String, Object> getBlockData(SerializableBlock block) {
-        return getShardMap(block).getOrDefault(block, new HashObjectMap<>());
+    private static ObjectMap<String, Object> getHolderData(
+            PersistentHolder holder
+    ) {
+        return getShardMap(holder)
+                .getOrDefault(
+                        holder.getStorageKey(),
+                        new HashObjectMap<>()
+                );
     }
 
     /**
-     * Gets the shard-specific map for a block.
+     * Retrieves the shard map that contains the specified holder.
      *
-     * @param block the block.
-     * @return the shard's map.
+     * <p>If the shard does not yet exist in memory it will be created.</p>
+     *
+     * @param holder the holder
+     * @return the shard map for the holder
      */
-    private static Map<SerializableBlock, ObjectMap<String, Object>> getShardMap(SerializableBlock block) {
-        int shardId = getShardId(block);
-        return shards.computeIfAbsent(shardId, k -> new HashMap<>());
+    private static Map<String, ObjectMap<String, Object>> getShardMap(
+            PersistentHolder holder
+    ) {
+        int shardId = getShardId(holder);
+
+        return shards.computeIfAbsent(
+                shardId,
+                k -> new HashMap<>()
+        );
     }
 
     /**
-     * Computes the shard ID for a given block.
+     * Computes the shard ID for a holder.
      *
-     * @param block the block.
-     * @return the shard ID.
+     * <p>The holder's hash code is used to distribute entries across shards.</p>
+     *
+     * @param holder the holder
+     * @return the shard ID
      */
-    private static int getShardId(@NotNull SerializableBlock block) {
-        return Math.abs(block.hashCode() % SHARD_COUNT);
+    private static int getShardId(@NotNull PersistentHolder holder) {
+        return Math.abs(holder.hashCode() % SHARD_COUNT);
     }
 
     /**
      * Loads all shard files from disk into memory.
+     *
+     * <p>Any invalid entries encountered during loading are skipped. Errors are
+     * logged but do not prevent other shards from loading.</p>
      */
     private static void loadAllShards() {
-        if (!SHARD_DIR.exists()) return;
-        File[] files = SHARD_DIR.listFiles((dir, name) -> name.startsWith("shard_") && name.endsWith(".dat"));
-        if (files == null) return;
+        if (!SHARD_DIR.exists()) {
+            return;
+        }
+
+        File[] files = SHARD_DIR.listFiles(
+                (dir, name) ->
+                        name.startsWith("shard_")
+                                && name.endsWith(".dat")
+        );
+
+        if (files == null) {
+            return;
+        }
 
         for (File file : files) {
             int shardId = extractShardIdFromFile(file);
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                Object readObject = ois.readObject();
-                if (readObject instanceof Map<?, ?> rawMap) {
-                    Map<SerializableBlock, ObjectMap<String, Object>> parsed = new HashMap<>();
-                    for (Map.Entry<?, ?> entry : rawMap.entrySet()) {
-                        if (entry.getKey() instanceof SerializableBlock block &&
-                                entry.getValue() instanceof Map<?, ?> rawInnerMap) {
 
-                            ObjectMap<String, Object> map = new HashObjectMap<>();
-                            for (Map.Entry<?, ?> e : rawInnerMap.entrySet()) {
-                                if (e.getKey() instanceof String key) {
-                                    map.put(key, e.getValue());
-                                }
-                            }
-                            parsed.put(block, map);
+            try (
+                    ObjectInputStream ois =
+                            new ObjectInputStream(
+                                    new FileInputStream(file)
+                            )
+            ) {
+                Object object = ois.readObject();
+
+                if (object instanceof Map<?, ?> rawMap) {
+
+                    Map<String, ObjectMap<String, Object>> parsed =
+                            new HashMap<>();
+
+                    for (Map.Entry<?, ?> entry : rawMap.entrySet()) {
+
+                        if (!(entry.getKey() instanceof String key)) {
+                            continue;
                         }
+
+                        if (!(entry.getValue() instanceof Map<?, ?> rawInner)) {
+                            continue;
+                        }
+
+                        ObjectMap<String, Object> map =
+                                new HashObjectMap<>();
+
+                        for (Map.Entry<?, ?> inner : rawInner.entrySet()) {
+
+                            if (inner.getKey() instanceof String innerKey) {
+                                map.put(
+                                        innerKey,
+                                        inner.getValue()
+                                );
+                            }
+                        }
+
+                        parsed.put(key, map);
                     }
+
                     shards.put(shardId, parsed);
                 }
             } catch (Exception e) {
-                plugin.getLogger().log(Level.SEVERE, "Failed to load shard: " + file.getName(), e);
+                plugin.getLogger().log(
+                        Level.SEVERE,
+                        "Failed to load shard: "
+                                + file.getName(),
+                        e
+                );
             }
         }
     }
 
     /**
-     * Saves the shard file that contains the specified block.
+     * Saves the shard that contains the specified holder.
      *
-     * @param block the block to determine which shard to save.
+     * <p>Only the shard associated with the holder is written to disk.</p>
+     *
+     * @param holder the holder whose shard should be saved
      */
-    private static void saveShard(SerializableBlock block) {
-        int shardId = getShardId(block);
-        File file = new File(SHARD_DIR, "shard_" + shardId + ".dat");
+    private static void saveShard(
+            PersistentHolder holder
+    ) {
+        int shardId = getShardId(holder);
 
-        Map<SerializableBlock, ObjectMap<String, Object>> shardMap = shards.getOrDefault(shardId, new HashMap<>());
-        Map<SerializableBlock, Map<String, Object>> serializableMap = new HashMap<>();
+        File file = new File(
+                SHARD_DIR,
+                "shard_" + shardId + ".dat"
+        );
 
-        for (Map.Entry<SerializableBlock, ObjectMap<String, Object>> entry : shardMap.entrySet()) {
-            serializableMap.put(entry.getKey(), new HashMap<>(entry.getValue()));
+        Map<String, ObjectMap<String, Object>> shardMap =
+                shards.getOrDefault(
+                        shardId,
+                        new HashMap<>()
+                );
+
+        Map<String, Map<String, Object>> serializableMap =
+                new HashMap<>();
+
+        for (Map.Entry<String,
+                ObjectMap<String, Object>> entry
+                : shardMap.entrySet()) {
+
+            serializableMap.put(
+                    entry.getKey(),
+                    new HashMap<>(entry.getValue())
+            );
         }
 
         try {
-            if (!SHARD_DIR.exists()) SHARD_DIR.mkdirs();
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
+            if (!SHARD_DIR.exists()) {
+                SHARD_DIR.mkdirs();
+            }
+
+            try (
+                    ObjectOutputStream oos =
+                            new ObjectOutputStream(
+                                    new FileOutputStream(file)
+                            )
+            ) {
                 oos.writeObject(serializableMap);
             }
+
         } catch (IOException e) {
-            plugin.getLogger().log(Level.SEVERE, "Failed to save shard: " + file.getName(), e);
+            plugin.getLogger().log(
+                    Level.SEVERE,
+                    "Failed to save shard: "
+                            + file.getName(),
+                    e
+            );
         }
     }
 
     /**
-     * Extracts the shard ID from the given file name.
+     * Extracts a shard ID from a shard file name.
      *
-     * @param file the shard file.
-     * @return the extracted shard ID, or -1 if invalid.
+     * <p>Expected format: {@code shard_<id>.dat}</p>
+     *
+     * @param file the shard file
+     * @return the extracted shard ID, or {@code -1} if the file name is invalid
      */
     private static int extractShardIdFromFile(@NotNull File file) {
         try {

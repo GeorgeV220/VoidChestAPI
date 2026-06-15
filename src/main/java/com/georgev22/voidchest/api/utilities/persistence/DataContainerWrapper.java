@@ -16,7 +16,7 @@ public interface DataContainerWrapper {
      * @param type The type of the data being checked.
      * @return true if the data exists, false otherwise.
      */
-    boolean has(NamespacedKey key, DataType type);
+    <T> boolean has(NamespacedKey key, DataType<T> type);
 
     /**
      * Sets the value for the specified key and type in the data container.
@@ -26,7 +26,7 @@ public interface DataContainerWrapper {
      * @param type  The type of the data being set.
      * @param value The value to set for the specified key.
      */
-    void set(NamespacedKey key, DataType type, Object value);
+    <T> void set(NamespacedKey key, DataType<T> type, T value);
 
     /**
      * Retrieves the value for the specified key and type from the data container.
@@ -36,7 +36,7 @@ public interface DataContainerWrapper {
      * @param <T>  The type of the value.
      * @return The value associated with the key, or null if not found.
      */
-    <T> T get(NamespacedKey key, DataType type);
+    <T> T get(NamespacedKey key, DataType<T> type);
 
     /**
      * Removes the data associated with the specified key from the data container.
