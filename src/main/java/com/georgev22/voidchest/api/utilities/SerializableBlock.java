@@ -6,12 +6,14 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 
 
@@ -49,32 +51,14 @@ import java.util.logging.Level;
  * <p>It is recommended to handle potential exceptions or null values during the serialization and deserialization process.
  * </p>
  */
-public class SerializableBlock implements Serializable {
+public class SerializableBlock extends SerializableLocation implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * The name of the world containing the block.
-     */
-    private String worldName;
+    protected @Nullable Material material;
 
-    /**
-     * The x-coordinate of the block.
-     */
-    private int x;
-
-    /**
-     * The y-coordinate of the block.
-     */
-    private int y;
-
-    /**
-     * The z-coordinate of the block.
-     */
-    private int z;
-
-    private final @Nullable Material material;
+    private transient final int cachedHashCode;
 
     /**
      * Constructs a new SerializableBlock from a Block.
@@ -93,7 +77,7 @@ public class SerializableBlock implements Serializable {
      * @param y         The y-coordinate of the block.
      * @param z         The z-coordinate of the block.
      */
-    public SerializableBlock(String worldName, int x, int y, int z) {
+    public SerializableBlock(String worldName, double x, double y, double z) {
         this(worldName, x, y, z, null);
     }
 
@@ -105,13 +89,25 @@ public class SerializableBlock implements Serializable {
      * @param y         The y-coordinate of the block.
      * @param z         The z-coordinate of the block.
      */
-    public SerializableBlock(String worldName, int x, int y, int z, @Nullable Material material) {
-        this.worldName = worldName;
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.material = material;
+    public SerializableBlock(String worldName, double x, double y, double z, @Nullable Material material) {
+        this(worldName, x, y, z, 0f, 0f, 0, 256, (int) x >> 4, (int) x >> 4, material);
     }
+
+    public SerializableBlock(String worldName, double x, double y, double z, float yaw, float pitch, Material material) {
+        this(worldName, x, y, z, yaw, pitch, 0, 256, (int) x >> 4, (int) x >> 4, material);
+    }
+
+    public SerializableBlock(String worldName, double x, double y, double z, float yaw, float pitch, int minY, int maxY, Material material) {
+        this(worldName, x, y, z, yaw, pitch, minY, maxY, (int) x >> 4, (int) x >> 4, material);
+    }
+
+    public SerializableBlock(String worldName, double x, double y, double z, float yaw, float pitch, int minY, int maxY,
+                             int chunkX, int chunkZ, @Nullable Material material) {
+        super(worldName, x, y, z, yaw, pitch, minY, maxY, chunkX, chunkZ);
+        this.material = material;
+        this.cachedHashCode = computeHashCode();
+    }
+
 
     /**
      * Creates a new SerializableBlock from a Block.
@@ -128,9 +124,9 @@ public class SerializableBlock implements Serializable {
     public static @NotNull SerializableBlock fromLocation(@NotNull SerializableLocation location) {
         return new SerializableBlock(
                 location.getWorldName(),
-                (int) location.getX(),
-                (int) location.getY(),
-                (int) location.getZ()
+                location.getX(),
+                location.getY(),
+                location.getZ()
         );
     }
 
@@ -138,32 +134,60 @@ public class SerializableBlock implements Serializable {
      * Creates a SerializableBlock from a string representation.
      *
      * @param string The string representation of the block's location.
-     * @return A SerializableBlock instance, or {@code null} if the string is empty or invalid.
+     * @return The SerializableBlock, or throws {@link IllegalArgumentException} if the string is empty or invalid.
      */
-    public static @Nullable SerializableBlock fromString(@NotNull String string) {
+    public static @NotNull SerializableBlock fromString(@NotNull String string) {
         if (string.trim().isEmpty()) {
-            return null;
+            throw new IllegalArgumentException("Invalid block string: " + string);
         }
+
         String[] parts = string.split(":");
+
+        // if there be future formats this will be changed to a switch statement
+        if (("v" + VERSION).equals(parts[0])) {
+            SerializableLocation location = SerializableLocation.fromString(string);
+
+            SerializableBlock block = fromLocation(location);
+
+            if (parts.length > 11) {
+                block.setMaterial(Material.valueOf(parts[11]));
+            }
+
+            return block;
+        }
+
+        // Legacy block format:
+        // world:x:y:z
+        // world:x:y:z:material
+        return fromLegacy(parts);
+    }
+
+    private static @NotNull SerializableBlock fromLegacy(@NotNull String[] parts) {
         String worldName = parts[0];
         World world = Bukkit.getServer().getWorld(worldName);
+
         int x = Integer.parseInt(parts[1]);
         int y = Integer.parseInt(parts[2]);
         int z = Integer.parseInt(parts[3]);
-        if (world != null) {
-            return new SerializableBlock(world.getBlockAt(x, y, z));
-        }
 
-        // Check if we have a material
+        Material material = null;
+
         if (parts.length > 4) {
-            String materialName = parts[4];
-            if (materialName != null) {
-                return new SerializableBlock(worldName, x, y, z, Material.valueOf(materialName));
-            }
+            material = Material.valueOf(parts[4]);
         }
 
-        // Maybe we should throw an exception here
-        return new SerializableBlock(worldName, x, y, z);
+        if (world != null) {
+            SerializableBlock block =
+                    new SerializableBlock(world.getBlockAt(x, y, z));
+
+            if (material != null) {
+                block.setMaterial(material);
+            }
+
+            return block;
+        }
+
+        return new SerializableBlock(worldName, x, y, z, material);
     }
 
     /**
@@ -181,25 +205,18 @@ public class SerializableBlock implements Serializable {
      *
      * @return A string representation of the block's location.
      */
-    public @Nullable String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        Block block = this.toBlock();
-        if (block == null) {
-            return null;
+    public @NotNull String toString() {
+        StringBuilder stringBuilder = new StringBuilder(super.toString());
+        if (this.material == null) {
+            return stringBuilder.toString();
         }
-        Location location = block.getLocation().clone();
-        stringBuilder
-                .append(location.getWorld().getName())
-                .append(":")
-                .append(location.getBlockX())
-                .append(":")
-                .append(location.getBlockY())
-                .append(":")
-                .append(location.getBlockZ())
-                .append(":")
-                .append(this.material);
-
+        stringBuilder.append(this.material);
         return stringBuilder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return cachedHashCode;
     }
 
     /**
@@ -224,23 +241,18 @@ public class SerializableBlock implements Serializable {
         return this.toBlock0();
     }
 
-    /**
-     * Converts the SerializableBlock back to a Location.
-     *
-     * @return The Location represented by this SerializableBlock, or {@code null} if the world is not found.
-     */
-    public @Nullable Location toLocation() {
-        World world = Bukkit.getWorld(worldName);
-        if (world != null) {
-            return new Location(world, x, y, z);
-        }
-        return null;
+    public CompletableFuture<Block> toBlockAsync() {
+        return VoidChestAPI.getInstance().minecraftScheduler().createTaskForLocation(
+                VoidChestAPI.getInstance().plugin(),
+                this::toBlock0,
+                this.toLocation()
+        );
     }
 
     private @Nullable Block toBlock0() {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
-            return world.getBlockAt(x, y, z);
+            return world.getBlockAt(getBlockX(), getBlockY(), getBlockZ());
         }
         return null;
     }
@@ -258,16 +270,32 @@ public class SerializableBlock implements Serializable {
         if (block == null) {
             return null;
         }
-        return block.getType();
+        return material = block.getType();
     }
 
     /**
-     * Returns the x-coordinate of the block.
+     * Sets the material of the block.
      *
-     * @return The x-coordinate of the block.
+     * @param material The material to set.
      */
-    public int getX() {
-        return x;
+    @ApiStatus.Internal
+    protected void setMaterial(@Nullable Material material) {
+        this.material = material;
+    }
+
+    /**
+     * Returns the material of the block asynchronously.
+     *
+     * @return A CompletableFuture that completes with the material of the block, or completes exceptionally if the block is not found.
+     */
+    public CompletableFuture<Material> getMaterialAsync() {
+        return this.toBlockAsync()
+                .thenApply(block -> {
+                    if (block == null) {
+                        throw new IllegalArgumentException("The block is not found.");
+                    }
+                    return block.getType();
+                });
     }
 
     /**
@@ -280,30 +308,12 @@ public class SerializableBlock implements Serializable {
     }
 
     /**
-     * Returns the y-coordinate of the block.
-     *
-     * @return The y-coordinate of the block.
-     */
-    public int getY() {
-        return y;
-    }
-
-    /**
      * Sets the y-coordinate of the block.
      *
      * @param y The new y-coordinate.
      */
     public void setY(int y) {
         this.y = y;
-    }
-
-    /**
-     * Returns the z-coordinate of the block.
-     *
-     * @return The z-coordinate of the block.
-     */
-    public int getZ() {
-        return z;
     }
 
     /**
@@ -315,21 +325,9 @@ public class SerializableBlock implements Serializable {
         this.z = z;
     }
 
-    /**
-     * Returns the name of the world containing the block.
-     *
-     * @return The name of the world containing the block.
-     */
-    public String getWorldName() {
-        return worldName;
-    }
-
-    /**
-     * Sets the name of the world containing the block.
-     *
-     * @param worldName The new name of the world.
-     */
-    public void setWorldName(String worldName) {
-        this.worldName = worldName;
+    protected int computeHashCode() {
+        int result = super.computeHashCode();
+        result = 31 * result + (material != null ? material.hashCode() : 0);
+        return result;
     }
 }
