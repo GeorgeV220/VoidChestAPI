@@ -39,6 +39,22 @@ public interface DataContainerWrapper {
     <T> T get(NamespacedKey key, DataType<T> type);
 
     /**
+     * Retrieves the value for the specified key and type from the data container.
+     * If the key is not found, the default value is returned.
+     *
+     * @param key          The namespaced key identifying the data.
+     * @param type         The type of the data being retrieved.
+     * @param defaultVault The default value to return if the key is not found.
+     * @param <T>          The type of the value.
+     * @return
+     */
+    default <T> T getOrDefault(NamespacedKey key, DataType<T> type, T defaultVault) {
+        if (has(key, type))
+            return get(key, type);
+        return defaultVault;
+    }
+
+    /**
      * Removes the data associated with the specified key from the data container.
      * Implementations should ensure that any necessary changes are applied.
      *
