@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -57,6 +58,7 @@ public class SerializableBlock extends SerializableLocation implements Serializa
     private static final long serialVersionUID = 1L;
 
     private @Nullable Material material;
+    private transient final int cachedHashCode;
 
     /**
      * Constructs a new SerializableBlock from a Block.
@@ -75,7 +77,7 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @param y         The y-coordinate of the block.
      * @param z         The z-coordinate of the block.
      */
-    public SerializableBlock(String worldName, int x, int y, int z) {
+    public SerializableBlock(String worldName, double x, double y, double z) {
         this(worldName, x, y, z, null);
     }
 
@@ -87,10 +89,25 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @param y         The y-coordinate of the block.
      * @param z         The z-coordinate of the block.
      */
-    public SerializableBlock(String worldName, int x, int y, int z, @Nullable Material material) {
-        super(worldName, x, y, z, 0, 0);
-        this.material = material;
+    public SerializableBlock(String worldName, double x, double y, double z, @Nullable Material material) {
+        this(worldName, x, y, z, 0f, 0f, 0, 256, (int) x >> 4, (int) x >> 4, material);
     }
+
+    public SerializableBlock(String worldName, double x, double y, double z, float yaw, float pitch, Material material) {
+        this(worldName, x, y, z, yaw, pitch, 0, 256, (int) x >> 4, (int) x >> 4, material);
+    }
+
+    public SerializableBlock(String worldName, double x, double y, double z, float yaw, float pitch, int minY, int maxY, Material material) {
+        this(worldName, x, y, z, yaw, pitch, minY, maxY, (int) x >> 4, (int) x >> 4, material);
+    }
+
+    public SerializableBlock(String worldName, double x, double y, double z, float yaw, float pitch, int minY, int maxY,
+                             int chunkX, int chunkZ, @Nullable Material material) {
+        super(worldName, x, y, z, yaw, pitch, minY, maxY, chunkX, chunkZ);
+        this.material = material;
+        this.cachedHashCode = computeHashCode();
+    }
+
 
     /**
      * Creates a new SerializableBlock from a Block.
@@ -107,9 +124,9 @@ public class SerializableBlock extends SerializableLocation implements Serializa
     public static @NonNull SerializableBlock fromLocation(@NonNull SerializableLocation location) {
         return new SerializableBlock(
                 location.getWorldName(),
-                (int) location.getX(),
-                (int) location.getY(),
-                (int) location.getZ()
+                location.getX(),
+                location.getY(),
+                location.getZ()
         );
     }
 
@@ -117,33 +134,60 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * Creates a SerializableBlock from a string representation.
      *
      * @param string The string representation of the block's location.
-     * @return A SerializableBlock instance
-     * @throws IllegalArgumentException if the string is empty
+     * @return The SerializableBlock, or throws {@link IllegalArgumentException} if the string is empty or invalid.
      */
     public static @NonNull SerializableBlock fromString(@NonNull String string) {
         if (string.trim().isEmpty()) {
-            throw new IllegalArgumentException("SerializableBlock string is empty");
+            throw new IllegalArgumentException("Invalid block string: " + string);
         }
+
         String[] parts = string.split(":");
+
+        // if there be future formats this will be changed to a switch statement
+        if (("v" + VERSION).equals(parts[0])) {
+            SerializableLocation location = SerializableLocation.fromString(string);
+
+            SerializableBlock block = fromLocation(location);
+
+            if (parts.length > 11) {
+                block.setMaterial(Material.valueOf(parts[11]));
+            }
+
+            return block;
+        }
+
+        // Legacy block format:
+        // world:x:y:z
+        // world:x:y:z:material
+        return fromLegacy(parts);
+    }
+
+    private static @NonNull SerializableBlock fromLegacy(@NonNull String @NonNull [] parts) {
         String worldName = parts[0];
         World world = Bukkit.getServer().getWorld(worldName);
+
         int x = Integer.parseInt(parts[1]);
         int y = Integer.parseInt(parts[2]);
         int z = Integer.parseInt(parts[3]);
-        if (world != null) {
-            return new SerializableBlock(world.getBlockAt(x, y, z));
-        }
 
-        // Check if we have a material
+        Material material = null;
+
         if (parts.length > 4) {
-            String materialName = parts[4];
-            if (materialName != null) {
-                return new SerializableBlock(worldName, x, y, z, Material.valueOf(materialName));
-            }
+            material = Material.valueOf(parts[4]);
         }
 
-        // Maybe we should throw an exception here
-        return new SerializableBlock(worldName, x, y, z);
+        if (world != null) {
+            SerializableBlock block =
+                    new SerializableBlock(world.getBlockAt(x, y, z));
+
+            if (material != null) {
+                block.setMaterial(material);
+            }
+
+            return block;
+        }
+
+        return new SerializableBlock(worldName, x, y, z, material);
     }
 
     /**
@@ -162,15 +206,17 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @return A string representation of the block's location.
      */
     public @NonNull String toString() {
-        return worldName +
-                ":" +
-                getBlockX() +
-                ":" +
-                getBlockY() +
-                ":" +
-                getBlockZ() +
-                ":" +
-                this.material;
+        StringBuilder stringBuilder = new StringBuilder(super.toString());
+        if (this.material == null) {
+            return stringBuilder.toString();
+        }
+        stringBuilder.append(this.material);
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return cachedHashCode;
     }
 
     /**
@@ -182,30 +228,41 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @return an {@link Optional} containing the resolved {@link Block} if available,
      * or {@link Optional#empty()} if the world is not loaded
      */
-    public @NonNull Optional<Block> toBlock() {
+    public @NonNull Optional<Block> toBlockOptional() {
+        return Optional.ofNullable(this.toBlock());
+    }
+
+
+    /**
+     * Converts the SerializableBlock back to a Block.
+     *
+     * @return The Block represented by this SerializableBlock, or {@code null} if the world is not found.
+     */
+    public @Nullable Block toBlock() {
         if (VoidChestAPI.isFolia() || !Bukkit.isPrimaryThread()) {
-            Optional<Location> locationOptional = toLocation();
-            if (locationOptional.isEmpty()) {
-                // probably throw an exception? not sure yet
-                VoidChestAPI.getInstance().plugin().getLogger().log(Level.SEVERE, "Failed to get block " + this);
-                return Optional.empty();
-            }
-            return Optional.ofNullable(VoidChestAPI.getInstance().minecraftScheduler().createTaskForLocation(
+            return VoidChestAPI.getInstance().minecraftScheduler().createTaskForLocation(
                     this::toBlock0,
-                    locationOptional.get()
+                    this.toLocation()
             ).handle((block, throwable) -> {
                 if (throwable != null) {
                     VoidChestAPI.getInstance().plugin().getLogger().log(Level.SEVERE, "Failed to get block " + this, throwable);
                     return null;
                 }
                 return block;
-            }).join());
+            }).join();
         }
-        return Optional.ofNullable(toBlock0());
+        return this.toBlock0();
+    }
+
+    public CompletableFuture<Block> toBlockAsync() {
+        return VoidChestAPI.getInstance().minecraftScheduler().createTaskForLocation(
+                this::toBlock0,
+                this.toLocation()
+        );
     }
 
     private @Nullable Block toBlock0() {
-        World world = Bukkit.getWorld(worldName);
+        World world = Bukkit.getWorld(getWorldName());
         if (world != null) {
             return world.getBlockAt(getBlockX(), getBlockY(), getBlockZ());
         }
@@ -222,55 +279,83 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @return an {@link Optional} containing the block's {@link Material} if available,
      * or {@link Optional#empty()} if the block or its world cannot be resolved
      */
-    public @NonNull Optional<Material> getMaterial() {
-        if (this.material != null) {
-            return Optional.of(this.material);
-        }
-        return toBlock().map(block -> {
-            this.material = block.getType();
-            return this.material;
-        });
+    public @NonNull Optional<Material> getMaterialOptional() {
+        return Optional.ofNullable(this.getMaterial());
     }
 
     /**
-     * Converts the SerializableBlock back to a Block asynchronously.
+     * Returns the material of the block.
      *
-     * @return A CompletableFuture that completes with the Block represented by this SerializableBlock, or completes exceptionally if the world is not found.
+     * @return The material of the block, or {@code null} if the block is not found.
      */
-    public @NonNull CompletableFuture<Block> toBlockAsync() {
-        Optional<Location> locationOptional = this.toLocation();
-        if (locationOptional.isEmpty()) {
-            return CompletableFuture.failedFuture(new IllegalArgumentException("The world is not found."));
+    public @Nullable Material getMaterial() {
+        if (this.material != null) {
+            return this.material;
         }
-        Location location = locationOptional.get();
-        World world = location.getWorld();
-        if (world != null) {
-            return VoidChestAPI.getInstance().minecraftScheduler()
-                    .createTaskForLocation(
-                            () -> world.getBlockAt(getBlockX(), getBlockY(), getBlockZ()),
-                            location
-                    );
-        } else {
-            return CompletableFuture.failedFuture(new IllegalArgumentException("The world is not found."));
+        Block block = this.toBlock();
+        if (block == null) {
+            return null;
         }
+        return material = block.getType();
+    }
+
+    /**
+     * Sets the material of the block.
+     *
+     * @param material The material to set.
+     */
+    @ApiStatus.Internal
+    protected void setMaterial(@Nullable Material material) {
+        this.material = material;
     }
 
     /**
      * Returns the material of the block asynchronously.
      *
-     * @return a {@link CompletableFuture} that completes with the block {@link Material},
-     * or completes exceptionally if the block or its world cannot be resolved
+     * @return A CompletableFuture that completes with the material of the block, or completes exceptionally if the block is not found.
      */
     public CompletableFuture<Material> getMaterialAsync() {
         return this.toBlockAsync()
-                .thenCompose(block -> {
+                .thenApply(block -> {
                     if (block == null) {
-                        return CompletableFuture.failedFuture(
-                                new IllegalStateException("The block could not be resolved.")
-                        );
+                        throw new IllegalArgumentException("The block is not found.");
                     }
-                    return CompletableFuture.completedFuture(block.getType());
+                    return block.getType();
                 });
+    }
+
+    /**
+     * Sets the x-coordinate of the block.
+     *
+     * @param x The new x-coordinate.
+     */
+    public void setX(int x) {
+        super.setX(x);
+    }
+
+    /**
+     * Sets the y-coordinate of the block.
+     *
+     * @param y The new y-coordinate.
+     */
+    public void setY(int y) {
+        super.setY(y);
+    }
+
+    /**
+     * Sets the z-coordinate of the block.
+     *
+     * @param z The new z-coordinate.
+     */
+    public void setZ(int z) {
+        super.setZ(z);
+    }
+
+    @Override
+    protected int computeHashCode() {
+        int result = super.computeHashCode();
+        result = 31 * result + (material != null ? material.hashCode() : 0);
+        return result;
     }
 
     /**
@@ -279,7 +364,7 @@ public class SerializableBlock extends SerializableLocation implements Serializa
      * @return The BlockPos represented by this SerializableBlock.
      */
     public BlockPos toBlockPos() {
-        return new BlockPos(worldName, (int) x, (int) y, (int) z);
+        return new BlockPos(getWorldName(), getBlockX(), getBlockY(), getBlockZ());
     }
 
     /**

@@ -1,17 +1,17 @@
 package com.georgev22.voidchest.api.utilities;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class SerializableContainer extends SerializableBlock implements Serializable {
 
@@ -25,19 +25,10 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      */
     public SerializableContainer(@NonNull Container container) {
         super(container.getBlock());
-        Location location = container.getLocation();
-        this.worldName = location.getWorld().getName();
-        this.x = location.getBlockX();
-        this.y = location.getBlockY();
-        this.z = location.getBlockZ();
     }
 
     public SerializableContainer(@NonNull World world, int x, int y, int z) {
-        super(world.getBlockAt(x, y, z));
-        this.worldName = world.getName();
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(world.getName(), x, y, z);
     }
 
     /**
@@ -55,22 +46,18 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * Creates a SerializableContainer from a string representation.
      *
      * @param string The string representation of the container's location.
-     * @return A SerializableContainer instance, or {@code null} if the string is empty or invalid.
+     * @return The SerializableContainer, or throws {@link IllegalArgumentException} if the string is empty or invalid.
      */
     public static @NonNull SerializableContainer fromString(@NonNull String string) {
-        if (string.trim().isEmpty()) {
-            throw new IllegalArgumentException("The string is empty.");
+        SerializableBlock serializableBlock = SerializableBlock.fromString(string);
+        Block block = serializableBlock.toBlock();
+        if (block == null) {
+            throw new IllegalArgumentException("Failed to get block " + serializableBlock + ".");
         }
-        String[] parts = string.split(":");
-        World world = Bukkit.getServer().getWorld(parts[0]);
-        int x = Integer.parseInt(parts[1]);
-        int y = Integer.parseInt(parts[2]);
-        int z = Integer.parseInt(parts[3]);
-        if (world != null) {
-            return new SerializableContainer(world, x, y, z);
-        } else {
-            return new SerializableContainer(Bukkit.getWorlds().getFirst(), x, y, z);
+        if (!(block.getState() instanceof Container container)) {
+            throw new IllegalArgumentException("The block at this location is not a container.");
         }
+        return new SerializableContainer(container);
     }
 
     /**
@@ -88,32 +75,17 @@ public class SerializableContainer extends SerializableBlock implements Serializ
     }
 
     /**
-     * Converts the SerializableContainer to a string representation.
-     *
-     * @return A string representation of the container's location.
-     */
-    public @NonNull String toString() {
-        return this.worldName +
-                ":" +
-                this.x +
-                ":" +
-                this.y +
-                ":" +
-                this.z;
-    }
-
-    /**
      * Converts the SerializableContainer back to a Container.
      *
-     * @return The Container represented by this SerializableContainer, or {@code null} if the world is not found.
+     * @return The Container represented by this SerializableContainer, or {@code null} if the block is not found or is not a container.
      */
     public @Nullable Container toContainer() {
-        World world = Bukkit.getWorld(worldName);
-        if (world != null) {
-            Block block = world.getBlockAt(getBlockX(), getBlockY(), getBlockZ());
-            if (block.getState() instanceof Container container) {
-                return container;
-            }
+        Block block = toBlock();
+        if (block == null) {
+            return null;
+        }
+        if (block.getState() instanceof Container container) {
+            return container;
         }
         return null;
     }
@@ -122,19 +94,16 @@ public class SerializableContainer extends SerializableBlock implements Serializ
      * Converts the SerializableContainer back to a Container asynchronously.
      *
      * @return A CompletableFuture that completes with the Container represented by this SerializableContainer,
-     * or completes exceptionally if the world is not found.
+     * or completes exceptionally if the block is not found or is not a container.
      */
     public @NonNull CompletableFuture<Container> toContainerAsync() {
-        return toBlockAsync().thenApply(block -> (Container) block.getState());
+        return toBlockAsync()
+                .thenApply(block -> {
+                    if (block.getState() instanceof Container container) {
+                        return container;
+                    } else {
+                        throw new CompletionException(new IllegalArgumentException("The block at this location is not a container."));
+                    }
+                });
     }
-
-    public @NonNull CompletableFuture<Block> toBlockAsync() {
-        return super.toBlockAsync().thenApply(block -> {
-            if (block.getState() instanceof Container) {
-                return block;
-            }
-            throw new IllegalArgumentException("The block at this location is not a container.");
-        });
-    }
-
 }
