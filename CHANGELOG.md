@@ -1,3 +1,16 @@
+# [5.5.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.5.0-beta.2...v5.5.0-beta.3) (2026-06-25)
+
+
+### Bug Fixes
+
+* improve Minecraft version parsing with regex pattern ([6c2dfd3](https://github.com/GeorgeV220/VoidChestAPI/commit/6c2dfd3abb1585b9aa40137b5284b764688b51d7))
+
+
+### Features
+
+* add configurable number format for stats display ([3d10974](https://github.com/GeorgeV220/VoidChestAPI/commit/3d10974433bd34c6ec942231873ee58601946f31))
+* replace custom ContainerWrapper with Bukkit Container API ([3f27d98](https://github.com/GeorgeV220/VoidChestAPI/commit/3f27d980a5650773d71ced16c348a9a0370ef0ee))
+
 # [5.5.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.5.0-beta.1...v5.5.0-beta.2) (2026-05-03)
 
 
