@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.events.sell;
 
+import com.georgev22.voidchest.api.booster.BoosterCalculationResult;
 import com.georgev22.voidchest.api.events.VoidEvent;
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import org.bukkit.Location;
@@ -10,44 +11,53 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * The VoidSellChunkItemEvent class is an event that is fired
- * when an item from the chunk containing a VoidChest is about to be sold.
- * It extends the VoidEvent class.
+ * Event fired when an item entity from the chunk containing a {@link AbstractVoidChest}
+ * is about to be sold.
  * <p>
- * This event provides information about the item being sold, including the VoidChest, dropped item, item amount,
- * and price.
+ * This event provides access to:
+ * <ul>
+ *     <li>the {@link AbstractVoidChest} performing the sale,</li>
+ *     <li>the dropped {@link Item} and its {@link ItemStack},</li>
+ *     <li>the amount being sold, and</li>
+ *     <li>the complete {@link BoosterCalculationResult} describing the sale value
+ *     before and after boosters were applied.</li>
+ * </ul>
+ * <p>
+ * Plugins may modify the {@link BoosterCalculationResult} to change the final
+ * sale value before the sale is completed or cancel the event entirely.
  */
 public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private final Item droppedItem;
     private final ItemStack droppedItemStack;
-    private BigDecimal price = BigDecimal.ZERO;
+    private final BoosterCalculationResult boosterCalculationResult;
     private BigInteger itemAmount = BigInteger.ZERO;
     private boolean cancel;
 
     /**
-     * Constructs a new VoidSellChunkItemEvent with the specified VoidChest, dropped item, item amount, and price.
+     * Constructs a new {@code VoidSellChunkItemEvent}.
      *
-     * @param voidChest        The VoidChest associated with the event.
-     * @param droppedItem      The dropped item from the chunk about to be sold.
-     * @param droppedItemStack The dropped item stack from the chunk about to be sold.
-     * @param itemAmount       The amount of the item about to be sold.
-     * @param price            The price of the item about to be sold.
+     * @param voidChest the {@link AbstractVoidChest} associated with the sale
+     * @param droppedItem the dropped item entity that is about to be sold
+     * @param droppedItemStack the {@link ItemStack} represented by the dropped item
+     * @param itemAmount the amount of items that will be sold
+     * @param boosterCalculationResult the complete booster calculation result for this sale,
+     *                                 including the original value, final value and
+     *                                 applied boosters
      */
     public VoidSellChunkItemEvent(@NonNull final AbstractVoidChest voidChest,
                                   @NonNull final Item droppedItem,
                                   @NonNull final ItemStack droppedItemStack,
                                   final BigInteger itemAmount,
-                                  final BigDecimal price
+                                  final BoosterCalculationResult boosterCalculationResult
     ) {
         super(voidChest);
         this.droppedItem = droppedItem;
         this.droppedItemStack = droppedItemStack;
-        this.setPrice(price);
+        this.boosterCalculationResult = boosterCalculationResult;
         this.setItemAmount(itemAmount);
     }
 
@@ -71,21 +81,15 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
     }
 
     /**
-     * Retrieves the price of the item about to be sold.
+     * Returns the complete booster calculation result for this sale.
+     * <p>
+     * The returned object contains both the original and final values as well as
+     * information about every booster that contributed to the calculation.
      *
-     * @return The price of the item about to be sold.
+     * @return the booster calculation result
      */
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    /**
-     * Sets the price of the item about to be sold.
-     *
-     * @param price The price of the item about to be sold.
-     */
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public BoosterCalculationResult getBoosterCalculationResult() {
+        return boosterCalculationResult;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.registry;
 
 import com.georgev22.voidchest.api.animation.type.AnimationType;
+import com.georgev22.voidchest.api.booster.BoosterType;
 import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.integrations.economy.bank.IVoidChestBank;
 import com.georgev22.voidchest.api.integrations.economy.banktnt.IVoidChestBankTNT;
@@ -9,6 +10,7 @@ import com.georgev22.voidchest.api.integrations.economy.profit.ProfitCalculator;
 import com.georgev22.voidchest.api.integrations.hologram.VoidHologram;
 import com.georgev22.voidchest.api.item.VoidSpecialItem;
 import com.georgev22.voidchest.api.menu.actions.Action;
+import com.georgev22.voidchest.api.menu.item.items.StatefulMenuItem;
 import com.georgev22.voidchest.api.menu.state.StateCondition;
 import com.georgev22.voidchest.api.registry.economy.ProfitCalculatorSelectorRegistry;
 import com.georgev22.voidchest.api.integrations.stacker.Stacker;
@@ -137,9 +139,33 @@ public class Registries {
      */
     public static KeyedRegistry<AnimationType> ANIMATION_TYPE = new KeyedRegistry<>();
 
+    /**
+     * Global registry for menu actions.
+     * <p>
+     * Menu actions define executable behavior that can be triggered by
+     * interactions with VoidChest menus.
+     * </p>
+     */
     public static KeyedRegistry<Action> MENU_ACTION = new KeyedRegistry<>();
 
+    /**
+     * Global registry for menu state conditions.
+     * <p>
+     * State conditions determine the active state of
+     * {@link StatefulMenuItem} instances,
+     * allowing menu items to dynamically change their displayed item and actions.
+     * </p>
+     */
     public static KeyedRegistry<StateCondition> MENU_STATE_CONDITION = new KeyedRegistry<>();
+
+    /**
+     * Global registry for booster types.
+     * <p>
+     * Booster types define the categories of boosters that can be applied
+     * during sell calculations.
+     * </p>
+     */
+    public static KeyedRegistry<BoosterType> BOOSTER_TYPES = new KeyedRegistry<>();
 
     /**
      * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.

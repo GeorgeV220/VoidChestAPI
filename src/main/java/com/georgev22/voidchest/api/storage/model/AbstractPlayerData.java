@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.storage.model;
 
+import com.georgev22.voidchest.api.booster.BoosterHolder;
 import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.events.storage.PlayerDataDeleteEvent;
 import com.georgev22.voidchest.api.events.storage.PlayerDataLoadEvent;
@@ -21,7 +22,7 @@ import java.util.UUID;
 /**
  * The AbstractPlayerData interface provides methods for managing player data.
  */
-public abstract class AbstractPlayerData extends Entity {
+public abstract class AbstractPlayerData extends Entity implements BoosterHolder {
 
     public AbstractPlayerData(UUID uniqueId) {
         super(uniqueId);

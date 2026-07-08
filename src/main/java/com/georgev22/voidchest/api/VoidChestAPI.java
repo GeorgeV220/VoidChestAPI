@@ -14,6 +14,7 @@ import com.georgev22.voidchest.api.storage.cache.IVoidItemManager;
 import com.georgev22.voidchest.api.storage.cache.VoidChestCacheController;
 import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
+import com.georgev22.voidchest.api.storage.model.Booster;
 import com.georgev22.voidchest.api.task.ITimedTaskManager;
 import com.georgev22.voidchest.api.config.voidchests.VoidChestConfigurationFileCache;
 import org.bukkit.Chunk;
@@ -176,6 +177,17 @@ public final class VoidChestAPI {
         Optional<EntityManager<AbstractPlayerData>> manager =
                 EntityManagerRegistry.getInstance().getTyped(AbstractPlayerData.class);
         return manager.orElseGet(() -> new InvalidEntityManager<>(AbstractPlayerData.class));
+    }
+
+    /**
+     * Retrieves the entity manager for booster persistent storage.
+     *
+     * @return a non-null {@link EntityManager} for {@link Booster}
+     */
+    public @NonNull EntityManager<Booster> boosterEntityManager() {
+        Optional<EntityManager<Booster>> manager =
+                EntityManagerRegistry.getInstance().getTyped(Booster.class);
+        return manager.orElseGet(() -> new InvalidEntityManager<>(Booster.class));
     }
 
     /**

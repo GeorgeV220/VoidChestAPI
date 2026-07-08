@@ -1,7 +1,5 @@
 package com.georgev22.voidchest.api.storage.model;
 
-import com.georgev22.voidchest.api.datastructures.Pair;
-import com.georgev22.voidchest.api.datastructures.maps.ObjectMap;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.utilities.CustomData;
 import com.google.gson.JsonObject;
@@ -32,7 +30,7 @@ public abstract class Entity implements Comparable<Entity> {
      *
      * @return the UUID representing the identity of this entity
      */
-    public UUID getUniqueId() {
+    public @NonNull UUID getUniqueId() {
         return uniqueId;
     }
 
