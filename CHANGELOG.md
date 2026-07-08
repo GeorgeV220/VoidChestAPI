@@ -1,3 +1,19 @@
+# [6.0.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.5.0-beta.3...v6.0.0-beta.1) (2026-07-08)
+
+
+### Features
+
+* redesign booster system with typed boosters and stacking strategies ([c829ac5](https://github.com/GeorgeV220/VoidChestAPI/commit/c829ac536a64653f73fe5852240af97911c76919))
+
+
+### BREAKING CHANGES
+
+* Removed Booster, BoosterProvider, SimpleBooster,
+VoidChestBooster classes. AbstractVoidChest.baseBooster(),
+totalBooster(), extraBoosters(), and related methods replaced by
+BoosterHolder API. VoidSellItemEvent and VoidSellChunkItemEvent no
+longer expose BigDecimal price; use BoosterCalculationResult instead.
+
 # [5.5.0-beta.3](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.5.0-beta.2...v5.5.0-beta.3) (2026-06-25)
 
 
