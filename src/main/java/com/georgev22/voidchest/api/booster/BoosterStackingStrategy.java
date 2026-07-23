@@ -1,5 +1,7 @@
 package com.georgev22.voidchest.api.booster;
 
+import com.georgev22.voidchest.api.booster.strategies.*;
+import org.bukkit.Keyed;
 import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
@@ -32,8 +34,7 @@ import java.util.List;
  * @see BoosterManager#calculate(BoosterType, BigDecimal, BoosterHolder...)
  * @see BoosterManager#registerStrategy(String, BoosterStackingStrategy)
  */
-@FunctionalInterface
-public interface BoosterStackingStrategy {
+public interface BoosterStackingStrategy extends Keyed {
 
     MathContext MC = MathContext.DECIMAL128;
     BigDecimal ONE = BigDecimal.ONE;
@@ -55,16 +56,7 @@ public interface BoosterStackingStrategy {
      * <p>
      * Example: 2.0 × 1.5 = 3.0
      */
-    BoosterStackingStrategy MULTIPLICATIVE = multipliers -> {
-        if (multipliers.isEmpty()) {
-            return ONE;
-        }
-        BigDecimal result = ONE;
-        for (BigDecimal m : multipliers) {
-            result = result.multiply(m, MC);
-        }
-        return result;
-    };
+    BoosterStackingStrategy MULTIPLICATIVE = new MultiplicativeStrategy();
 
     /**
      * Additive stacking: adds the bonus portions together.
@@ -73,16 +65,7 @@ public interface BoosterStackingStrategy {
      * <p>
      * Example: 1 + (2.0-1) + (1.5-1) = 2.5
      */
-    BoosterStackingStrategy ADDITIVE = multipliers -> {
-        if (multipliers.isEmpty()) {
-            return ONE;
-        }
-        BigDecimal bonusSum = BigDecimal.ZERO;
-        for (BigDecimal m : multipliers) {
-            bonusSum = bonusSum.add(m.subtract(ONE, MC), MC);
-        }
-        return ONE.add(bonusSum, MC);
-    };
+    BoosterStackingStrategy ADDITIVE = new AdditiveStrategy();
 
     /**
      * Highest wins: uses only the highest multiplier.
@@ -91,52 +74,19 @@ public interface BoosterStackingStrategy {
      * <p>
      * Example: max(2.0, 1.5) = 2.0
      */
-    BoosterStackingStrategy HIGHEST = multipliers -> {
-        if (multipliers.isEmpty()) {
-            return ONE;
-        }
-        BigDecimal max = multipliers.getFirst();
-        for (int i = 1; i < multipliers.size(); i++) {
-            BigDecimal m = multipliers.get(i);
-            if (m.compareTo(max) > 0) {
-                max = m;
-            }
-        }
-        return max;
-    };
+    BoosterStackingStrategy HIGHEST = new HighestStrategy();
 
     /**
      * Lowest wins: uses only the lowest multiplier.
      * <p>
      * Formula: {@code min(m1, m2, m3, ...)}
      */
-    BoosterStackingStrategy LOWEST = multipliers -> {
-        if (multipliers.isEmpty()) {
-            return ONE;
-        }
-        BigDecimal min = multipliers.getFirst();
-        for (int i = 1; i < multipliers.size(); i++) {
-            BigDecimal m = multipliers.get(i);
-            if (m.compareTo(min) < 0) {
-                min = m;
-            }
-        }
-        return min;
-    };
+    BoosterStackingStrategy LOWEST = new LowestStrategy();
 
     /**
      * Average: uses the average of all multipliers.
      * <p>
      * Formula: {@code (m1 + m2 + m3 + ...) / n}
      */
-    BoosterStackingStrategy AVERAGE = multipliers -> {
-        if (multipliers.isEmpty()) {
-            return ONE;
-        }
-        BigDecimal sum = BigDecimal.ZERO;
-        for (BigDecimal m : multipliers) {
-            sum = sum.add(m, MC);
-        }
-        return sum.divide(BigDecimal.valueOf(multipliers.size()), MC);
-    };
+    BoosterStackingStrategy AVERAGE = new AverageStrategy();
 }

@@ -305,6 +305,7 @@ public abstract class AbstractVoidChest extends Entity implements BoosterHolder 
     public void postLoad() {
         voidChestAPI.voidChestCacheController().add(this, this.blockLocation());
         new VoidChestLoadEvent(this).call();
+        voidChestAPI.boosterManager().registerHolderForCleanup(this);
     }
 
     @Override
@@ -330,11 +331,13 @@ public abstract class AbstractVoidChest extends Entity implements BoosterHolder 
         }
 
         new VoidChestDeleteEvent(this).call();
+        voidChestAPI.boosterManager().unregisterHolderForCleanup(this);
     }
 
     @Override
     public void postCreate() {
         voidChestAPI.voidChestCacheController().add(this, blockLocation());
         new VoidChestCreateEvent(this).call();
+        voidChestAPI.boosterManager().registerHolderForCleanup(this);
     }
 }

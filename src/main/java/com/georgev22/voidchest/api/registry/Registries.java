@@ -1,6 +1,7 @@
 package com.georgev22.voidchest.api.registry;
 
 import com.georgev22.voidchest.api.animation.type.AnimationType;
+import com.georgev22.voidchest.api.booster.BoosterStackingStrategy;
 import com.georgev22.voidchest.api.booster.BoosterType;
 import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.integrations.economy.bank.IVoidChestBank;
@@ -165,7 +166,14 @@ public class Registries {
      * during sell calculations.
      * </p>
      */
-    public static KeyedRegistry<BoosterType> BOOSTER_TYPES = new KeyedRegistry<>();
+    public static SelectableKeyedRegistry<BoosterType> BOOSTER_TYPES = new SelectableKeyedRegistry<>() {
+        @Override
+        public @NonNull Optional<BoosterType> getSelected() {
+            return Optional.empty();
+        }
+    };
+
+    public static KeyedRegistry<BoosterStackingStrategy> BOOSTER_STACKING_STRATEGY = new KeyedRegistry<>();
 
     /**
      * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.

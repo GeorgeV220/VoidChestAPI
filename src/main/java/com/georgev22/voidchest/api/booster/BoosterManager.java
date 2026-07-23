@@ -1,9 +1,12 @@
 package com.georgev22.voidchest.api.booster;
 
 import com.georgev22.voidchest.api.storage.model.Booster;
+import org.bukkit.NamespacedKey;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -60,23 +63,23 @@ public interface BoosterManager {
      * <p>
      * Uses the default stacking strategy (multiplicative).
      *
-     * @param type      the booster type to apply
+     * @param type      the specific booster type to filter by, or null to include all booster types
      * @param baseValue the base value before boosters
      * @param holders   the holders to collect boosters from
      * @return the final value after applying boosters
      */
-    BigDecimal calculate(@NonNull BoosterType type, BigDecimal baseValue, @NonNull BoosterHolder... holders);
+    BigDecimal calculate(@Nullable BoosterType type, BigDecimal baseValue, @NonNull BoosterHolder... holders);
 
     /**
      * Calculates the final value after applying boosters with a specific strategy.
      *
-     * @param type     the booster type to apply
+     * @param type      the specific booster type to filter by, or null to include all booster types
      * @param baseValue the base value before boosters
      * @param strategy the stacking strategy to use
      * @param holders  the holders to collect boosters from
      * @return the final value after applying boosters
      */
-    BigDecimal calculate(@NonNull BoosterType type, BigDecimal baseValue,
+    BigDecimal calculate(@Nullable BoosterType type, BigDecimal baseValue,
                          @NonNull BoosterStackingStrategy strategy,
                          @NonNull BoosterHolder... holders);
 
@@ -85,25 +88,25 @@ public interface BoosterManager {
      * <p>
      * Uses the default stacking strategy (multiplicative).
      *
-     * @param type      the booster type to apply
+     * @param type      the specific booster type to filter by, or null to include all booster types
      * @param baseValue the base value before boosters
      * @param holders   the holders to collect boosters from
      * @return a detailed result object containing all calculation information
      */
-    @NonNull BoosterCalculationResult calculateDetailed(@NonNull BoosterType type,
+    @NonNull BoosterCalculationResult calculateDetailed(@Nullable BoosterType type,
                                                         BigDecimal baseValue,
                                                         @NonNull BoosterHolder... holders);
 
     /**
      * Calculates and returns detailed information with a specific strategy.
      *
-     * @param type      the booster type to apply
+     * @param type      the specific booster type to filter by, or null to include all booster types
      * @param baseValue the base value before boosters
      * @param strategy  the stacking strategy to use
      * @param holders   the holders to collect boosters from
      * @return a detailed result object containing all calculation information
      */
-    @NonNull BoosterCalculationResult calculateDetailed(@NonNull BoosterType type,
+    @NonNull BoosterCalculationResult calculateDetailed(@Nullable BoosterType type,
                                                         BigDecimal baseValue,
                                                         @NonNull BoosterStackingStrategy strategy,
                                                         @NonNull BoosterHolder... holders);
@@ -115,13 +118,13 @@ public interface BoosterManager {
      * This method does NOT apply the multiplier to any base value — it only returns
      * the raw combined multiplier result.
      *
-     * @param type   the booster type to calculate
+     * @param type   the specific booster type to filter by, or null to include all booster types
      * @param holder the holder containing boosters
      * @return the combined multiplier (or {@code 1.0} if no boosters are present)
      * @see #calculateDetailed(BoosterType, BigDecimal, BoosterHolder...)
      * @see #calculateDetailed(BoosterType, BigDecimal, BoosterStackingStrategy, BoosterHolder...)
      */
-    BigDecimal getTotalMultiplier(@NonNull BoosterType type,
+    BigDecimal getTotalMultiplier(@Nullable BoosterType type,
                                   @NonNull BoosterHolder holder);
 
     /**
@@ -131,26 +134,28 @@ public interface BoosterManager {
      * This method does NOT apply the multiplier to any base value — it only returns
      * the raw combined multiplier result based on the given strategy.
      *
-     * @param type     the booster type to calculate
+     * @param type     the specific booster type to filter by, or null to include all booster types
      * @param strategy the stacking strategy to use for combining multipliers
      * @param holder   the holder containing boosters
      * @return the combined multiplier (or {@code 1.0} if no boosters are present)
      * @see #calculateDetailed(BoosterType, BigDecimal, BoosterHolder...)
      * @see #calculateDetailed(BoosterType, BigDecimal, BoosterStackingStrategy, BoosterHolder...)
      */
-    BigDecimal getTotalMultiplier(@NonNull BoosterType type,
+    BigDecimal getTotalMultiplier(@Nullable BoosterType type,
                                   @NonNull BoosterStackingStrategy strategy,
                                   @NonNull BoosterHolder holder);
 
     /**
-     * Registers a stacking strategy with the given name.
+     * Calculates the total remaining time for the boosters associated with the given holder.
+     * If a specific booster type is provided, the calculation is limited to boosters of that type.
+     * If the booster type is null, the total remaining time for all boosters belonging to the holder is returned.
      *
-     * @param name     the name to register the strategy under
-     * @param strategy the strategy to register
-     * @throws IllegalArgumentException if a strategy with this name is already registered
-     * @throws NullPointerException     if name or strategy is null
+     * @param type   the specific booster type to filter by, or null to include all booster types
+     * @param holder the booster holder whose remaining booster time is to be calculated; must not be null
+     * @return the total remaining time as a non-null BigInteger
      */
-    void registerStrategy(@NonNull String name, @NonNull BoosterStackingStrategy strategy);
+    BigInteger getTotalTimeLeft(@Nullable BoosterType type,
+                                @NonNull BoosterHolder holder);
 
     /**
      * Gets a registered stacking strategy by name.
@@ -158,7 +163,7 @@ public interface BoosterManager {
      * @param name the name of the strategy
      * @return an Optional containing the strategy if found, or empty if not
      */
-    @NonNull Optional<BoosterStackingStrategy> getStrategy(@NonNull String name);
+    @NonNull Optional<BoosterStackingStrategy> getStrategy(@NonNull NamespacedKey name);
 
     /**
      * Checks if a strategy with the given name is registered.
@@ -166,14 +171,14 @@ public interface BoosterManager {
      * @param name the name to check
      * @return {@code true} if registered, {@code false} otherwise
      */
-    boolean hasStrategy(@NonNull String name);
+    boolean hasStrategy(@NonNull NamespacedKey name);
 
     /**
      * Returns all registered strategy names.
      *
      * @return an unmodifiable collection of strategy names
      */
-    @NonNull Collection<String> getStrategyNames();
+    @NonNull Collection<NamespacedKey> getStrategyNames();
 
     /**
      * Sets the default stacking strategy used when no strategy is specified.
@@ -190,7 +195,7 @@ public interface BoosterManager {
      * @throws IllegalArgumentException if no strategy with this name is registered
      * @throws NullPointerException     if name is null
      */
-    void setDefaultStrategy(@NonNull String name);
+    void setDefaultStrategy(@NonNull NamespacedKey name);
 
     /**
      * Returns the current default stacking strategy.

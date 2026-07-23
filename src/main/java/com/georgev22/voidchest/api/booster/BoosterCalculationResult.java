@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.booster;
 
 import com.georgev22.voidchest.api.storage.model.Booster;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -161,7 +162,7 @@ public final class BoosterCalculationResult {
      * @param originalValue the original value
      * @return a new Builder instance
      */
-    public static @NonNull Builder builder(@NonNull BoosterType type, BigDecimal originalValue) {
+    public static @NonNull Builder builder(@Nullable BoosterType type, BigDecimal originalValue) {
         return new Builder(type, originalValue);
     }
 
@@ -177,8 +178,8 @@ public final class BoosterCalculationResult {
         private final List<BoosterSource> appliedBoosters = new ArrayList<>();
         private BigDecimal combinedMultiplier = BigDecimal.ONE;
 
-        private Builder(BoosterType type, BigDecimal originalValue) {
-            this.type = Objects.requireNonNull(type, "type");
+        private Builder(@Nullable BoosterType type, BigDecimal originalValue) {
+            this.type = type == null ? BoosterType.UNKNOWN : type;
             this.originalValue = originalValue;
             this.finalValue = originalValue;
         }

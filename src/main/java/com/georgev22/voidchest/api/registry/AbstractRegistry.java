@@ -12,8 +12,7 @@ import java.util.Optional;
  * A base implementation of {@link Registry} that stores key–value
  * pairs inside a thread-safe {@link ConcurrentHashObjectMap}.
  * <p>
- * Subclasses may extend this to customize selection logic
- * (see {@link #getSelected()}) or key extraction behavior
+ * Subclasses may extend this to customize key extraction behavior
  * for the {@code register(V)} and {@code replaceOrRegister(V)} methods.
  * </p>
  *
@@ -98,19 +97,5 @@ public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
     @Override
     public void clear() {
         registry.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     * Default implementation returns an empty optional.
-     * <p>
-     * This method is intended to be overridden by subclasses to provide a default implementation.
-     * </p>
-     *
-     * @return an empty optional
-     */
-    @Override
-    public @NonNull Optional<V> getSelected() {
-        return Optional.empty();
     }
 }

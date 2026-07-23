@@ -20,7 +20,7 @@ import java.util.Objects;
  * </ul>
  * <p>
  * Third-party plugins should use their own namespace to avoid conflicts.
- * Types do not need to be registered to be used, but registration enables
+ * Types need to be registered to be used, registration enables
  * discovery and metadata association via {@link Registries#BOOSTER_TYPES}.
  */
 public final class BoosterType implements Keyed {
@@ -103,4 +103,6 @@ public final class BoosterType implements Keyed {
     }
 
     public static BoosterType SELL_PRICE = new BoosterType("voidchest", "sellprice");
+
+    public static BoosterType UNKNOWN = new BoosterType("voidchest", "unknown");
 }
