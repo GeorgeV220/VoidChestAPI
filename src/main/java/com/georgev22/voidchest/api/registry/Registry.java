@@ -13,6 +13,7 @@ import java.util.Optional;
  *
  * @param <K> the type used as the registry key
  * @param <V> the type of values stored in the registry
+ * @see SelectableRegistry
  * @see KeyedRegistry
  * @see AbstractRegistry
  */
@@ -102,17 +103,4 @@ public interface Registry<K, V> {
      */
     @ApiStatus.Internal
     void clear();
-
-    /**
-     * Retrieves the currently selected value from the registry.
-     * <p>
-     * The selection logic is left to the implementation, which may
-     * provide a default, config preference, or other means of determining
-     * the selected value.
-     * </p>
-     *
-     * @return an {@link Optional} containing the selected value if available,
-     * or {@link Optional#empty()} if no selection is made
-     */
-    @NonNull Optional<V> getSelected();
 }

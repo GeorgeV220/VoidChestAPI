@@ -30,7 +30,7 @@ public class Registries {
      * standard item economy storage in VoidChests.
      * </p>
      */
-    public static KeyedRegistry<IVoidChestBank> BANK = new KeyedRegistry<>() {
+    public static SelectableKeyedRegistry<IVoidChestBank> BANK = new SelectableKeyedRegistry<>() {
         @Override
         public @NonNull Optional<IVoidChestBank> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.BANK.getStringValue()));
@@ -44,7 +44,7 @@ public class Registries {
      * conversion and storage behavior.
      * </p>
      */
-    public static KeyedRegistry<IVoidChestBankTNT> BANK_TNT = new KeyedRegistry<>() {
+    public static SelectableKeyedRegistry<IVoidChestBankTNT> BANK_TNT = new SelectableKeyedRegistry<>() {
         @Override
         public @NonNull Optional<IVoidChestBankTNT> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.BANK_TNT.getStringValue()));
@@ -94,7 +94,7 @@ public class Registries {
      * Stacker implementations determine how stacked items are handled.
      * </p>
      */
-    public static KeyedRegistry<Stacker> STACKER = new KeyedRegistry<>() {
+    public static SelectableKeyedRegistry<Stacker> STACKER = new SelectableKeyedRegistry<>() {
         @Override
         public @NonNull Optional<Stacker> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.STACKER.getStringValue()));
@@ -116,7 +116,7 @@ public class Registries {
      * Holograms are used to display information about VoidChests.
      * </p>
      */
-    public static KeyedRegistry<VoidHologram> HOLOGRAM = new KeyedRegistry<>() {
+    public static SelectableKeyedRegistry<VoidHologram> HOLOGRAM = new SelectableKeyedRegistry<>() {
         @Override
         public @NonNull Optional<VoidHologram> getSelected() {
             return get(NamespacedKey.fromString(OptionsUtil.HOLOGRAM.getStringValue()));

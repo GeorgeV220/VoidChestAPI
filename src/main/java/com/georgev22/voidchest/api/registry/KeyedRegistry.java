@@ -28,6 +28,7 @@ import org.jspecify.annotations.NonNull;
  * @see Keyed
  * @see NamespacedKey
  * @see AbstractRegistry
+ * @see SelectableKeyedRegistry
  */
 public class KeyedRegistry<T extends Keyed> extends AbstractRegistry<NamespacedKey, T> {
 
