@@ -15,7 +15,7 @@ import org.jspecify.annotations.NonNull;
  *
  * @see BoosterHolder#cleanExpiredBoosters()
  */
-public class BoosterExpireEvent extends VoidChestBaseEvent {
+public class AsyncBoosterExpireEvent extends VoidChestBaseEvent {
 
     private final Booster booster;
     private final BoosterHolder holder;
@@ -27,7 +27,8 @@ public class BoosterExpireEvent extends VoidChestBaseEvent {
      * @param booster the expired booster
      * @param holder  the holder that contained the booster
      */
-    public BoosterExpireEvent(@NonNull Booster booster, @NonNull BoosterHolder holder) {
+    public AsyncBoosterExpireEvent(@NonNull Booster booster, @NonNull BoosterHolder holder) {
+        super(true);
         this.booster = booster;
         this.holder = holder;
     }

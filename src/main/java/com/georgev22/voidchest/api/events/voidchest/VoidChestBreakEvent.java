@@ -12,6 +12,8 @@ import org.bukkit.event.HandlerList;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * The VoidChestBreakEvent class is an event that is fired before a VoidChest is fully removed by being broken by an Entity.
  * The Entity can be a player or something else, such as an explosion.
@@ -109,15 +111,17 @@ public class VoidChestBreakEvent extends VoidEvent implements Cancellable {
     }
 
     @Override
-    protected <T extends Event> T callSynchronousEvent() {
+    @SuppressWarnings("unchecked")
+    protected <T extends Event> CompletableFuture<T> callSynchronousEvent() {
         Location location = block.getLocation();
         //noinspection ConstantValue
         if (isFolia && location != null) {
-            //noinspection unchecked
-            return (T) voidChestAPI.minecraftScheduler().createTaskForLocation(
-                    () -> super.callSynchronousEvent(),
-                    location
-            ).join();
+            return voidChestAPI.minecraftScheduler()
+                    .createTaskForLocation(
+                            () -> (CompletableFuture<T>) super.callSynchronousEvent(),
+                            location
+                    )
+                    .thenCompose(future -> future);
         }
         return super.callSynchronousEvent();
     }

@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 
 import java.math.BigInteger;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Event fired when an item entity from the chunk containing a {@link AbstractVoidChest}
@@ -151,15 +152,17 @@ public class VoidSellChunkItemEvent extends VoidEvent implements Cancellable {
     }
 
     @Override
-    protected <T extends Event> T callSynchronousEvent() {
+    @SuppressWarnings("unchecked")
+    protected <T extends Event> CompletableFuture<T> callSynchronousEvent() {
         Location location = getDroppedItem().getLocation();
         //noinspection ConstantValue
         if (isFolia && location != null) {
-            //noinspection unchecked
-            return (T) voidChestAPI.minecraftScheduler().createTaskForLocation(
-                    () -> super.callSynchronousEvent(),
-                    location
-            ).join();
+            return voidChestAPI.minecraftScheduler()
+                    .createTaskForLocation(
+                            () -> (CompletableFuture<T>) super.callSynchronousEvent(),
+                            location
+                    )
+                    .thenCompose(future -> future);
         }
         return super.callSynchronousEvent();
     }

@@ -1,7 +1,7 @@
 package com.georgev22.voidchest.api.booster;
 
 import com.georgev22.voidchest.api.events.booster.BoosterCreateEvent;
-import com.georgev22.voidchest.api.events.booster.BoosterExpireEvent;
+import com.georgev22.voidchest.api.events.booster.AsyncBoosterExpireEvent;
 import com.georgev22.voidchest.api.storage.model.Booster;
 import org.jspecify.annotations.NonNull;
 
@@ -117,7 +117,7 @@ public interface BoosterHolder {
     /**
      * Removes all expired boosters from this holder.
      * <p>
-     * Implementations should fire {@link BoosterExpireEvent}
+     * Implementations should fire {@link AsyncBoosterExpireEvent}
      * for each removed booster if event handling is supported.
      *
      * @return the number of boosters removed

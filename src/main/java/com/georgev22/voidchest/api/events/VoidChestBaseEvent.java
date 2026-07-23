@@ -4,6 +4,7 @@ import com.georgev22.voidchest.api.VoidChestAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 
 public abstract class VoidChestBaseEvent extends Event {
@@ -30,87 +31,82 @@ public abstract class VoidChestBaseEvent extends Event {
 
     /**
      * Calls this event, ensuring it runs in the correct thread context.
-     * <p>
-     * <ul>
-     *     <li>If the event is asynchronous and currently on the main thread, it will be scheduled to run asynchronously.</li>
-     *     <li>If the event is synchronous and currently not on the main thread, it will be scheduled to run synchronously on the main thread.</li>
-     *     <li>Otherwise, if the event is already running in the correct thread context, it will be called directly.</li>
-     * </ul>
      *
      * @param <T> the type of the event
-     * @return the event instance after being called
+     * @return a future that completes with the event instance once it has been fired
      */
-    public <T extends Event> T call() {
-        boolean isAsync = this.isAsynchronous();
-        boolean isPrimary = Bukkit.isPrimaryThread();
+    public <T extends Event> CompletableFuture<T> call() {
+        boolean async = isAsynchronous();
+        boolean primary = Bukkit.isPrimaryThread();
 
-        if (isAsync && isPrimary) {
-            // If the event is asynchronous and running on the main thread, schedule it asynchronously
+        if (async && primary) {
             return callAsynchronousEvent();
-        } else if (!isAsync && !isPrimary) {
-            // If the event is synchronous but not running on the main thread, schedule it synchronously
-            return callSynchronousEvent();
-        } else {
-            // If the event is in the correct thread context, execute it directly
-            return callEventDirectly();
         }
+
+        if (!async && !primary) {
+            return callSynchronousEvent();
+        }
+
+        return CompletableFuture.completedFuture(callEventDirectly());
     }
 
     /**
-     * Handles the execution of a synchronous event. This method can be overridden
-     * if you want specific behavior for your event.
+     * Executes this synchronous event on the main thread.
      *
-     * @param <T> the type of the event
-     * @return the event instance after being called
+     * @param <T> the event type
+     * @return a future completing with the event instance
      */
-    protected <T extends Event> T callSynchronousEvent() {
-        // Synchronous event must run on the main thread
-        //noinspection unchecked
-        return (T) voidChestAPI.minecraftScheduler().runTask(
-                () -> {
+    @SuppressWarnings("unchecked")
+    protected <T extends Event> CompletableFuture<T> callSynchronousEvent() {
+        return voidChestAPI.minecraftScheduler()
+                .runTask(() -> {
                     Bukkit.getPluginManager().callEvent(this);
-                    return this;
-                }).handle((event, throwable) -> {
-            if (throwable != null) {
-                voidChestAPI.plugin()
-                        .getLogger().log(Level.SEVERE, "Failed to fire synchronous event: " + this.getEventName(), throwable);
-            }
-            return event;
-        }).join();
+                    return (T) this;
+                })
+                .whenComplete((event, throwable) -> {
+                    if (throwable != null) {
+                        voidChestAPI.plugin().getLogger().log(
+                                Level.SEVERE,
+                                "Failed to fire synchronous event: " + getEventName(),
+                                throwable
+                        );
+                    }
+                });
     }
 
     /**
-     * Handles the execution of an asynchronous event. This method can be overridden
-     * if you want specific behavior for your event.
+     * Executes this asynchronous event on a worker thread.
      *
-     * @param <T> the type of the event
-     * @return the event instance after being called
+     * @param <T> the event type
+     * @return a future completing with the event instance
      */
-    protected <T extends Event> T callAsynchronousEvent() {
-        // Asynchronous event should not run on the main thread
-        //noinspection unchecked
-        return (T) voidChestAPI.minecraftScheduler().runAsyncTask(
-                () -> {
+    @SuppressWarnings("unchecked")
+    protected <T extends Event> CompletableFuture<T> callAsynchronousEvent() {
+        return voidChestAPI.minecraftScheduler()
+                .runAsyncTask(() -> {
                     Bukkit.getPluginManager().callEvent(this);
-                    return this;
-                }).handle((event, throwable) -> {
-            if (throwable != null) {
-                voidChestAPI.plugin()
-                        .getLogger().log(Level.SEVERE, "Failed to fire async event: " + this.getEventName(), throwable);
-            }
-            return event;
-        }).join();
+                    return (T) this;
+                })
+                .whenComplete((event, throwable) -> {
+                    if (throwable != null) {
+                        voidChestAPI.plugin().getLogger().log(
+                                Level.SEVERE,
+                                "Failed to fire async event: " + getEventName(),
+                                throwable
+                        );
+                    }
+                });
     }
 
     /**
-     * Handles the execution of the event directly when the thread context is already correct.
+     * Executes the event immediately in the current thread.
      *
-     * @param <T> the type of the event
-     * @return the event instance after being called
+     * @param <T> the event type
+     * @return the event instance
      */
+    @SuppressWarnings("unchecked")
     protected <T extends Event> T callEventDirectly() {
         Bukkit.getPluginManager().callEvent(this);
-        //noinspection unchecked
         return (T) this;
     }
 }
