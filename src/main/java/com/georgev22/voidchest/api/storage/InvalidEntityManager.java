@@ -140,7 +140,7 @@ public class InvalidEntityManager<E extends Entity> implements EntityManager<E> 
      */
     @Override
     public String getName() {
-        return this.getClass().getCanonicalName();
+        return "InvalidEntityManager";
     }
 
     /**
