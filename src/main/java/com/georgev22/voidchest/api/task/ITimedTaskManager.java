@@ -7,7 +7,6 @@ import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Interface for managing ITimedTask objects, allowing them to be added, removed, stopped, and resumed.
@@ -121,11 +120,4 @@ public interface ITimedTaskManager {
      */
     @UnmodifiableView
     Map<UUID, ITimedTask> getActiveObjects();
-
-    /**
-     * Retrieves the ScheduledExecutorService used for scheduling tasks.
-     *
-     * @return The ScheduledExecutorService used for scheduling tasks.
-     */
-    ScheduledExecutorService getScheduler();
 }
