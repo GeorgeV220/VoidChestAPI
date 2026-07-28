@@ -3,13 +3,13 @@ package com.georgev22.voidchest.api.utilities.persistence.holder;
 import com.georgev22.voidchest.api.utilities.persistence.PersistentHolder;
 import com.georgev22.voidchest.api.utilities.persistence.PersistentHolderType;
 import org.bukkit.OfflinePlayer;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public record PlayerHolder(UUID uniqueId) implements PersistentHolder {
 
-    public PlayerHolder(@NonNull OfflinePlayer player) {
+    public PlayerHolder(@NotNull OfflinePlayer player) {
         this(player.getUniqueId());
     }
 
@@ -33,7 +33,7 @@ public record PlayerHolder(UUID uniqueId) implements PersistentHolder {
     }
 
     @Override
-    public @NonNull String toString() {
+    public @NotNull String toString() {
         return getStorageKey();
     }
 }

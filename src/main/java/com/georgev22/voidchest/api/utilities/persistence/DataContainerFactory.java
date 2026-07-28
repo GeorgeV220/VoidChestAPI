@@ -7,7 +7,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.NonNull;
 
 /**
  * Factory for creating {@link DataContainerWrapper} instances for different
@@ -53,7 +52,7 @@ public final class DataContainerFactory {
     }
 
     @Contract("null -> fail")
-    private static @NonNull DataContainerWrapper wrapModern(Object object) {
+    private static @NotNull DataContainerWrapper wrapModern(Object object) {
         if (object instanceof org.bukkit.persistence.PersistentDataHolder holder) {
             return new ModernDataContainerWrapper(holder.getPersistentDataContainer());
         }
@@ -64,7 +63,7 @@ public final class DataContainerFactory {
     }
 
     @Contract("null -> fail")
-    private static @NonNull DataContainerWrapper wrapLegacy(Object object) {
+    private static @NotNull DataContainerWrapper wrapLegacy(Object object) {
         if (object instanceof OfflinePlayer player) {
             return new LegacyDataContainerWrapper(
                     new PlayerHolder(player.getUniqueId())

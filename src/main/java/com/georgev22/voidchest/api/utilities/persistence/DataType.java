@@ -1,54 +1,54 @@
 package com.georgev22.voidchest.api.utilities.persistence;
 
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class DataType<T> {
 
     public static final DataType<Byte> BYTE = new DataType<>(Byte.class) {
         @Override
-        public @NonNull Byte convert(@NonNull Object input) {
+        public @NotNull Byte convert(@NotNull Object input) {
             return Byte.parseByte(input.toString());
         }
     };
 
     public static final DataType<Short> SHORT = new DataType<>(Short.class) {
         @Override
-        public @NonNull Short convert(@NonNull Object input) {
+        public @NotNull Short convert(@NotNull Object input) {
             return Short.parseShort(input.toString());
         }
     };
 
     public static final DataType<Integer> INTEGER = new DataType<>(Integer.class) {
         @Override
-        public @NonNull Integer convert(@NonNull Object input) {
+        public @NotNull Integer convert(@NotNull Object input) {
             return Integer.parseInt(input.toString());
         }
     };
 
     public static final DataType<Long> LONG = new DataType<>(Long.class) {
         @Override
-        public @NonNull Long convert(@NonNull Object input) {
+        public @NotNull Long convert(@NotNull Object input) {
             return Long.parseLong(input.toString());
         }
     };
 
     public static final DataType<Float> FLOAT = new DataType<>(Float.class) {
         @Override
-        public @NonNull Float convert(@NonNull Object input) {
+        public @NotNull Float convert(@NotNull Object input) {
             return Float.parseFloat(input.toString());
         }
     };
 
     public static final DataType<Double> DOUBLE = new DataType<>(Double.class) {
         @Override
-        public @NonNull Double convert(@NonNull Object input) {
+        public @NotNull Double convert(@NotNull Object input) {
             return Double.parseDouble(input.toString());
         }
     };
 
     public static final DataType<Boolean> BOOLEAN = new DataType<>(Boolean.class) {
         @Override
-        public Boolean convert(@NonNull Object input) {
+        public Boolean convert(@NotNull Object input) {
             if (input instanceof Boolean b) {
                 return b;
             }
@@ -71,28 +71,28 @@ public abstract class DataType<T> {
 
     public static final DataType<String> STRING = new DataType<>(String.class) {
         @Override
-        public String convert(@NonNull Object input) {
+        public String convert(@NotNull Object input) {
             return input.toString();
         }
     };
 
     public static final DataType<byte[]> BYTE_ARRAY = new DataType<>(byte[].class) {
         @Override
-        public byte[] convert(@NonNull Object input) {
+        public byte[] convert(@NotNull Object input) {
             return (byte[]) input;
         }
     };
 
     public static final DataType<int[]> INTEGER_ARRAY = new DataType<>(int[].class) {
         @Override
-        public int[] convert(@NonNull Object input) {
+        public int[] convert(@NotNull Object input) {
             return (int[]) input;
         }
     };
 
     public static final DataType<long[]> LONG_ARRAY = new DataType<>(long[].class) {
         @Override
-        public long[] convert(@NonNull Object input) {
+        public long[] convert(@NotNull Object input) {
             return (long[]) input;
         }
     };
@@ -112,5 +112,5 @@ public abstract class DataType<T> {
         return type.getSimpleName();
     }
 
-    public abstract T convert(@NonNull Object input);
+    public abstract T convert(@NotNull Object input);
 }
