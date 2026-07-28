@@ -1,10 +1,11 @@
 package com.georgev22.voidchest.api.storage.data.voidchest;
 
-import com.georgev22.voidchest.api.maps.ConcurrentObjectMap;
 import com.georgev22.voidchest.api.utilities.CustomData;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Map;
 
 /**
  * The Stats interface provides methods for managing statistics of a void chest.
@@ -73,6 +74,16 @@ public interface Stats {
      * @param itemsPurged The number of items purged to add as a BigInteger.
      */
     void addItemsPurged(BigInteger itemsPurged);
+
+    /**
+     * A {@link Map} representing the stats of the void chest.
+     * <p>
+     * <strong>Modifying the resulting map will not affect the stats of the void chest.</strong>
+     * </p>
+     *
+     * @return The map of stats.
+     */
+    @NotNull Map<String, Number> asMap();
 
     /**
      * Retrieves the custom data associated with the void chest stats.
