@@ -44,16 +44,16 @@ public interface Charge {
     ChargeResponse chargeResponse();
 
     /**
-     * Retrieves the current charge time in seconds.
+     * Retrieves the current charge time in milliseconds.
      *
-     * @return The current charge time in seconds as a long.
+     * @return The current charge time in milliseconds as a long.
      */
     long chargeTime();
 
     /**
      * Sets the current charge time in seconds.
      *
-     * @param chargeTime The charge time to set in seconds as a long.
+     * @param chargeTime The charge time to set in milliseconds as a long.
      */
     void chargeTime(long chargeTime);
 
