@@ -587,83 +587,122 @@ public class BukkitMinecraftUtils {
     }
 
     /**
-     * Translates all the placeholders of the string from the map
+     * Replaces placeholders in the given text using the provided replacement map
+     * and, if available, processes PlaceholderAPI placeholders for the specified target.
      *
-     * @param target     target for the placeholders.
-     * @param str        the input string to translate the placeholders on
-     * @param map        the map that contains all the placeholders with the replacement
-     * @param ignoreCase if it is <code>true</code> all the placeholders will be replaced
-     *                   in ignore case
-     * @return the new string with the placeholders replaced
+     * <p>Custom replacements are applied before PlaceholderAPI placeholders. If
+     * PlaceholderAPI is not installed or an error occurs while processing its
+     * placeholders, the text after custom replacements is returned unchanged.</p>
+     *
+     * @param target       the target used when resolving PlaceholderAPI placeholders
+     * @param text         the text to process
+     * @param replacements the custom placeholder replacements to apply before
+     *                     PlaceholderAPI processing, or {@code null} to skip custom replacements
+     * @param ignoreCase   whether custom placeholder replacements should be performed
+     *                     case-insensitively
+     * @return the processed text
+     * @throws IllegalArgumentException if {@code text} is {@code null}
      */
-    public static String placeholderAPI(final ServerOperator target, String str, final Map<String, String> map, final boolean ignoreCase) {
+    public static String placeholderAPI(@Nullable final ServerOperator target,
+                                        String text,
+                                        final Map<String, String> replacements,
+                                        final boolean ignoreCase) {
+
+        if (text == null) {
+            throw new IllegalArgumentException("Text cannot be null.");
+        }
+
+        if (replacements != null && !replacements.isEmpty()) {
+            for (Map.Entry<String, String> entry : replacements.entrySet()) {
+                text = ignoreCase
+                        ? Utils.replaceIgnoreCase(text, entry.getKey(), entry.getValue())
+                        : text.replace(entry.getKey(), entry.getValue());
+            }
+        }
+
+        return applyPlaceholderAPI(target, text);
+    }
+
+    /**
+     * Applies PlaceholderAPI placeholders to the given text.
+     *
+     * <p>If the target is not an {@link OfflinePlayer}, PlaceholderAPI is not
+     * installed, or an error occurs while resolving placeholders, the original
+     * text is returned unchanged.</p>
+     *
+     * @param target the placeholder target
+     * @param text   the text to process
+     * @return the processed text, or the original text if PlaceholderAPI could not
+     * be applied
+     */
+    private static String applyPlaceholderAPI(final ServerOperator target, final String text) {
         if (target == null) {
-            throw new IllegalArgumentException("The target can't be null");
+            return text;
         }
-        if (str == null) {
-            throw new IllegalArgumentException("The string can't be null!");
+        if (!(target instanceof OfflinePlayer offlinePlayer)) {
+            return text;
         }
-        if (map == null) {
-            try {
-                if (target instanceof OfflinePlayer offlinePlayer) {
-                    return me.clip.placeholderapi.PlaceholderAPI.setBracketPlaceholders(offlinePlayer, str);
-                }
-                return str;
-            } catch (Throwable error) {
-                return str;
-            }
-        }
-        for (final Map.Entry<String, String> entry : map.entrySet()) {
-            str = ignoreCase ? Utils.replaceIgnoreCase(str, entry.getKey(), entry.getValue())
-                    : str.replace(entry.getKey(), entry.getValue());
-        }
+
         try {
-            if (target instanceof OfflinePlayer offlinePlayer) {
-                return me.clip.placeholderapi.PlaceholderAPI.setBracketPlaceholders(offlinePlayer, str);
-            }
-            return str;
-        } catch (Throwable error) {
-            return str;
+            String result = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(offlinePlayer, text);
+            return me.clip.placeholderapi.PlaceholderAPI.setBracketPlaceholders(offlinePlayer, result);
+        } catch (NoClassDefFoundError | Exception ignored) {
+            return text;
         }
     }
 
     /**
-     * Translates all the placeholders of the string from the map
+     * Replaces placeholders in each element of the given array.
      *
-     * @param target     target for the placeholders.
-     * @param array      the input array of string to translate the placeholders on
-     * @param map        the map that contains all the placeholders with the replacement
-     * @param ignoreCase if it is <code>true</code> all the placeholders will be replaced
-     *                   in ignore case
-     * @return the new string array with the placeholders replaced
+     * <p>Each element is processed using
+     * {@link #placeholderAPI(ServerOperator, String, Map, boolean)}.</p>
+     *
+     * @param target       the target used when resolving PlaceholderAPI placeholders
+     * @param array        the array of strings to process
+     * @param replacements the custom placeholder replacements to apply before
+     *                     PlaceholderAPI processing, or {@code null} to skip custom replacements
+     * @param ignoreCase   whether custom placeholder replacements should be performed
+     *                     case-insensitively
+     * @return a new array containing the processed strings
+     * @throws IllegalArgumentException if {@code array} is {@code null} or contains
+     *                                  {@code null} elements
      */
-    public static String @NotNull [] placeholderAPI(final ServerOperator target, final String[] array, final Map<String, String> map, final boolean ignoreCase) {
+    public static String @NotNull [] placeholderAPI(final ServerOperator target, final String[] array,
+                                                    final Map<String, String> replacements,
+                                                    final boolean ignoreCase) {
         if (array == null) throw new IllegalArgumentException("The string array can't be null!");
         if (Arrays.stream(array).anyMatch(Objects::isNull))
             throw new IllegalArgumentException("The string array can't have null elements!");
         final String[] newArray = Arrays.copyOf(array, array.length);
         for (int i = 0; i < newArray.length; i++) {
-            newArray[i] = placeholderAPI(target, newArray[i], map, ignoreCase);
+            newArray[i] = placeholderAPI(target, newArray[i], replacements, ignoreCase);
         }
         return newArray;
     }
 
     /**
-     * Translates all the placeholders of the string from the map
+     * Replaces placeholders in each element of the given list.
      *
-     * @param target     target for the placeholders.
-     * @param coll       the input string list to translate the placeholders on
-     * @param map        the map that contains all the placeholders with the replacement
-     * @param ignoreCase if it is <code>true</code> all the placeholders will be replaced
-     *                   in ignore case
-     * @return the new string list with the placeholders replaced
+     * <p>Each element is processed using
+     * {@link #placeholderAPI(ServerOperator, String, Map, boolean)}.</p>
+     *
+     * @param target       the target used when resolving PlaceholderAPI placeholders
+     * @param coll         the list of strings to process
+     * @param replacements the custom placeholder replacements to apply before
+     *                     PlaceholderAPI processing, or {@code null} to skip custom replacements
+     * @param ignoreCase   whether custom placeholder replacements should be performed
+     *                     case-insensitively
+     * @return a new list containing the processed strings
+     * @throws IllegalArgumentException if {@code coll} is {@code null} or contains
+     *                                  {@code null} elements
      */
-    public static List<String> placeholderAPI(final ServerOperator target, final List<String> coll, final Map<String, String> map,
+    public static List<String> placeholderAPI(final ServerOperator target, final List<String> coll,
+                                              final Map<String, String> replacements,
                                               final boolean ignoreCase) {
         if (coll == null) throw new IllegalArgumentException("The string collection can't be null!");
         if (coll.stream().anyMatch(Objects::isNull))
             throw new IllegalArgumentException("The string collection can't have null elements!");
-        return coll.stream().map(str -> placeholderAPI(target, str, map, ignoreCase)).collect(Collectors.toList());
+        return coll.stream().map(str -> placeholderAPI(target, str, replacements, ignoreCase)).collect(Collectors.toList());
     }
 
 
