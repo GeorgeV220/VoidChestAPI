@@ -1,3 +1,20 @@
+# [4.12.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.11.0...v4.12.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* improve Minecraft version parsing with regex pattern ([ccb6da3](https://github.com/GeorgeV220/VoidChestAPI/commit/ccb6da30a6afaafceb32e2832590a11e095f4ab5))
+
+
+### Features
+
+* add asMap() method to Stats interface ([d47485b](https://github.com/GeorgeV220/VoidChestAPI/commit/d47485b360d26646f37f9705e64ed5abeab9a104))
+* Add getOrDefault method to DataContainerWrapper ([84c156e](https://github.com/GeorgeV220/VoidChestAPI/commit/84c156ee98ea9c7b4e6fd1e468d52c4ac4d0e04b))
+* improve placeholderAPI method clarity and PAPI processing ([112e58c](https://github.com/GeorgeV220/VoidChestAPI/commit/112e58c4c544735bf0a1a4105fe5da5026350485))
+* introduce centralized ExecutorManager and replace scattered executors ([ce996f8](https://github.com/GeorgeV220/VoidChestAPI/commit/ce996f8e702d9a04e8ac11d91204fa259a06ac5b))
+* **persistence:** migrate to type-safe DataType and PersistentHolder ([663c588](https://github.com/GeorgeV220/VoidChestAPI/commit/663c5884c3e9c980c16d0dab581af9f4aa0365de))
+* restructure serializable classes with inheritance and versioned format ([2fd1c8f](https://github.com/GeorgeV220/VoidChestAPI/commit/2fd1c8f9ad43542a17e41745e3d6a71bf6eb30a1))
+
 # [4.11.0](https://github.com/GeorgeV220/VoidChestAPI/compare/v4.10.0...v4.11.0) (2026-05-03)
 
 
