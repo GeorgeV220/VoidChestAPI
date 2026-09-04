@@ -2,6 +2,10 @@ package com.georgev22.voidchest.api.registry;
 
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Optional;
 
 /**
  * A {@link KeyedRegistry} that supports resolving a selected entry.
@@ -13,7 +17,37 @@ import org.bukkit.NamespacedKey;
  * @param <T> the type of keyed values stored in this registry
  * @see KeyedRegistry
  */
-public abstract class SelectableKeyedRegistry<T extends Keyed>
+public class SelectableKeyedRegistry<T extends Keyed>
         extends KeyedRegistry<T>
         implements SelectableRegistry<NamespacedKey, T> {
+
+    private T selected;
+
+    /**
+     * Returns the currently selected value in this registry.
+     *
+     * @return an {@link Optional} containing the selected value, or empty if none is selected
+     */
+    @Override
+    public @NonNull Optional<T> getSelected() {
+        return Optional.ofNullable(selected);
+    }
+
+    /**
+     * Sets the selected value in this registry.
+     *
+     * @param selected the value to select, or {@code null} to clear the selection
+     */
+    public void setSelected(@Nullable T selected) {
+        this.selected = selected;
+    }
+
+    /**
+     * Sets the selected value in this registry by its key.
+     *
+     * @param key the key of the value to select, or {@code null} to clear the selection
+     */
+    public void setSelected(@Nullable NamespacedKey key) {
+        this.selected = get(key).orElse(null);
+    }
 }

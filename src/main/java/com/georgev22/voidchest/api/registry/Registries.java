@@ -3,7 +3,6 @@ package com.georgev22.voidchest.api.registry;
 import com.georgev22.voidchest.api.animation.type.AnimationType;
 import com.georgev22.voidchest.api.booster.BoosterStackingStrategy;
 import com.georgev22.voidchest.api.booster.BoosterType;
-import com.georgev22.voidchest.api.config.OptionsUtil;
 import com.georgev22.voidchest.api.integrations.economy.bank.IVoidChestBank;
 import com.georgev22.voidchest.api.integrations.economy.banktnt.IVoidChestBankTNT;
 import com.georgev22.voidchest.api.integrations.economy.balance.AEconomy;
@@ -31,12 +30,7 @@ public class Registries {
      * standard item economy storage in VoidChests.
      * </p>
      */
-    public static SelectableKeyedRegistry<IVoidChestBank> BANK = new SelectableKeyedRegistry<>() {
-        @Override
-        public @NonNull Optional<IVoidChestBank> getSelected() {
-            return get(NamespacedKey.fromString(OptionsUtil.BANK.getStringValue()));
-        }
-    };
+    public static SelectableKeyedRegistry<IVoidChestBank> BANK = new SelectableKeyedRegistry<>();
 
     /**
      * Global registry for TNT-based VoidChest banks.
@@ -45,12 +39,7 @@ public class Registries {
      * conversion and storage behavior.
      * </p>
      */
-    public static SelectableKeyedRegistry<IVoidChestBankTNT> BANK_TNT = new SelectableKeyedRegistry<>() {
-        @Override
-        public @NonNull Optional<IVoidChestBankTNT> getSelected() {
-            return get(NamespacedKey.fromString(OptionsUtil.BANK_TNT.getStringValue()));
-        }
-    };
+    public static SelectableKeyedRegistry<IVoidChestBankTNT> BANK_TNT = new SelectableKeyedRegistry<>();
 
     /**
      * Global registry for VoidChest upgrades.
@@ -95,12 +84,7 @@ public class Registries {
      * Stacker implementations determine how stacked items are handled.
      * </p>
      */
-    public static SelectableKeyedRegistry<Stacker> STACKER = new SelectableKeyedRegistry<>() {
-        @Override
-        public @NonNull Optional<Stacker> getSelected() {
-            return get(NamespacedKey.fromString(OptionsUtil.STACKER.getStringValue()));
-        }
-    };
+    public static SelectableKeyedRegistry<Stacker> STACKER = new SelectableKeyedRegistry<>();
 
     /**
      * Global registry for player-related economy implementations.
@@ -118,11 +102,6 @@ public class Registries {
      * </p>
      */
     public static SelectableKeyedRegistry<VoidHologram> HOLOGRAM = new SelectableKeyedRegistry<>() {
-        @Override
-        public @NonNull Optional<VoidHologram> getSelected() {
-            return get(NamespacedKey.fromString(OptionsUtil.HOLOGRAM.getStringValue()));
-        }
-
         @Override
         public boolean unregister(@NonNull NamespacedKey key) {
             Optional<VoidHologram> hologramOptional = get(key);
@@ -166,14 +145,9 @@ public class Registries {
      * during sell calculations.
      * </p>
      */
-    public static SelectableKeyedRegistry<BoosterType> BOOSTER_TYPES = new SelectableKeyedRegistry<>() {
-        @Override
-        public @NonNull Optional<BoosterType> getSelected() {
-            return Optional.empty();
-        }
-    };
+    public static KeyedRegistry<BoosterType> BOOSTER_TYPES = new KeyedRegistry<>();
 
-    public static KeyedRegistry<BoosterStackingStrategy> BOOSTER_STACKING_STRATEGY = new KeyedRegistry<>();
+    public static SelectableKeyedRegistry<BoosterStackingStrategy> BOOSTER_STACKING_STRATEGY = new SelectableKeyedRegistry<>();
 
     /**
      * Global registry for {@link com.georgev22.voidchest.api.storage.EntityManager} implementations.
