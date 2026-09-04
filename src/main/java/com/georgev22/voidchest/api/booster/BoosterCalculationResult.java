@@ -158,7 +158,7 @@ public final class BoosterCalculationResult {
     /**
      * Creates a new builder for constructing BoosterCalculationResult instances.
      *
-     * @param type         the booster type
+     * @param type          the booster type
      * @param originalValue the original value
      * @return a new Builder instance
      */

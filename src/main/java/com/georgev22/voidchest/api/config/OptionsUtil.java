@@ -153,6 +153,10 @@ public enum OptionsUtil {
 
     SELL_MESSAGE_OFFLINE_MESSAGE_DELAY("sell message.offline.message delay", 50, Optional.empty()),
 
+    BOOSTER_CLEANUP_INTERVAL("booster.cleanup interval", 60, Optional.empty()),
+
+    BOOSTER_DEFAULT_STRATEGY("booster.default strategy", "voidchest:additive", Optional.empty()),
+
     LOAD_DELAY("load delay", 2L, Optional.empty()),
     SAVE_INTERVAL("save interval", 20, Optional.empty()),
     FILTER_MODE("filter mode", "ALLOW", Optional.empty()),
