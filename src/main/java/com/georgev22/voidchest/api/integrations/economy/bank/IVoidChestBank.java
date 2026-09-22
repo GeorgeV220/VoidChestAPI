@@ -1,10 +1,8 @@
 package com.georgev22.voidchest.api.integrations.economy.bank;
 
-import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
+import com.georgev22.voidchest.api.integrations.economy.SellInfo;
 import org.bukkit.Keyed;
 import org.jspecify.annotations.NonNull;
-
-import java.math.BigDecimal;
 
 
 /**
@@ -13,13 +11,14 @@ import java.math.BigDecimal;
 public interface IVoidChestBank extends Keyed {
 
     /**
-     * Deposits the specified amount to the VoidChest bank associated with the given player data.
+     * Deposits the amount represented by the provided {@link SellInfo}
+     * into the associated VoidChest bank.
      *
-     * @param amount The amount to deposit as a BigDecimal.
-     * @param data   The player data associated with the bank.
-     * @return True if the deposit is successful, false otherwise.
+     * @param sellInfo the sell transaction information containing the amount,
+     *                 player data, VoidChest, and any associated custom data
+     * @return {@code true} if the deposit was successful, {@code false} otherwise
      */
-    boolean depositToBank(@NonNull final BigDecimal amount, @NonNull final AbstractPlayerData data);
+    boolean depositToBank(@NonNull SellInfo sellInfo);
 
     /**
      * Retrieves the simple name of the VoidChest bank. E.g. SuperiorSkyblock2

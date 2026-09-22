@@ -1,5 +1,6 @@
 package com.georgev22.voidchest.api.integrations.economy.balance;
 
+import com.georgev22.voidchest.api.integrations.economy.SellInfo;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
@@ -47,6 +48,18 @@ public abstract class AEconomy implements Keyed {
      * @return True if the deposit is successful, false otherwise.
      */
     public abstract boolean deposit(@NonNull final OfflinePlayer player, final BigDecimal amount);
+
+    /**
+     * Deposits the sell price from the provided {@link SellInfo}
+     * into the associated player's economy account.
+     *
+     * @param sellInfo the sell transaction information containing the sell price,
+     *                 player data, VoidChest, and any associated custom data
+     * @return {@code true} if the deposit was successful, {@code false} otherwise
+     */
+    public boolean deposit(@NonNull SellInfo sellInfo) {
+        return this.deposit(sellInfo.playerData().toOfflinePlayer(), sellInfo.sellPrice());
+    }
 
     /**
      * Retrieves the balance of the player's account.

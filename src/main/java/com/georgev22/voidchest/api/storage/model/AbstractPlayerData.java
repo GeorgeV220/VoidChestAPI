@@ -12,7 +12,9 @@ import com.georgev22.voidchest.api.registry.Registries;
 import com.georgev22.voidchest.api.storage.EntityManager;
 import com.georgev22.voidchest.api.storage.model.player.Stats;
 import com.georgev22.voidchest.api.utilities.message.Placeholder;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -26,9 +28,11 @@ import java.util.UUID;
 public abstract class AbstractPlayerData extends Entity implements BoosterHolder {
 
     private transient final VoidChestAPI voidChestAPI = VoidChestAPI.getInstance();
+    private transient final OfflinePlayer offlinePlayer;
 
     public AbstractPlayerData(UUID uniqueId) {
         super(uniqueId);
+        this.offlinePlayer = Bukkit.getOfflinePlayer(uniqueId);
     }
 
     /**
@@ -172,6 +176,15 @@ public abstract class AbstractPlayerData extends Entity implements BoosterHolder
      * @return A map of placeholders.
      */
     public abstract Placeholder getPlaceHolders(AbstractVoidChest voidChest);
+
+    /**
+     * Returns the Bukkit OfflinePlayer object of this player data.
+     *
+     * @return the Bukkit OfflinePlayer object
+     */
+    public OfflinePlayer toOfflinePlayer() {
+        return this.offlinePlayer;
+    }
 
     @Override
     public void postLoad() {
