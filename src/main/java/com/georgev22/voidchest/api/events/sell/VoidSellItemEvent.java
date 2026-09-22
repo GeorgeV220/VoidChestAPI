@@ -31,7 +31,7 @@ public class VoidSellItemEvent extends VoidEvent implements Cancellable {
     private final ItemStack item;
     private final Inventory inventory;
     private final int slot;
-    private BoosterCalculationResult boosterCalculationResult;
+    private final BoosterCalculationResult boosterCalculationResult;
     private boolean cancel;
 
     /**
