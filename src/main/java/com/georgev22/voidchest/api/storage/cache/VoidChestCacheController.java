@@ -84,6 +84,7 @@ public class VoidChestCacheController {
     public void remove(@NonNull AbstractVoidChest voidChest) {
         voidChestCache.remove(voidChest.blockLocation());
         chunkCache.getOrDefault(voidChest.blockLocation().getChunk(), ConcurrentHashMap.newKeySet()).remove(voidChest);
+        removeFromPlayerCache(voidChest);
     }
 
     /**
@@ -95,6 +96,22 @@ public class VoidChestCacheController {
         AbstractVoidChest removed = voidChestCache.remove(location);
         if (removed == null) return;
         chunkCache.getOrDefault(location.getChunk(), ConcurrentHashMap.newKeySet()).remove(removed);
+        removeFromPlayerCache(removed);
+    }
+
+    private void removeFromPlayerCache(@NonNull AbstractVoidChest voidChest) {
+        for (Set<AbstractVoidChest> chests : playerCache.values()) {
+            chests.remove(voidChest);
+        }
+    }
+
+    /**
+     * Invalidates cached void-chest sets for a given player.
+     *
+     * @param playerData the player whose cache entry should be cleared
+     */
+    public void invalidatePlayerCache(@NonNull AbstractPlayerData playerData) {
+        playerCache.remove(playerData);
     }
 
     /**
@@ -107,11 +124,12 @@ public class VoidChestCacheController {
     }
 
     /**
-     * Clears all cached {@link AbstractVoidChest} instances from both the location and chunk caches.
+     * Clears all cached {@link AbstractVoidChest} instances from location, chunk, and player caches.
      */
     public void clearCache() {
         voidChestCache.clear();
         chunkCache.clear();
+        playerCache.clear();
     }
 
     /**

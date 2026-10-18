@@ -214,6 +214,9 @@ public class ExecutorManager {
         cleanupService.scheduleAtFixedRate(() -> {
             long now = System.currentTimeMillis();
             executors.entrySet().removeIf(entry -> {
+                if (entry.getKey() == ExecutorType.IO || entry.getKey() == ExecutorType.SCHEDULED) {
+                    return false;
+                }
                 ManagedExecutor managed = entry.getValue();
                 if (managed.isIdle(now, maxIdleTimeMillis.get())) {
                     managed.executor.shutdown();
