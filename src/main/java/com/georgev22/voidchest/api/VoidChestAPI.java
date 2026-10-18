@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api;
 
 import com.georgev22.voidchest.api.booster.BoosterManager;
 import com.georgev22.voidchest.api.chunkseemanager.IChunkSeeManager;
+import com.georgev22.voidchest.api.config.voidchests.VoidChestTypeConfigRepository;
 import com.georgev22.voidchest.api.link.ILinkManager;
 import com.georgev22.voidchest.api.registry.EntityManagerRegistry;
 import com.georgev22.voidchest.api.registry.IRegistryManager;
@@ -16,11 +17,6 @@ import com.georgev22.voidchest.api.storage.model.AbstractPlayerData;
 import com.georgev22.voidchest.api.storage.model.AbstractVoidChest;
 import com.georgev22.voidchest.api.storage.model.Booster;
 import com.georgev22.voidchest.api.task.ITimedTaskManager;
-import com.georgev22.voidchest.api.config.voidchests.VoidChestConfigurationFileCache;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NonNull;
 
@@ -66,7 +62,7 @@ public final class VoidChestAPI {
     private final IFilterManager filterManager;
     private final ILinkManager linkManager;
     private final MinecraftScheduler minecraftScheduler;
-    private final VoidChestConfigurationFileCache voidChestConfigurationFileCache;
+    private final VoidChestTypeConfigRepository voidChestTypeConfigRepository;
     private final ITimedTaskManager timedTaskManager;
     private final BoosterManager boosterManager;
 
@@ -92,6 +88,7 @@ public final class VoidChestAPI {
             IFilterManager filterManager,
             ILinkManager linkManager,
             MinecraftScheduler minecraftScheduler,
+            VoidChestTypeConfigRepository voidChestTypeConfigRepository,
             ITimedTaskManager timedTaskManager,
             BoosterManager boosterManager) {
         this.plugin = plugin;
@@ -103,7 +100,7 @@ public final class VoidChestAPI {
         this.filterManager = filterManager;
         this.linkManager = linkManager;
         this.minecraftScheduler = minecraftScheduler;
-        this.voidChestConfigurationFileCache = new VoidChestConfigurationFileCache(plugin);
+        this.voidChestTypeConfigRepository = voidChestTypeConfigRepository;
         this.timedTaskManager = timedTaskManager;
         this.boosterManager = boosterManager;
     }
@@ -256,8 +253,8 @@ public final class VoidChestAPI {
     /**
      * @return void chest configuration cache management
      */
-    public VoidChestConfigurationFileCache voidChestConfigurationFileCache() {
-        return voidChestConfigurationFileCache;
+    public VoidChestTypeConfigRepository voidChestTypeConfigRepository() {
+        return voidChestTypeConfigRepository;
     }
 
     /**

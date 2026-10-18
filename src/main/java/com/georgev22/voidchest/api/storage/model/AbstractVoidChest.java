@@ -2,6 +2,7 @@ package com.georgev22.voidchest.api.storage.model;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
 import com.georgev22.voidchest.api.booster.BoosterHolder;
+import com.georgev22.voidchest.api.config.voidchests.VoidChestTypeConfig;
 import com.georgev22.voidchest.api.events.storage.VoidChestCreateEvent;
 import com.georgev22.voidchest.api.events.storage.VoidChestDeleteEvent;
 import com.georgev22.voidchest.api.events.storage.VoidChestLoadEvent;
@@ -298,7 +299,7 @@ public abstract class AbstractVoidChest extends Entity implements BoosterHolder 
      *
      * @return The void chest type configuration.
      */
-    public abstract FileConfiguration voidChestTypeConfig();
+    public abstract VoidChestTypeConfig voidChestTypeConfig();
 
 
     @Override

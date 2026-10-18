@@ -16,7 +16,7 @@ Options:
   debug: false
 
   # Secret option
-  secret: "SECRET HERE"
+  license: "SECRET HERE"
 
   # Locale option
   locale: "en_US"

@@ -1,7 +1,6 @@
 package com.georgev22.voidchest.api.registry.economy;
 
 import com.georgev22.voidchest.api.VoidChestAPI;
-import com.georgev22.voidchest.api.config.VoidChestOptionsUtil;
 import com.georgev22.voidchest.api.integrations.economy.profit.ProfitCalculator;
 import com.georgev22.voidchest.api.integrations.economy.profit.ProfitCalculatorSelector;
 import com.georgev22.voidchest.api.registry.AbstractRegistry;
@@ -116,33 +115,32 @@ public final class ProfitCalculatorSelectorRegistry
 
         this.clear();
 
-        this.voidChestAPI.voidChestConfigurationFileCache()
-                .getCachedCFGs()
-                .keySet()
-                .forEach(chestType -> {
+        this.voidChestAPI.voidChestTypeConfigRepository()
+                .getAll()
+                .forEach((key, value) -> {
 
                     Map<ProfitCalculator, Integer> result = new HashMap<>();
 
-                    List<String> entries = VoidChestOptionsUtil.OPTIONS_PROFIT_CALCULATOR.get(chestType);
+                    List<String> calculators = value.autoSell().getProfitCalculators();
 
-                    for (String entry : entries) {
-                        if (entry == null || entry.isBlank()) continue;
+                    for (String calculator : calculators) {
+                        if (calculator == null || calculator.isBlank()) continue;
 
-                        String[] split = entry.split(":");
+                        String[] split = calculator.split(":");
 
                         if (split.length < 2) {
-                            this.logger.warning("Invalid calculator entry (expected 'namespace:key[:weight]'): " + entry);
+                            this.logger.warning("Invalid calculator entry (expected 'namespace:key[:weight]'): " + calculator);
                             continue;
                         }
 
                         String namespace = split[0];
                         String keyName = split[1];
 
-                        NamespacedKey key;
+                        NamespacedKey namespacedKey;
                         try {
-                            key = NamespacedKey.fromString(namespace + ":" + keyName);
+                            namespacedKey = NamespacedKey.fromString(namespace + ":" + keyName);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            this.logger.warning("Invalid calculator entry (expected 'namespace:key[:weight]'): " + entry);
+                            this.logger.warning("Invalid calculator entry (expected 'namespace:key[:weight]'): " + calculator);
                             continue;
                         }
 
@@ -151,12 +149,12 @@ public final class ProfitCalculatorSelectorRegistry
                             try {
                                 weight = Integer.parseInt(split[2]);
                             } catch (NumberFormatException e) {
-                                this.logger.warning("Invalid weight in entry: " + entry + " — using default 1000");
+                                this.logger.warning("Invalid weight in entry: " + calculator + " — using default 1000");
                             }
                         }
 
                         int finalWeight = weight;
-                        Registries.PROFIT_CALCULATOR.get(key).ifPresentOrElse(
+                        Registries.PROFIT_CALCULATOR.get(namespacedKey).ifPresentOrElse(
                                 calc -> {
                                     calc.invalidateCache(); // just in case
                                     result.put(calc, finalWeight);
@@ -170,7 +168,7 @@ public final class ProfitCalculatorSelectorRegistry
                         );
                     }
 
-                    this.replaceOrRegister(chestType, new ProfitCalculatorSelector(result));
+                    this.replaceOrRegister(key, new ProfitCalculatorSelector(result));
                 });
     }
 }

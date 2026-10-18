@@ -1,0 +1,318 @@
+# ==============================================================================
+# VoidChest Types Configuration
+# ==============================================================================
+#
+# defaults:
+#   Shared configuration inherited by every VoidChest type.
+#
+# types.<type>.overrides:
+#   Only values that differ from defaults need to be specified.
+#
+# Toggleable features:
+#
+#   enabled:
+#     Whether this feature is available for this VoidChest type.
+#
+#   start-value:
+#     The state assigned to the feature when a NEW VoidChest is placed.
+#     This does not overwrite the state of existing VoidChests.
+#
+# ==============================================================================
+
+defaults:
+  autosell:
+    # Whether Auto Sell is available for this VoidChest type.
+    enabled: true
+
+    # Whether Auto Sell starts enabled when a new VoidChest is placed.
+    start-value: true
+
+    # How often the VoidChest attempts to sell items.
+    interval: 10
+
+    # Applied to the total income.
+    # Formula: ItemPrice * booster * other boosts...
+    booster: 1.0
+
+    # Lower weight is prioritized.
+    # If multiple calculators share the lowest weight, the calculator
+    # returning the highest profit will be used.
+    #
+    # Format:
+    # namespace:key[:weight]
+    profit-calculators:
+      - "voidchest:voidchest:1"
+      # - "voidchest:shopguiplus:2"
+      # - "voidchest:essentials:3"
+      # - "voidchest:cmi:4"
+      # - "voidchest:economyshopgui:5"
+      # - "voidchest:dynamicshop:6"
+
+    # Prioritizes a profit calculator by price or weight.
+    # Available:
+    # price
+    # weight
+    selector-type: price
+
+  purge:
+    # Whether item purging is available for this VoidChest type.
+    enabled: true
+
+    # Whether purging starts enabled on newly placed VoidChests.
+    start-value: true
+
+  bank:
+    # Whether the bank feature is available for this VoidChest type.
+    enabled: true
+
+    # Whether newly placed VoidChests send income to their bank by default.
+    start-value: false
+
+  chunk-collector:
+    # Whether the Chunk Collector is available for this VoidChest type.
+    enabled: true
+
+    # Whether Chunk Collector starts enabled on newly placed VoidChests.
+    start-value: true
+
+    # Available:
+    # CHUNK
+    # BOUNDINGBOX
+    mode: CHUNK
+
+    transfer-non-sellables:
+      # Whether this option is available.
+      enabled: true
+
+      # Whether newly placed VoidChests transfer non-sellable items.
+      start-value: false
+
+    filters:
+      # Whether filters are available for this VoidChest type.
+      enabled: false
+
+  links:
+    # Whether container linking is available for this VoidChest type.
+    enabled: false
+
+    # Maximum number of links.
+    # If greater than 0, the upgrade links count can override/use this value.
+    limit: 3
+
+  charge:
+    # Whether the charge/fuel system is available for this VoidChest type.
+    enabled: true
+
+    # Whether newly placed VoidChests start with charge functionality enabled.
+    start-value: true
+
+    # Maximum charge time.
+    max-time: 172800
+
+    # Charge time added when renewing.
+    renewal-time: 3600
+
+    # Price of a charge renewal.
+    price: 20000
+
+    placeholders:
+      hologram:
+        no-fuel: "No Fuel"
+
+      item:
+        no-fuel: "No Fuel"
+
+  hologram:
+    # Whether holograms are available for this VoidChest type.
+    enabled: true
+
+    # Whether newly placed VoidChests show a hologram.
+    start-value: true
+
+    height: 3.9
+
+    text:
+      - "&c&l%voidchest% VoidChest"
+      - ""
+      - "&fOwner: &c%owner%"
+      - "&fBoost: &b%booster%x"
+      - "&fMoney made: &a$%money%"
+      - "&fItems sold: &3%items_sold%"
+      - "&fItems purged: &3%items_purged%"
+      - "&7VoidChest timeleft: &e%timeleft%"
+      - "&7VoidChest charge: &e%charge_hologram%"
+      - ""
+      - "&7&oRight-Click to Open VoidChest"
+
+  block:
+    material: CHEST
+
+  interaction:
+    # Available:
+    # MENU
+    # CHEST
+    # NONE
+    # CONTAINER
+    right-click: MENU
+
+    # Available:
+    # MENU
+    # CHEST
+    # NONE
+    # CONTAINER
+    shift-right-click: CHEST
+
+    # Allow the VoidChest to operate while its owner is offline.
+    owner-offline: true
+
+    # Prevent players in creative mode from interacting with VoidChests.
+    prevent-creative: true
+
+  placement:
+    limit: 5
+
+    delay-check: false
+
+    prevent:
+      # Prevent placing regular chests next to VoidChests.
+      chests-near-voidchests: false
+
+      # Prevent placing VoidChests next to regular chests.
+      voidchests-near-chests: false
+
+      # Prevent multiple VoidChests from being placed in the same chunk.
+      voidchests-in-same-chunk: true
+
+      # Prevent placing VoidChests next to another VoidChest.
+      voidchests-near-voidchests: false
+
+  breaking:
+    # If broken, send the item directly to the player's inventory instead
+    # of dropping it on the ground.
+    drop-to-inventory: false
+
+    # Store statistics when a VoidChest is broken so they can be restored later.
+    store-statistics: false
+
+    # Store upgrades when a VoidChest is broken.
+    store-upgrades: false
+
+    # Store charge when a VoidChest is broken.
+    store-charge: false
+
+  explosions:
+    # Prevent VoidChests from being destroyed by explosions.
+    prevent-destruction: false
+
+    # Drop the VoidChest item when destroyed by an explosion.
+    drop-item: false
+
+  notifications:
+    breaking:
+      # Send a message when trying to break somebody else's VoidChest.
+      failed-other: true
+
+      # Send a message when the player lacks permission.
+      permission-denied: true
+
+      # Send a message after successfully breaking a VoidChest.
+      successful: true
+
+    placement:
+      # Send a message when the player lacks placement permission.
+      permission-denied: true
+
+      # Send a message after successfully placing a VoidChest.
+      successful: true
+
+  item:
+    name: "&c&l%voidchest% VoidChest"
+
+    lore:
+      - "&7Automatically sell and or clear items that"
+      - "&7are inside this voidchest. Gain money while being afk!"
+
+  menus:
+    voidchest:
+      # Use the VoidChest's custom name as its inventory name.
+      use-custom-name: false
+      # Used when custom inventory names are disabled.
+      default-name: "⚡ <gradient:gold:yellow><bold>%voidchest%</bold></gradient> ⚡"
+      item-lore:
+        - ""
+        - "<gradient:gold:yellow><bold>Location:</bold></gradient> <white>%location_world%</white> <dark_gray>|</dark_gray> <aqua>X%location_x%</aqua> <dark_gray>|</dark_gray> <green>Y%location_y%</green> <dark_gray>|</dark_gray> <red>Z%location_z%</red>"
+        - "<gray>» <gold><bold>Left-Click</bold></gold> <gray>to open the <blue><bold>VoidChest</bold></blue> menu.</gray>"
+        - "<gray>» <gold><bold>Right-Click</bold></gold> <gray>to open the <blue><bold>Links</bold></blue> menu.</gray>"
+        - ""
+
+    links:
+      # Use the link's custom name.
+      use-custom-name: false
+      item-lore:
+        - ""
+        - "<gradient:gold:yellow><bold>Location:</bold> <white>%location_world%</white>, <aqua>X%location_x%</aqua>, <green>Y%location_y%</green>, <red>Z%location_z%</red></gradient>"
+        - "<gray>» <blue><underlined>Click here</underlined></blue> <gray>to open this link.</gray>"
+        - ""
+
+    shop:
+      item-lore:
+        - "&7Price:&r &a$%price%"
+
+    filters:
+      item-lore:
+        - "&7Amount:&r &a%amount%"
+        - "&7Allow:&r &a%allow%"
+        - "&7Ignore Item Metadata:&r &a%ignoreMetadata%"
+        - "&7Ignore Item Amount:&r &a%ignoreAmount%"
+        - "&8Right Click to Remove"
+
+  sounds:
+    place: "LEVEL_UP"
+    break: "ANVIL_BREAK"
+
+    upgrade:
+      success: "ORB_PICKUP"
+      failure: "VILLAGER_NO"
+
+  worlds:
+    # Exact Bukkit world names where VoidChests cannot collect or sell items.
+    disabled: [ ]
+
+
+# ==============================================================================
+# VoidChest Types
+# ==============================================================================
+#
+# A type inherits EVERYTHING above.
+#
+# Only values specified under overrides are changed.
+#
+# ==============================================================================
+
+types:
+
+  basic:
+    overrides: { }
+
+  # Example:
+  #types:
+  #
+  #  basic:
+  #    overrides: { }
+  # advanced:
+  #   overrides:
+  #
+  #     autosell:
+  #       start-value: true
+  #       interval: 5
+  #       booster: 1.5
+  #
+  #     placement:
+  #       limit: 10
+  #
+  #     links:
+  #       enabled: true
+  #       limit: 5
+  #
+  #     charge:
+  #       price: 15000

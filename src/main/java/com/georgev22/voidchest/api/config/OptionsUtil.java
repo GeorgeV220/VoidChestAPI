@@ -27,8 +27,6 @@ public enum OptionsUtil {
 
     DEBUG("debug", false, Optional.empty()),
 
-    SECRET("secret", "SECRET HERE", Optional.empty()),
-
     COMMAND_VOIDCHEST("commands.voidchest", true, Optional.empty()),
 
     COMMAND_VOIDCHEST_ADMIN("commands.voidchest admin", true, Optional.empty()),
