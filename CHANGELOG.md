@@ -1,3 +1,31 @@
+# [6.0.0-beta.2](https://github.com/GeorgeV220/VoidChestAPI/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2026-11-22)
+
+
+### Bug Fixes
+
+* remove old voidchest config file. ([b303f3b](https://github.com/GeorgeV220/VoidChestAPI/commit/b303f3ba50cf61023c7c1a66c6bcdf84dbb83eb2))
+
+
+### Features
+
+* add booster cleanup interval and default strategy options ([dda73b4](https://github.com/GeorgeV220/VoidChestAPI/commit/dda73b4fccd65fbd61286fe8eb4494744e830ae7))
+* add explicit name overrides for entity managers ([ef6be19](https://github.com/GeorgeV220/VoidChestAPI/commit/ef6be19bb7071c2cad0f9538204d80e15f9791c0))
+* add particle menu GUI configuration ([256158c](https://github.com/GeorgeV220/VoidChestAPI/commit/256158c74900fd910f61d60f21a8fab2cb2446e1))
+* enhance VoidChestCacheController with player cache management ([8f661a8](https://github.com/GeorgeV220/VoidChestAPI/commit/8f661a8185063ccc1038d58ebc1cfc45e3bd562c))
+* introduce SelectableRegistry and SelectableKeyedRegistry for registry selection ([08e3548](https://github.com/GeorgeV220/VoidChestAPI/commit/08e3548f3d291944e6ec5042ee6dfe2c43efbf28))
+* pass SellInfo to economy bank and balance deposits ([fc3b134](https://github.com/GeorgeV220/VoidChestAPI/commit/fc3b13496e4a6d0ddef3b5048c74df9fd10617f8)), closes [AbstractPlayerData#toOfflinePlayer](https://github.com/AbstractPlayerData/issues/toOfflinePlayer)
+* refactor booster system to use registry, Keyed strategies, and async cleanup ([fcd2ec9](https://github.com/GeorgeV220/VoidChestAPI/commit/fcd2ec9f12d6360a78da55ded62f8e3a785c95d5))
+
+
+### BREAKING CHANGES
+
+* IVoidChestBank#depositToBank now requires SellInfo
+instead of BigDecimal and AbstractPlayerData. Custom bank integrations
+must update their method signatures.
+* `BoosterStackingStrategy` no longer has hardcoded strategies;
+use `Keyed` implementations and registry lookup. `BoosterManager` methods now
+require `NamespacedKey` for strategy operations.
+
 # [6.0.0-beta.1](https://github.com/GeorgeV220/VoidChestAPI/compare/v5.5.0-beta.3...v6.0.0-beta.1) (2026-07-08)
 
 
